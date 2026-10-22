@@ -6,6 +6,7 @@ export const site = {
   school: 'Mwiri',                  // TODO: confirm official school name
   tagline: 'Once a Mwirian, always a Mwirian.', // TODO: confirm motto/tagline
   founded: 1911,
+  schoolYears: 6,                  // classes from S1 to S6; join in S1 in 2001, finish S6 in 2006
   email: 'info@mwirian.org',       // TODO
   phone: '+256 000 000 000',        // TODO
   orderEmail: 'orders@mwirian.org', // TODO: where store orders are sent (use a shared admin mailbox)
@@ -66,6 +67,27 @@ export const news = [
   { date: '2026-12-05', category: 'Meeting', title: 'Annual General Meeting', place: 'Venue TBC', excerpt: 'Replace with details of the meeting.' },
   { date: '2026-11-14', category: 'Reunion', title: 'Old Boys Reunion', place: 'Venue TBC', excerpt: 'Replace with details of the reunion.' },
   { date: '2026-08-10', category: 'News', title: 'MOBA launches its new website', place: '', excerpt: 'The association now has an online home for news, history and memorabilia.' },
+]
+
+// ---------- BRANCHES & COHORTS ----------
+// Branches: local chapters. Cohorts: the year a group left school (class of).
+// Keep contact details to role names or association addresses while the repo is public.
+// whatsapp: a full invite link ('https://chat.whatsapp.com/...') or null.
+export const branches = [
+  { name: 'Kampala', region: 'Uganda', meets: 'Meeting schedule TBC', contact: 'Branch chairperson', email: null, whatsapp: null },
+  { name: 'Jinja', region: 'Uganda', meets: 'Meeting schedule TBC', contact: 'Branch chairperson', email: null, whatsapp: null },
+  { name: 'United Kingdom', region: 'Diaspora', meets: 'Meeting schedule TBC', contact: 'Branch chairperson', email: null, whatsapp: null },
+]
+
+// Cohorts are named by the year of JOINING Mwiri. Every year from founded to now is shown
+// on the page automatically. List a year here only when it has a known group.
+// Years not listed show "No group yet".
+// { year, contact: 'Role or name', email: null, whatsapp: 'https://chat.whatsapp.com/...' | null }
+export const cohorts = [
+  { year: 1985, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 1994, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 2002, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 2010, contact: 'Cohort coordinator', email: null, whatsapp: null },
 ]
 
 // ---------- LEADERSHIP ----------

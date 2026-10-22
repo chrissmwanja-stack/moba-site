@@ -14,6 +14,7 @@ import News from './pages/News.jsx'
 import Leadership from './pages/Leadership.jsx'
 import UpdateDetails from './pages/UpdateDetails.jsx'
 import Privacy from './pages/Privacy.jsx'
+import Cohorts from './pages/Cohorts.jsx'
 import NotFound from './pages/NotFound.jsx'
 
 function ScrollToTop() {
@@ -43,6 +44,7 @@ export default function App() {
           <Route path="/leadership" element={<Leadership />} />
           <Route path="/update-details" element={<UpdateDetails />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/cohorts" element={<Cohorts />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

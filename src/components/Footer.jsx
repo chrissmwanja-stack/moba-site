@@ -18,6 +18,7 @@ export default function Footer() {
           <Link to="/projects" className="hover:text-gold">Projects</Link>
           <Link to="/news" className="hover:text-gold">News & Events</Link>
           <Link to="/store" className="hover:text-gold">Store</Link>
+          <Link to="/cohorts" className="hover:text-gold">Branches & Cohorts</Link>
           <Link to="/membership" className="hover:text-gold">Membership</Link>
           <Link to="/contact" className="hover:text-gold">Contact</Link>
           <Link to="/update-details" className="hover:text-gold">Update your details</Link>

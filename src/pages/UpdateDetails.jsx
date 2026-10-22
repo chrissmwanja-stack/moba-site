@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { site } from "../data/content";
 import { sendForm } from "../lib/forms";
 
@@ -29,6 +29,8 @@ function Field({ label, hint, required, children }) {
 }
 
 export default function UpdateDetails() {
+  const [params] = useSearchParams();
+  const prefillJoined = (params.get("joined") || "").replace(/\D/g, "").slice(0, 4);
   const [status, setStatus] = useState("idle"); // idle | sending | done | error
   const [errors, setErrors] = useState({});
   const [help, setHelp] = useState([]);
@@ -123,10 +125,10 @@ export default function UpdateDetails() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2">
-          <Field label="Year you joined Mwiri">
-            <input name="joined" inputMode="numeric" maxLength={4} placeholder="e.g. 1998" className={field} />
+          <Field label="Year you joined Mwiri" hint="This is your cohort. It helps us group you with others who joined the same year.">
+            <input name="joined" inputMode="numeric" maxLength={4} defaultValue={prefillJoined} placeholder="e.g. 1998" className={field} />
           </Field>
-          <Field label="Year you left Mwiri" hint="This helps us group you with your cohort.">
+          <Field label="Year you left Mwiri">
             <input name="left" inputMode="numeric" maxLength={4} placeholder="e.g. 2003" className={field} />
           </Field>
         </div>
