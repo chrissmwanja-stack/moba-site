@@ -115,7 +115,7 @@ export default function Cohorts() {
       <section className="max-w-6xl mx-auto px-4 mt-14">
         <h2 className="text-2xl font-bold text-brand">Find your cohort</h2>
         <p className="mt-2 text-ink/70 max-w-2xl">
-          Cohorts are named by the year you joined Mwiri. Choose your joining year. A gold dot means we know of a group for that cohort.
+          Cohorts are named by the year you joined Mwiri in correspondence to your graduation year. Choose your joining year. A gold dot means we know of a group for that cohort.
         </p>
 
         <label className="mt-5 block max-w-xs">
@@ -130,7 +130,7 @@ export default function Cohorts() {
           />
         </label>
 
-        <div className="mt-6 min-h-[1px]">
+        <div className="mt-6 min-h-px">
           {selected && <ClassPanel year={selected} group={byYear.get(selected)} />}
         </div>
 
