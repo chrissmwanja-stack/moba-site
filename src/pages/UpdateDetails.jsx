@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { site } from "../data/content";
-import { sendForm } from "../lib/sendForm";
+import { sendForm } from "../lib/forms";
 
 const HELP_OPTIONS = [
   "Mentoring current students",

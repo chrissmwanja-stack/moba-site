@@ -23,3 +23,23 @@ export async function sendMessage({ subject, name, email, message, botcheck }) {
     return { ok: false, error: 'We could not reach the server. Check your connection and try again.' }
   }
 }
+
+// Multi-field form sender (used by the Update your details page).
+export async function sendForm({ subject, fromName, fields, fallbackEmail }) {
+  if (!KEY) {
+    const body = Object.entries(fields).map(([k, v]) => `${k}: ${v}`).join('\n')
+    window.location.href = `mailto:${fallbackEmail || site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    return { ok: true, fallback: true }
+  }
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ access_key: KEY, subject, from_name: fromName, ...fields }),
+    })
+    const data = await res.json()
+    return { ok: Boolean(data.success), fallback: false }
+  } catch {
+    return { ok: false, fallback: false }
+  }
+}

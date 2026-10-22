@@ -14,7 +14,7 @@ const formatDate = (d) =>
  * series:   "Throwback" | "Cohort spotlight" ... (recurring features)
  */
 export default function NewsCard({ item }) {
-  const { title, date, excerpt, body, image, category, series, minutes, to } = item;
+  const { title, date, excerpt, body, image, category, series, minutes, place, to } = item;
   const mins = minutes ?? (body ? readingMinutes(body) : null);
 
   const inner = (
@@ -36,6 +36,7 @@ export default function NewsCard({ item }) {
           </p>
         )}
         <h3 className="text-lg font-bold leading-snug text-[#0a2a5e]">{title}</h3>
+        {place && <p className="mt-1 text-sm text-[#061f47]/65">{place}</p>}
         {excerpt && <p className="mt-2 line-clamp-3 text-[#061f47]/80">{excerpt}</p>}
         <p className="mt-auto pt-4 text-sm text-[#061f47]/65">
           {date && <time dateTime={date}>{formatDate(date)}</time>}

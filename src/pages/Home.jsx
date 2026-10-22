@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import PhotoBand from '../components/PhotoBand.jsx'
 import { site, stats, projects, news } from '../data/content.js'
 
 export default function Home() {
@@ -6,7 +7,7 @@ export default function Home() {
   const upcoming = news.filter(n => n.date >= today).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 3)
   return (
     <>
-      <section className="bg-gradient-to-br from-brand-dark to-brand text-white">
+      <PhotoBand>
         <div className="max-w-6xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
           <div>
             <p className="text-gold uppercase tracking-widest text-sm font-semibold">Est. {site.founded}</p>
@@ -21,7 +22,7 @@ export default function Home() {
             <img src="/moba-logo-light.png" alt="MOBA — Mwiri Old Boys Association, 1911" className="h-72 md:h-96 w-auto" />
           </div>
         </div>
-      </section>
+      </PhotoBand>
 
       <section className="max-w-6xl mx-auto px-4 -mt-8 relative">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

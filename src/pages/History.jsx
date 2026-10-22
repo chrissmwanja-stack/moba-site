@@ -1,10 +1,15 @@
-import PageHeader from '../components/PageHeader.jsx'
+import PhotoBand from '../components/PhotoBand.jsx'
 import { timeline } from '../data/content.js'
 
 export default function History() {
   return (
     <>
-      <PageHeader title="Our History" subtitle="The milestones that made MOBA what it is today." />
+      <PhotoBand>
+        <div className="max-w-6xl mx-auto px-4 py-14 md:py-20">
+          <h1 className="text-3xl md:text-4xl font-bold">Our History</h1>
+          <p className="mt-2 text-white/80 max-w-2xl">The milestones that made MOBA what it is today.</p>
+        </div>
+      </PhotoBand>
       <section className="max-w-3xl mx-auto px-4 mt-12">
         <ol className="relative border-l-2 border-brand/30 ml-3">
           {timeline.map(t => (

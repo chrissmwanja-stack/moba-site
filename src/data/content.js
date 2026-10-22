@@ -8,7 +8,7 @@ export const site = {
   founded: 1911,
   email: 'info@mwirian.org',       // TODO
   phone: '+256 000 000 000',        // TODO
-  orderEmail: 'orders@mwirian.orgs', // TODO: where store orders are sent (use a shared admin mailbox)
+  orderEmail: 'orders@mwirian.org', // TODO: where store orders are sent (use a shared admin mailbox)
 }
 
 export const stats = [
@@ -59,11 +59,13 @@ export const tiers = [
 ]
 
 // ---------- NEWS & EVENTS ----------
-// date format: YYYY-MM-DD. type: 'Event' or 'News'. All entries are placeholders.
+// date: YYYY-MM-DD. category: 'Reunion', 'Meeting', 'Cohort', 'Project', 'News'.
+// Optional: series ('Throwback', 'Cohort spotlight'), image ('/news/name.webp'), place, body.
+// Items dated today or later show as Upcoming. All entries are placeholders.
 export const news = [
-  { date: '2026-12-05', type: 'Event', title: 'Annual General Meeting', place: 'Venue TBC', summary: 'Replace with details of the meeting.' },
-  { date: '2026-11-14', type: 'Event', title: 'Old Boys Reunion', place: 'Venue TBC', summary: 'Replace with details of the reunion.' },
-  { date: '2026-08-10', type: 'News', title: 'MOBA launches its new website', place: '', summary: 'The association now has an online home for news, history and memorabilia.' },
+  { date: '2026-12-05', category: 'Meeting', title: 'Annual General Meeting', place: 'Venue TBC', excerpt: 'Replace with details of the meeting.' },
+  { date: '2026-11-14', category: 'Reunion', title: 'Old Boys Reunion', place: 'Venue TBC', excerpt: 'Replace with details of the reunion.' },
+  { date: '2026-08-10', category: 'News', title: 'MOBA launches its new website', place: '', excerpt: 'The association now has an online home for news, history and memorabilia.' },
 ]
 
 // ---------- LEADERSHIP ----------
