@@ -4,6 +4,7 @@ import { photos } from '../data/content.js'
 
 export default function Gallery() {
   const [active, setActive] = useState(null)
+  const [visible, setVisible] = useState(18) // first page only — keeps the initial load light
 
   useEffect(() => {
     if (!active) return
@@ -18,11 +19,13 @@ export default function Gallery() {
     }
   }, [active])
 
+  const shown = photos.slice(0, visible)
+
   return (
     <>
       <PageHeader title="Photo Gallery" subtitle="Moments from reunions, projects and events." />
       <section className="max-w-6xl mx-auto px-4 mt-12 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-        {photos.map(p => (
+        {shown.map(p => (
           <button
             key={p.id}
             type="button"
@@ -36,6 +39,7 @@ export default function Gallery() {
                 alt={p.caption}
                 loading="lazy"
                 className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                decoding="async"
                 onError={(event) => { event.currentTarget.style.display = 'none' }}
               />
             ) : (
@@ -50,6 +54,18 @@ export default function Gallery() {
           </button>
         ))}
       </section>
+
+      {visible < photos.length && (
+        <section className="max-w-6xl mx-auto px-4 mt-10 text-center">
+          <button
+            type="button"
+            onClick={() => setVisible(v => v + 24)}
+            className="bg-gold text-brand-dark font-semibold px-8 py-3 rounded-md hover:brightness-110"
+          >
+            Show more photos ({photos.length - visible} more)
+          </button>
+        </section>
+      )}
 
       {active && (
         <div
