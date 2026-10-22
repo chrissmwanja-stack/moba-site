@@ -31,13 +31,26 @@ export const projects = [
   { year: 2015, title: 'Project title', summary: 'Replace with project summary.', status: 'Completed' },
 ]
 
-// Put images in /public/gallery and set src: '/gallery/photo1.jpg'
-export const photos = Array.from({ length: 9 }, (_, i) => ({
-  id: i + 1,
-  src: null,
-  caption: `Photo ${i + 1} caption`,
-  year: 2026 - i,
-}))
+// Publicly sourced photos. Please confirm reuse permission before launch.
+// Image credits and original articles are recorded with each entry.
+export const photos = [
+  {
+    id: 1,
+    src: 'https://newvision-media.s3.amazonaws.com/cms/f1d80e41-1588-47dc-80c0-bdbc721da698.jpg',
+    caption: 'Busoga College Mwiri’s new main gate — Photo: Donald Kiirya / New Vision',
+    year: 2025,
+    source: 'New Vision',
+    sourceUrl: 'https://www.newvision.co.ug/category/education/busoga-college-mwiri-celebrates-114-years-com-NV_221954_082026',
+  },
+  {
+    id: 2,
+    src: 'https://mwiri.sc.ug/wp-content/uploads/Sports-equipment-handover2-1.jpg',
+    caption: 'MOBA alumni sports equipment handover at Busoga College Mwiri',
+    year: 2025,
+    source: 'Busoga College Mwiri',
+    sourceUrl: 'https://mwiri.sc.ug/busoga-college-mwiri-leadership-from-alumni-to-future-leaders-inspiration/',
+  },
+]
 
 // ---------- STORE ----------
 // PRICES ARE PLACEHOLDERS (UGX) until costs are confirmed.
