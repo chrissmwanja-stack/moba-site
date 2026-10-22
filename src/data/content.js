@@ -33,10 +33,12 @@ export const projects = [
 
 // Publicly sourced photos. Please confirm reuse permission before launch.
 // Image credits and original articles are recorded with each entry.
+// Photos with a `thumb` load the small version in the grid and the full one in the lightbox.
+// Reunion album files live in /gallery/2026-reunion (full) and /gallery/2026-reunion/thumbs (grid).
 export const photos = [
   {
     id: 1,
-    src: 'https://newvision-media.s3.amazonaws.com/cms/f1d80e41-1588-47dc-80c0-bdbc721da698.jpg',
+    src: '/gallery/gate-2025.webp',
     caption: 'Busoga College Mwiri’s new main gate — Photo: Donald Kiirya / New Vision',
     year: 2025,
     source: 'New Vision',
@@ -50,23 +52,51 @@ export const photos = [
     source: 'Busoga College Mwiri',
     sourceUrl: 'https://mwiri.sc.ug/busoga-college-mwiri-leadership-from-alumni-to-future-leaders-inspiration/',
   },
-
-  
   {
     id: 3,
+    src: '/gallery/dedication-2025.webp',
+    caption: 'Old Boys and clergy at the dedication of the new gate — Photo: New Vision',
+    year: 2025,
+    source: 'New Vision',
+    sourceUrl: 'https://www.newvision.co.ug/category/education/busoga-college-mwiri-celebrates-114-years-com-NV_221954_082026',
+  },
+  {
+    id: 4,
+    src: '/gallery/refurb-2024.webp',
+    caption: 'Staff and students during the refurbishment handover — Photo: Uganda Baati',
+    year: 2024,
+    source: 'Uganda Baati',
+    sourceUrl: 'https://ugandabaati.com/uganda-baati-supports-busoga-college-mwiri-in-sight-to-refurbish-the-school/',
+  },
+  {
+    id: 5,
     src: '/images/gallery/mwiri-library.jpg',
     caption: 'Muljibhai Madhvani Library, Busoga College Mwiri',
     year: 2026,
     source: 'MOBA',
   },
   {
-    id: 4,
+    id: 6,
     src: '/images/gallery/moba-alumni-gathering.jpg',
     caption: 'MOBA members gathered at Busoga College Mwiri',
     year: 2026,
     source: 'MOBA',
   },
-
+  { id: 7, src: '/gallery/campus-artwork.webp', caption: 'Mwiri at golden hour — illustration', year: 2026, source: 'MOBA' },
+  { id: 8, src: '/gallery/crest-artwork.webp', caption: 'The leopard crest — association artwork', year: 2026, source: 'MOBA' },
+  { id: 9, src: '/gallery/memorabilia-artwork.webp', caption: 'Tie, cap and pin — from the MOBA store', year: 2026, source: 'MOBA' },
+  // Reunion at Mwiri, 19 Sept 2026 — 60 curated photos from the association album.
+  ...Array.from({ length: 60 }, (_, i) => {
+    const n = String(i + 1).padStart(2, '0')
+    return {
+      id: 100 + i,
+      src: `/gallery/2026-reunion/${n}.webp`,
+      thumb: `/gallery/2026-reunion/thumbs/${n}.webp`,
+      caption: 'Reunion at Mwiri — 19 Sept 2026',
+      year: 2026,
+      source: 'MOBA',
+    }
+  }),
 ]
 
 // ---------- STORE ----------
@@ -97,6 +127,9 @@ export const newsCategories = ['Reunion', 'Meeting', 'Cohort', 'Project', 'News'
 export const news = [
   { date: '2026-12-05', category: 'Meeting', title: 'Annual General Meeting', place: 'Venue TBC', excerpt: 'Replace with details of the meeting.' },
   { date: '2026-11-14', category: 'Reunion', title: 'Old Boys Reunion', place: 'Venue TBC', excerpt: 'Replace with details of the reunion.' },
+  { date: '2026-09-19', category: 'Reunion', title: 'Reunion and book launch at Mwiri', place: 'Busoga College Mwiri',
+    excerpt: "Old Boys returned to the hill for a day of speeches, the launch of “A Lamp on a Hill”, choir performances and a shared meal. Browse the photos in the gallery.",
+    image: '/gallery/2026-reunion/34.webp' },
   { date: '2026-08-10', category: 'News', title: 'MOBA launches its new website', place: '', excerpt: 'The association now has an online home for news, history and memorabilia.' },
 ]
 

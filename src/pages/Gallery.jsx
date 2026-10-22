@@ -11,7 +11,11 @@ export default function Gallery() {
       if (event.key === 'Escape') setActive(null)
     }
     window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      document.body.style.overflow = ''
+    }
   }, [active])
 
   return (
@@ -84,7 +88,7 @@ export default function Gallery() {
                   </a>
                 )}
               </div>
-              <button type="button" onClick={() => setActive(null)} className="self-start sm:self-auto text-brand font-semibold">
+              <button type="button" onClick={() => setActive(null)} autoFocus className="self-start sm:self-auto text-brand font-semibold">
                 Close
               </button>
             </div>

@@ -19,7 +19,7 @@ export default function Home() {
             </div>
           </div>
           <div className="flex justify-center md:justify-end">
-            <img src="/moba-logo-light.png" alt="MOBA — Mwiri Old Boys Association, 1911" className="h-72 md:h-96 w-auto" />
+            <img src="/moba-logo-light.webp" alt="MOBA — Mwiri Old Boys Association, 1911" className="h-72 md:h-96 w-auto" />
           </div>
         </div>
       </PhotoBand>
