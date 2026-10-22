@@ -24,7 +24,7 @@ export default function Gallery() {
             type="button"
             onClick={() => setActive(p)}
             aria-label={`Open photo: ${p.caption}`}
-            className="group relative aspect-[4/3] rounded-lg overflow-hidden bg-gradient-to-br from-brand/25 to-gold/40 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+            className="group relative aspect-4/3 rounded-lg overflow-hidden bg-linear-to-br from-brand/25 to-gold/40 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
           >
             {p.src ? (
               <img
@@ -60,7 +60,7 @@ export default function Gallery() {
             className="max-w-4xl w-full max-h-[90vh] bg-white rounded-lg overflow-hidden shadow-2xl"
             onClick={event => event.stopPropagation()}
           >
-            <div className="aspect-[4/3] max-h-[70vh] bg-gradient-to-br from-brand/25 to-gold/40">
+            <div className="aspect-4/3 max-h-[70vh] bg-linear-to-br from-brand/25 to-gold/40">
               {active.src && (
                 <img
                   src={active.src}

@@ -50,6 +50,23 @@ export const photos = [
     source: 'Busoga College Mwiri',
     sourceUrl: 'https://mwiri.sc.ug/busoga-college-mwiri-leadership-from-alumni-to-future-leaders-inspiration/',
   },
+
+  
+  {
+    id: 3,
+    src: '/images/gallery/mwiri-library.jpg',
+    caption: 'Muljibhai Madhvani Library, Busoga College Mwiri',
+    year: 2026,
+    source: 'MOBA',
+  },
+  {
+    id: 4,
+    src: '/images/gallery/moba-alumni-gathering.jpg',
+    caption: 'MOBA members gathered at Busoga College Mwiri',
+    year: 2026,
+    source: 'MOBA',
+  },
+
 ]
 
 // ---------- STORE ----------
