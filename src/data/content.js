@@ -60,9 +60,10 @@ export const tiers = [
 ]
 
 // ---------- NEWS & EVENTS ----------
-// date: YYYY-MM-DD. category: 'Reunion', 'Meeting', 'Cohort', 'Project', 'News'.
+// date: YYYY-MM-DD. category must be one of newsCategories below (the News page filter uses them).
 // Optional: series ('Throwback', 'Cohort spotlight'), image ('/news/name.webp'), place, body.
 // Items dated today or later show as Upcoming. All entries are placeholders.
+export const newsCategories = ['Reunion', 'Meeting', 'Cohort', 'Project', 'News']
 export const news = [
   { date: '2026-12-05', category: 'Meeting', title: 'Annual General Meeting', place: 'Venue TBC', excerpt: 'Replace with details of the meeting.' },
   { date: '2026-11-14', category: 'Reunion', title: 'Old Boys Reunion', place: 'Venue TBC', excerpt: 'Replace with details of the reunion.' },
@@ -70,7 +71,7 @@ export const news = [
 ]
 
 // ---------- BRANCHES & COHORTS ----------
-// Branches: local chapters. Cohorts: the year a group left school (class of).
+// Branches: local chapters. Cohorts: named by the year the group joined school.
 // Keep contact details to role names or association addresses while the repo is public.
 // whatsapp: a full invite link ('https://chat.whatsapp.com/...') or null.
 export const branches = [
