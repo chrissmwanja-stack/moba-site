@@ -13,7 +13,7 @@ export default function Store() {
           <article key={p.id} className="bg-white rounded-lg shadow overflow-hidden flex flex-col">
             <div className="h-48 bg-gradient-to-br from-brand/25 to-gold/40 flex items-center justify-center">
               {p.image ? <img src={p.image} alt={p.name} className="h-full w-full object-cover" />
-                       : <img src="/moba-shield.png" alt="" className="h-24 opacity-80" />}
+                       : <img src="/moba-shield.webp" alt="" className="h-24 opacity-80" />}
             </div>
             <div className="p-5 flex flex-col flex-1">
               {p.delivery === 'digital' && (

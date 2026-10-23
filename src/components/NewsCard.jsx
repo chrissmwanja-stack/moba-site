@@ -18,27 +18,27 @@ export default function NewsCard({ item }) {
   const mins = minutes ?? (body ? readingMinutes(body) : null);
 
   const inner = (
-    <article className="flex h-full flex-col overflow-hidden rounded-lg border border-[#0a2a5e]/15 bg-white">
+    <article className="flex h-full flex-col overflow-hidden rounded-lg border border-brand/15 bg-white">
       {image ? (
         <img src={image} alt="" loading="lazy" className="aspect-[16/9] w-full object-cover" />
       ) : (
-        <div className="flex aspect-[16/9] w-full items-center justify-center bg-[#0a2a5e]">
-          <img src="/moba-shield.png" alt="" className="h-16 w-auto opacity-90" />
+        <div className="flex aspect-[16/9] w-full items-center justify-center bg-brand">
+          <img src="/moba-shield.webp" alt="" className="h-16 w-auto opacity-90" />
         </div>
       )}
       <div className="flex flex-1 flex-col p-5">
         {(category || series) && (
-          <p className="mb-2 flex flex-wrap gap-2 text-sm font-semibold text-[#9a730d]">
+          <p className="mb-2 flex flex-wrap gap-2 text-sm font-semibold text-gold-dark">
             {category && <span>{category}</span>}
             {series && (
-              <span className="rounded-full bg-[#e8b838]/25 px-2 text-[#061f47]">{series}</span>
+              <span className="rounded-full bg-gold/25 px-2 text-brand-dark">{series}</span>
             )}
           </p>
         )}
-        <h3 className="text-lg font-bold leading-snug text-[#0a2a5e]">{title}</h3>
-        {place && <p className="mt-1 text-sm text-[#061f47]/65">{place}</p>}
-        {excerpt && <p className="mt-2 line-clamp-3 text-[#061f47]/80">{excerpt}</p>}
-        <p className="mt-auto pt-4 text-sm text-[#061f47]/65">
+        <h3 className="text-lg font-bold leading-snug text-brand">{title}</h3>
+        {place && <p className="mt-1 text-sm text-brand-dark/65">{place}</p>}
+        {excerpt && <p className="mt-2 line-clamp-3 text-brand-dark/80">{excerpt}</p>}
+        <p className="mt-auto pt-4 text-sm text-brand-dark/65">
           {date && <time dateTime={date}>{formatDate(date)}</time>}
           {date && mins ? ", " : ""}
           {mins ? `${mins} min read` : ""}
@@ -50,7 +50,7 @@ export default function NewsCard({ item }) {
   return to ? (
     <Link
       to={to}
-      className="block h-full rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e8b838]"
+      className="block h-full rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
     >
       {inner}
     </Link>

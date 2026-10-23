@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom'
 import PhotoBand from '../components/PhotoBand.jsx'
-import { site, stats, projects, news } from '../data/content.js'
+import { site, stats, projects, news, photos } from '../data/content.js'
 
 export default function Home() {
   const today = new Date().toISOString().slice(0, 10)
   const upcoming = news.filter(n => n.date >= today).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 3)
+  // Match the column count to the number of events so a short list does not leave a gap
+  const cols = { 1: 'md:grid-cols-1 max-w-md', 2: 'md:grid-cols-2 max-w-3xl', 3: 'md:grid-cols-3' }[upcoming.length] || 'md:grid-cols-3'
+  const featured = photos.filter(p => p.featured)
+  const strip = (featured.length >= 3 ? featured : photos).slice(0, 3)
   return (
     <>
       <PhotoBand>
@@ -41,7 +45,7 @@ export default function Home() {
             <h2 className="text-2xl font-bold text-brand">Upcoming events</h2>
             <Link to="/news" className="text-brand font-medium hover:underline">All news →</Link>
           </div>
-          <div className="grid gap-4 md:grid-cols-3 mt-6">
+          <div className={`grid gap-4 mt-6 ${cols}`}>
             {upcoming.map(n => (
               <article key={n.title + n.date} className="bg-white rounded-lg shadow p-5 border-l-4 border-gold">
                 <p className="text-xs text-gold-dark font-semibold">
@@ -62,6 +66,28 @@ export default function Home() {
           and why Old Boys should stay connected.
         </p>
       </section>
+
+      {strip.length > 0 && (
+        <section className="max-w-6xl mx-auto px-4 mt-16">
+          <div className="flex items-end justify-between">
+            <h2 className="text-2xl font-bold text-brand">From the gallery</h2>
+            <Link to="/gallery" className="text-brand font-medium hover:underline">All photos →</Link>
+          </div>
+          <div className="grid gap-4 grid-cols-2 md:grid-cols-3 mt-6">
+            {strip.map((p, i) => (
+              <Link key={p.id} to="/gallery"
+                className={`group relative aspect-[4/3] overflow-hidden rounded-lg bg-brand/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold ${i === 2 ? 'hidden md:block' : ''}`}>
+                <img src={p.thumb || p.src} alt={p.alt || p.caption} loading="lazy" decoding="async"
+                  style={{ objectPosition: p.focus || '50% 40%' }}
+                  className="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
+                <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent px-3 pb-2 pt-8 text-xs text-white">
+                  {p.caption} · {p.event || p.year}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="max-w-6xl mx-auto px-4 mt-16">
         <div className="flex items-end justify-between">

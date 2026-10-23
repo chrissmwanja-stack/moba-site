@@ -26,7 +26,7 @@ export default function Header() {
     <header className="bg-brand-dark sticky top-0 z-40 shadow border-b-2 border-gold">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3">
-          <img src="/moba-shield.png" alt="MOBA shield" className="h-11 w-auto" />
+          <img src="/moba-shield.webp" alt="MOBA shield" className="h-11 w-auto" />
           <span className="text-gold font-bold text-xl tracking-widest">{site.name}</span>
         </Link>
         <nav className="hidden lg:flex items-center gap-1">

@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="bg-brand-dark text-white/70 mt-16 border-t-2 border-gold">
       <div className="max-w-6xl mx-auto px-4 py-10 grid gap-8 md:grid-cols-3 items-start">
         <div className="flex items-center gap-4">
-          <img src="/moba-shield.png" alt="" className="h-16 w-auto" />
+          <img src="/moba-shield.webp" alt="" className="h-16 w-auto" />
           <div>
             <p className="text-gold font-semibold text-lg">{site.fullName}</p>
             <p className="text-sm">Est. {site.founded}</p>

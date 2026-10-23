@@ -25,78 +25,23 @@ export const timeline = [
   { year: 2026, title: 'Going digital', text: 'The association launches its online home.' },
 ]
 
+// Optional: image: '/projects/name.webp' (put files in /public/projects). Without one the card shows the shield.
 export const projects = [
   { year: 2024, title: 'Project title', summary: 'Replace with project summary.', status: 'Completed' },
   { year: 2019, title: 'Project title', summary: 'Replace with project summary.', status: 'Ongoing' },
   { year: 2015, title: 'Project title', summary: 'Replace with project summary.', status: 'Completed' },
 ]
 
-// Publicly sourced photos. Please confirm reuse permission before launch.
-// Image credits and original articles are recorded with each entry.
-// Photos with a `thumb` load the small version in the grid and the full one in the lightbox.
-// Reunion album files live in /gallery/2026-reunion (full) and /gallery/2026-reunion/thumbs (grid).
+// Gallery: put images in /public/gallery. For each photo add a full-size file (src) and a ~640px
+// thumbnail (thumb), plus its pixel size (w, h) so the page does not jump while images load.
+// featured (optional) shows the photo on the home page. focus (optional) sets which part stays visible when a photo is cropped into a small card.
 export const photos = [
-  {
-    id: 1,
-    src: '/gallery/gate-2025.webp',
-    caption: 'Busoga College Mwiri’s new main gate — Photo: Donald Kiirya / New Vision',
-    year: 2025,
-    source: 'New Vision',
-    sourceUrl: 'https://www.newvision.co.ug/category/education/busoga-college-mwiri-celebrates-114-years-com-NV_221954_082026',
-  },
-  {
-    id: 2,
-    src: 'https://mwiri.sc.ug/wp-content/uploads/Sports-equipment-handover2-1.jpg',
-    caption: 'MOBA alumni sports equipment handover at Busoga College Mwiri',
-    year: 2025,
-    source: 'Busoga College Mwiri',
-    sourceUrl: 'https://mwiri.sc.ug/busoga-college-mwiri-leadership-from-alumni-to-future-leaders-inspiration/',
-  },
-  {
-    id: 3,
-    src: '/gallery/dedication-2025.webp',
-    caption: 'Old Boys and clergy at the dedication of the new gate — Photo: New Vision',
-    year: 2025,
-    source: 'New Vision',
-    sourceUrl: 'https://www.newvision.co.ug/category/education/busoga-college-mwiri-celebrates-114-years-com-NV_221954_082026',
-  },
-  {
-    id: 4,
-    src: '/gallery/refurb-2024.webp',
-    caption: 'Staff and students during the refurbishment handover — Photo: Uganda Baati',
-    year: 2024,
-    source: 'Uganda Baati',
-    sourceUrl: 'https://ugandabaati.com/uganda-baati-supports-busoga-college-mwiri-in-sight-to-refurbish-the-school/',
-  },
-  {
-    id: 5,
-    src: '/images/gallery/mwiri-library.jpg',
-    caption: 'Muljibhai Madhvani Library, Busoga College Mwiri',
-    year: 2026,
-    source: 'MOBA',
-  },
-  {
-    id: 6,
-    src: '/images/gallery/moba-alumni-gathering.jpg',
-    caption: 'MOBA members gathered at Busoga College Mwiri',
-    year: 2026,
-    source: 'MOBA',
-  },
-  { id: 7, src: '/gallery/campus-artwork.webp', caption: 'Mwiri at golden hour — illustration', year: 2026, source: 'MOBA' },
-  { id: 8, src: '/gallery/crest-artwork.webp', caption: 'The leopard crest — association artwork', year: 2026, source: 'MOBA' },
-  { id: 9, src: '/gallery/memorabilia-artwork.webp', caption: 'Tie, cap and pin — from the MOBA store', year: 2026, source: 'MOBA' },
-  // Reunion at Mwiri, 19 Sept 2026 — 60 curated photos from the association album.
-  ...Array.from({ length: 60 }, (_, i) => {
-    const n = String(i + 1).padStart(2, '0')
-    return {
-      id: 100 + i,
-      src: `/gallery/2026-reunion/${n}.webp`,
-      thumb: `/gallery/2026-reunion/thumbs/${n}.webp`,
-      caption: 'Reunion at Mwiri — 19 Sept 2026',
-      year: 2026,
-      source: 'MOBA',
-    }
-  }),
+  { id: 6, src: '/gallery/agm-2026-6.webp', thumb: '/gallery/agm-2026-6-640.webp', w: 853,  h: 1280, caption: 'Smiles from the audience',       alt: 'A smiling member with arms crossed enjoying the AGM', year: 2026, event: 'AGM 2026', featured: true, focus: '50% 25%' },
+  { id: 1, src: '/gallery/agm-2026-1.webp', thumb: '/gallery/agm-2026-1-640.webp', w: 1280, h: 853,  caption: 'Members gathered in the hall',   alt: 'Old Boys in MOBA polo shirts seated in a hall during the AGM', year: 2026, event: 'AGM 2026', featured: true, focus: '50% 40%' },
+  { id: 3, src: '/gallery/agm-2026-3.webp', thumb: '/gallery/agm-2026-3-640.webp', w: 853,  h: 1280, caption: 'Following the proceedings',      alt: 'A senior member in a blue Mwirian polo listening during the AGM', year: 2026, event: 'AGM 2026', focus: '50% 25%' },
+  { id: 4, src: '/gallery/agm-2026-4.webp', thumb: '/gallery/agm-2026-4-640.webp', w: 1280, h: 853,  caption: 'Old Boys and students together', alt: 'Old Boys sitting among students in the audience at the AGM', year: 2026, event: 'AGM 2026', featured: true, focus: '50% 35%' },
+  { id: 5, src: '/gallery/agm-2026-5.webp', thumb: '/gallery/agm-2026-5-640.webp', w: 853,  h: 1280, caption: 'Members in attendance',          alt: 'A member in a Mwirian polo seated at a yellow table in the school hall', year: 2026, event: 'AGM 2026', focus: '50% 25%' },
+  { id: 2, src: '/gallery/agm-2026-2.webp', thumb: '/gallery/agm-2026-2-640.webp', w: 1139, h: 1280, caption: 'At the high table',              alt: 'A member in a navy Mwirian polo seated at the high table with a microphone', year: 2026, event: 'AGM 2026', focus: '50% 30%' },
 ]
 
 // ---------- STORE ----------
@@ -127,9 +72,6 @@ export const newsCategories = ['Reunion', 'Meeting', 'Cohort', 'Project', 'News'
 export const news = [
   { date: '2026-12-05', category: 'Meeting', title: 'Annual General Meeting', place: 'Venue TBC', excerpt: 'Replace with details of the meeting.' },
   { date: '2026-11-14', category: 'Reunion', title: 'Old Boys Reunion', place: 'Venue TBC', excerpt: 'Replace with details of the reunion.' },
-  { date: '2026-09-19', category: 'Reunion', title: 'Reunion and book launch at Mwiri', place: 'Busoga College Mwiri',
-    excerpt: "Old Boys returned to the hill for a day of speeches, the launch of “A Lamp on a Hill”, choir performances and a shared meal. Browse the photos in the gallery.",
-    image: '/gallery/2026-reunion/34.webp' },
   { date: '2026-08-10', category: 'News', title: 'MOBA launches its new website', place: '', excerpt: 'The association now has an online home for news, history and memorabilia.' },
 ]
 
