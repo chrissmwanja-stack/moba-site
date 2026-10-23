@@ -28,6 +28,54 @@ export const timeline = [
   { year: 2026, title: 'Going digital', text: 'The association launches its online home.' },
 ]
 
+// ---------- ABOUT MOBA ----------
+// DRAFT: everything marked TODO is placeholder wording to be confirmed by the executive.
+// Used by the About page (/about) and, for `summary`, the About section on the Home page.
+export const about = {
+  // Short version, shown on the Home page.
+  summary: 'The Mwiri Old Boys Association (MOBA) brings together everyone who has passed through Busoga College Mwiri. We keep the brotherhood alive, support the school that shaped us, and look after one another across cohorts, branches and borders.', // TODO: confirm wording
+  // Longer version, shown on the About page. One string per paragraph.
+  story: [
+    'Busoga College Mwiri has been educating boys on its hill above Jinja since 1911. The Mwiri Old Boys Association is the home of everyone who has walked through its gates, from the earliest classes to the newest leavers.', // TODO: confirm wording
+    'We exist to keep that bond strong: to give Old Boys a place to reconnect, to give back to the school in practical ways, and to make sure the next generation of Mwirians inherits a school they can be proud of.', // TODO: confirm wording
+  ],
+  mission: 'To unite Old Boys of Busoga College Mwiri and mobilise their time, skills and resources in service of the school and one another.', // TODO: confirm
+  vision: 'A strong, connected Mwiri family that keeps its school among the best in Uganda.', // TODO: confirm
+  // Priorities: keep to 3 or 4. `link` is optional and points to a page on this site.
+  priorities: [
+    { title: 'Support the school', text: 'Fund and deliver practical improvements on the hill, from the new gate to the chapel, the mess and teacher housing.', link: '/projects', linkLabel: 'See our projects' },
+    { title: 'Connect Old Boys', text: 'Reunions, branches and year-group cohorts that keep every generation in touch, at home and abroad.', link: '/cohorts', linkLabel: 'Find your branch or cohort' },
+    { title: 'Serve current students', text: 'Mentorship, equipment and opportunities for the boys now on the hill.' }, // TODO: confirm programmes
+    { title: 'Preserve our heritage', text: 'Record and share the history, traditions and stories that make Mwiri what it is.', link: '/history', linkLabel: 'Read our history' },
+  ],
+  // The school motto, which became Uganda's national motto in 1962.
+  motto: {
+    lusoga: 'Kulwa Katonda n’Eggwanga Lyaffe',
+    english: 'For God and Our Country',
+    note: 'Chosen for the school by the Chiefs of Busoga, and adopted in 1962 as Uganda’s national motto, “For God and My Country”.',
+  },
+  // Values: short words with one line each. TODO: confirm with the executive.
+  values: [
+    { title: 'Faith', text: 'God first, as our motto says.' },
+    { title: 'Service', text: 'Giving back to the school and the nation.' },
+    { title: 'Brotherhood', text: 'Once a Mwirian, always a Mwirian.' },
+    { title: 'Excellence', text: 'Holding Mwiri to its highest standard.' },
+  ],
+  // Committees. All entries are placeholders until the executive confirms names and mandates.
+  committees: [
+    { name: 'Projects & Fundraising', text: 'Plans and funds projects at the school.', chair: null }, // TODO
+    { name: 'Membership & Welfare', text: 'Keeps the register and looks after members.', chair: null }, // TODO
+    { name: 'Publicity & Communications', text: 'News, social media and this website.', chair: null }, // TODO
+    { name: 'Events & Reunions', text: 'Reunions, the AGM and cohort gatherings.', chair: null }, // TODO
+  ],
+  // Governance. Put the constitution PDF in /public (for example /moba-constitution.pdf) and set constitutionUrl.
+  governance: {
+    text: 'MOBA is run by an elected executive committee and answers to its members at the Annual General Meeting.', // TODO: confirm election cycle and term
+    constitutionUrl: null,
+    constitutionLabel: 'Read the MOBA constitution',
+  },
+}
+
 // Optional: image: '/projects/name.webp' (put files in /public/projects). Without one the card shows the shield.
 export const projects = [
   { year: 2025, title: 'Gate Project', summary: 'The Iconic Gate', status: 'Completed' },

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import PhotoBand from '../components/PhotoBand.jsx'
-import { site, stats, projects, news, photos } from '../data/content.js'
+import { site, stats, projects, news, photos, about } from '../data/content.js'
 import { formatDate } from '../lib/format.js'
 
 export default function Home() {
@@ -62,10 +62,8 @@ export default function Home() {
 
       <section className="max-w-6xl mx-auto px-4 mt-16">
         <h2 className="text-2xl font-bold text-brand">About MOBA</h2>
-        <p className="mt-3 text-ink/80 max-w-3xl leading-relaxed">
-          Replace this with a short paragraph about the association: who you are, what you stand for,
-          and why Old Boys should stay connected.
-        </p>
+        <p className="mt-3 text-ink/80 max-w-3xl leading-relaxed">{about.summary}</p>
+        <Link to="/about" className="inline-block mt-3 text-brand font-medium hover:underline">More about MOBA →</Link>
       </section>
 
       {strip.length > 0 && (

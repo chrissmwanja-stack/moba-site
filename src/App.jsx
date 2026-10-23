@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
 import Home from './pages/Home.jsx'
+import About from './pages/About.jsx'
 import History from './pages/History.jsx'
 import Projects from './pages/Projects.jsx'
 import Gallery from './pages/Gallery.jsx'
@@ -21,6 +22,7 @@ import { site } from './data/content.js'
 // One title and description per page, so browser tabs, shares and search results are specific.
 const meta = {
   '/': { title: `${site.name} | ${site.fullName}` },
+  '/about': { title: 'About MOBA', description: `Who we are, what we stand for and who leads the ${site.fullName}.` },
   '/history': { title: 'Our History', description: `The milestones that made ${site.name} what it is today.` },
   '/leadership': { title: 'Leadership', description: 'The executive committee serving MOBA.' },
   '/projects': { title: 'Projects', description: 'What the Mwiri Old Boys Association has built and supported over the years.' },
@@ -64,6 +66,7 @@ export default function App() {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
           <Route path="/history" element={<History />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/gallery" element={<Gallery />} />

@@ -13,6 +13,7 @@ export default function Footer() {
           </div>
         </div>
         <nav className="text-sm grid grid-cols-2 gap-2">
+          <Link to="/about" className="hover:text-gold">About MOBA</Link>
           <Link to="/history" className="hover:text-gold">Our History</Link>
           <Link to="/leadership" className="hover:text-gold">Leadership</Link>
           <Link to="/projects" className="hover:text-gold">Projects</Link>

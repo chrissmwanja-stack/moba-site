@@ -6,7 +6,7 @@ const initials = name => name.split(' ').map(w => w[0]).slice(0, 2).join('')
 export default function Leadership() {
   return (
     <>
-      <PageHeader title="Our Leadership" subtitle="The executive committee serving MOBA." />
+      <PageHeader title="Our Leadership" subtitle="The executive committee serving MOBA 2026." />
       <section className="max-w-6xl mx-auto px-4 mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {leaders.map((l, i) => (
           <article key={i} className="bg-white rounded-lg shadow p-6 text-center">
