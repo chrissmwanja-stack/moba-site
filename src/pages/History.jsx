@@ -14,7 +14,7 @@ export default function History() {
         <ol className="relative border-l-2 border-brand/30 ml-3">
           {timeline.map(t => (
             <li key={t.year} className="mb-10 ml-6">
-              <span className="absolute -left-[9px] w-4 h-4 rounded-full bg-gold border-2 border-white" />
+              <span className="absolute -left-2.25 w-4 h-4 rounded-full bg-gold border-2 border-white" />
               <p className="text-sm font-semibold text-brand">{t.year}</p>
               <h3 className="text-lg font-semibold">{t.title}</h3>
               <p className="text-ink/70 mt-1">{t.text}</p>

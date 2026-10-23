@@ -196,16 +196,16 @@ export const cohorts = [
 // ---------- LEADERSHIP ----------
 // Put photos in /public/leaders and set photo: '/leaders/name.jpg'. All entries are placeholders.
 export const leaders = [
-  { name: 'Name Surname', role: 'President', cohort: 'Year', photo: null },
-  { name: 'Name Surname', role: 'Vice President', cohort: 'Year', photo: null },
-  { name: 'Name Surname', role: 'Secretary General', cohort: 'Year', photo: null },
-  { name: 'Name Surname', role: 'Assistant Secretary General', cohort: 'Year', photo: null },
-  { name: 'Name Surname', role: 'Treasurer', cohort: 'Year', photo: null },
-  { name: 'Name Surname', role: 'Assistant Treasurer', cohort: 'Year', photo: null },
-  { name: 'Name Surname', role: 'Publicity Secretary', cohort: 'Year', photo: null },
-  { name: 'Name Surname', role: 'Executive Member', cohort: 'Year', photo: null },
-  { name: 'Name Surname', role: 'Executive Member', cohort: 'Year', photo: null },
-  { name: 'Name Surname', role: 'Executive Member', cohort: 'Year', photo: null },
-  { name: 'Name Surname', role: 'Executive Member', cohort: 'Year', photo: null },
-  { name: 'Name Surname', role: 'Executive Member', cohort: 'Year', photo: null },
+  { name: 'Sam Hooper', role: 'President', cohort: '1995', photo: null },
+  { name: 'Collins Hinamundi', role: 'Vice President', cohort: '2004', photo: null },
+  { name: 'Arthur Abaliwano', role: 'Secretary General', cohort: '2003', photo: null },
+  { name: 'Francis Obbo', role: 'Assistant Secretary General', cohort: '2004', photo: null },
+  { name: 'Samson Kakoma', role: 'Treasurer', cohort: '2002', photo: null },
+  { name: 'Davis Lado', role: 'Assistant Treasurer', cohort: '2006', photo: null },
+  { name: 'Rodney Mugisha', role: 'Publicity Secretary', cohort: '1988', photo: null },
+  { name: 'Chris Mwanja', role: 'Executive Member', cohort: '2001', photo: null },
+  { name: 'Arthur Kyagaba', role: 'Executive Member', cohort: '2003', photo: null },
+  { name: 'Joshua Bizimana', role: 'Executive Member', cohort: '2009', photo: null },
+  { name: 'Allan Senyonga', role: 'Executive Member', cohort: '1995', photo: null },
+  { name: 'Godfrey Mazige', role: 'Executive Member', cohort: '2015', photo: null },
 ]

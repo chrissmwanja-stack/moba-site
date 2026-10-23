@@ -18,9 +18,9 @@ export default function NewsCard({ item }) {
   const inner = (
     <article className="flex h-full flex-col overflow-hidden rounded-lg border border-brand/15 bg-white">
       {image ? (
-        <img src={image} alt="" loading="lazy" className="aspect-[16/9] w-full object-cover" />
+        <img src={image} alt="" loading="lazy" className="aspect-video w-full object-cover" />
       ) : (
-        <div className="flex aspect-[16/9] w-full items-center justify-center bg-brand">
+        <div className="flex aspect-video w-full items-center justify-center bg-brand">
           <img src="/moba-shield.webp" alt="" className="h-16 w-auto opacity-90" />
         </div>
       )}

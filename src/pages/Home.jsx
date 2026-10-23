@@ -77,11 +77,11 @@ export default function Home() {
           <div className="grid gap-4 grid-cols-2 md:grid-cols-3 mt-6">
             {strip.map((p, i) => (
               <Link key={p.id} to="/gallery"
-                className={`group relative aspect-[4/3] overflow-hidden rounded-lg bg-brand/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand ${i === 2 ? 'hidden md:block' : ''}`}>
+                className={`group relative aspect-4/3 overflow-hidden rounded-lg bg-brand/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand ${i === 2 ? 'hidden md:block' : ''}`}>
                 <img src={p.thumb || p.src} alt={p.alt || p.caption} loading="lazy" decoding="async"
                   style={{ objectPosition: p.focus || '50% 40%' }}
                   className="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
-                <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent px-3 pb-2 pt-8 text-xs text-white">
+                <span className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/75 to-transparent px-3 pb-2 pt-8 text-xs text-white">
                   {p.caption} · {p.event || p.year}
                 </span>
               </Link>
