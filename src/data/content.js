@@ -27,7 +27,7 @@ export const timeline = [
 
 // Optional: image: '/projects/name.webp' (put files in /public/projects). Without one the card shows the shield.
 export const projects = [
-  { year: 2024, title: 'Project title', summary: 'Replace with project summary.', status: 'Completed' },
+  { year: 2025, title: 'Gate Project', summary: 'The Iconic Gate', status: 'Completed' },
   { year: 2019, title: 'Project title', summary: 'Replace with project summary.', status: 'Ongoing' },
   { year: 2015, title: 'Project title', summary: 'Replace with project summary.', status: 'Completed' },
 ]
