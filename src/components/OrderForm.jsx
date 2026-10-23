@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { submitOrder, newOrderRef } from '../lib/orders.js'
 import { ugx } from '../lib/format.js'
 
-const field = 'w-full border border-ink/20 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gold'
+const field = 'w-full border border-ink/50 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand'
 
 export default function OrderForm({ items, total, onSuccess }) {
   const [form, setForm] = useState({ name: '', phone: '', email: '', cohort: '', address: '', notes: '' })

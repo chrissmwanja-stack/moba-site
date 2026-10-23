@@ -92,9 +92,6 @@ export const photos = [
     year: 2026,
     source: 'MOBA',
   },
-  { id: 7, src: '/gallery/campus-artwork.webp', caption: 'Mwiri at golden hour — illustration', year: 2026, source: 'MOBA' },
-  { id: 8, src: '/gallery/crest-artwork.webp', caption: 'The leopard crest — association artwork', year: 2026, source: 'MOBA' },
-  { id: 9, src: '/gallery/memorabilia-artwork.webp', caption: 'Tie, cap and pin — from the MOBA store', year: 2026, source: 'MOBA' },
   // Reunion at Mwiri, 19 Sept 2026 — 60 curated photos from the association album.
   ...Array.from({ length: 60 }, (_, i) => {
     const n = String(i + 1).padStart(2, '0')
@@ -152,6 +149,7 @@ export const branches = [
   { name: 'Kampala', region: 'Uganda', meets: 'Meeting schedule TBC', contact: 'Branch chairperson', email: null, whatsapp: null },
   { name: 'Jinja', region: 'Uganda', meets: 'Meeting schedule TBC', contact: 'Branch chairperson', email: null, whatsapp: null },
   { name: 'United Kingdom', region: 'Diaspora', meets: 'Meeting schedule TBC', contact: 'Branch chairperson', email: null, whatsapp: null },
+  { name: 'United States', region: 'Diaspora', meets: 'Meeting schedule TBC', contact: 'Branch chairperson', email: null, whatsapp: null },
 ]
 
 // A cohort is named by the year its class started S1 (2001 cohort = S1 in 2001, S6 in 2006).

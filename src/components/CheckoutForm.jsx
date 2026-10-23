@@ -3,7 +3,7 @@ import { startCheckout, PAYMENT_API_URL } from '../lib/payments.js'
 import { sendForm } from '../lib/forms.js'
 import { ugx } from '../lib/format.js'
 
-const field = 'w-full border border-ink/20 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gold'
+const field = 'w-full border border-ink/50 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand'
 
 // kind: 'order' (store) or 'subscription' (membership)
 // With a payment backend (VITE_PAYMENT_API_URL) this sends people to pay online.
@@ -79,7 +79,7 @@ export default function CheckoutForm({ kind, items, total, needsAddress = false,
       )}
       {/* honeypot: hidden from people, bots fill it */}
       <input type="text" tabIndex={-1} autoComplete="off" value={bot} onChange={e => setBot(e.target.value)} className="hidden" aria-hidden="true" />
-      <p className="text-sm text-ink/60">
+      <p className="text-sm text-ink/70">
         {online
           ? 'Pay with MTN MoMo, Airtel Money or card.'
           : 'No payment is taken on this page. We will contact you with MTN MoMo / Airtel Money payment instructions.'}

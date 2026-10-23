@@ -43,7 +43,7 @@ export default function Cart() {
                 <li key={i.id} className="p-4 flex items-center justify-between gap-4">
                   <div>
                     <p className="font-medium">{i.name}</p>
-                    <p className="text-sm text-ink/60">{ugx(i.price)}</p>
+                    <p className="text-sm text-ink/70">{ugx(i.price)}</p>
                   </div>
                   <div className="flex items-center gap-3">
                     <button onClick={() => setQty(i.id, i.qty - 1)} className="w-8 h-8 rounded border">−</button>

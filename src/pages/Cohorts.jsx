@@ -38,8 +38,8 @@ function ClassPanel({ year, group }) {
       aria-live="polite"
     >
       <h3 className="text-xl font-bold text-brand">Cohort {year}</h3>
-      <p className="text-sm text-ink/60 mt-1">S1 in {year}, S6 in {last}</p>
-      <p className="text-sm text-ink/60">Includes classmates who joined later, for example in S5.</p>
+      <p className="text-sm text-ink/70 mt-1">S1 in {year}, S6 in {last}</p>
+      <p className="text-sm text-ink/70">Includes classmates who joined later, for example in S5.</p>
       {group ? (
         <>
           <p className="mt-2 text-ink/70">Contact: {group.contact}</p>
@@ -171,7 +171,7 @@ export default function Cohorts() {
               type="button"
               onClick={() => switchMode(m)}
               aria-pressed={mode === m}
-              className={`rounded px-3 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
+              className={`rounded px-3 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand ${
                 mode === m ? 'bg-brand text-white' : 'text-brand hover:bg-gold/20'
               }`}
             >
@@ -190,7 +190,7 @@ export default function Cohorts() {
             inputMode="numeric"
             maxLength={4}
             placeholder={`e.g. ${mode === 'start' ? thisYear - 20 : thisYear - 20 + span}`}
-            className="w-full rounded-md border border-brand/25 bg-white px-3 py-2.5 focus:border-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+            className="w-full rounded-md border border-brand/60 bg-white px-3 py-2.5 focus:border-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
           />
         </label>
 
@@ -211,7 +211,7 @@ export default function Cohorts() {
                     type="button"
                     onClick={() => choose(y)}
                     aria-pressed={selected === y}
-                    className={`rounded-full border px-4 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
+                    className={`rounded-full border px-4 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand ${
                       selected === y ? 'bg-brand text-white border-brand' : 'bg-gold/25 text-brand-dark border-gold hover:bg-gold/40'
                     }`}
                   >
@@ -232,7 +232,7 @@ export default function Cohorts() {
                 type="button"
                 onClick={() => setDecade(d)}
                 aria-pressed={decade === d}
-                className={`relative rounded-md border px-3.5 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
+                className={`relative rounded-md border px-3.5 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand ${
                   decade === d ? 'bg-brand text-white border-brand' : 'bg-white text-brand border-brand/25 hover:bg-gold/20'
                 }`}
               >
@@ -254,7 +254,7 @@ export default function Cohorts() {
                     onClick={() => choose(y)}
                     aria-pressed={selected === y}
                     aria-label={`Cohort ${y}${known ? ', group available' : ''}`}
-                    className={`relative rounded-md border px-3 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
+                    className={`relative rounded-md border px-3 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand ${
                       selected === y ? 'bg-brand text-white border-brand' : 'bg-white text-brand border-brand/25 hover:bg-gold/20'
                     }`}
                   >

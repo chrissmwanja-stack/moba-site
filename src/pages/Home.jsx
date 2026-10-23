@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import PhotoBand from '../components/PhotoBand.jsx'
 import { site, stats, projects, news, photos } from '../data/content.js'
+import { formatDate } from '../lib/format.js'
 
 export default function Home() {
   const today = new Date().toISOString().slice(0, 10)
@@ -33,7 +34,7 @@ export default function Home() {
           {stats.map(s => (
             <div key={s.label} className="bg-white rounded-lg shadow p-6 text-center border-t-4 border-gold">
               <p className="text-3xl font-bold text-brand">{s.value}</p>
-              <p className="text-sm text-ink/60 mt-1">{s.label}</p>
+              <p className="text-sm text-ink/70 mt-1">{s.label}</p>
             </div>
           ))}
         </div>
@@ -49,10 +50,10 @@ export default function Home() {
             {upcoming.map(n => (
               <article key={n.title + n.date} className="bg-white rounded-lg shadow p-5 border-l-4 border-gold">
                 <p className="text-xs text-gold-dark font-semibold">
-                  {new Date(n.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+                  {formatDate(n.date, 'long')}
                 </p>
                 <h3 className="font-semibold mt-1">{n.title}</h3>
-                {n.place && <p className="text-sm text-ink/60">{n.place}</p>}
+                {n.place && <p className="text-sm text-ink/70">{n.place}</p>}
               </article>
             ))}
           </div>
@@ -76,7 +77,7 @@ export default function Home() {
           <div className="grid gap-4 grid-cols-2 md:grid-cols-3 mt-6">
             {strip.map((p, i) => (
               <Link key={p.id} to="/gallery"
-                className={`group relative aspect-[4/3] overflow-hidden rounded-lg bg-brand/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold ${i === 2 ? 'hidden md:block' : ''}`}>
+                className={`group relative aspect-[4/3] overflow-hidden rounded-lg bg-brand/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand ${i === 2 ? 'hidden md:block' : ''}`}>
                 <img src={p.thumb || p.src} alt={p.alt || p.caption} loading="lazy" decoding="async"
                   style={{ objectPosition: p.focus || '50% 40%' }}
                   className="h-full w-full object-cover transition duration-300 group-hover:scale-105" />

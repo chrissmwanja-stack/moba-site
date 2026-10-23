@@ -4,7 +4,7 @@ import NewsCard from '../components/NewsCard.jsx'
 import { news, newsCategories } from '../data/content.js'
 
 const chip =
-  'rounded-full border px-4 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-gold '
+  'rounded-full border px-4 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand '
 
 export default function News() {
   const [params, setParams] = useSearchParams()
@@ -41,7 +41,7 @@ export default function News() {
                     : 'bg-white text-brand border-brand/25 hover:bg-gold/20')
                 }
               >
-                {c} <span className={active ? 'text-white/70' : 'text-ink/50'}>({countOf(c)})</span>
+                {c} <span className={active ? 'text-white/70' : 'text-ink/70'}>({countOf(c)})</span>
               </button>
             )
           })}

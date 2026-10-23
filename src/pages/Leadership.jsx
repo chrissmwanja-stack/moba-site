@@ -15,7 +15,7 @@ export default function Leadership() {
               : <div className="w-28 h-28 rounded-full mx-auto bg-brand text-gold text-3xl font-bold flex items-center justify-center border-4 border-gold">{initials(l.name)}</div>}
             <h3 className="font-semibold text-lg mt-4">{l.name}</h3>
             <p className="text-gold-dark font-medium">{l.role}</p>
-            <p className="text-sm text-ink/60">Cohort: {l.cohort}</p>
+            <p className="text-sm text-ink/70">Cohort: {l.cohort}</p>
           </article>
         ))}
       </section>

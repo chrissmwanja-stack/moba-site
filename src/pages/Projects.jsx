@@ -16,7 +16,7 @@ export default function Projects() {
             <div className="p-5">
               <div className="flex justify-between text-xs">
                 <span className="font-semibold text-gold-dark">{p.year}</span>
-                <span className="text-ink/50">{p.status}</span>
+                <span className="text-ink/70">{p.status}</span>
               </div>
               <h3 className="font-semibold text-lg mt-1">{p.title}</h3>
               <p className="text-sm text-ink/70 mt-2">{p.summary}</p>

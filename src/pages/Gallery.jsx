@@ -58,7 +58,7 @@ export default function Gallery() {
             type="button"
             onClick={e => { lastTile.current = e.currentTarget; setIndex(i) }}
             aria-label={`Open photo: ${p.caption}`}
-            className="group relative aspect-4/3 rounded-lg overflow-hidden bg-linear-to-br from-brand/25 to-gold/40 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+            className="group relative aspect-4/3 rounded-lg overflow-hidden bg-linear-to-br from-brand/25 to-gold/40 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
           >
             {p.src ? (
               <img

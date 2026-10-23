@@ -11,9 +11,9 @@ const HELP_OPTIONS = [
 ];
 
 const field =
-  "w-full rounded-md border border-brand/25 bg-white px-3 py-2.5 text-brand-dark " +
-  "placeholder:text-brand-dark/40 focus:border-brand focus:outline-none " +
-  "focus-visible:ring-2 focus-visible:ring-gold";
+  "w-full rounded-md border border-brand/60 bg-white px-3 py-2.5 text-brand-dark " +
+  "placeholder:text-brand-dark/65 focus:border-brand focus:outline-none " +
+  "focus-visible:ring-2 focus-visible:ring-brand";
 
 function Field({ label, hint, required, children }) {
   return (

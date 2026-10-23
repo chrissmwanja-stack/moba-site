@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
+import { formatDate } from "../lib/format.js";
 
 export function readingMinutes(text = "") {
   const words = text.trim().split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.round(words / 200));
 }
-
-const formatDate = (d) =>
-  new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
 /**
  * item: { title, date, excerpt, body?, image?, category?, series?, minutes?, to? }
@@ -50,7 +48,7 @@ export default function NewsCard({ item }) {
   return to ? (
     <Link
       to={to}
-      className="block h-full rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+      className="block h-full rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
     >
       {inner}
     </Link>
