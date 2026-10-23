@@ -160,11 +160,40 @@ export const branches = [
 // when it has a known group; other years show "We do not have a group for this class yet".
 // { year, contact: 'Role or name', email: null, whatsapp: 'https://chat.whatsapp.com/...' | null }
 export const cohorts = [
-  { year: 1985, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 1988, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 1989, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 1990, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 1991, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 1992, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 1993, contact: 'Cohort coordinator', email: null, whatsapp: null },
   { year: 1994, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 1995, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 1996, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 1997, contact: 'Cohort coordinator', email: null, whatsapp: null }, 
+  { year: 1998, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 1999, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 2000, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 2001, contact: 'Cohort coordinator', email: null, whatsapp: null },
   { year: 2002, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 2003, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 2004, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 2005, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 2006, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 2007, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 2008, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 2009, contact: 'Cohort coordinator', email: null, whatsapp: null },
   { year: 2010, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 2011, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 2012, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 2013, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 2014, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 2015, contact: 'Cohort coordinator', email: null, whatsapp: null },
+  { year: 2016, contact: 'Cohort coordinator', email: null, whatsapp: null },
+
 ]
+
+
+
 
 // ---------- LEADERSHIP ----------
 // Put photos in /public/leaders and set photo: '/leaders/name.jpg'. All entries are placeholders.
