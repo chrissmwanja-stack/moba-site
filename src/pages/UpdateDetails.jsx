@@ -11,19 +11,19 @@ const HELP_OPTIONS = [
 ];
 
 const field =
-  "w-full rounded-md border border-[#0a2a5e]/25 bg-white px-3 py-2.5 text-[#061f47] " +
-  "placeholder:text-[#061f47]/40 focus:border-[#0a2a5e] focus:outline-none " +
-  "focus-visible:ring-2 focus-visible:ring-[#e8b838]";
+  "w-full rounded-md border border-brand/25 bg-white px-3 py-2.5 text-brand-dark " +
+  "placeholder:text-brand-dark/40 focus:border-brand focus:outline-none " +
+  "focus-visible:ring-2 focus-visible:ring-gold";
 
 function Field({ label, hint, required, children }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-sm font-semibold text-[#061f47]">
+      <span className="mb-1 block text-sm font-semibold text-brand-dark">
         {label}
-        {required && <span className="text-[#9a730d]"> (required)</span>}
+        {required && <span className="text-gold-dark"> (required)</span>}
       </span>
       {children}
-      {hint && <span className="mt-1 block text-sm text-[#061f47]/70">{hint}</span>}
+      {hint && <span className="mt-1 block text-sm text-brand-dark/70">{hint}</span>}
     </label>
   );
 }
@@ -75,12 +75,12 @@ export default function UpdateDetails() {
   if (status === "done") {
     return (
       <div className="mx-auto max-w-2xl px-4 py-20">
-        <h1 className="text-3xl font-bold text-[#0a2a5e]">Thank you. We have your details.</h1>
-        <p className="mt-4 text-lg text-[#061f47]/80">
+        <h1 className="text-3xl font-bold text-brand">Thank you. We have your details.</h1>
+        <p className="mt-4 text-lg text-brand-dark/80">
           The association secretary will add you to the member register and may contact you to
           confirm. You can send an update at any time by filling in this form again.
         </p>
-        <Link to="/" className="mt-8 inline-block font-semibold text-[#9a730d] underline">
+        <Link to="/" className="mt-8 inline-block font-semibold text-gold-dark underline">
           Back to the home page
         </Link>
       </div>
@@ -89,7 +89,7 @@ export default function UpdateDetails() {
 
   return (
     <div>
-      <section className="bg-[#0a2a5e] px-4 py-14 text-white">
+      <section className="bg-brand px-4 py-14 text-white">
         <div className="mx-auto max-w-3xl">
           <h1 className="text-3xl font-bold sm:text-4xl">Update your details</h1>
           <p className="mt-4 max-w-2xl text-lg text-white/85">
@@ -143,19 +143,19 @@ export default function UpdateDetails() {
         </div>
 
         <fieldset>
-          <legend className="mb-2 text-sm font-semibold text-[#061f47]">
+          <legend className="mb-2 text-sm font-semibold text-brand-dark">
             I would be happy to help with
           </legend>
           <div className="grid gap-2 sm:grid-cols-2">
             {HELP_OPTIONS.map((opt) => (
-              <label key={opt} className="flex items-center gap-3 rounded-md border border-[#0a2a5e]/20 bg-white px-3 py-2.5">
+              <label key={opt} className="flex items-center gap-3 rounded-md border border-brand/20 bg-white px-3 py-2.5">
                 <input
                   type="checkbox"
                   checked={help.includes(opt)}
                   onChange={() => toggleHelp(opt)}
-                  className="h-4 w-4 accent-[#0a2a5e]"
+                  className="h-4 w-4 accent-brand"
                 />
-                <span className="text-[#061f47]">{opt}</span>
+                <span className="text-brand-dark">{opt}</span>
               </label>
             ))}
           </div>
@@ -163,11 +163,11 @@ export default function UpdateDetails() {
 
         <div>
           <label className="flex items-start gap-3">
-            <input type="checkbox" name="consent" className="mt-1 h-4 w-4 accent-[#0a2a5e]" />
-            <span className="text-[#061f47]">
+            <input type="checkbox" name="consent" className="mt-1 h-4 w-4 accent-brand" />
+            <span className="text-brand-dark">
               I agree that MOBA may keep these details to contact me about association business, as
               described in the{" "}
-              <Link to="/privacy" className="font-semibold text-[#9a730d] underline">
+              <Link to="/privacy" className="font-semibold text-gold-dark underline">
                 privacy notice
               </Link>
               .
@@ -186,7 +186,7 @@ export default function UpdateDetails() {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="rounded-md bg-[#e8b838] px-6 py-3 font-bold text-[#061f47] hover:bg-[#f0c653] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0a2a5e] focus-visible:ring-offset-2 disabled:opacity-60"
+          className="rounded-md bg-gold px-6 py-3 font-bold text-brand-dark hover:bg-[#f0c653] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:opacity-60"
         >
           {status === "sending" ? "Sending..." : "Send my details"}
         </button>
