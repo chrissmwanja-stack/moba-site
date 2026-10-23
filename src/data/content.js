@@ -14,22 +14,31 @@ export const site = {
 
 export const stats = [
   { label: 'Years of brotherhood', value: new Date().getFullYear() - site.founded },
-  { label: 'Projects delivered', value: 12 },        // TODO
+  { label: 'Projects delivered', value: 10 },        // TODO
   { label: 'Members worldwide', value: '1,500+' },   // TODO
 ]
 
 export const timeline = [
-  { year: 1911, title: 'The beginning', text: 'Replace with the story of how Mwiri and MOBA began.' },
-  { year: 1950, title: 'A milestone', text: 'Replace with a key milestone.' },
-  { year: 1995, title: 'A milestone', text: 'Replace with a key milestone.' },
+  { year: 1911, title: 'The beginning', text: 'The school was founded in January 1911 by Basoga princes who had studied at Kings College Budo, together with the Church Missionary Society, a group of Anglican missionaries.' },
+  { year: 1930, title: 'A milestone', text: 'Charles Girling led 400 men to clear Mwiri Hill. The school operated from King’s College Budo from 1930 to 1933 while the hill buildings went up.' },
+  { year: 1939, title: 'A milestone', text: 'Ezekiel Tenywa Wako, the first Kyabazinga of a united Busoga, enthroned in 1939, helped the school get its current location.' },
+  { year: 1962, title: 'A milestone', text: 'Mwiri’s motto was adopted as Uganda’s national motto in 1962, when the country became independent.' },
+  { year: 2011, title: 'A milestone', text: 'Centennial celebrations were held at the school in September.' },
+  { year: 2018, title: 'A milestone', text: 'Mwiri won the Boys’ Schools’ Cricket week title for a record 17th time. This was also the 107th anniversary.' },
   { year: 2026, title: 'Going digital', text: 'The association launches its online home.' },
 ]
 
 // Optional: image: '/projects/name.webp' (put files in /public/projects). Without one the card shows the shield.
 export const projects = [
   { year: 2025, title: 'Gate Project', summary: 'The Iconic Gate', status: 'Completed' },
-  { year: 2019, title: 'Project title', summary: 'Replace with project summary.', status: 'Ongoing' },
+  { year: 2022, title: 'Mess Reroofing', summary: 'Reroofing of the main mess building', status: 'Completed' },
+  { year: 2024, title: 'Chapel Renovation', summary: 'Renovation of the chapel', status: 'Completed' },
+  { year: 2025, title: 'Dispensary Renovation', summary: 'Renovation of the dispensary by Solida Cohort', status: 'Completed' },
+  { year: 2025, title: 'Teacher Houses', summary: 'Renovation of the teacher houses', status: 'Completed' },
+  { year: 2026, title: 'Basketball Reconstruction', summary: 'Basketball court reconstruction', status: 'Ongoing' },
   { year: 2015, title: 'Project title', summary: 'Replace with project summary.', status: 'Completed' },
+
+
 ]
 
 // Publicly sourced photos. Please confirm reuse permission before launch.
@@ -112,10 +121,10 @@ export const photos = [
 // image: put files in /public/store and use '/store/tie.jpg'
 export const products = [
   { id: 'tie',    name: 'MOBA Old Boys Tie',     price: 50000,  delivery: 'physical', image: null, blurb: 'Navy silk tie with the gold leopard crest.' },
-  { id: 'polo',   name: 'MOBA Polo Shirt',       price: 70000,  delivery: 'physical', image: null, blurb: 'Navy polo with embroidered shield.' },
-  { id: 'cap',    name: 'MOBA Cap',              price: 35000,  delivery: 'physical', image: null, blurb: 'Navy cap, gold crest.' },
-  { id: 'pin',    name: 'Lapel Pin',             price: 20000,  delivery: 'physical', image: null, blurb: 'Enamel shield pin.' },
-  { id: 'mug',    name: 'Commemorative Mug',     price: 25000,  delivery: 'physical', image: null, blurb: 'Est. 1911 commemorative mug.' },
+  { id: 'polo',   name: 'MOBA Polo Shirt',       price: 50000,  delivery: 'physical', image: null, blurb: 'Navy polo with embroidered shield.' },
+  { id: 'cap',    name: 'MOBA Cap',              price: 25000,  delivery: 'physical', image: null, blurb: 'Navy cap, gold crest.' },
+  { id: 'pin',    name: 'Lapel Pin',             price: 10000,  delivery: 'physical', image: null, blurb: 'Enamel shield pin.' },
+  { id: 'mug',    name: 'Commemorative Mug',     price: 15000,  delivery: 'physical', image: null, blurb: 'Est. 1911 commemorative mug.' },
 ]
 
 // ---------- MEMBERSHIP ----------
@@ -201,11 +210,11 @@ export const leaders = [
   { name: 'Arthur Abaliwano', role: 'Secretary General', cohort: '2003', photo: null },
   { name: 'Francis Obbo', role: 'Assistant Secretary General', cohort: '2004', photo: null },
   { name: 'Samson Kakoma', role: 'Treasurer', cohort: '2002', photo: null },
-  { name: 'Davis Lado', role: 'Assistant Treasurer', cohort: '2006', photo: null },
+  { name: 'Davis Lado', role: 'Assistant Treasurer', cohort: '2005', photo: null },
   { name: 'Rodney Mugisha', role: 'Publicity Secretary', cohort: '1988', photo: null },
   { name: 'Chris Mwanja', role: 'Executive Member', cohort: '2001', photo: null },
   { name: 'Arthur Kyagaba', role: 'Executive Member', cohort: '2003', photo: null },
   { name: 'Joshua Bizimana', role: 'Executive Member', cohort: '2009', photo: null },
   { name: 'Allan Senyonga', role: 'Executive Member', cohort: '1995', photo: null },
-  { name: 'Godfrey Mazige', role: 'Executive Member', cohort: '2015', photo: null },
+  { name: 'Godfrey Mazige', role: 'Executive Member', cohort: '2013', photo: null },
 ]
