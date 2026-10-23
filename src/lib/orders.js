@@ -18,7 +18,7 @@ function buildMessage(o) {
     `Name: ${o.customer.name}`,
     `Phone: ${o.customer.phone}`,
     `Email: ${o.customer.email}`,
-    `Cohort / year left: ${o.customer.cohort || '-'}`,
+    `Cohort: ${o.customer.cohort || '-'}`,
     `Delivery address: ${o.customer.address}`,
     `Notes: ${o.customer.notes || '-'}`,
   ].join('\n')

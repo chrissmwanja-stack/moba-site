@@ -144,7 +144,8 @@ export const news = [
 ]
 
 // ---------- BRANCHES & COHORTS ----------
-// Branches: local chapters. Cohorts: named by the year the group joined school.
+// Branches: local chapters. Cohorts: a cohort is a class (everyone who finished S6 together,
+// including those who joined later, e.g. in S5), named by the year the class started S1.
 // Keep contact details to role names or association addresses while the repo is public.
 // whatsapp: a full invite link ('https://chat.whatsapp.com/...') or null.
 export const branches = [
@@ -153,9 +154,10 @@ export const branches = [
   { name: 'United Kingdom', region: 'Diaspora', meets: 'Meeting schedule TBC', contact: 'Branch chairperson', email: null, whatsapp: null },
 ]
 
-// Cohorts are named by the year of JOINING Mwiri. Every year from founded to now is shown
-// on the page automatically. List a year here only when it has a known group.
-// Years not listed show "No group yet".
+// A cohort is named by the year its class started S1 (2001 cohort = S1 in 2001, S6 in 2006).
+// The page lists every year from `founded` up to the newest cohort that has left school
+// (this year minus schoolYears plus 1); later classes are still students. List a year here only
+// when it has a known group; other years show "We do not have a group for this class yet".
 // { year, contact: 'Role or name', email: null, whatsapp: 'https://chat.whatsapp.com/...' | null }
 export const cohorts = [
   { year: 1985, contact: 'Cohort coordinator', email: null, whatsapp: null },

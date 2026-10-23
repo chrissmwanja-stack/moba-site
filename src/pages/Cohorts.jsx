@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import { site, branches, cohorts } from '../data/content.js'
@@ -30,15 +30,16 @@ function BranchCard({ b }) {
 }
 
 function ClassPanel({ year, group }) {
-  const span = `${year} to ${year + site.schoolYears - 1}` // S1 in the joining year, S6 in the last
+  const last = year + site.schoolYears - 1 // the class starts S1 in `year` and finishes S6 in `last`
   return (
     <div
       className="bg-white rounded-lg shadow p-6 border-l-4 border-gold"
       role="status"
       aria-live="polite"
     >
-      <h3 className="text-xl font-bold text-brand">Joined {year}</h3>
-      <p className="text-sm text-ink/60 mt-1">Usually at Mwiri {span}</p>
+      <h3 className="text-xl font-bold text-brand">Cohort {year}</h3>
+      <p className="text-sm text-ink/60 mt-1">S1 in {year}, S6 in {last}</p>
+      <p className="text-sm text-ink/60">Includes classmates who joined later, for example in S5.</p>
       {group ? (
         <>
           <p className="mt-2 text-ink/70">Contact: {group.contact}</p>
@@ -65,13 +66,13 @@ function ClassPanel({ year, group }) {
         <>
           <p className="mt-2 text-ink/70 max-w-xl">
             We do not have a group for this class yet. Add your details and we will connect you with others
-            who joined in {year}, or help you start the group.
+            in the {year} cohort, or help you start the group.
           </p>
           <Link
-            to={`/update-details?joined=${year}`}
+            to={`/update-details?cohort=${year}`}
             className="mt-4 inline-block bg-gold text-brand-dark font-semibold px-5 py-2.5 rounded-md hover:brightness-110"
           >
-            Register as joined {year}
+            Register in the {year} cohort
           </Link>
         </>
       )}
@@ -81,19 +82,62 @@ function ClassPanel({ year, group }) {
 
 export default function Cohorts() {
   const thisYear = new Date().getFullYear()
-  const [selected, setSelected] = useState(null)
-  const [query, setQuery] = useState('')
+  // Someone who joins in S1 in year Y leaves after S6 in Y + schoolYears - 1.
+  // Anyone who joined after `lastCohort` is still at school, so they are not Old Boys yet.
+  const lastCohort = thisYear - site.schoolYears + 1
+  const newest = Math.max(lastCohort, ...cohorts.map(c => c.year)) // never hide a cohort that has a group
 
   const byYear = new Map(cohorts.map(c => [c.year, c]))
-  const years = Array.from({ length: thisYear - site.founded + 1 }, (_, i) => thisYear - i)
+  const years = Array.from({ length: newest - site.founded + 1 }, (_, i) => newest - i)
   const decades = [...new Set(years.map(decadeOf))]
+  const withGroup = [...byYear.keys()].sort((x, y) => y - x)
+
+  const [selected, setSelected] = useState(null)
+  const [decade, setDecade] = useState(decadeOf(lastCohort))
+  const [query, setQuery] = useState('')
+  const [mode, setMode] = useState('start') // 'start' = year the class began S1, 'finish' = year it finished S6
+  const panelRef = useRef(null)
+  const span = site.schoolYears - 1 // S1 year to S6 year
+
+  // A cohort is a class: everyone who finished together, including those who joined later (e.g. in S5).
+  // It is named by the year the class started S1. People may know either year, so accept both.
+  const toCohort = n => (mode === 'start' ? n : n - span)
+  const toInput = (c, m = mode) => String(m === 'start' ? c : c + span)
+
+  // Bring the result into view when a year is chosen (only scrolls if it is off screen)
+  useEffect(() => {
+    if (selected === null) return
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    panelRef.current?.scrollIntoView({ block: 'nearest', behavior: reduce ? 'auto' : 'smooth' })
+  }, [selected])
+
+  function choose(y) {
+    setSelected(y)
+    setDecade(decadeOf(y))
+    setQuery(toInput(y))
+  }
+
+  function switchMode(m) {
+    setMode(m)
+    setQuery(selected !== null ? toInput(selected, m) : '')
+  }
 
   function onJump(e) {
     const v = e.target.value.replace(/\D/g, '').slice(0, 4)
     setQuery(v)
-    const n = Number(v)
-    if (v.length === 4 && n >= site.founded && n <= thisYear) setSelected(n)
+    const c = toCohort(Number(v))
+    if (v.length === 4 && c >= site.founded && c <= newest) {
+      setSelected(c)
+      setDecade(decadeOf(c))
+    } else {
+      setSelected(null)
+    }
   }
+
+  const typedCohort = toCohort(Number(query))
+  const stillAtSchool = query.length === 4 && typedCohort > newest && typedCohort <= thisYear
+  const decadeYears = years.filter(y => decadeOf(y) === decade).sort((x, y) => x - y)
+  const decadeHasGroup = d => years.some(y => decadeOf(y) === d && byYear.has(y))
 
   return (
     <>
@@ -115,57 +159,119 @@ export default function Cohorts() {
       <section className="max-w-6xl mx-auto px-4 mt-14">
         <h2 className="text-2xl font-bold text-brand">Find your cohort</h2>
         <p className="mt-2 text-ink/70 max-w-2xl">
-          Cohorts are named by the year you joined Mwiri in correspondence to your graduation year. Choose your joining year. A gold dot means we know of a group for that cohort.
+          A cohort is a class: the Old Boys who finished S6 together. It is named by the year the class started S1,
+          so the 2001 cohort started in 2001 and finished in 2006. If you joined later, for example in S5, you still
+          belong to the class you finished with. A gold dot means we know of a group for that cohort.
         </p>
 
-        <label className="mt-5 block max-w-xs">
-          <span className="mb-1 block text-sm font-semibold text-ink">Jump to your joining year</span>
+        <div role="group" aria-label="Search by" className="mt-5 inline-flex rounded-md border border-brand/25 bg-white p-0.5">
+          {[['start', 'Year my class started S1'], ['finish', 'Year I finished S6']].map(([m, label]) => (
+            <button
+              key={m}
+              type="button"
+              onClick={() => switchMode(m)}
+              aria-pressed={mode === m}
+              className={`rounded px-3 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
+                mode === m ? 'bg-brand text-white' : 'text-brand hover:bg-gold/20'
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        <label className="mt-4 block max-w-xs">
+          <span className="mb-1 block text-sm font-semibold text-ink">
+            {mode === 'start' ? 'Year your class started S1' : 'Year you finished S6'}
+          </span>
           <input
             value={query}
             onChange={onJump}
             inputMode="numeric"
             maxLength={4}
-            placeholder={`e.g. ${thisYear - 20}`}
+            placeholder={`e.g. ${mode === 'start' ? thisYear - 20 : thisYear - 20 + span}`}
             className="w-full rounded-md border border-brand/25 bg-white px-3 py-2.5 focus:border-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
           />
         </label>
 
-        <div className="mt-6 min-h-px">
-          {selected && <ClassPanel year={selected} group={byYear.get(selected)} />}
+        {stillAtSchool && (
+          <p className="mt-3 max-w-xl rounded-md bg-gold/20 border border-gold px-4 py-3 text-sm text-ink" role="status">
+            The {typedCohort} cohort is still at Mwiri and finishes S6 in {typedCohort + span}. It will appear here
+            once it has left. The most recent cohort listed is {lastCohort}.
+          </p>
+        )}
+
+        {withGroup.length > 0 && (
+          <div className="mt-8">
+            <h3 className="text-sm font-semibold text-gold-dark uppercase tracking-wide">Cohorts with a group</h3>
+            <ul className="mt-2 flex flex-wrap gap-2">
+              {withGroup.map(y => (
+                <li key={y}>
+                  <button
+                    type="button"
+                    onClick={() => choose(y)}
+                    aria-pressed={selected === y}
+                    className={`rounded-full border px-4 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
+                      selected === y ? 'bg-brand text-white border-brand' : 'bg-gold/25 text-brand-dark border-gold hover:bg-gold/40'
+                    }`}
+                  >
+                    {y}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div className="mt-8">
+          <h3 className="text-sm font-semibold text-gold-dark uppercase tracking-wide">Or browse cohorts by decade</h3>
+          <div role="group" aria-label="Choose a decade" className="mt-2 flex flex-wrap gap-2">
+            {decades.map(d => (
+              <button
+                key={d}
+                type="button"
+                onClick={() => setDecade(d)}
+                aria-pressed={decade === d}
+                className={`relative rounded-md border px-3.5 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
+                  decade === d ? 'bg-brand text-white border-brand' : 'bg-white text-brand border-brand/25 hover:bg-gold/20'
+                }`}
+              >
+                {d}
+                {decadeHasGroup(d) && (
+                  <span aria-hidden="true" className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-gold border border-white" />
+                )}
+              </button>
+            ))}
+          </div>
+
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {decadeYears.map(y => {
+              const known = byYear.has(y)
+              return (
+                <li key={y}>
+                  <button
+                    type="button"
+                    onClick={() => choose(y)}
+                    aria-pressed={selected === y}
+                    aria-label={`Cohort ${y}${known ? ', group available' : ''}`}
+                    className={`relative rounded-md border px-3 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
+                      selected === y ? 'bg-brand text-white border-brand' : 'bg-white text-brand border-brand/25 hover:bg-gold/20'
+                    }`}
+                  >
+                    {y}
+                    {known && (
+                      <span aria-hidden="true" className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-gold border border-white" />
+                    )}
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
         </div>
 
-        <div className="mt-8 space-y-6">
-          {decades.map(d => (
-            <div key={d}>
-              <h3 className="text-sm font-semibold text-gold-dark uppercase tracking-wide">{d}</h3>
-              <ul className="mt-2 flex flex-wrap gap-2">
-                {years.filter(y => decadeOf(y) === d).sort((a, b) => a - b).map(y => {
-                  const active = selected === y
-                  const known = byYear.has(y)
-                  return (
-                    <li key={y}>
-                      <button
-                        type="button"
-                        onClick={() => { setSelected(y); setQuery(String(y)) }}
-                        aria-pressed={active}
-                        aria-label={`Joined ${y}${known ? ', group available' : ''}`}
-                        className={`relative rounded-md border px-3 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
-                          active
-                            ? 'bg-brand text-white border-brand'
-                            : 'bg-white text-brand border-brand/25 hover:bg-gold/20'
-                        }`}
-                      >
-                        {y}
-                        {known && (
-                          <span aria-hidden="true" className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-gold border border-white" />
-                        )}
-                      </button>
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
-          ))}
+        {/* The result sits right under the year buttons, so it is always on screen after a tap */}
+        <div ref={panelRef} className="mt-6 min-h-px scroll-mb-6">
+          {selected && <ClassPanel year={selected} group={byYear.get(selected)} />}
         </div>
       </section>
 

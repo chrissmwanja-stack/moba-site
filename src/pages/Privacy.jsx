@@ -14,7 +14,7 @@ const sections = [
   {
     title: "What we collect",
     body: [
-      "When you use the Update your details form: your name, email, phone or WhatsApp number, the years you joined and left Mwiri, your city and country, your profession or business, and the ways you are happy to help.",
+      "When you use the Update your details form: your name, email, phone or WhatsApp number, your cohort and the year you left Mwiri, your city and country, your profession or business, and the ways you are happy to help.",
       "When you use the contact form or place a store order: your name, contact details, and the message or order you send us (including a delivery location for orders).",
     ],
   },

@@ -30,7 +30,7 @@ export default function OrderForm({ items, total, onSuccess }) {
         <input required placeholder="Full name" className={field} value={form.name} onChange={set('name')} />
         <input required placeholder="Phone (we'll call to confirm)" className={field} value={form.phone} onChange={set('phone')} />
         <input required type="email" placeholder="Email" className={field} value={form.email} onChange={set('email')} />
-        <input placeholder="Cohort / year left (optional)" className={field} value={form.cohort} onChange={set('cohort')} />
+        <input placeholder="Cohort (optional, e.g. 2001)" className={field} value={form.cohort} onChange={set('cohort')} />
       </div>
       <input required placeholder="Delivery address / area" className={field} value={form.address} onChange={set('address')} />
       <textarea placeholder="Notes (sizes, colours, preferred delivery time)" rows={3} className={field} value={form.notes} onChange={set('notes')} />

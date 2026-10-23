@@ -72,7 +72,7 @@ export default function CheckoutForm({ kind, items, total, needsAddress = false,
         <input required placeholder="Full name" autoComplete="name" className={field} value={form.name} onChange={set('name')} />
         <input required type="tel" placeholder="Phone (Mobile Money)" autoComplete="tel" className={field} value={form.phone} onChange={set('phone')} />
         <input required type="email" placeholder="Email" autoComplete="email" className={field} value={form.email} onChange={set('email')} />
-        <input required placeholder="Cohort / year left (e.g. 2001)" className={field} value={form.cohort} onChange={set('cohort')} />
+        <input required placeholder="Cohort (e.g. 2001)" className={field} value={form.cohort} onChange={set('cohort')} />
       </div>
       {needsAddress && (
         <input required placeholder="Delivery address" className={field} value={form.address} onChange={set('address')} />

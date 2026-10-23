@@ -30,7 +30,7 @@ function Field({ label, hint, required, children }) {
 
 export default function UpdateDetails() {
   const [params] = useSearchParams();
-  const prefillJoined = (params.get("joined") || "").replace(/\D/g, "").slice(0, 4);
+  const prefillCohort = (params.get("cohort") || params.get("joined") || "").replace(/\D/g, "").slice(0, 4); // "joined" = old links
   const [status, setStatus] = useState("idle"); // idle | sending | done | error
   const [errors, setErrors] = useState({});
   const [help, setHelp] = useState([]);
@@ -61,7 +61,7 @@ export default function UpdateDetails() {
         "Full name": v.name,
         Email: v.email,
         "Phone / WhatsApp": v.phone || "-",
-        "Year joined Mwiri": v.joined || "-",
+        "Cohort (year class started S1)": v.cohort || "-",
         "Year left Mwiri": v.left || "-",
         "Country and city": v.location || "-",
         "Profession or business": v.work || "-",
@@ -125,10 +125,10 @@ export default function UpdateDetails() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2">
-          <Field label="Year you joined Mwiri" hint="This is your cohort. It helps us group you with others who joined the same year.">
-            <input name="joined" inputMode="numeric" maxLength={4} defaultValue={prefillJoined} placeholder="e.g. 1998" className={field} />
+          <Field label="Your cohort (year your class started S1)" hint="Your cohort is the class you finished with. If your class started S1 in 2001 and finished S6 in 2006, your cohort is 2001, even if you joined later, for example in S5.">
+            <input name="cohort" inputMode="numeric" maxLength={4} defaultValue={prefillCohort} placeholder="e.g. 2001" className={field} />
           </Field>
-          <Field label="Year you left Mwiri">
+          <Field label="Year you left Mwiri (finished S6)">
             <input name="left" inputMode="numeric" maxLength={4} placeholder="e.g. 2003" className={field} />
           </Field>
         </div>
