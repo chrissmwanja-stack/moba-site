@@ -260,7 +260,7 @@ export const leadersTerm = '2026–2028'
 // Entries without a bio are still placeholders until the details are confirmed.
 export const leaders = [
   {
-    name: 'Sam Hooper', role: 'President', cohort: '1995', cohortName: 'Solida', houses: ['Hannington', 'Wilson'], photo: null,
+    name: 'Sam Hooper', role: 'President', cohort: '1995', cohortName: 'Solida', houses: ['Hannington', 'Wilson'], photo: '/leaders/sam-hooper.webp',
     bio: [
       'Sam is a seasoned marketer with extensive experience leading marketing teams in the fast-moving consumer goods (FMCG) sector. He brings expertise in strategy, brand building and team leadership to his role as MOBA President.',
       'For over a decade, Sam has supported Mwiri through donations, community initiatives and school development projects. His contributions include chairing the Homecoming organising committee, spearheading the school dispensary refurbishment and, most recently, chairing the basketball court reconstruction initiative. As President, he is focused on strengthening the brotherhood and mobilising collective support to reclaim Mwiri’s greatness.',
