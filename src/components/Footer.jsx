@@ -21,6 +21,7 @@ export default function Footer() {
           <Link to="/store" className="hover:text-gold">Store</Link>
           <Link to="/cohorts" className="hover:text-gold">Branches & Cohorts</Link>
           <Link to="/membership" className="hover:text-gold">Membership</Link>
+          <Link to="/funeral-cover" className="hover:text-gold">Funeral Insurance</Link>
           <Link to="/contact" className="hover:text-gold">Contact</Link>
           <Link to="/update-details" className="hover:text-gold">Update your details</Link>
           <Link to="/privacy" className="hover:text-gold">Privacy</Link>

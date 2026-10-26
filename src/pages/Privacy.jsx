@@ -2,7 +2,7 @@ import { site } from "../data/content";
 
 // DRAFT. Replace the TODO items and have the MOBA executive (or a lawyer) review it
 // before the site goes public.
-const UPDATED = "22 October 2026";
+const UPDATED = "26 October 2026";
 
 const sections = [
   {
@@ -15,6 +15,7 @@ const sections = [
     title: "What we collect",
     body: [
       "When you use the Update your details form: your name, email, phone or WhatsApp number, your cohort and the year you left Mwiri, your city and country, your profession or business, and the ways you are happy to help.",
+      "When you enrol for MOBA Funeral Insurance: your name, phone, email, cohort and next of kin, and for each dependant you ask us to cover, their name, relationship to you and year of birth. Please only give us details of people who know you are doing so.",
       "When you use the contact form or place a store order: your name, contact details, and the message or order you send us (including a delivery location for orders).",
     ],
   },

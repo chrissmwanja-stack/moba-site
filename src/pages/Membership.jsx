@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import PageHeader from '../components/PageHeader.jsx'
 import CheckoutForm from '../components/CheckoutForm.jsx'
-import { tiers } from '../data/content.js'
+import { Link } from 'react-router-dom'
+import { tiers, benefits } from '../data/content.js'
 import { ugx } from '../lib/format.js'
 import { PAYMENT_API_URL } from '../lib/payments.js'
 
@@ -49,6 +50,26 @@ export default function Membership() {
           )
         })}
       </section>
+
+      {benefits.length > 0 && (
+        <section aria-label="Member benefits" className="max-w-3xl mx-auto px-4 mt-14">
+          <h2 className="text-2xl font-bold text-brand">Member benefits</h2>
+          <div className="mt-4 grid gap-6">
+            {benefits.map(b => (
+              <div key={b.id} className="bg-white rounded-lg shadow p-6 border-l-4 border-gold">
+                <h3 className="font-semibold text-lg text-brand">{b.title}</h3>
+                <p className="mt-2 text-ink/80">{b.text}</p>
+                <Link
+                  to={b.to}
+                  className="mt-4 inline-block rounded-md bg-gold px-5 py-2.5 font-bold text-brand-dark hover:bg-[#f0c653] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+                >
+                  {b.cta}
+                </Link>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="max-w-3xl mx-auto px-4 mt-10 mb-4">
         <p className="mb-3 font-medium">Joining as: <span className="text-brand">{tier.name}</span></p>

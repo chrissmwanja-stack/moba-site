@@ -10,6 +10,7 @@ import Gallery from './pages/Gallery.jsx'
 import Store from './pages/Store.jsx'
 import Cart from './pages/Cart.jsx'
 import Membership from './pages/Membership.jsx'
+import FuneralCover from './pages/FuneralCover.jsx'
 import Contact from './pages/Contact.jsx'
 import News from './pages/News.jsx'
 import NewsArticle from './pages/NewsArticle.jsx'
@@ -33,6 +34,7 @@ const meta = {
   '/store': { title: 'Store', description: 'MOBA memorabilia: ties, polos, caps and more. Order online, pay on delivery.' },
   '/cart': { title: 'Your Cart' },
   '/membership': { title: 'Membership', description: 'Join the Mwiri Old Boys Association as an annual or life member.' },
+  '/funeral-cover': { title: 'MOBA Funeral Insurance', description: 'Enrol for the MOBA Funeral Insurance scheme for yourself and your family.' },
   '/contact': { title: 'Contact Us', description: 'Write to the Mwiri Old Boys Association.' },
   '/cohorts': { title: 'Branches & Cohorts', description: 'Find your MOBA branch or your year group.' },
   '/update-details': { title: 'Update Your Details', description: 'Keep your contact details current on the MOBA register.' },
@@ -85,6 +87,7 @@ export default function App() {
           <Route path="/store" element={<Store />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/membership" element={<Membership />} />
+          <Route path="/funeral-cover" element={<FuneralCover />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/news" element={<News />} />
           <Route path="/news/:slug" element={<NewsArticle />} />

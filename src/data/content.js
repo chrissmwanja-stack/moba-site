@@ -183,6 +183,33 @@ export const tiers = [
   { id: 'life',   name: 'Life Member',   price: 1010000, period: 'one-off',  perks: ['Lifetime membership', 'Name on the Life Members roll', 'MOBA tie and pin'] },
 ]
 
+// ---------- MEMBER BENEFITS ----------
+// Shown on the Membership page. Add more entries here as new benefits launch.
+// to: the page that handles sign-up for the benefit.
+export const benefits = [
+  {
+    id: 'funeral',
+    title: 'MOBA Funeral Insurance',
+    text: 'Support for the family when a member or a covered dependant passes away. Enrol online and we will send you payment instructions.',
+    to: '/funeral-cover',
+    cta: 'Enrol for funeral cover',
+  },
+]
+
+// Funeral Insurance scheme settings. TODO: confirm every value with the scheme committee.
+// premium / period: leave premium as null until it is confirmed; the page then says the
+// amount will be given on enrolment instead of showing a made-up figure.
+export const funeralCover = {
+  name: 'MOBA Funeral Insurance',
+  premium: null,          // TODO: contribution in UGX, e.g. 60000
+  period: 'year',         // TODO: 'year' or 'month'
+  maxDependants: 6,       // TODO: how many dependants one member may cover
+  waitingPeriod: null,    // TODO: e.g. '3 months', or leave null to hide it
+  payout: null,           // TODO: e.g. 'UGX 5,000,000', or leave null to hide it
+  paymentNote: 'MTN MoMo or Airtel Money. Details are sent to you after you enrol.', // TODO: confirm
+  contactEmail: null,     // TODO: scheme secretary email; falls back to the association email
+}
+
 // ---------- NEWS & EVENTS ----------
 // date: YYYY-MM-DD. category must be one of newsCategories below (the News page filter uses them).
 // Optional: series ('Throwback', 'Cohort spotlight'), image ('/news/name.webp'), place,
