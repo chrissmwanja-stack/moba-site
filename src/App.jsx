@@ -19,6 +19,8 @@ import UpdateDetails from './pages/UpdateDetails.jsx'
 import Privacy from './pages/Privacy.jsx'
 import Cohorts from './pages/Cohorts.jsx'
 import NotFound from './pages/NotFound.jsx'
+import AdminLogin from './pages/AdminLogin.jsx'
+import Admin from './pages/Admin.jsx'
 import { site, news } from './data/content.js'
 import { newsSlug } from './lib/news.js'
 
@@ -79,6 +81,8 @@ export default function App() {
       <Header />
       <main className="flex-1">
         <Routes>
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/history" element={<History />} />
