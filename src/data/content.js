@@ -312,7 +312,7 @@ export const leaders = [
   },
   { name: 'Allan Senyonga', role: 'Executive Member', cohort: '1995', photo: null },
   {
-    name: 'Godfrey Mazige', role: 'Executive Member', cohort: '2013', cohortName: 'Wampa', houses: ['Wilson'], photo: '/leaders/godfrey-mazige.webp',
+    name: 'Godfrey Mazige', role: 'Executive Member', cohort: '2017', cohortName: 'Wampa', houses: ['Wilson'], photo: '/leaders/godfrey-mazige.webp',
     bio: [
       'Mazige Godfrey is a finalist at Makerere University Business School pursuing a Bachelor’s degree in Marketing. He serves on the Executive Committee of the Mwiri Old Boys Association (MOBA) and has interests in leadership, marketing, networking and community development. He is passionate about strengthening alumni relationships and encouraging youth participation.',
       'He advocates for unity, inclusivity, mentorship and active participation within MOBA. He is committed to connecting recent and older alumni and supporting initiatives that contribute to Mwiri’s continued development.',
