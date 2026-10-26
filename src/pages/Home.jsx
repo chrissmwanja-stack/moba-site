@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import PhotoBand from '../components/PhotoBand.jsx'
+import NewsCard from '../components/NewsCard.jsx'
 import { site, stats, projects, news, photos, about } from '../data/content.js'
 import { formatDate } from '../lib/format.js'
 import { newsPath } from '../lib/news.js'
@@ -7,6 +8,7 @@ import { newsPath } from '../lib/news.js'
 export default function Home() {
   const today = new Date().toISOString().slice(0, 10)
   const upcoming = news.filter(n => n.date >= today).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 3)
+  const latest = news.filter(n => n.date < today).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3)
   // Match the column count to the number of events so a short list does not leave a gap
   const cols = { 1: 'md:grid-cols-1 max-w-md', 2: 'md:grid-cols-2 max-w-3xl', 3: 'md:grid-cols-3' }[upcoming.length] || 'md:grid-cols-3'
   const featured = photos.filter(p => p.featured)
@@ -63,6 +65,18 @@ export default function Home() {
         </section>
       )}
 
+      {latest.length > 0 && (
+        <section className="max-w-6xl mx-auto px-4 mt-16">
+          <div className="flex items-end justify-between">
+            <h2 className="text-2xl font-bold text-brand">Latest news</h2>
+            <Link to="/news" className="text-brand font-medium hover:underline">All news →</Link>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3 mt-6">
+            {latest.map(n => <NewsCard key={n.title + n.date} item={n} />)}
+          </div>
+        </section>
+      )}
+
       <section className="max-w-6xl mx-auto px-4 mt-16">
         <h2 className="text-2xl font-bold text-brand">About MOBA</h2>
         <p className="mt-3 text-ink/80 max-w-3xl leading-relaxed">{about.summary}</p>
@@ -104,6 +118,18 @@ export default function Home() {
               <p className="text-sm text-ink/70 mt-2">{p.summary}</p>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 mt-16">
+        <div className="bg-brand-dark text-white rounded-lg shadow p-8 md:p-10 border-b-4 border-gold text-center">
+          <h2 className="text-2xl font-bold">Get involved</h2>
+          <p className="mt-2 text-white/80 max-w-xl mx-auto">Join the association, enrol for funeral cover, support a project, or keep your details up to date.</p>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <Link to="/membership" className="bg-gold text-brand-dark font-semibold px-6 py-3 rounded-md hover:brightness-110">Become a member</Link>
+            <Link to="/projects" className="border border-white/40 px-6 py-3 rounded-md hover:bg-white/10">Support a project</Link>
+            <Link to="/update-details" className="border border-white/40 px-6 py-3 rounded-md hover:bg-white/10">Update your details</Link>
+          </div>
         </div>
       </section>
     </>

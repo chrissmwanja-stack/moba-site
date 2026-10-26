@@ -79,6 +79,9 @@ export default function Membership() {
           items={[{ id: tier.id, name: tier.name, price: tier.price, qty: 1 }]}
           total={tier.price}
         />
+        <p className="mt-4 text-sm text-ink/70">
+          Already a member? <Link to="/update-details" className="font-semibold text-brand underline">Update your details</Link> so we can keep the register current.
+        </p>
       </section>
     </>
   )

@@ -77,16 +77,15 @@ export const about = {
 }
 
 // Optional: image: '/projects/name.webp' (put files in /public/projects). Without one the card shows the shield.
+// Optional, for ongoing projects: progress (0-100), goal and raised (UGX). Each is only shown once set.
 export const projects = [
   { year: 2025, title: 'Gate Project', summary: 'The Iconic Gate', status: 'Completed' },
   { year: 2022, title: 'Mess Reroofing', summary: 'Reroofing of the main mess building', status: 'Completed' },
   { year: 2024, title: 'Chapel Renovation', summary: 'Renovation of the chapel', status: 'Completed' },
   { year: 2025, title: 'Dispensary Renovation', summary: 'Renovation of the dispensary by Solida Cohort', status: 'Completed' },
   { year: 2025, title: 'Teacher Houses', summary: 'Renovation of the teacher houses', status: 'Completed' },
-  { year: 2026, title: 'Basketball Reconstruction', summary: 'Basketball court reconstruction', status: 'Ongoing' },
-  { year: 2015, title: 'Project title', summary: 'Replace with project summary.', status: 'Completed' },
-
-
+  { year: 2026, title: 'Basketball Reconstruction', summary: 'Basketball court reconstruction', status: 'Ongoing',
+    progress: null, goal: null, raised: null }, // TODO: progress is 0-100, goal and raised are in UGX
 ]
 
 // Publicly sourced photos. Please confirm reuse permission before launch.
