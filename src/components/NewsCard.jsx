@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { formatDate } from "../lib/format.js";
+import { newsPath, bodyParagraphs } from "../lib/news.js";
 
 export function readingMinutes(text = "") {
   const words = text.trim().split(/\s+/).filter(Boolean).length;
@@ -8,12 +9,14 @@ export function readingMinutes(text = "") {
 
 /**
  * item: { title, date, excerpt, body?, image?, category?, series?, minutes?, to? }
+ * body: an array of paragraphs (or one string). `to` overrides the article link.
  * category: "Reunion" | "Cohort" | "Project" | "News" ...
  * series:   "Throwback" | "Cohort spotlight" ... (recurring features)
  */
 export default function NewsCard({ item }) {
   const { title, date, excerpt, body, image, category, series, minutes, place, to } = item;
-  const mins = minutes ?? (body ? readingMinutes(body) : null);
+  const paragraphs = bodyParagraphs(body);
+  const mins = minutes ?? (paragraphs.length ? readingMinutes(paragraphs.join(" ")) : null);
 
   const inner = (
     <article className="flex h-full flex-col overflow-hidden rounded-lg border border-brand/15 bg-white">
@@ -45,14 +48,12 @@ export default function NewsCard({ item }) {
     </article>
   );
 
-  return to ? (
+  return (
     <Link
-      to={to}
+      to={to ?? newsPath(item)}
       className="block h-full rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
     >
       {inner}
     </Link>
-  ) : (
-    inner
   );
 }

@@ -12,12 +12,14 @@ import Cart from './pages/Cart.jsx'
 import Membership from './pages/Membership.jsx'
 import Contact from './pages/Contact.jsx'
 import News from './pages/News.jsx'
+import NewsArticle from './pages/NewsArticle.jsx'
 import Leadership from './pages/Leadership.jsx'
 import UpdateDetails from './pages/UpdateDetails.jsx'
 import Privacy from './pages/Privacy.jsx'
 import Cohorts from './pages/Cohorts.jsx'
 import NotFound from './pages/NotFound.jsx'
-import { site } from './data/content.js'
+import { site, news } from './data/content.js'
+import { newsSlug } from './lib/news.js'
 
 // One title and description per page, so browser tabs, shares and search results are specific.
 const meta = {
@@ -38,10 +40,20 @@ const meta = {
 }
 const defaultDescription = 'The home of the Mwiri Old Boys Association: our history, our projects and our community since 1911.'
 
+// Fixed pages use the table above; each news article uses its own title and excerpt.
+function metaFor(pathname) {
+  const path = pathname.replace(/\/$/, '') || '/'
+  if (path.startsWith('/news/')) {
+    const item = news.find(n => newsSlug(n) === path.slice('/news/'.length))
+    return item && { title: item.title, description: item.excerpt?.slice(0, 160) }
+  }
+  return meta[path]
+}
+
 function PageMeta() {
   const { pathname } = useLocation()
   useEffect(() => {
-    const m = meta[pathname.replace(/\/$/, '') || '/']
+    const m = metaFor(pathname)
     document.title = !m ? `Page not found | ${site.name}` : pathname === '/' ? m.title : `${m.title} | ${site.name}`
     const desc = document.querySelector('meta[name="description"]')
     if (desc) desc.setAttribute('content', m?.description || defaultDescription)
@@ -75,6 +87,7 @@ export default function App() {
           <Route path="/membership" element={<Membership />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/news" element={<News />} />
+          <Route path="/news/:slug" element={<NewsArticle />} />
           <Route path="/leadership" element={<Leadership />} />
           <Route path="/update-details" element={<UpdateDetails />} />
           <Route path="/privacy" element={<Privacy />} />

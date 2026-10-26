@@ -185,7 +185,9 @@ export const tiers = [
 
 // ---------- NEWS & EVENTS ----------
 // date: YYYY-MM-DD. category must be one of newsCategories below (the News page filter uses them).
-// Optional: series ('Throwback', 'Cohort spotlight'), image ('/news/name.webp'), place, body.
+// Optional: series ('Throwback', 'Cohort spotlight'), image ('/news/name.webp'), place,
+// body (an array of paragraphs for the full article), link ({ label, to } button under the article).
+// Every item opens at /news/<date>-<title>; set slug: 'my-link' to choose the address yourself.
 // Items dated today or later show as Upcoming. All entries are placeholders.
 export const newsCategories = ['Reunion', 'Meeting', 'Cohort', 'Project', 'News']
 export const news = [
@@ -193,7 +195,8 @@ export const news = [
   { date: '2026-11-14', category: 'Reunion', title: 'Old Boys Reunion', place: 'Venue TBC', excerpt: 'Replace with details of the reunion.' },
   { date: '2026-09-19', category: 'Reunion', title: 'Reunion and book launch at Mwiri', place: 'Busoga College Mwiri',
     excerpt: "Old Boys returned to the hill for a day of speeches, the launch of “A Lamp on a Hill”, choir performances and a shared meal. Browse the photos in the gallery.",
-    image: '/gallery/2026-reunion/34.webp' },
+    image: '/gallery/2026-reunion/34.webp',
+    link: { label: 'Browse the reunion photos', to: '/gallery' } },
   { date: '2026-08-10', category: 'News', title: 'MOBA launches its new website', place: '', excerpt: 'The association now has an online home for news, history and memorabilia.' },
 ]
 

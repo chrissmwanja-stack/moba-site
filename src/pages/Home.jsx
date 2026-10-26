@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import PhotoBand from '../components/PhotoBand.jsx'
 import { site, stats, projects, news, photos, about } from '../data/content.js'
 import { formatDate } from '../lib/format.js'
+import { newsPath } from '../lib/news.js'
 
 export default function Home() {
   const today = new Date().toISOString().slice(0, 10)
@@ -48,11 +49,13 @@ export default function Home() {
           </div>
           <div className={`grid gap-4 mt-6 ${cols}`}>
             {upcoming.map(n => (
-              <article key={n.title + n.date} className="bg-white rounded-lg shadow p-5 border-l-4 border-gold">
+              <article key={n.title + n.date} className="relative bg-white rounded-lg shadow p-5 border-l-4 border-gold hover:shadow-md focus-within:ring-2 focus-within:ring-brand">
                 <p className="text-xs text-gold-dark font-semibold">
                   {formatDate(n.date, 'long')}
                 </p>
-                <h3 className="font-semibold mt-1">{n.title}</h3>
+                <h3 className="font-semibold mt-1">
+                  <Link to={newsPath(n)} className="hover:underline focus:outline-none after:absolute after:inset-0">{n.title}</Link>
+                </h3>
                 {n.place && <p className="text-sm text-ink/70">{n.place}</p>}
               </article>
             ))}
