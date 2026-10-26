@@ -343,7 +343,13 @@ export const leaders = [
       'As an Executive Committee member, Chris is committed to serving Mwiri with the same dedication he has shown to date.',
     ],
   },
-  { name: 'Arthur Kyagaba', role: 'Executive Member', cohort: '2003',cohortName: 'Kombora', houses: ['Hannington'], photo: null },
+  { name: 'Arthur Kyagaba', role: 'Executive Member', cohort: '2003',cohortName: 'Kombora', houses: ['Hannington'], photo: null,
+    bio: [
+      'Arthur is a Procurement Professional and a Businessman - Luba Modern Market which offer low-cost commercial space for low-income earners and LMM Media which offers digital visual advertising services to businesses.',
+      'His passion for MOBA and Mwiri reflects in being a founding Vice Chairman of Mwiri League; Chairman Electoral Commission Mwiri League; Founding member of the MOBA Academic Committee since 2023; Member of Mwiri Cricket Committee; Member of Mwiri Cricket Oval Development Project and an advocate of change in the academic space of Mwiri since 2020',
+      'As a Committee member; his desire is self sustainability of MOBA and Mwiri League, Transparency in service delivery and Support academic improvement strategies',
+    ],
+   },
   {
     name: 'Joshua Bizimungu', role: 'Executive Member', cohort: '2011', cohortName: 'Shadow', houses: ['Willis'], photo: '/leaders/joshua-bizimungu.webp',
     bio: [
