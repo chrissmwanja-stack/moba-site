@@ -171,7 +171,11 @@ export const products = [
   { id: 'polo',   name: 'MOBA Polo Shirt',       price: 50000,  delivery: 'physical', image: null, blurb: 'Navy polo with embroidered shield.' },
   { id: 'cap',    name: 'MOBA Cap',              price: 25000,  delivery: 'physical', image: null, blurb: 'Navy cap, gold crest.' },
   { id: 'pin',    name: 'Lapel Pin',             price: 10000,  delivery: 'physical', image: null, blurb: 'Enamel shield pin.' },
-  { id: 'mug',    name: 'Commemorative Mug',     price: 15000,  delivery: 'physical', image: null, blurb: 'Est. 1911 commemorative mug.' },
+  { id: 'notebooks',    name: 'MOBA Notebooks',     price: 15000,  delivery: 'physical', image: null, blurb: 'Est. 1911 commemorative mug.' },
+  { id: 'bags',    name: 'MOBA Gym Bags',     price: 15000,  delivery: 'physical', image: null, blurb: 'Est. 1911 commemorative mug.' },
+  { id: 'bags',    name: 'MOBA Backpacks',     price: 15000,  delivery: 'physical', image: null, blurb: 'Est. 1911 commemorative mug.' },
+  { id: 'hoodies',    name: 'MOBA Hoodies',     price: 15000,  delivery: 'physical', image: null, blurb: 'Est. 1911 commemorative mug.' },
+  { id: 'jackets',    name: 'MOBA Sleeveless Jackets',     price: 15000,  delivery: 'physical', image: null, blurb: 'Est. 1911 commemorative mug.' },
 ]
 
 // ---------- MEMBERSHIP ----------
@@ -353,7 +357,7 @@ export const leaders = [
     name: 'Joshua Bizimungu', role: 'Executive Member', cohort: '2011', cohortName: 'Shadow', houses: ['Willis'], photo: '/leaders/joshua-bizimungu.webp',
     bio: [
       'Joshua Bizimungu is a Management Analyst in Uganda’s Ministry of Public Service. He brings experience in leadership, public administration, organisational management and alumni mobilisation.',
-      'Joshua served as President of the MOBA Makerere Chapter and chaired the 2024 MOBA Homecoming Organising Committee, which attracted thousands of attendees. A former School Volleyball Captain and Entertainment Prefect, he has also coached Mwiri’s volleyball team and continues to champion alumni engagement, sports development and the Mwiri spirit. As Chief Whip, he is committed to strengthening campus mobilisation and active participation in MOBA.',
+      'Joshua served as President of the MOBA Makerere Chapter and MOBA Special Envoy for Asia, Joshua chaired the 2024 MOBA Homecoming Organizing Committee, which attracted thousands of attendees. A former School Volleyball Captain and Entertainment Prefect, he has also coached Mwiri’s volleyball team and continues to champion alumni engagement, sports development and the Mwiri spirit. As Chief Whip, he is committed to strengthening campus mobilization and active participation in MOBA.',
     ],
   },
   { name: 'Allan Senyonga', role: 'Executive Member', cohort: '1995', cohortName: 'Solida', houses: ['Wilson'], photo: '/leaders/allan-senyonga.webp',

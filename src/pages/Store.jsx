@@ -11,7 +11,7 @@ export default function Store() {
       <section className="max-w-6xl mx-auto px-4 mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {products.map(p => (
           <article key={p.id} className="bg-white rounded-lg shadow overflow-hidden flex flex-col">
-            <div className="h-48 bg-gradient-to-br from-brand/25 to-gold/40 flex items-center justify-center">
+            <div className="h-48 bg-linear-to-br from-brand/25 to-gold/40 flex items-center justify-center">
               {p.image ? <img src={p.image} alt={p.name} className="h-full w-full object-cover" />
                        : <img src="/moba-shield.webp" alt="" className="h-24 opacity-80" />}
             </div>
