@@ -18,7 +18,7 @@ export function CartProvider({ children }) {
     setItems(prev => {
       const found = prev.find(i => i.id === product.id)
       if (found) return prev.map(i => (i.id === product.id ? { ...i, qty: i.qty + 1 } : i))
-      return [...prev, { id: product.id, name: product.name, price: product.price, delivery: product.delivery, qty: 1 }]
+      return [...prev, { id: product.id, name: product.variant ? `${product.name} (${product.variant})` : product.name, price: product.price, delivery: product.delivery, qty: 1 }]
     })
 
   const setQty = (id, qty) =>

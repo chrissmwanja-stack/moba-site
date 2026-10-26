@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
-import { site } from '../data/content.js'
+import Logo from './Logo.jsx'
 import { useCart } from '../context/CartContext.jsx'
 
 const links = [
@@ -25,10 +25,9 @@ export default function Header() {
 
   return (
     <header className="bg-brand-dark sticky top-0 z-40 shadow border-b-2 border-gold">
-      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3">
-          <img src="/moba-shield.webp" alt="MOBA shield" className="h-11 w-auto" />
-          <span className="text-gold font-bold text-xl tracking-widest">{site.name}</span>
+      <div className="max-w-6xl mx-auto px-4 py-2 min-h-16 flex items-center justify-between">
+        <Link to="/" aria-label="MOBA, Mwiri Old Boys Association, 1911: home">
+          <Logo />
         </Link>
         <nav className="hidden lg:flex items-center gap-1">
           {links.map(l => <NavLink key={l.to} to={l.to} end={l.to === '/'} className={linkClass}>{l.label}</NavLink>)}

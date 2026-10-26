@@ -27,8 +27,9 @@ export default function Footer() {
           <Link to="/privacy" className="hover:text-gold">Privacy</Link>
         </nav>
         <div className="text-sm md:text-right">
+          <p>{site.address}</p>
           <p>{site.email}</p>
-          <p>{site.phone}</p>
+          {site.phone && <p>{site.phone}</p>}
         </div>
       </div>
       <p className="text-center text-xs py-4 border-t border-white/10">

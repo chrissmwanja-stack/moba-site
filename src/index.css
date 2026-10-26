@@ -7,6 +7,7 @@
   --color-gold-dark: #87630a;   /* gold for text on light backgrounds (5.5:1 on white) */
   --color-ink: #1f2430;
   --color-paper: #faf8f4;
+  --font-display: "Playfair Display", Georgia, serif;
 }
 
 body {

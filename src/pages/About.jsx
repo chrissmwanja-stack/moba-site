@@ -41,17 +41,17 @@ export default function About() {
         </div>
       </section>
 
-      {/* Mission and vision */}
-      <section className="max-w-6xl mx-auto px-4 mt-14" aria-label="Mission and vision">
+      {/* Purpose, vision, mission and promise */}
+      <section className="max-w-6xl mx-auto px-4 mt-14" aria-label="Purpose, vision, mission and promise">
         <div className="grid gap-6 md:grid-cols-2">
-          <article className="bg-brand-dark text-white rounded-lg shadow p-6 border-l-4 border-gold">
-            <h3 className="text-gold font-semibold uppercase tracking-widest text-sm">Our mission</h3>
-            <p className="mt-3 leading-relaxed">{about.mission}</p>
-          </article>
-          <article className="bg-brand-dark text-white rounded-lg shadow p-6 border-l-4 border-gold">
-            <h3 className="text-gold font-semibold uppercase tracking-widest text-sm">Our vision</h3>
-            <p className="mt-3 leading-relaxed">{about.vision}</p>
-          </article>
+          {[['Our purpose', about.purpose], ['Our vision', about.vision], ['Our mission', about.mission], ['Our promise', about.promise]]
+            .filter(([, text]) => text)
+            .map(([title, text]) => (
+              <article key={title} className="bg-brand-dark text-white rounded-lg shadow p-6 border-l-4 border-gold">
+                <h3 className="text-gold font-semibold uppercase tracking-widest text-sm">{title}</h3>
+                <p className="mt-3 leading-relaxed">{text}</p>
+              </article>
+            ))}
         </div>
       </section>
 
@@ -84,7 +84,7 @@ export default function About() {
           <dl className="mt-6 grid gap-4 sm:grid-cols-2">
             {about.values.map(v => (
               <div key={v.title} className="border-l-4 border-gold pl-4">
-                <dt className="font-semibold text-brand">{v.title}</dt>
+                <dt className="font-semibold text-brand">{v.title}{v.tagline && <span className="block text-xs font-semibold text-gold-dark">{v.tagline}</span>}</dt>
                 <dd className="text-sm text-ink/70 mt-1">{v.text}</dd>
               </div>
             ))}
@@ -118,12 +118,12 @@ export default function About() {
       <section className="max-w-6xl mx-auto px-4 mt-14">
         <SectionHeading>Committees</SectionHeading>
         <p className="mt-2 text-ink/70 max-w-2xl">The executive is supported by committees that carry the association’s work between meetings.</p>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-6">
+        <div className="grid gap-4 md:grid-cols-2 mt-6">
           {about.committees.map(c => (
             <article key={c.name} className="bg-white rounded-lg shadow p-5 border-t-4 border-brand">
               <h3 className="font-semibold">{c.name}</h3>
               <p className="text-sm text-ink/70 mt-2">{c.text}</p>
-              <p className="text-xs text-ink/60 mt-3">Chair: {c.chair || 'To be announced'}</p>
+              {c.chair && <p className="text-xs text-ink/60 mt-3">Chair: {c.chair}</p>}
             </article>
           ))}
         </div>

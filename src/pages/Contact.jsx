@@ -36,9 +36,16 @@ export default function Contact() {
             <p>{site.email}</p>
           </div>
           <div>
-            <p className="text-sm font-semibold text-gold-dark">Phone</p>
-            <p>{site.phone}</p>
+            <p className="text-sm font-semibold text-gold-dark">Postal address</p>
+            <p>{site.fullName}</p>
+            <p>{site.address}</p>
           </div>
+          {site.phone && (
+            <div>
+              <p className="text-sm font-semibold text-gold-dark">Phone</p>
+              <p>{site.phone}</p>
+            </div>
+          )}
         </div>
 
         <div className="md:col-span-2">

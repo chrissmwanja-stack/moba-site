@@ -8,7 +8,8 @@ export const site = {
   founded: 1911,
   schoolYears: 6,                  // classes from S1 to S6; join in S1 in 2001, finish S6 in 2006
   email: 'info@mwirian.org',       // TODO
-  phone: '+256 000 000 000',        // TODO
+  address: 'P.O. Box 319, Jinja, Uganda',
+  phone: null,                      // TODO: add the association phone number (hidden on the site while null)
   orderEmail: 'orders@mwirian.org', // TODO: where store orders are sent (use a shared admin mailbox)
 }
 
@@ -39,14 +40,18 @@ export const about = {
     'Busoga College Mwiri has been educating boys on its hill above Jinja since 1911. The Mwiri Old Boys Association is the home of everyone who has walked through its gates, from the earliest classes to the newest leavers.', // TODO: confirm wording
     'We exist to keep that bond strong: to give Old Boys a place to reconnect, to give back to the school in practical ways, and to make sure the next generation of Mwirians inherits a school they can be proud of.', // TODO: confirm wording
   ],
-  mission: 'To unite Old Boys of Busoga College Mwiri and mobilise their time, skills and resources in service of the school and one another.', // TODO: confirm
-  vision: 'A strong, connected Mwiri family that keeps its school among the best in Uganda.', // TODO: confirm
-  // Priorities: keep to 3 or 4. `link` is optional and points to a page on this site.
+  purpose: 'To connect generations of Mwirian brothers and harness the strength of our collective community to advance Mwiri and one another.',
+  vision: 'A strong and connected Mwirian community, united across generations and committed to the enduring success of Mwiri and each other.',
+  mission: 'To build an engaged and valuable alumni network that connects Mwirian brothers, creates opportunities to support one another, preserves our shared heritage and mobilises our collective strength in service of Busoga College Mwiri.',
+  promise: 'Wherever life takes you, you remain connected to Mwiri and to a brotherhood that can make a difference.',
+  // Priorities for the 2026–2028 executive. `link` is optional and points to a page on this site.
   priorities: [
-    { title: 'Support the school', text: 'Fund and deliver practical improvements on the hill, from the new gate to the chapel, the mess and teacher housing.', link: '/projects', linkLabel: 'See our projects' },
-    { title: 'Connect Old Boys', text: 'Reunions, branches and year-group cohorts that keep every generation in touch, at home and abroad.', link: '/cohorts', linkLabel: 'Find your branch or cohort' },
-    { title: 'Serve current students', text: 'Mentorship, equipment and opportunities for the boys now on the hill.' }, // TODO: confirm programmes
-    { title: 'Preserve our heritage', text: 'Record and share the history, traditions and stories that make Mwiri what it is.', link: '/history', linkLabel: 'Read our history' },
+    { title: 'Academic Excellence & Future Readiness', text: 'Support learning, mentorship and opportunities that prepare students for life beyond Mwiri.' },
+    { title: 'Build the Mwiri We Want', text: 'Mobilise support for infrastructure, facilities and the long-term development of the school.', link: '/projects', linkLabel: 'See our projects' },
+    { title: 'Competing to Win', text: 'Support sports and co-curricular activities that develop talent, teamwork and school pride.' },
+    { title: 'Stronger, Self-Sustaining MOBA', text: 'Strengthen membership, participation and the resources needed to serve our community.', link: '/membership', linkLabel: 'Become a member' },
+    { title: 'Get Mwiri Seen', text: 'Share our stories, celebrate achievements and raise the visibility of Mwiri and its Old Boys.', link: '/news', linkLabel: 'Read the latest news' },
+    { title: 'Strong Institutions & Accountable Leadership', text: 'Strengthen governance, transparency and continuity beyond any one Executive term.' },
   ],
   // The school motto, which became Uganda's national motto in 1962.
   motto: {
@@ -54,19 +59,25 @@ export const about = {
     english: 'For God and Our Country',
     note: 'Chosen for the school by the Chiefs of Busoga, and adopted in 1962 as Uganda’s national motto, “For God and My Country”.',
   },
-  // Values: short words with one line each. TODO: confirm with the executive.
+  // Pillars (shown as "What we stand for"): a title, a short tagline and one line each.
   values: [
-    { title: 'Faith', text: 'God first, as our motto says.' },
-    { title: 'Service', text: 'Giving back to the school and the nation.' },
-    { title: 'Brotherhood', text: 'Once a Mwirian, always a Mwirian.' },
-    { title: 'Excellence', text: 'Holding Mwiri to its highest standard.' },
+    { title: 'Brotherhood', tagline: 'Who we are.', text: 'The lifelong bond between Mwirian brothers, transcending cohorts, generations, professions and geography.' },
+    { title: 'Heritage', tagline: 'What binds us.', text: 'Our shared history, traditions, experiences and connection to Busoga College Mwiri.' },
+    { title: 'Service', tagline: 'How we contribute.', text: 'Giving our time, knowledge, expertise, influence and resources in service of one another and Mwiri.' },
+    { title: 'Progress', tagline: 'What we seek to create.', text: 'Using our collective strength to create opportunity, strengthen MOBA and contribute to the continued advancement of Mwiri.' },
   ],
-  // Committees. All entries are placeholders until the executive confirms names and mandates.
+  // Committees and their mandates. Set `chair` to a name once announced; until then no chair line is shown.
   committees: [
-    { name: 'Projects & Fundraising', text: 'Plans and funds projects at the school.', chair: null }, // TODO
-    { name: 'Membership & Welfare', text: 'Keeps the register and looks after members.', chair: null }, // TODO
-    { name: 'Publicity & Communications', text: 'News, social media and this website.', chair: null }, // TODO
-    { name: 'Events & Reunions', text: 'Reunions, the AGM and cohort gatherings.', chair: null }, // TODO
+    { name: 'Academic Affairs Committee', text: 'Supports academic excellence and future readiness at Busoga College Mwiri. Working with the school, the committee identifies learning needs and mobilises Old Boys’ expertise and resources for mentorship, career guidance, learning support and teacher development.', chair: null },
+    { name: 'PR & Communications Committee', text: 'Keeps members informed and strengthens the visibility of MOBA and Mwiri through newsletters, digital platforms, media engagement and storytelling. The committee also safeguards our brand through consistent communication templates and preserves our history through an organised archive.', chair: null },
+    { name: 'Legal Affairs Committee', text: 'Provides legal guidance to protect MOBA’s interests and strengthen its governance. Its work includes reviewing the constitution, policies, contracts and agreements, supporting statutory compliance and advising on legal matters affecting the association.', chair: null },
+    { name: 'Endowment & Benevolent Fund Committee', text: 'Develops sustainable arrangements for long-term investment and member welfare. The committee reviews the existing Endowment Fund and recommends a structured, accountable approach for the future, while establishing a functioning Benevolent Fund with clear contribution, eligibility and support guidelines.', chair: null },
+    { name: 'Infrastructure Projects Committee', text: 'Coordinates the planning and delivery of approved construction, refurbishment and facility improvement projects. Its mandate includes assessing needs, developing project scopes and budgets, mobilising technical expertise and monitoring delivery, quality and progress.', chair: null },
+    { name: 'Finance Committee', text: 'Promotes sound financial management, accountability and the responsible use of MOBA’s resources. The committee coordinates budgeting, financial reporting and expenditure oversight, maintains clear financial records and supports compliance with the association’s financial management and procurement policy.', chair: null },
+    { name: 'Land Committee', text: 'Protects MOBA’s land interests and guides the development and utilisation of its property, with particular attention to the clubhouse. The committee supports tenure documentation, boundary protection and development planning, assists the school in addressing encroachment and explores suitable land investments for future needs.', chair: null },
+    { name: 'Cohort Engagement Committee', text: 'Strengthens connections between MOBA and its cohorts, bringing together older and younger generations of Mwirians. The committee encourages participation, identifies expertise and opportunities within cohorts and engages members in the diaspora so that location and generation do not limit involvement.', chair: null },
+    { name: 'Sports & Co-curricular Activities Committee', text: 'Supports participation, talent development and competitive achievement in sports and co-curricular activities. Working with the school and Old Boys, the committee mobilises expertise, equipment and other support for activities including cricket, rugby, football, basketball, debate, public speaking, music, dance, drama and quiz.', chair: null },
+    { name: 'Membership Committee', text: 'Builds an active and engaged MOBA membership through recruitment, registration and retention. The committee maintains accurate member records, promotes subscriptions, communicates membership benefits and helps members access opportunities to participate in and contribute to the association.', chair: null },
   ],
   // Governance. Put the constitution PDF in /public (for example /moba-constitution.pdf) and set constitutionUrl.
   governance: {
@@ -86,6 +97,9 @@ export const projects = [
   { year: 2025, title: 'Teacher Houses', summary: 'Renovation of the teacher houses', status: 'Completed' },
   { year: 2026, title: 'Basketball Reconstruction', summary: 'Basketball court reconstruction', status: 'Ongoing',
     progress: null, goal: null, raised: null }, // TODO: progress is 0-100, goal and raised are in UGX
+  { year: 2026, title: 'Mwiri Development Master Plan', summary: 'Priority infrastructure that gives future Mwirians a better place to learn.', status: 'Ongoing',
+    progress: null, goal: null, raised: null }, // TODO: confirm scope, goal and raised
+  { year: 2026, title: 'MOBA Mentorship Series', summary: 'Old Boys giving students mentorship, internships and career guidance. Learn, connect, grow.', status: 'Ongoing' }, // TODO: confirm launch
 ]
 
 // Publicly sourced photos. Please confirm reuse permission before launch.
@@ -163,19 +177,60 @@ export const photos = [
 ]
 
 // ---------- STORE ----------
-// PRICES ARE PLACEHOLDERS (UGX) until costs are confirmed.
+// PRICES ARE PLACEHOLDERS (UGX) until costs are confirmed. Items with preview: true use designer concept
+// images (not photos of stock) and show a "Preview design" label; remove the flag once real photos exist.
 // delivery: 'digital' = instant download/e-mail, 'physical' = needs an address.
-// image: put files in /public/store and use '/store/tie.jpg'
+// image: put files in /public/store and use '/store/tie.webp'
+// category: the Store page builds its filter buttons from these. variant: colour/style, shown under the name.
 export const products = [
-  { id: 'tie',    name: 'MOBA Old Boys Tie',     price: 50000,  delivery: 'physical', image: null, blurb: 'Navy silk tie with the gold leopard crest.' },
-  { id: 'polo',   name: 'MOBA Polo Shirt',       price: 50000,  delivery: 'physical', image: null, blurb: 'Navy polo with embroidered shield.' },
-  { id: 'cap',    name: 'MOBA Cap',              price: 25000,  delivery: 'physical', image: null, blurb: 'Navy cap, gold crest.' },
-  { id: 'pin',    name: 'Lapel Pin',             price: 10000,  delivery: 'physical', image: null, blurb: 'Enamel shield pin.' },
-  { id: 'notebooks',    name: 'MOBA Notebooks',     price: 15000,  delivery: 'physical', image: null, blurb: 'Est. 1911 commemorative mug.' },
-  { id: 'bags',    name: 'MOBA Gym Bags',     price: 15000,  delivery: 'physical', image: null, blurb: 'Est. 1911 commemorative mug.' },
-  { id: 'bags',    name: 'MOBA Backpacks',     price: 15000,  delivery: 'physical', image: null, blurb: 'Est. 1911 commemorative mug.' },
-  { id: 'hoodies',    name: 'MOBA Hoodies',     price: 15000,  delivery: 'physical', image: null, blurb: 'Est. 1911 commemorative mug.' },
-  { id: 'jackets',    name: 'MOBA Sleeveless Jackets',     price: 15000,  delivery: 'physical', image: null, blurb: 'Est. 1911 commemorative mug.' },
+  { id: 'tie',    name: 'MOBA Old Boys Tie',     category: 'Ties & pins', price: 50000,  delivery: 'physical', image: null, blurb: 'Navy silk tie with the gold leopard crest.' },
+  { id: 'polo',   name: 'MOBA Polo Shirt',       category: 'T-shirts', price: 50000,  delivery: 'physical', image: null, blurb: 'Navy polo with embroidered shield.' },
+  { id: 'cap',    name: 'MOBA Cap',              category: 'Caps', price: 25000,  delivery: 'physical', image: null, blurb: 'Navy cap, gold crest.' },
+  { id: 'pin',    name: 'Lapel Pin',             category: 'Ties & pins', price: 10000,  delivery: 'physical', image: null, blurb: 'Enamel shield pin.' },
+  { id: 'mug',    name: 'Commemorative Mug',     category: 'Mugs & bottles', price: 15000,  delivery: 'physical', image: null, blurb: 'Est. 1911 commemorative mug.' },
+  { id: 'notebooks',    name: 'MOBA Notebooks',     category: 'Stationery', price: 15000,  delivery: 'physical', image: null, blurb: 'Est. 1911 commemorative mug.' }, // TODO: blurb is a copy of the mug text
+  { id: 'tee-white', name: 'Heritage Tee', variant: 'White with navy and gold trim', category: 'T-shirts', price: 80000, delivery: 'physical', image: '/store/tee-white.webp', preview: true },
+  { id: 'tee-navy', name: 'Heritage Tee', variant: 'Signature navy, tone-on-tone leopard', category: 'T-shirts', price: 50000, delivery: 'physical', image: '/store/tee-navy.webp', preview: true },
+  { id: 'tee-sash', name: 'Stripe Tee', variant: 'White and navy with gold sash', category: 'T-shirts', price: 50000, delivery: 'physical', image: '/store/tee-sash.webp', preview: true },
+  { id: 'cap-crest-white', name: 'Crest Baseball Cap', variant: 'Classic white', category: 'Caps', price: 70000, delivery: 'physical', image: '/store/cap-crest-white.webp', preview: true },
+  { id: 'cap-crest-navy', name: 'Crest Baseball Cap', variant: 'Signature navy', category: 'Caps', price: 70000, delivery: 'physical', image: '/store/cap-crest-navy.webp', preview: true },
+  { id: 'cap-crest-twotone', name: 'Crest Baseball Cap', variant: 'White and navy two-tone', category: 'Caps', price: 50000, delivery: 'physical', image: '/store/cap-crest-twotone.webp', preview: true },
+  { id: 'trucker-crest-white', name: 'Crest Trucker Cap', variant: 'White front, navy mesh', category: 'Caps', price: 50000, delivery: 'physical', image: '/store/trucker-crest-white.webp', preview: true },
+  { id: 'trucker-crest-navy', name: 'Crest Trucker Cap', variant: 'All navy', category: 'Caps', price: 50000, delivery: 'physical', image: '/store/trucker-crest-navy.webp', preview: true },
+  { id: 'trucker-crest-gold', name: 'Crest Trucker Cap', variant: 'Navy and gold mesh', category: 'Caps', price: 50000, delivery: 'physical', image: '/store/trucker-crest-gold.webp', preview: true },
+  { id: 'trucker-mwiri-white', name: 'Mwiri Est. 1911 Trucker', variant: 'White and navy', category: 'Caps', price: 50000, delivery: 'physical', image: '/store/trucker-mwiri-white.webp', preview: true },
+  { id: 'trucker-mwiri-navy', name: 'Mwiri Est. 1911 Trucker', variant: 'Signature navy', category: 'Caps', price: 50000, delivery: 'physical', image: '/store/trucker-mwiri-navy.webp', preview: true },
+  { id: 'trucker-mwiri-gold', name: 'Mwiri Est. 1911 Trucker', variant: 'White, navy and gold', category: 'Caps', price: 50000, delivery: 'physical', image: '/store/trucker-mwiri-gold.webp', preview: true },
+  { id: 'cap-mwiri-white', name: 'Mwiri Est. 1911 Baseball Cap', variant: 'Classic white', category: 'Caps', price: 50000, delivery: 'physical', image: '/store/cap-mwiri-white.webp', preview: true },
+  { id: 'cap-mwiri-navy', name: 'Mwiri Est. 1911 Baseball Cap', variant: 'Signature navy', category: 'Caps', price: 50000, delivery: 'physical', image: '/store/cap-mwiri-navy.webp', preview: true },
+  { id: 'cap-mwiri-khaki', name: 'Mwiri Est. 1911 Baseball Cap', variant: 'Khaki', category: 'Caps', price: 50000, delivery: 'physical', image: '/store/cap-mwiri-khaki.webp', preview: true },
+  { id: 'bucket-navy', name: 'Crest Bucket Hat', variant: 'Classic navy', category: 'Bucket hats', price: 50000, delivery: 'physical', image: '/store/bucket-navy.webp', preview: true },
+  { id: 'bucket-white', name: 'Crest Bucket Hat', variant: 'White', category: 'Bucket hats', price: 50000, delivery: 'physical', image: '/store/bucket-white.webp', preview: true },
+  { id: 'bucket-twotone', name: 'Crest Bucket Hat', variant: 'Navy with gold brim', category: 'Bucket hats', price: 50000, delivery: 'physical', image: '/store/bucket-twotone.webp', preview: true },
+  { id: 'hoodie-white', name: 'Crest Hoodie', variant: 'Classic white', category: 'Hoodies & gilets', price: 50000, delivery: 'physical', image: '/store/hoodie-white.webp', preview: true },
+  { id: 'hoodie-navy', name: 'Mwiri Est. 1911 Hoodie', variant: 'Signature navy', category: 'Hoodies & gilets', price: 50000, delivery: 'physical', image: '/store/hoodie-navy.webp', preview: true },
+  { id: 'hoodie-twotone', name: 'Crest Hoodie', variant: 'Navy with white sleeves', category: 'Hoodies & gilets', price: 50000, delivery: 'physical', image: '/store/hoodie-twotone.webp', preview: true },
+  { id: 'gilet-navy', name: 'Crest Gilet', variant: 'Signature navy', category: 'Hoodies & gilets', price: 50000, delivery: 'physical', image: '/store/gilet-navy.webp', preview: true },
+  { id: 'gilet-white', name: 'Crest Gilet', variant: 'Classic white', category: 'Hoodies & gilets', price: 50000, delivery: 'physical', image: '/store/gilet-white.webp', preview: true },
+  { id: 'gilet-mwiri', name: 'Mwiri Est. 1911 Gilet', variant: 'Navy with gold lining', category: 'Hoodies & gilets', price: 50000, delivery: 'physical', image: '/store/gilet-mwiri.webp', preview: true },
+  { id: 'gilet-twotone', name: 'Crest Gilet', variant: 'Navy, white and gold', category: 'Hoodies & gilets', price: 50000, delivery: 'physical', image: '/store/gilet-twotone.webp', preview: true },
+  { id: 'vest-navy', name: 'Running Vest', variant: 'Classic navy', category: 'Running vests', price: 50000, delivery: 'physical', image: '/store/vest-navy.webp', preview: true },
+  { id: 'vest-white', name: 'Running Vest', variant: 'Classic white', category: 'Running vests', price: 50000, delivery: 'physical', image: '/store/vest-white.webp', preview: true },
+  { id: 'vest-navy-modern', name: 'Running Vest', variant: 'Modern navy, gold piping', category: 'Running vests', price: 50000, delivery: 'physical', image: '/store/vest-navy-modern.webp', preview: true },
+  { id: 'vest-white-sporty', name: 'Running Vest', variant: 'Sporty white, navy panels', category: 'Running vests', price: 50000, delivery: 'physical', image: '/store/vest-white-sporty.webp', preview: true },
+  { id: 'bag-gym', name: 'Crest Gym Bag', variant: 'Navy with gold zips', category: 'Bags', price: 50000, delivery: 'physical', image: '/store/bag-gym.webp', preview: true },
+  { id: 'bag-backpack', name: 'Crest Backpack', variant: 'Navy with gold zips', category: 'Bags', price: 50000, delivery: 'physical', image: '/store/bag-backpack.webp', preview: true },
+  { id: 'bag-string', name: 'Crest String Bag', variant: 'Navy', category: 'Bags', price: 50000, delivery: 'physical', image: '/store/bag-string.webp', preview: true },
+  { id: 'mug-white', name: 'Crest Mug', variant: 'Classic white', category: 'Mugs & bottles', price: 50000, delivery: 'physical', image: '/store/mug-white.webp', preview: true },
+  { id: 'mug-navy', name: 'Mwiri Est. 1911 Mug', variant: 'Signature navy', category: 'Mugs & bottles', price: 50000, delivery: 'physical', image: '/store/mug-navy.webp', preview: true },
+  { id: 'mug-twotone', name: 'Crest Mug', variant: 'White and navy two-tone', category: 'Mugs & bottles', price: 50000, delivery: 'physical', image: '/store/mug-twotone.webp', preview: true },
+  { id: 'mug-lid', name: 'Premium Lid Mug', variant: 'Navy with bamboo lid', category: 'Mugs & bottles', price: 50000, delivery: 'physical', image: '/store/mug-lid.webp', preview: true },
+  { id: 'thermos-navy', name: 'Mwiri Est. 1911 Thermos', variant: 'Signature navy', category: 'Mugs & bottles', price: 50000, delivery: 'physical', image: '/store/thermos-navy.webp', preview: true },
+  { id: 'thermos-white', name: 'Mwiri Est. 1911 Thermos', variant: 'Classic white', category: 'Mugs & bottles', price: 50000, delivery: 'physical', image: '/store/thermos-white.webp', preview: true },
+  { id: 'thermos-minimal', name: 'Crest Thermos', variant: 'Minimalist navy', category: 'Mugs & bottles', price: 50000, delivery: 'physical', image: '/store/thermos-minimal.webp', preview: true },
+  { id: 'bottle-sport', name: 'Mwiri Est. 1911 Water Bottle', variant: 'Navy sport cap', category: 'Mugs & bottles', price: 50000, delivery: 'physical', image: '/store/bottle-sport.webp', preview: true },
+  { id: 'bottle-twotone', name: 'Crest Water Bottle', variant: 'White and navy two-tone', category: 'Mugs & bottles', price: 50000, delivery: 'physical', image: '/store/bottle-twotone.webp', preview: true },
+  { id: 'bottle-clear', name: 'Mwiri Est. 1911 Water Bottle', variant: 'Clear', category: 'Mugs & bottles', price: 50000, delivery: 'physical', image: '/store/bottle-clear.webp', preview: true },
 ]
 
 // ---------- MEMBERSHIP ----------
@@ -346,7 +401,7 @@ export const leaders = [
       'As an Executive Committee member, Chris is committed to serving Mwiri with the same dedication he has shown to date.',
     ],
   },
-  { name: 'Arthur Kyagaba', role: 'Executive Member', cohort: '2003',cohortName: 'Kombora', houses: ['Hannington'], photo: null,
+  { name: 'Arthur Kyagaba', role: 'Executive Member', cohort: '2003',cohortName: 'Kombora', houses: ['Hannington'], photo: '/leaders/arthur-kyagaba.webp',
     bio: [
       'Arthur is a Procurement Professional and a Businessman - Luba Modern Market which offer low-cost commercial space for low-income earners and LMM Media which offers digital visual advertising services to businesses.',
       'His passion for MOBA and Mwiri reflects in being a founding Vice Chairman of Mwiri League; Chairman Electoral Commission Mwiri League; Founding member of the MOBA Academic Committee since 2023; Member of Mwiri Cricket Committee; Member of Mwiri Cricket Oval Development Project and an advocate of change in the academic space of Mwiri since 2020',
