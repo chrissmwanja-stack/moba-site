@@ -298,7 +298,15 @@ export const leaders = [
       'Having served as Assistant Treasurer during the 2024–2026 term, Kakos brings experience in financial management and resource mobilisation to his current role. As Treasurer, he is committed to transparency, accountability and building a financially sustainable MOBA that unites Old Boys and advances Mwiri’s development.',
     ],
   },
-  { name: 'Davis Lado', role: 'Assistant Treasurer', cohort: '2005',cohortName: 'Lukambwe', houses: ['Wako'], photo: '/leaders/davis-lado.webp' },
+  { name: 'Davis Lado', role: 'Assistant Treasurer', cohort: '2005',cohortName: 'Lukambwe', houses: ['Wako'], photo: '/leaders/davis-lado.webp',
+    bio: [
+      'Davis Lado is a Professional Accountant with over 10 years of professional experience and a proud son of Mwiri.',
+      'His contribution to the Mwiri community reflects a passion for bringing people together, strengthening connections, and turning shared aspirations into meaningful action.',
+      'As Assistant Hon. Treasurer of MOBA, Davis brings valuable accounting expertise and financial management experience to support sound financial decision-making and the successful implementation of the Association’s strategic initiatives. He is committed to promoting financial transparency, accountability, prudent resource management, and timely financial reporting to ensure members remain informed and confident in how the Association’s resources are managed.',
+      'In addition to his treasury responsibilities, Davis serves on the MOBA Academic Committee, contributing to initiatives that promote academic excellence and support the continued growth and development of the Mwiri community.',
+      'Through these roles, Davis is committed to strengthening MOBA’s financial stewardship, advancing its strategic objectives, and preserving the values and legacy of Mwiri for current and future generations.'
+    ],
+   },
   { name: 'Rodney Mugisha', role: 'Publicity Secretary', cohort: '1988', cohortName: 'Ruga Ruga', houses: ['Wako'], photo: null },
   {
     name: 'Chris Mwanja', role: 'Executive Member', cohort: '2001', cohortName: 'Buliti', houses: ['Hannington'], photo: '/leaders/chris-mwanja.webp',
@@ -316,7 +324,13 @@ export const leaders = [
       'Joshua served as President of the MOBA Makerere Chapter and chaired the 2024 MOBA Homecoming Organising Committee, which attracted thousands of attendees. A former School Volleyball Captain and Entertainment Prefect, he has also coached Mwiri’s volleyball team and continues to champion alumni engagement, sports development and the Mwiri spirit. As Chief Whip, he is committed to strengthening campus mobilisation and active participation in MOBA.',
     ],
   },
-  { name: 'Allan Senyonga', role: 'Executive Member', cohort: '1995', cohortName: 'Solida', houses: ['Wako'], photo: null },
+  { name: 'Allan Senyonga', role: 'Executive Member', cohort: '1995', cohortName: 'Solida', houses: ['Wilson'], photo: '/leaders/allan-senyonga.webp',
+    bio: [
+      'Allan is seasoned media and communications practitioner with a wealth of experience from around the East African region. He has been an active member on various MOBA platforms as a mobilizer and advisor on various aspects aimed at bringing old boys together and improving on their welfare and networking capacities.',
+      'Through his passion for MOBA and Mwiri, Allan was one of the founder members of the Solida Investment Club and has remained a key mobiliser, administrator and treasurer at the cohort level for various projects and initiatives undertaken by his classmates. ',
+      'As a Committee member he is determined to support the current MOBA leadership to achieve its goals while enhancing the spirit of brotherhood nurtured at the great school, Mwiri.'
+    ],
+   }, 
   {
     name: 'Godfrey Mazige', role: 'Executive Member', cohort: '2017', cohortName: 'Wampa', houses: ['Wilson'], photo: '/leaders/godfrey-mazige.webp',
     bio: [

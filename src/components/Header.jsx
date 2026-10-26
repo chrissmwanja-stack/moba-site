@@ -5,13 +5,13 @@ import { useCart } from '../context/CartContext.jsx'
 
 const links = [
   { to: '/', label: 'Home' },
-  { to: '/about', label: 'About' },
-  { to: '/history', label: 'Our History' },
+  { to: '/about', label: 'About MOBA' },
+  { to: '/history', label: 'Our Mwiri' },
   { to: '/leadership', label: 'Leadership' },
-  { to: '/projects', label: 'Projects' },
+  { to: '/projects', label: 'Projects & Impact' },
   { to: '/news', label: 'News' },
   { to: '/gallery', label: 'Gallery' },
-  { to: '/store', label: 'Store' },
+  { to: '/store', label: 'Support MOBA' },
   { to: '/membership', label: 'Membership' },
 ]
 
