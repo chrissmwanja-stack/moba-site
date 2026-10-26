@@ -274,7 +274,7 @@ export const leaders = [
     ],
   },
   {
-    name: 'Arthur Abaliwano', role: 'Secretary General', cohort: '2003', cohortName: 'Kombora', houses: ['Wako'], photo: null,
+    name: 'Arthur Abaliwano', role: 'Secretary General', cohort: '2003', cohortName: 'Kombora', houses: ['Wako'], photo: '/leaders/arthur-abaliwano.webp',
     bio: [
       'Arthur Abaliwano is a lawyer with over 10 years of professional experience and a proud son of Mwiri. His contribution to the Mwiri community reflects a passion for bringing people together, strengthening connections and turning shared aspirations into meaningful action.',
       'As the founding Chairman of the Mwiri League, Arthur has championed a platform that brings Mwirians together through sport, fellowship and a shared commitment to their alma mater. He has also spearheaded initiatives in support of Mwiri, including the Mwiri Insurance Scheme and the Mwiri Oval Construction Project, demonstrating his commitment to both the welfare of the brotherhood and the development of the school.',
@@ -283,16 +283,16 @@ export const leaders = [
   },
   { name: 'Francis Obbo', role: 'Assistant Secretary General', cohort: '2004', photo: null },
   {
-    name: 'Samson Kakoma', role: 'Treasurer', cohort: '2002', cohortName: 'Atletico Muniga', houses: ['Presidents'], photo: null,
+    name: 'Samson Kakoma', role: 'Treasurer', cohort: '2002', cohortName: 'Atletico Muniga', houses: ['Presidents'], photo: '/leaders/samson-kakoma.webp',
     bio: [
       'Kakoma Kakos Samson is a businessman with a strong commitment to alumni leadership, sports development and community building. He has actively contributed to Mwiri through alumni mobilisation, the Mwiri League, the basketball court reconstruction initiative, the Mwiri Gate Project and the Mwiri Funeral Insurance Plan.',
       'Having served as Assistant Treasurer during the 2024–2026 term, Kakos brings experience in financial management and resource mobilisation to his current role. As Treasurer, he is committed to transparency, accountability and building a financially sustainable MOBA that unites Old Boys and advances Mwiri’s development.',
     ],
   },
-  { name: 'Davis Lado', role: 'Assistant Treasurer', cohort: '2005', photo: null },
+  { name: 'Davis Lado', role: 'Assistant Treasurer', cohort: '2005', photo: '/leaders/davis-lado.webp' },
   { name: 'Rodney Mugisha', role: 'Publicity Secretary', cohort: '1988', photo: null },
   {
-    name: 'Chris Mwanja', role: 'Executive Member', cohort: '2001', cohortName: 'Buliti', houses: ['Hannington'], photo: null,
+    name: 'Chris Mwanja', role: 'Executive Member', cohort: '2001', cohortName: 'Buliti', houses: ['Hannington'], photo: '/leaders/chris-mwanja.webp',
     bio: [
       'Chris Mwanja is an Electronics and Communication Engineer and web developer, and a proud Mwirian from Hannington House. He brings the discipline and attention to detail of his engineering profession to his service within MOBA.',
       'Chris served as Chairman of the Mwiri League for the 2024–2025 term, where he helped coordinate alumni sporting activities and strengthen engagement across cohorts. He also sits on the Mwiri Basketball Reconstruction Committee, where he has been directly involved in driving the revival of competitive basketball at the school.',
@@ -301,7 +301,7 @@ export const leaders = [
   },
   { name: 'Arthur Kyagaba', role: 'Executive Member', cohort: '2003', photo: null },
   {
-    name: 'Joshua Bizimungu', role: 'Executive Member', cohort: '2011', cohortName: 'Shadow', houses: ['Willis'], photo: null,
+    name: 'Joshua Bizimungu', role: 'Executive Member', cohort: '2011', cohortName: 'Shadow', houses: ['Willis'], photo: '/leaders/joshua-bizimungu.webp',
     bio: [
       'Joshua Bizimungu is a Management Analyst in Uganda’s Ministry of Public Service. He brings experience in leadership, public administration, organisational management and alumni mobilisation.',
       'Joshua served as President of the MOBA Makerere Chapter and chaired the 2024 MOBA Homecoming Organising Committee, which attracted thousands of attendees. A former School Volleyball Captain and Entertainment Prefect, he has also coached Mwiri’s volleyball team and continues to champion alumni engagement, sports development and the Mwiri spirit. As Chief Whip, he is committed to strengthening campus mobilisation and active participation in MOBA.',
@@ -309,7 +309,7 @@ export const leaders = [
   },
   { name: 'Allan Senyonga', role: 'Executive Member', cohort: '1995', photo: null },
   {
-    name: 'Godfrey Mazige', role: 'Executive Member', cohort: '2013', cohortName: 'Wampa', houses: ['Wilson'], photo: null,
+    name: 'Godfrey Mazige', role: 'Executive Member', cohort: '2013', cohortName: 'Wampa', houses: ['Wilson'], photo: '/leaders/godfrey-mazige.webp',
     bio: [
       'Mazige Godfrey is a finalist at Makerere University Business School pursuing a Bachelor’s degree in Marketing. He serves on the Executive Committee of the Mwiri Old Boys Association (MOBA) and has interests in leadership, marketing, networking and community development. He is passionate about strengthening alumni relationships and encouraging youth participation.',
       'He advocates for unity, inclusivity, mentorship and active participation within MOBA. He is committed to connecting recent and older alumni and supporting initiatives that contribute to Mwiri’s continued development.',
