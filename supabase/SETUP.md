@@ -18,7 +18,7 @@ The browser anon key is designed to be public. Authorization relies on Supabase 
 
 1. In Supabase Authentication > Sign In / Providers > Email: keep sign-ups **enabled** (members create their own accounts) and turn **Confirm email** on. Set the minimum password length to 8 or more.
 2. Authentication > Emails: set up custom SMTP (for example Resend or Brevo). The built-in sender allows only a handful of emails an hour, which is not enough for confirmation and reset emails.
-3. Authentication > URL Configuration: add `https://mwirian.org/member`, `https://mwirian.org/member/reset` and the local dev equivalents to Redirect URLs.
+3. Authentication > URL Configuration: add `https://www.mwirian.org/member`, `https://www.mwirian.org/member/reset` and the local dev equivalents to Redirect URLs.
 4. Consider turning on CAPTCHA protection (Authentication > Attack Protection): sign-up is now open to anyone with the site's public key.
 5. Run `migrations/202610270002_members.sql` in the SQL Editor (after the two earlier migrations).
 6. Add every school house to `public.moba_houses` (name + 3-letter code) and to `houses` in `src/data/content.js`. A member whose house is not in the table cannot be approved.
