@@ -20,10 +20,8 @@ export const site = {
   orderEmail: 'orders@mwirian.org', // TODO: where store orders are sent (use a shared admin mailbox)
 }
 
-// School houses offered on the member sign-up form. Keep in step with public.moba_houses in Supabase,
-// which holds each house's 3-letter code for MOBA numbers (a house missing there blocks approval).
-// TODO: add the remaining houses (names and codes) once confirmed.
-export const houses = ['Hannington', 'Wilson', 'Wako', 'Nadiope', 'Presidents']
+// The nine school houses offered on member sign-up and admin forms. Keep in step with public.moba_houses in Supabase.
+export const houses = ['Hannington', 'Nabikamba', 'Nadiope', 'Willis', 'Wilson', 'Waako', 'Presidents', 'Coates', 'Brewer']
 
 export const stats = [
   { label: 'Years of brotherhood', value: new Date().getFullYear() - site.founded },
@@ -400,7 +398,7 @@ export const leaders = [
     ],
   },
   {
-    name: 'Arthur Abaliwano', role: 'Secretary General', cohort: '2003', cohortName: 'Kombora', houses: ['Wako'], photo: '/leaders/arthur-abaliwano.webp',
+    name: 'Arthur Abaliwano', role: 'Secretary General', cohort: '2003', cohortName: 'Kombora', houses: ['Waako'], photo: '/leaders/arthur-abaliwano.webp',
     bio: [
       'Arthur Abaliwano is a lawyer with over 10 years of professional experience and a proud son of Mwiri. His contribution to the Mwiri community reflects a passion for bringing people together, strengthening connections and turning shared aspirations into meaningful action.',
       'As the founding Chairman of the Mwiri League, Arthur has championed a platform that brings Mwirians together through sport, fellowship and a shared commitment to their alma mater. He has also spearheaded initiatives in support of Mwiri, including the Mwiri Insurance Scheme and the Mwiri Oval Construction Project, demonstrating his commitment to both the welfare of the brotherhood and the development of the school.',
@@ -421,7 +419,7 @@ export const leaders = [
       'Having served as Assistant Treasurer during the 2024–2026 term, Kakos brings experience in financial management and resource mobilisation to his current role. As Treasurer, he is committed to transparency, accountability and building a financially sustainable MOBA that unites Old Boys and advances Mwiri’s development.',
     ],
   },
-  { name: 'Davis Lado', role: 'Assistant Treasurer', cohort: '2005',cohortName: 'Lukambwe', houses: ['Wako'], photo: '/leaders/davis-lado.webp',
+  { name: 'Davis Lado', role: 'Assistant Treasurer', cohort: '2005',cohortName: 'Lukambwe', houses: ['Waako'], photo: '/leaders/davis-lado.webp',
     bio: [
       'Davis Lado is a Professional Accountant with over 10 years of professional experience and a proud son of Mwiri.',
       'His contribution to the Mwiri community reflects a passion for bringing people together, strengthening connections, and turning shared aspirations into meaningful action.',
