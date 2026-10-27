@@ -30,6 +30,7 @@ export default function AdminContent() {
   const [edit, setEdit] = useState(null) // { row | null, form, problems: [] }
   const [bulk, setBulk] = useState(null) // { done, total, failed: [] }
   const [uploadCategory, setUploadCategory] = useState('')
+  const [newCategoryMode, setNewCategoryMode] = useState(false)
   const section = SECTIONS.find(s => s.kind === kind)
 
   // Sign-in check: a session AND a place on the admin or editor list.
@@ -64,6 +65,10 @@ export default function AdminContent() {
   useEffect(() => { if (user) { setEdit(null); setOk(''); load() } }, [user, kind, load])
 
   const view = r => r.draft || r.live || {}
+  const existingCategories = useMemo(() => [...new Set([
+    ...rows.map(r => r.draft?.category || r.live?.category),
+    ...(section.sample?.() || []).map(photo => photo.category),
+  ].map(value => String(value || '').trim()).filter(Boolean))].sort((a, b) => a.localeCompare(b)), [rows, section])
   const needsImport = state === 'ready' && !section.single && rows.length === 0 && (section.sample?.().length || 0) > 0
   const pending = useMemo(() => rows.filter(r => r.draft), [rows])
   const ready = useMemo(() => pending.filter(r => problems(section, r.draft).length === 0), [pending, section])
@@ -211,7 +216,10 @@ export default function AdminContent() {
     await load()
     const added = files.length - failed.length
     if (failed.length) setNotice(`Some pictures could not be added:\n${failed.join('\n')}`)
-    if (added) setOk(`${added} ${added === 1 ? 'photo' : 'photos'} added to “${category}” as drafts. Open each one to add a caption, then publish.`)
+    if (added) {
+      setNewCategoryMode(false)
+      setOk(`${added} ${added === 1 ? 'photo' : 'photos'} added to “${category}” as drafts. Open each one to add a caption, then publish.`)
+    }
   }
 
   async function signOut() { await supabase.auth.signOut(); navigate('/admin/login', { replace: true }) }
@@ -292,19 +300,34 @@ export default function AdminContent() {
             <div className="mt-6 flex flex-wrap items-center gap-3">
               {section.single
                 ? <button className={primary} disabled={busy || state !== 'ready'} onClick={() => startEdit(rows[0] || null)}>Edit {section.label.toLowerCase()}</button>
-                : <button className={primary} disabled={busy || state !== 'ready' || needsImport} onClick={() => startEdit(null)}>Add {section.noun}</button>}
+                : section.bulk
+                  ? <button className={primary} disabled={busy || state !== 'ready' || needsImport} onClick={() => { setUploadCategory(''); setNewCategoryMode(true) }}>Add category</button>
+                  : <button className={primary} disabled={busy || state !== 'ready' || needsImport} onClick={() => startEdit(null)}>Add {section.noun}</button>}
               {section.bulk && (
-                <>
-                  <label className="block min-w-[15rem] text-sm font-semibold text-brand">
-                    Category for new photos
-                    <input type="text" required maxLength={60} value={uploadCategory} onChange={e => setUploadCategory(e.target.value)}
-                      placeholder="e.g. Reunions, AGM & meetings" className="mt-1 w-full rounded-md border border-ink/30 bg-white px-3 py-2 font-normal focus:outline-none focus:ring-2 focus:ring-brand" />
-                  </label>
+                <div className="flex flex-wrap items-end gap-3 rounded-xl border border-brand/10 bg-paper/70 p-3">
+                  {newCategoryMode ? (
+                    <label className="block min-w-[15rem] text-sm font-semibold text-brand">
+                      New photo category
+                      <input type="text" required maxLength={60} value={uploadCategory} onChange={e => setUploadCategory(e.target.value)}
+                        placeholder="e.g. Reunions, AGM & meetings" className="mt-1 w-full rounded-md border border-ink/30 bg-white px-3 py-2 font-normal focus:outline-none focus:ring-2 focus:ring-brand" />
+                    </label>
+                  ) : (
+                    <label className="block min-w-[15rem] text-sm font-semibold text-brand">
+                      Choose an existing category
+                      <select value={uploadCategory} onChange={e => setUploadCategory(e.target.value)}
+                        className="mt-1 w-full rounded-md border border-ink/30 bg-white px-3 py-2 font-normal focus:outline-none focus:ring-2 focus:ring-brand">
+                        <option value="">Select a category…</option>
+                        {existingCategories.map(category => <option key={category} value={category}>{category}</option>)}
+                      </select>
+                    </label>
+                  )}
                   <label className={`${outline} cursor-pointer focus-within:ring-2 focus-within:ring-brand ${busy || needsImport || state !== 'ready' || bulk || !uploadCategory.trim() ? 'pointer-events-none opacity-50' : ''}`}>
-                    Upload photos to this category
+                    {uploadCategory.trim() ? `Upload photos to “${uploadCategory.trim()}”` : 'Choose a category first'}
                     <input type="file" accept="image/*" multiple onChange={addPhotos} disabled={busy || needsImport || state !== 'ready' || bulk || !uploadCategory.trim()} className="sr-only" />
                   </label>
-                </>
+                  {newCategoryMode && <button type="button" className={`${btn} text-brand underline`} onClick={() => { setNewCategoryMode(false); setUploadCategory('') }}>Cancel</button>}
+                  <p className="basis-full text-xs text-ink/65">Choose an existing category or add a new one. A new category appears in this list once its first photos are added.</p>
+                </div>
               )}
               {pending.length > 0 && !section.single && (
                 <button className={outline} disabled={busy || !ready.length} onClick={publishAll}>
