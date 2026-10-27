@@ -127,7 +127,7 @@ export default function Member() {
           </section>
         )}
 
-        {state === 'ready' && (
+        {state === 'ready' && member && (
           <div className="mt-8 rounded-lg bg-white shadow border-l-4 border-gold p-6 flex flex-wrap items-center justify-between gap-4">
             <div>
               <h2 className="font-semibold text-brand">Your cart</h2>
