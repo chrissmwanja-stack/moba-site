@@ -17,7 +17,6 @@ const links = [
   { to: '/contact', label: 'Contact' },
 ]
 
-const adminBtn = 'hidden rounded border border-white/40 px-4 py-3 text-sm font-semibold text-white whitespace-nowrap hover:bg-white/10 sm:block'
 const loginBtn = 'rounded bg-gold px-3.5 py-2.5 sm:px-5 sm:py-3 text-sm font-semibold text-brand-dark hover:brightness-110 whitespace-nowrap'
 
 // Two rows on desktop: brand + motto + Member Login, then the main navigation.
@@ -48,7 +47,6 @@ export default function Header() {
         </Link>
         <div className="flex items-center gap-3 sm:gap-4">
           <p className="hidden border-l-[3px] border-gold pl-3 font-display text-[15px] italic text-[#f5e6c4] lg:block">{site.motto}</p>
-          <Link to="/admin/login" className={adminBtn}>Admin</Link>
           <Link to="/member" className={loginBtn}><span className="sm:hidden">Login</span><span className="hidden sm:inline">Member Login</span></Link>
           <button className="text-2xl xl:hidden" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Menu">
             {open ? '✕' : '☰'}
@@ -64,7 +62,6 @@ export default function Header() {
       {open && (
         <nav aria-label="Main" className="flex flex-col px-4 pb-3 xl:hidden" onClick={() => setOpen(false)}>
           {links.map(l => <NavLink key={l.to} to={l.to} end={l.to === '/'} className={mobileLink}>{l.label}</NavLink>)}
-          <NavLink to="/admin/login" className={mobileLink}>Admin login</NavLink>
           <NavLink to="/cart" className={mobileLink}>Cart{count > 0 && ` (${count})`}</NavLink>
           <p className="mt-3 border-l-[3px] border-gold pl-3 font-display text-[15px] italic text-[#f5e6c4]">{site.motto}</p>
         </nav>

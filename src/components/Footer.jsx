@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import Logo from './Logo.jsx'
 import { site } from '../data/content.js'
 
 // Footer columns. Every page on the site is reachable from here.
@@ -40,7 +39,13 @@ export default function Footer() {
     <footer className="mt-16 border-t-[3px] border-gold bg-brand text-white">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 lg:grid-cols-[1.2fr_2fr]">
         <div>
-          <Link to="/" aria-label="MOBA, Mwiri Old Boys Association: home" className="inline-block"><Logo /></Link>
+          <Link to="/" aria-label="MOBA, Mwiri Old Boys Association: home" className="flex items-center gap-4">
+            <img src="/moba-shield.webp" alt="" className="h-16 w-auto" />
+            <span>
+              <span className="block text-lg font-semibold text-gold">{site.fullName}</span>
+              <span className="block text-sm text-white/85">Est. {site.founded}</span>
+            </span>
+          </Link>
           <address className="mt-6 space-y-1 text-sm not-italic text-white/85">
             <p>{site.address}</p>
             <p><a href={`mailto:${site.email}`} className="hover:text-gold">{site.email}</a></p>
@@ -79,8 +84,6 @@ export default function Footer() {
             © {new Date().getFullYear()} {site.fullName} Ltd
             <span aria-hidden="true"> · </span>
             <Link to="/privacy" className="hover:text-gold">Privacy</Link>
-            <span aria-hidden="true"> · </span>
-            <Link to="/member" className="hover:text-gold">Member login</Link>
           </p>
           <p className="font-display text-[15px] italic text-[#f5e6c4]">One Heritage. Many Generations. A Stronger Mwiri.</p>
         </div>

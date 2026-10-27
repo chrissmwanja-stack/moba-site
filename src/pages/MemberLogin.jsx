@@ -93,6 +93,8 @@ export default function MemberLogin() {
           : 'Sign in to see your MOBA membership card.'}
       />
       <section className="max-w-md mx-auto px-4 py-12">
+        {/* Staff sign-in lives here, off to the side, so the public header stays uncluttered */}
+        <p className="mb-2 text-right text-sm"><Link to="/admin/login" className="font-medium text-brand/80 hover:text-brand hover:underline">Admin sign-in →</Link></p>
         {notice && <p role="status" className="mb-4 text-sm bg-gold/20 border border-gold p-3 rounded">{notice}</p>}
         <form onSubmit={submit} className="bg-white rounded-lg shadow p-6 space-y-4" key={mode}>
           {!isSupabaseConfigured && <p className="text-sm bg-gold/20 p-3 rounded">Sign-in is not available right now.</p>}
@@ -141,7 +143,6 @@ export default function MemberLogin() {
             {mode !== 'signin' && <p><button type="button" onClick={() => switchTo('signin')} className="text-brand underline">Back to sign in</button></p>}
           </div>
         </form>
-        <p className="mt-4 text-center text-sm text-ink/70">Committee or staff? <Link to="/admin/login" className="text-brand underline">Admin sign-in</Link></p>
       </section>
     </>
   )
