@@ -3,13 +3,17 @@ import PageHeader from '../components/PageHeader.jsx'
 import CheckoutForm from '../components/CheckoutForm.jsx'
 import { Link } from 'react-router-dom'
 import MemberCard from '../components/MemberCard.jsx'
-import { tiers, benefits } from '../data/content.js'
+import { benefits } from '../data/content.js'
+import { useContent } from '../lib/siteContent.js'
 import { ugx } from '../lib/format.js'
 import { PAYMENT_API_URL } from '../lib/payments.js'
 
 export default function Membership() {
-  const [selected, setSelected] = useState(tiers[0].id)
-  const tier = tiers.find(t => t.id === selected)
+  const { tiers } = useContent()
+  const [selected, setSelected] = useState('')
+  const activeTier = tiers.find(t => t.id === selected) || tiers[0]
+  const selectedId = activeTier?.id
+  const tier = activeTier
   const online = Boolean(PAYMENT_API_URL)
 
   return (
@@ -22,12 +26,12 @@ export default function Membership() {
       />
 
       {/* Centred, equal-height cards; the column count follows the number of plans */}
-      <section
+      {tiers.length > 0 && <section
         aria-label="Membership plans"
         className={`max-w-3xl mx-auto px-4 mt-12 grid gap-6 items-stretch ${tiers.length > 1 ? 'sm:grid-cols-2' : ''}`}
       >
         {tiers.map(t => {
-          const on = selected === t.id
+          const on = selectedId === t.id
           return (
             <button
               key={t.id}
@@ -50,7 +54,7 @@ export default function Membership() {
             </button>
           )
         })}
-      </section>
+      </section>}
 
       <section aria-label="Your member card" className="max-w-3xl mx-auto px-4 mt-14 grid gap-8 md:grid-cols-2 items-center">
         <div>
@@ -84,7 +88,7 @@ export default function Membership() {
         </section>
       )}
 
-      <section className="max-w-3xl mx-auto px-4 mt-10 mb-4">
+      {tier && <section className="max-w-3xl mx-auto px-4 mt-10 mb-4">
         <p className="mb-3 font-medium">Joining as: <span className="text-brand">{tier.name}</span></p>
         <CheckoutForm
           key={tier.id}
@@ -95,7 +99,7 @@ export default function Membership() {
         <p className="mt-4 text-sm text-ink/70">
           Already a member? <Link to="/update-details" className="font-semibold text-brand underline">Update your details</Link> so we can keep the register current.
         </p>
-      </section>
+      </section>}
     </>
   )
 }

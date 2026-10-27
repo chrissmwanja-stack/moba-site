@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
 import NewsCard from '../components/NewsCard.jsx'
-import { site, stats, about } from '../data/content.js'
+import { site } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
 import { formatDate } from '../lib/format.js'
 import { newsPath } from '../lib/news.js'
 
 export default function Home() {
-  const { projects, news, photos } = useContent()
+  const { projects, news, photos, about, stats } = useContent()
   const today = new Date().toISOString().slice(0, 10)
   const upcoming = news.filter(n => n.date >= today).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 3)
   const latest = news.filter(n => n.date < today).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3)

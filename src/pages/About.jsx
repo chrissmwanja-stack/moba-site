@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import PhotoBand from '../components/PhotoBand.jsx'
-import { site, stats, about } from '../data/content.js'
+import { site } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
 
 const initials = name => name.split(' ').map(w => w[0]).slice(0, 2).join('')
@@ -10,7 +10,7 @@ function SectionHeading({ children, id }) {
 }
 
 export default function About() {
-  const { leaders } = useContent()
+  const { leaders, about, stats } = useContent()
   // The first two entries in `leaders` are the President and Vice President
   const topLeaders = leaders.slice(0, 2)
   const { motto, governance } = about

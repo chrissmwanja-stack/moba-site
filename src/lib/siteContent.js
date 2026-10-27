@@ -32,8 +32,11 @@ export function build(st) {
   const site = { ...base.site, ...settings, social: { ...base.site.social, ...(settings.social || {}) } }
   if (!Array.isArray(site.donate)) site.donate = base.site.donate
 
+  const aboutRow = st?.rows?.find(r => r.kind === 'about' && r.key === 'about')
+  const about = managed('about') ? (aboutRow?.data || base.about) : base.about
   return {
     site,
+    stats: about.stats || base.stats,
     leadersTerm: settings.leadersTerm || base.leadersTerm,
     news: list('news', base.news),
     photos: managed('photo') ? items(st, 'photo').map(p => ({ ...p, id: p._id })) : base.photos,
@@ -41,6 +44,11 @@ export function build(st) {
     leaders: list('leader', base.leaders),
     prominentMwirians: list('mwirian', base.prominentMwirians),
     archives: list('archive', base.archives),
+    timeline: list('timeline', base.timeline),
+    about,
+    products: list('product', base.products),
+    tiers: list('membership_plan', base.tiers),
+    cohorts: list('cohort', base.cohorts),
   }
 }
 

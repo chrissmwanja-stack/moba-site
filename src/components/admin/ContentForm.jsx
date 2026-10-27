@@ -82,6 +82,30 @@ function FileField({ fd, form, set, id }) {
   )
 }
 
+function RepeatField({ fd, value = [], onChange }) {
+  const patch = (index, key, next) => onChange(value.map((item, i) => i === index ? { ...item, [key]: next } : item))
+  const add = () => onChange([...value, Object.fromEntries((fd.itemFields || []).map(field => [field.key, '']))])
+  return (
+    <div className="space-y-3">
+      {value.map((item, index) => (
+        <fieldset key={index} className="rounded-md border border-ink/20 bg-paper p-4 space-y-3">
+          <legend className="px-1 text-sm font-semibold text-brand">{fd.label} {index + 1}</legend>
+          {(fd.itemFields || []).map(field => (
+            <label key={field.key} className="block text-sm font-medium">
+              {field.label}{field.required && <span className="text-red-700" aria-hidden="true"> *</span>}
+              {field.multiline
+                ? <textarea rows={3} className={`${input} mt-1`} value={item[field.key] || ''} onChange={e => patch(index, field.key, e.target.value)} />
+                : <input className={`${input} mt-1`} value={item[field.key] || ''} onChange={e => patch(index, field.key, e.target.value)} />}
+            </label>
+          ))}
+          <button type="button" className="text-sm font-semibold text-red-700 underline" onClick={() => onChange(value.filter((_, i) => i !== index))}>Remove item</button>
+        </fieldset>
+      ))}
+      <button type="button" className={smallBtn} onClick={add}>Add {fd.label.toLowerCase().replace(/s$/, '')}</button>
+    </div>
+  )
+}
+
 function Methods({ value, onChange }) {
   const update = (i, patch) => onChange(value.map((m, j) => (j === i ? { ...m, ...patch } : m)))
   return (
@@ -109,7 +133,8 @@ export default function ContentForm({ section, form, setForm }) {
         switch (fd.type) {
           case 'textarea':
           case 'paragraphs':
-            control = <textarea id={id} rows={fd.rows || 4} className={input} value={v} onChange={e => set({ [fd.key]: e.target.value })} />
+          case 'json':
+            control = <textarea id={id} rows={fd.rows || 4} spellCheck={fd.type !== 'json'} className={input} value={v} onChange={e => set({ [fd.key]: e.target.value })} />
             break
           case 'select': {
             const opts = fd.options.map(o => (Array.isArray(o) ? o : [o, o]))
@@ -129,6 +154,9 @@ export default function ContentForm({ section, form, setForm }) {
                 Yes
               </label>
             )
+            break
+          case 'repeat':
+            control = <RepeatField fd={fd} value={v || []} onChange={value => set({ [fd.key]: value })} />
             break
           case 'houses':
             control = (

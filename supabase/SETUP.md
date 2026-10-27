@@ -30,7 +30,7 @@ Notes: the MOBA number is built once, at first approval, and never changes (fix 
 
 Admins and editors change the website from `/admin/content`. Everything is saved as a **draft** first and only appears on the website when someone presses **Publish**.
 
-1. Run `migrations/202610280001_site_content.sql` in the SQL Editor (after the earlier ones). It is safe to run twice. It creates the content tables, the `moba_editors` list and a public storage bucket called `site-media` for pictures and PDFs.
+1. Run `migrations/202610270003_site_content.sql` in the SQL Editor (after the earlier ones). It is safe to run twice. It creates the content tables, the `moba_editors` list and a public storage bucket called `site-media` for pictures and PDFs.
 2. **Roles.** Admins (the `moba_admins` list) can edit content and also see orders and the member register. **Editors** can edit content only. To add an editor, create their account under Authentication > Users, then run:
 
    ```sql
@@ -44,3 +44,8 @@ Admins and editors change the website from `/admin/content`. Everything is saved
 5. **Who can publish.** At the moment anyone who can edit can publish. To make editors save drafts only, so an administrator approves changes, change `moba_can_edit_content()` to `moba_is_admin()` inside `moba_publish_content` and `moba_unpublish_content` in the migration and run it again.
 
 Order changes in the lists (arrows) and gallery uploads that are already published take effect immediately; everything else waits for Publish. If Supabase is unreachable the website falls back to the content in `content.js`.
+
+
+## Editing remaining built-in content
+
+The admin content editor also supports the history timeline, About page copy, store products, membership plans and cohorts. Apply the follow-up migration `migrations/202610270004_editable_static_content.sql` after the site-content migration. For each section currently served from `src/data/content.js`, choose **Import current ...** once in `/admin/content`; the import is published without changing how the live page looks. About is a single editable record: open **About page** and save/publish the initial values.

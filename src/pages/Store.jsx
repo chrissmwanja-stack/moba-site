@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
-import { products } from '../data/content.js'
+import { useContent } from '../lib/siteContent.js'
 import { useCart } from '../context/CartContext.jsx'
 import { ugx } from '../lib/format.js'
 
 export default function Store() {
   const { add, count } = useCart()
+  const { products } = useContent()
   const [category, setCategory] = useState('All')
   const categories = ['All', ...new Set(products.map(p => p.category).filter(Boolean))]
   const shown = category === 'All' ? products : products.filter(p => p.category === category)

@@ -1,7 +1,8 @@
 import PhotoBand from '../components/PhotoBand.jsx'
-import { timeline } from '../data/content.js'
+import { useContent } from '../lib/siteContent.js'
 
 export default function History() {
+  const { timeline } = useContent()
   return (
     <>
       <PhotoBand>

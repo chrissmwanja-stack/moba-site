@@ -100,6 +100,78 @@ export const SECTIONS = [
     sample: () => base.leaders,
   },
   {
+    kind: 'timeline', label: 'History timeline', noun: 'milestone', reorder: true,
+    fields: [
+      { key: 'year', label: 'Year', type: 'number', required: true },
+      { key: 'title', label: 'Milestone title', type: 'text', required: true },
+      { key: 'text', label: 'Description', type: 'textarea', rows: 5, required: true },
+    ],
+    title: d => `${d.year || ''} — ${d.title || ''}`, summary: d => d.text, sample: () => base.timeline,
+  },
+  {
+    kind: 'about', label: 'About page', noun: 'About page', single: true, key: 'about',
+    fields: [
+      { key: 'summary', label: 'Home page summary', type: 'textarea', rows: 4, required: true },
+      { key: 'story', label: 'Our story (one paragraph per block)', type: 'paragraphs', rows: 6 },
+      { key: 'purpose', label: 'Purpose', type: 'textarea', rows: 3 },
+      { key: 'vision', label: 'Vision', type: 'textarea', rows: 3 },
+      { key: 'mission', label: 'Mission', type: 'textarea', rows: 4 },
+      { key: 'promise', label: 'Promise', type: 'textarea', rows: 3 },
+      { key: 'motto.lusoga', label: 'Motto in Lusoga', type: 'text' },
+      { key: 'motto.english', label: 'Motto in English', type: 'text' },
+      { key: 'motto.note', label: 'Motto note', type: 'textarea', rows: 3 },
+      { key: 'governance.text', label: 'Governance statement', type: 'textarea', rows: 3 },
+      { key: 'governance.constitutionUrl', label: 'Constitution PDF URL', type: 'text' },
+      { key: 'governance.constitutionLabel', label: 'Constitution link text', type: 'text' },
+      { key: 'stats', label: 'Site statistics', type: 'repeat', itemFields: [{ key: 'label', label: 'Label', required: true }, { key: 'value', label: 'Value', required: true }], help: 'Shown in the home page and About page statistic cards.' },
+      { key: 'priorities', label: 'Executive priorities', type: 'repeat', required: true, itemFields: [{ key: 'title', label: 'Title', required: true }, { key: 'text', label: 'Description', required: true, multiline: true }, { key: 'link', label: 'Optional link URL' }, { key: 'linkLabel', label: 'Optional link text' }] },
+      { key: 'values', label: 'MOBA values (JSON list)', type: 'json', jsonType: 'array', rows: 8, required: true, help: 'Edit as a JSON array. Each item has title, tagline and text.' },
+      { key: 'committees', label: 'Committees (JSON list)', type: 'json', jsonType: 'array', rows: 14, required: true, help: 'Edit as a JSON array. Each item has name, text, and optional chair.' },
+    ],
+    title: () => 'About page content', summary: () => 'Home summary, story, purpose, mission, values and committees',
+    defaults: () => ({ ...JSON.parse(JSON.stringify(base.about)), stats: JSON.parse(JSON.stringify(base.stats)) }),
+  },
+  {
+    kind: 'product', label: 'Store products', noun: 'product', reorder: true,
+    fields: [
+      { key: 'id', label: 'Product ID', type: 'text', required: true, help: 'Keep the ID stable so existing cart items can still be identified.' },
+      { key: 'name', label: 'Product name', type: 'text', required: true },
+      { key: 'variant', label: 'Variant / description line', type: 'text' },
+      { key: 'category', label: 'Category', type: 'text', required: true, help: 'Products with the same category share a Store filter button.' },
+      { key: 'price', label: 'Price (UGX)', type: 'number', required: true },
+      { key: 'delivery', label: 'Delivery type', type: 'select', options: [['physical', 'Physical'], ['digital', 'Digital']], required: true },
+      { key: 'image', label: 'Product image', type: 'image', folder: 'store', maxSide: 1200 },
+      { key: 'blurb', label: 'Short description', type: 'textarea', rows: 3 },
+      { key: 'preview', label: 'Mark image as a design preview', type: 'checkbox' },
+    ],
+    title: d => d.name, summary: d => [d.variant, d.category, d.price && `UGX ${Number(d.price).toLocaleString('en-UG')}`].filter(Boolean).join(' · '), preview: d => d.image,
+    sample: () => base.products,
+    validate: d => (d.price < 0 ? 'Price cannot be negative.' : ''),
+  },
+  {
+    kind: 'membership_plan', label: 'Membership plans', noun: 'plan', reorder: true,
+    fields: [
+      { key: 'id', label: 'Plan ID', type: 'text', required: true },
+      { key: 'name', label: 'Plan name', type: 'text', required: true },
+      { key: 'price', label: 'Price (UGX)', type: 'number', required: true },
+      { key: 'period', label: 'Payment period', type: 'select', options: [['year', 'Per year'], ['one-off', 'One-off']], required: true },
+      { key: 'perks', label: 'Benefits (one per paragraph)', type: 'paragraphs', rows: 6, required: true },
+    ],
+    title: d => d.name, summary: d => `UGX ${Number(d.price || 0).toLocaleString('en-UG')} · ${d.period || ''}`,
+    sample: () => base.tiers,
+  },
+  {
+    kind: 'cohort', label: 'Cohorts', noun: 'cohort', reorder: false,
+    fields: [
+      { key: 'year', label: 'Year class started S1', type: 'number', required: true },
+      { key: 'contact', label: 'Coordinator / contact name', type: 'text', required: true },
+      { key: 'email', label: 'Coordinator email', type: 'text' },
+      { key: 'whatsapp', label: 'WhatsApp invite URL', type: 'text' },
+    ],
+    title: d => `Cohort ${d.year}`, summary: d => d.contact,
+    sample: () => base.cohorts,
+  },
+  {
     kind: 'setting', label: 'Site details', noun: 'site details', single: true, key: 'site',
     fields: [
       { key: 'email', label: 'Association email', type: 'text' },
@@ -162,6 +234,8 @@ export function toForm(section, data = {}) {
   for (const fd of section.fields) {
     const v = get(data, fd.key)
     if (fd.type === 'paragraphs') f[fd.key] = Array.isArray(v) ? v.join('\n\n') : v || ''
+    else if (fd.type === 'json') f[fd.key] = JSON.stringify(v ?? (fd.jsonType === 'array' ? [] : {}), null, 2)
+    else if (fd.type === 'repeat') f[fd.key] = Array.isArray(v) ? v.map(item => Object.fromEntries((fd.itemFields || []).map(x => [x.key, item?.[x.key] == null ? '' : String(item[x.key])]))) : []
     else if (fd.type === 'houses') f[fd.key] = Array.isArray(v) ? v : []
     else if (fd.type === 'methods') f[fd.key] = Array.isArray(v) ? v.map(m => ({ label: m.label || '', lines: (m.lines || []).join('\n') })) : []
     else if (fd.type === 'checkbox') f[fd.key] = Boolean(v)
@@ -183,6 +257,8 @@ export function fromForm(section, form, original = {}) {
     let value
     switch (fd.type) {
       case 'paragraphs': value = String(v || '').split(/\n{2,}/).map(p => p.trim()).filter(Boolean); break
+      case 'json': { try { value = JSON.parse(String(v || '')) } catch { value = String(v || '') }; break }
+      case 'repeat': value = (v || []).map(item => Object.fromEntries((fd.itemFields || []).map(x => [x.key, item[x.key]?.trim() || undefined]))); break
       case 'houses': value = v; break
       case 'methods': value = (v || []).map(m => ({ label: m.label.trim(), lines: m.lines.split('\n').map(l => l.trim()).filter(Boolean) })).filter(m => m.label); break
       case 'checkbox': value = Boolean(v); break
@@ -198,9 +274,22 @@ export function fromForm(section, form, original = {}) {
 export function problems(section, data) {
   const list = []
   for (const fd of section.fields) {
-    if (!fd.required) continue
     const v = get(data, fd.key)
-    if (v === undefined || v === null || v === '' || (Array.isArray(v) && !v.length)) list.push(`${fd.label} is required.`)
+    if (fd.type === 'repeat') {
+      if (fd.required && (!Array.isArray(v) || !v.length)) list.push(`${fd.label} needs at least one item.`)
+      if (Array.isArray(v)) v.forEach((item, i) => (fd.itemFields || []).filter(x => x.required).forEach(x => {
+        if (!String(item?.[x.key] || '').trim()) list.push(`${fd.label}: item ${i + 1} needs ${x.label.toLowerCase()}.`)
+      }))
+    }
+    if (fd.type === 'json' && typeof v === 'string') {
+      list.push(`${fd.label} must contain valid JSON.`)
+      continue
+    }
+    if (fd.type === 'json' && fd.jsonType === 'array' && v != null && !Array.isArray(v)) {
+      list.push(`${fd.label} must be a JSON list (array).`)
+      continue
+    }
+    if (fd.required && (v === undefined || v === null || v === '' || (Array.isArray(v) && !v.length))) list.push(`${fd.label} is required.`)
   }
   const extra = section.validate?.(data)
   if (extra) list.push(extra)

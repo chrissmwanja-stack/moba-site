@@ -53,7 +53,7 @@ export default function AdminContent() {
     if (error) {
       setState('error')
       setNotice(/site_content|schema cache|does not exist/i.test(error.message)
-        ? 'The content tables are not set up yet. Run supabase/migrations/202610280001_site_content.sql in the Supabase SQL Editor, then reload this page.'
+        ? 'The content tables are not set up yet. Run supabase/migrations/202610270003_site_content.sql in the Supabase SQL Editor, then reload this page.'
         : error.message)
       return
     }
@@ -67,7 +67,13 @@ export default function AdminContent() {
   const pending = useMemo(() => rows.filter(r => r.draft), [rows])
   const ready = useMemo(() => pending.filter(r => problems(section, r.draft).length === 0), [pending, section])
 
-  const fail = error => { setNotice(error.message || String(error)); setBusy(false) }
+  const fail = error => {
+    const message = error.message || String(error)
+    setNotice(/site_content_kind_check/.test(message)
+      ? 'This content type is not enabled in Supabase yet. Apply supabase/migrations/202610270004_editable_static_content.sql, then try again.'
+      : message)
+    setBusy(false)
+  }
   const done = async (message, publishedSomething) => {
     if (publishedSomething) await api.refreshSite()
     await load(); setOk(message); setBusy(false)
@@ -260,7 +266,7 @@ export default function AdminContent() {
           <>
             <div className="mt-6 flex flex-wrap items-center gap-3">
               {section.single
-                ? <button className={primary} disabled={busy || state !== 'ready'} onClick={() => startEdit(rows[0] || null)}>Edit site details</button>
+                ? <button className={primary} disabled={busy || state !== 'ready'} onClick={() => startEdit(rows[0] || null)}>Edit {section.label.toLowerCase()}</button>
                 : <button className={primary} disabled={busy || state !== 'ready' || needsImport} onClick={() => startEdit(null)}>Add {section.noun}</button>}
               {section.bulk && (
                 <label className={`${outline} cursor-pointer focus-within:ring-2 focus-within:ring-brand ${busy || needsImport || state !== 'ready' || bulk ? 'pointer-events-none opacity-50' : ''}`}>

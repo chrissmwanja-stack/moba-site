@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
-import { site, branches, cohorts } from '../data/content.js'
+import { branches } from '../data/content.js'
+import { useContent } from '../lib/siteContent.js'
 
 const decadeOf = y => `${Math.floor(y / 10) * 10}s`
 
@@ -81,6 +82,7 @@ function ClassPanel({ year, group }) {
 }
 
 export default function Cohorts() {
+  const { site, cohorts } = useContent()
   const thisYear = new Date().getFullYear()
   // Someone who joins in S1 in year Y leaves after S6 in Y + schoolYears - 1.
   // Anyone who joined after `lastCohort` is still at school, so they are not Old Boys yet.

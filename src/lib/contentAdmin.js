@@ -1,5 +1,5 @@
 // Admin-side calls for editing website content. Everything here runs with the signed-in staff member's
-// session; the database decides what they are allowed to do (see 202610280001_site_content.sql).
+// session; the database decides what they are allowed to do (see 202610270003_site_content.sql).
 import { supabase } from './supabase.js'
 import { loadContent } from './siteContent.js'
 
