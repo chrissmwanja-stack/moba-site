@@ -86,17 +86,17 @@ export default function MemberLogin() {
 
   return (
     <>
-      <PageHeader variant="functional"
+      <PageHeader eyebrow="Member portal"
         title={title}
         subtitle={mode === 'signup'
           ? 'Register once. After the secretary verifies your details you get your permanent MOBA number and digital card.'
           : 'Sign in to see your MOBA membership card.'}
       />
-      <section className="max-w-md mx-auto px-4 py-12">
+      <section className="mx-auto max-w-md px-4 py-14 md:py-16">
         {/* Staff sign-in lives here, off to the side, so the public header stays uncluttered */}
         <p className="mb-2 text-right text-sm"><Link to="/admin/login" className="font-medium text-brand/80 hover:text-brand hover:underline">Admin sign-in →</Link></p>
         {notice && <p role="status" className="mb-4 text-sm bg-gold/20 border border-gold p-3 rounded">{notice}</p>}
-        <form onSubmit={submit} className="bg-white rounded-lg shadow p-6 space-y-4" key={mode}>
+        <form onSubmit={submit} className="space-y-5 rounded-md border border-brand/10 bg-white p-6 shadow-sm md:p-8" key={mode}>
           {!isSupabaseConfigured && <p className="text-sm bg-gold/20 p-3 rounded">Sign-in is not available right now.</p>}
 
           {mode === 'signup' && <>
@@ -131,7 +131,7 @@ export default function MemberLogin() {
 
           {error && <p role="alert" className="text-sm text-red-700 bg-red-50 p-3 rounded">{error}</p>}
 
-          <button disabled={busy || !isSupabaseConfigured} className="bg-brand text-white font-semibold px-6 py-3 rounded-md disabled:opacity-60 w-full sm:w-auto">
+          <button disabled={busy || !isSupabaseConfigured} className="w-full rounded-sm bg-gold px-6 py-3 font-semibold text-brand-dark transition hover:brightness-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:opacity-60 sm:w-auto">
             {busy ? 'Please wait…' : { signin: 'Sign in', signup: 'Create account', forgot: 'Send reset link' }[mode]}
           </button>
 
