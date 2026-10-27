@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import NewsCard from '../components/NewsCard.jsx'
+import HomeNewsCard from '../components/HomeNewsCard.jsx'
 import { site } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
 import { formatDate } from '../lib/format.js'
@@ -81,13 +82,22 @@ export default function Home() {
       )}
 
       {latest.length > 0 && (
-        <section className="max-w-6xl mx-auto px-4 mt-16">
-          <div className="flex items-end justify-between">
-            <h2 className="text-2xl font-bold text-brand">Latest news</h2>
-            <Link to="/news" className="text-brand font-medium hover:underline">All news →</Link>
-          </div>
-          <div className="grid gap-4 md:grid-cols-3 mt-6">
-            {latest.map(n => <NewsCard key={n.title + n.date} item={n} />)}
+        <section className="mt-16 bg-[#f4f5f7] py-14 md:mt-20 md:py-20">
+          <div className="mx-auto max-w-6xl px-4">
+            <div className="flex flex-wrap items-end justify-between gap-5">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.28em] text-brand/70">Latest news</p>
+                <h2 className="mt-3 font-display text-4xl font-bold leading-tight text-brand md:text-5xl">
+                  From the Hill and beyond
+                </h2>
+              </div>
+              <Link to="/news" className="mb-1 font-semibold text-brand underline underline-offset-4 decoration-brand/40 hover:decoration-brand">
+                View all news <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+            <div className="mt-8 grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-3 md:mt-10">
+              {latest.slice(0, 3).map(n => <HomeNewsCard key={n.title + n.date} item={n} />)}
+            </div>
           </div>
         </section>
       )}
