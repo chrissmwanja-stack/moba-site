@@ -14,6 +14,9 @@ export const site = {
   email: 'info@mwirian.org',       // TODO
   address: 'P.O. Box 319, Jinja, Uganda',
   phone: null,                      // TODO: add the association phone number (hidden on the site while null)
+  // Ways to give, shown on the Donate page. Each: { label: 'Bank transfer', lines: ['Account name: ...', 'Account no: ...'] }.
+  // Leave empty until the executive confirms the official accounts; the page then explains that we will send details after a pledge.
+  donate: [], // TODO: add the association's bank and mobile money details
   orderEmail: 'orders@mwirian.org', // TODO: where store orders are sent (use a shared admin mailbox)
 }
 

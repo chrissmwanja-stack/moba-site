@@ -20,7 +20,8 @@ const columns = [
   { title: 'Get involved', links: [
     { to: '/membership', label: 'Membership' },
     { to: '/funeral-cover', label: 'Funeral Insurance' },
-    { to: '/store', label: 'Donate & shop' },
+    { to: '/donate', label: 'Donate' },
+    { to: '/store', label: 'Memorabilia store' },
     { to: '/update-details', label: 'Update your details' },
   ] },
 ]

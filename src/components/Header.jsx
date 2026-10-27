@@ -11,7 +11,7 @@ const links = [
   { to: '/projects', label: 'Projects & Impact' },
   { to: '/news', label: 'News & Events' },
   { to: '/gallery', label: 'Gallery' },
-  { to: '/store', label: 'Support MOBA' },
+  { to: '/support', label: 'Support MOBA' },
   { to: '/membership', label: 'Membership' },
   { to: '/contact', label: 'Contact' },
 ]

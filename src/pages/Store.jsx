@@ -16,6 +16,7 @@ export default function Store() {
       <PageHeader title="MOBA Store" subtitle="Wear the crest. Memorabilia from the Mwiri Old Boys Association. Order online, pay on delivery." />
 
       <div className="max-w-6xl mx-auto px-4 mt-10">
+        <p className="mb-6 text-sm text-ink/75">Prefer to give directly? <Link to="/donate" className="font-medium text-brand underline">Donate to a MOBA project</Link>.</p>
         <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
           {categories.map(c => (
             <button key={c} onClick={() => setCategory(c)} aria-pressed={category === c}

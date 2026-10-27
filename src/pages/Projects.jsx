@@ -39,8 +39,8 @@ export default function Projects() {
                 </p>
               )}
               {p.status === 'Ongoing' && (
-                <Link to="/contact" className="mt-4 inline-block text-sm font-semibold text-brand underline hover:text-brand-dark">
-                  Ask how to support this project →
+                <Link to={`/donate?project=${encodeURIComponent(p.title)}`} className="mt-4 inline-block text-sm font-semibold text-brand underline hover:text-brand-dark">
+                  Support this project →
                 </Link>
               )}
             </div>
