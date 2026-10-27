@@ -222,12 +222,13 @@ export default function AdminContent() {
   return (
     <>
       <PageHeader variant="functional" title="Website content" subtitle={`Signed in as ${user.email} (${role})`} />
-      <section className="max-w-5xl mx-auto px-4 py-8">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div role="tablist" aria-label="Sections" className="flex flex-wrap gap-2">
+      <section className="max-w-6xl mx-auto px-4 py-8 md:py-10">
+        <div className="rounded-xl border border-brand/10 bg-white p-4 shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div role="tablist" aria-label="Sections" className="flex max-w-full flex-wrap gap-2">
             {SECTIONS.map(s => (
               <button key={s.kind} role="tab" aria-selected={s.kind === kind} onClick={() => setKind(s.kind)}
-                className={`rounded-md border-2 px-4 py-2 font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-brand ${s.kind === kind ? 'border-brand bg-brand text-white' : 'border-brand/30 bg-white text-brand hover:border-brand'}`}>
+                className={`shrink-0 rounded-full border px-4 py-2 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand ${s.kind === kind ? 'border-brand bg-brand text-white shadow-sm' : 'border-brand/15 bg-paper text-brand hover:border-brand/50 hover:bg-white'}`}>
                 {s.label}
               </button>
             ))}
@@ -238,6 +239,27 @@ export default function AdminContent() {
             <button onClick={signOut} className={primary}>Sign out</button>
           </div>
         </div>
+        </div>
+
+        <div className="mt-7 flex flex-wrap items-end justify-between gap-5">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-gold-dark">Content editor</p>
+            <h2 className="mt-1 font-display text-3xl font-bold text-brand">{section.label}</h2>
+            <p className="mt-2 max-w-2xl text-sm text-ink/70">Manage this section of the public website. Save drafts first, then publish when you are ready.</p>
+          </div>
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
+            {[
+              ['Items', rows.length],
+              ['Drafts', pending.length],
+              ['Ready to publish', ready.length],
+            ].map(([label, value]) => (
+              <div key={label} className="min-w-[5rem] rounded-lg border border-brand/10 bg-white px-3 py-2 text-center shadow-sm sm:min-w-[7rem]">
+                <p className="text-lg font-bold text-brand">{value}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-wide text-ink/55">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
 
         <div aria-live="polite">
           {ok && <p className="mt-4 rounded-md border border-green-300 bg-green-50 px-4 py-3 text-green-900">{ok}</p>}
@@ -246,7 +268,7 @@ export default function AdminContent() {
         </div>
 
         {edit ? (
-          <form onSubmit={e => { e.preventDefault(); save(false) }} className="mt-6 rounded-lg bg-white p-6 shadow">
+          <form onSubmit={e => { e.preventDefault(); save(false) }} className="mt-6 rounded-2xl border border-brand/10 bg-white p-6 shadow-sm md:p-8">
             <h2 className="text-xl font-bold text-brand">{edit.row ? `Edit ${section.noun}` : `New ${section.noun}`}</h2>
             {edit.row?.live && edit.row?.draft && <p className="mt-1 text-sm text-ink/70">You are editing changes that are not yet on the website.</p>}
             {edit.problems.length > 0 && (
@@ -313,7 +335,7 @@ export default function AdminContent() {
                 const [chipText, chipClass] = CHIP[st]
                 const preview = section.preview?.(d)
                 return (
-                  <li key={row.id} className="flex flex-wrap items-center gap-4 rounded-lg border border-brand/15 bg-white p-4">
+                  <li key={row.id} className="flex flex-wrap items-center gap-4 rounded-xl border border-brand/10 bg-white p-4 shadow-sm transition hover:shadow-md">
                     {section.preview && (preview
                       ? <img src={preview} alt="" loading="lazy" style={{ objectPosition: d.focus || '50% 50%' }} className="h-16 w-16 shrink-0 rounded-md object-cover" />
                       : <div aria-hidden="true" className="h-16 w-16 shrink-0 rounded-md bg-brand/10" />)}

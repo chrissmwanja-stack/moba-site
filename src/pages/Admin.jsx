@@ -57,6 +57,7 @@ export default function Admin() {
   useEffect(() => { if (user) { load(tab); loadCounts() } }, [user, tab, load, loadCounts])
 
   const current = rows[tabId] || []
+  const totalNew = Object.values(counts).reduce((sum, n) => sum + n, 0)
   const shown = useMemo(() => {
     const q = query.trim().toLowerCase()
     return current.filter(r =>
@@ -105,9 +106,28 @@ export default function Admin() {
   return (
     <>
       <PageHeader variant="functional" title="MOBA Administration" subtitle={`Signed in as ${user.email}`} />
-      <section className="max-w-5xl mx-auto px-4 py-8">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div role="tablist" aria-label="Submissions" className="flex flex-wrap gap-2">
+      <section className="max-w-6xl mx-auto px-4 py-8 md:py-10">
+        <div className="mb-6 grid gap-4 sm:grid-cols-3">
+          <div className="rounded-xl border border-brand/10 bg-white p-5 shadow-sm">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-ink/55">New across all queues</p>
+            <p className="mt-2 font-display text-3xl font-bold text-brand">{totalNew}</p>
+            <p className="mt-1 text-sm text-ink/65">Items awaiting attention</p>
+          </div>
+          <div className="rounded-xl border border-brand/10 bg-white p-5 shadow-sm">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-ink/55">Current queue</p>
+            <p className="mt-2 font-display text-3xl font-bold text-brand">{current.length}</p>
+            <p className="mt-1 text-sm text-ink/65">{tab.label} records</p>
+          </div>
+          <div className="rounded-xl border border-brand/10 bg-brand p-5 text-white shadow-sm">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/65">Filtered results</p>
+            <p className="mt-2 font-display text-3xl font-bold text-gold">{shown.length}</p>
+            <p className="mt-1 text-sm text-white/75">Matching your search and status</p>
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-brand/10 bg-white p-4 shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div role="tablist" aria-label="Submissions" className="flex max-w-full flex-wrap gap-2">
             {TABS.map(t => (
               <button key={t.id} role="tab" aria-selected={t.id === tabId}
                 onClick={() => { setTabId(t.id); setFilter('all'); setQuery('') }}
@@ -135,6 +155,7 @@ export default function Admin() {
           <button onClick={() => load(tab)} className="rounded-md border-2 border-brand px-4 py-2 font-semibold text-brand hover:bg-brand hover:text-white">Refresh</button>
           <button onClick={download} disabled={!shown.length} className="rounded-md border-2 border-brand px-4 py-2 font-semibold text-brand hover:bg-brand hover:text-white disabled:opacity-50">Download CSV</button>
         </div>
+        </div>
 
         {notice && <p role="alert" className="mt-4 rounded-md border border-red-300 bg-red-50 px-4 py-3 text-red-800">{notice}</p>}
         {state === 'loading' && <p className="mt-6 text-ink/70">Loading…</p>}
@@ -161,7 +182,7 @@ function Card({ row, tab, onPatch, onDelete }) {
   }
 
   return (
-    <li className={`rounded-lg bg-white p-5 shadow border-l-4 ${fresh ? 'border-gold' : 'border-transparent'}`}>
+    <li className={`rounded-xl border border-brand/10 bg-white p-5 shadow-sm transition hover:shadow-md border-l-4 ${fresh ? 'border-l-gold' : 'border-l-brand/20'}`}>
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-lg font-semibold text-brand">{tab.title(row)}</p>
@@ -176,7 +197,7 @@ function Card({ row, tab, onPatch, onDelete }) {
         </label>
       </div>
 
-      <button onClick={() => setOpen(o => !o)} aria-expanded={open} className="mt-3 text-sm font-semibold text-gold-dark underline">
+      <button onClick={() => setOpen(o => !o)} aria-expanded={open} className="mt-4 rounded-md bg-brand/5 px-3 py-1.5 text-sm font-semibold text-brand hover:bg-brand/10">
         {open ? 'Hide details' : 'Show details'}
       </button>
 
