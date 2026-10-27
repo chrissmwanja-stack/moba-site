@@ -1,12 +1,14 @@
 import { useSearchParams } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import NewsCard from '../components/NewsCard.jsx'
-import { news, newsCategories } from '../data/content.js'
+import { newsCategories } from '../data/content.js'
+import { useContent } from '../lib/siteContent.js'
 
 const chip =
   'rounded-full border px-4 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand '
 
 export default function News() {
+  const { news } = useContent()
   const [params, setParams] = useSearchParams()
   const requested = params.get('category')
   const category = newsCategories.includes(requested) ? requested : 'All'

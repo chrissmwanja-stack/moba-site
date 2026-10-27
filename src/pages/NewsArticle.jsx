@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import NewsCard, { readingMinutes } from '../components/NewsCard.jsx'
-import { news } from '../data/content.js'
+import { useContent } from '../lib/siteContent.js'
 import { formatDate } from '../lib/format.js'
 import { newsSlug, bodyParagraphs } from '../lib/news.js'
 
@@ -9,6 +9,7 @@ const button =
   'rounded-md border border-brand/30 px-4 py-2 font-medium text-brand hover:bg-gold/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand'
 
 export default function NewsArticle() {
+  const { news } = useContent()
   const { slug } = useParams()
   const item = news.find(n => newsSlug(n) === slug)
   const [copied, setCopied] = useState(false)

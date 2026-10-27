@@ -25,3 +25,22 @@ The browser anon key is designed to be public. Authorization relies on Supabase 
 7. Day to day: new sign-ups appear under **Member register** on `/admin` with status `pending`. Check the cohort and house, then set status to `active`. That issues the permanent MOBA number (`MWI-1995-HAN-023`). Record a paid subscription by setting **Subscribed until**.
 
 Notes: the MOBA number is built once, at first approval, and never changes (fix cohort/house *before* approving). Deleting a register row does not delete the sign-in account; remove that under Authentication > Users as well.
+
+## Editing website content (news, photos, Mwirians, archives, projects, leadership, site details)
+
+Admins and editors change the website from `/admin/content`. Everything is saved as a **draft** first and only appears on the website when someone presses **Publish**.
+
+1. Run `migrations/202610280001_site_content.sql` in the SQL Editor (after the earlier ones). It is safe to run twice. It creates the content tables, the `moba_editors` list and a public storage bucket called `site-media` for pictures and PDFs.
+2. **Roles.** Admins (the `moba_admins` list) can edit content and also see orders and the member register. **Editors** can edit content only. To add an editor, create their account under Authentication > Users, then run:
+
+   ```sql
+   insert into public.moba_editors (user_id)
+   select id from auth.users where email = 'editor@example.com';
+   ```
+
+   Editors sign in at `/admin/login` and land on the content screen. Only admins can delete something that is on the website; editors use **Take off website** instead.
+3. **First time in each section.** The website is still showing the content that ships with the code (`src/data/content.js`). Open a section and press **Import current ...** once. That copies what is on the site into the editor, already published, so nothing changes visibly. From then on that section is controlled from the admin screen and edits to `content.js` for it are ignored. Archives and Prominent Mwirians start empty, so there is nothing to import.
+4. **Pictures** are shrunk in the browser and saved as WebP (gallery photos get a large and a small copy). PDFs for the archive can be up to 10 MB.
+5. **Who can publish.** At the moment anyone who can edit can publish. To make editors save drafts only, so an administrator approves changes, change `moba_can_edit_content()` to `moba_is_admin()` inside `moba_publish_content` and `moba_unpublish_content` in the migration and run it again.
+
+Order changes in the lists (arrows) and gallery uploads that are already published take effect immediately; everything else waits for Publish. If Supabase is unreachable the website falls back to the content in `content.js`.

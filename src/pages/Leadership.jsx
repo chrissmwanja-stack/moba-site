@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
-import { site, leaders, leadersTerm } from '../data/content.js'
+import { site } from '../data/content.js'
+import { useContent } from '../lib/siteContent.js'
 
 const initials = name => name.split(' ').map(w => w[0]).slice(0, 2).join('')
 const slugOf = name => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
@@ -108,6 +109,7 @@ function ProfilePanel({ l, onPrev, onNext, onClose, panelRef, headingRef }) {
 }
 
 export default function Leadership() {
+  const { leaders, leadersTerm } = useContent()
   const { pathname, hash } = useLocation()
   const navigate = useNavigate()
   const panelRef = useRef(null)
@@ -115,7 +117,7 @@ export default function Leadership() {
   const previous = useRef(null) // slug of the profile that was open, so Close can return to its card
 
   // Only people with a bio have a profile to open.
-  const profiles = useMemo(() => leaders.filter(hasBio), [])
+  const profiles = useMemo(() => leaders.filter(hasBio), [leaders])
 
   // The address bar is the single source of truth (/leadership#sam-hooper), so a profile can be
   // shared as a link, and the browser Back button closes it.

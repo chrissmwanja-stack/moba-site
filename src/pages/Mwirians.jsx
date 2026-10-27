@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
-import { site, prominentMwirians, mwirianFields } from '../data/content.js'
+import { site, mwirianFields } from '../data/content.js'
+import { useContent } from '../lib/siteContent.js'
 
 const chip =
   'rounded-full border px-4 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand '
@@ -51,6 +52,7 @@ function Card({ p }) {
 }
 
 export default function Mwirians() {
+  const { prominentMwirians } = useContent()
   const [params, setParams] = useSearchParams()
   const [query, setQuery] = useState('')
   const requested = params.get('field')

@@ -1,9 +1,10 @@
 import PageHeader from '../components/PageHeader.jsx'
 import { Link } from 'react-router-dom'
-import { projects } from '../data/content.js'
+import { useContent } from '../lib/siteContent.js'
 import { ugx } from '../lib/format.js'
 
 export default function Projects() {
+  const { projects } = useContent()
   return (
     <>
       <PageHeader title="Projects" subtitle="What we have built and supported over the years." />

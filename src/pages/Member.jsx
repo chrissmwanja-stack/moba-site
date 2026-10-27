@@ -4,11 +4,12 @@ import PageHeader from '../components/PageHeader.jsx'
 import MemberCard from '../components/MemberCard.jsx'
 import { supabase } from '../lib/supabase.js'
 import { fetchMyMember, isSubscribed, longDate } from '../lib/members.js'
-import { site } from '../data/content.js'
+import { useContent } from '../lib/siteContent.js'
 import { useCart } from '../context/CartContext.jsx'
 import { ugx } from '../lib/format.js'
 
 export default function Member() {
+  const { site } = useContent()
   const navigate = useNavigate()
   const { count, total } = useCart()
   const [state, setState] = useState('loading') // loading | ready | error

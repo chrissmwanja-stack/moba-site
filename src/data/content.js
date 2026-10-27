@@ -393,7 +393,7 @@ export const leaders = [
     ],
   },
   {
-    name: 'Collins Hinamundi', role: 'Vice President', cohort: '2004', cohortName: 'Blue Dollar', houses: ['Hannington'], photo: null,
+    name: 'Collins Hinamundi', role: 'Vice President', cohort: '2004', cohortName: 'Blue Dollar', houses: ['Hannington'], photo: '/leaders/collins-hinamundi.webp',
     bio: [
       'Collins Hinamundi is a seasoned Product Marketing professional with over 14 years of experience across telecommunications and media. He specialises in product strategy, market development and brand growth. He is passionate about sustainability, long-term value creation and building systems that deliver lasting impact beyond immediate gains.',
       'As Vice President of MOBA, Collins brings a strategic, forward-looking perspective focused on strengthening alumni engagement, mobilising collective resources and championing sustainable solutions that secure Mwiri’s future. He believes in building institutions that can thrive for generations through shared ownership, strategic investment and a strong sense of brotherhood.',

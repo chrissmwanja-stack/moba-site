@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import { isSupabaseConfigured, supabase } from '../lib/supabase.js'
+import { getRole } from '../lib/contentAdmin.js'
 
 const field = 'w-full border border-ink/30 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand'
 
@@ -18,17 +19,17 @@ export default function AdminLogin() {
     setBusy(true); setError('')
     const { error: authError } = await supabase.auth.signInWithPassword({ email, password })
     if (authError) { setError(authError.message); setBusy(false); return }
-    const { data, error: roleError } = await supabase.rpc('moba_is_admin')
-    if (roleError || !data) {
+    const { role, error: roleError } = await getRole()
+    if (roleError || !role) {
       await supabase.auth.signOut()
-      setError(roleError ? 'Could not verify admin access. Apply the MOBA admin migration first.' : 'This account is not approved as a MOBA administrator.')
+      setError(roleError ? 'Could not verify admin access. Apply the MOBA admin migration first.' : 'This account is not approved as a MOBA administrator or editor.')
       setBusy(false); return
     }
-    navigate('/admin', { replace: true })
+    navigate(role === 'editor' ? '/admin/content' : '/admin', { replace: true })
   }
 
   return <>
-    <PageHeader title="MOBA Admin" subtitle="Sign in with an administrator account." />
+    <PageHeader title="MOBA Admin" subtitle="Sign in with an administrator or editor account." />
     <section className="max-w-md mx-auto px-4 py-12">
       <form onSubmit={submit} className="bg-white rounded-lg shadow p-6 space-y-4">
         {!isSupabaseConfigured && <p className="text-sm bg-gold/20 p-3 rounded">Supabase configuration is missing.</p>}

@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import PageHeader from '../components/PageHeader.jsx'
-import { photos } from '../data/content.js'
+import { useContent } from '../lib/siteContent.js'
 
 const FIRST_PAGE = 18 // keeps the initial load light
 const PAGE_STEP = 24
 
 export default function Gallery() {
+  const { photos } = useContent()
   const [index, setIndex] = useState(null) // index into `photos` of the open photo, or null
   const [visible, setVisible] = useState(FIRST_PAGE)
   const closeRef = useRef(null)

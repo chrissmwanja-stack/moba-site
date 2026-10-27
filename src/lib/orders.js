@@ -1,4 +1,4 @@
-import { site } from '../data/content.js'
+import { getSite } from './siteContent.js'
 import { dbEnabled, insertRow, orNull } from './db.js'
 import { notifyAdmin } from './forms.js'
 
@@ -52,7 +52,7 @@ export async function submitOrder(order) {
 
   if (!KEY) {
     const subject = encodeURIComponent(`New store order ${order.ref}`)
-    window.location.href = `mailto:${site.orderEmail}?subject=${subject}&body=${encodeURIComponent(message)}`
+    window.location.href = `mailto:${getSite().orderEmail}?subject=${subject}&body=${encodeURIComponent(message)}`
     return { ok: true, fallback: true }
   }
 

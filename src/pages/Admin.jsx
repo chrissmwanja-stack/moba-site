@@ -4,6 +4,7 @@ import PageHeader from '../components/PageHeader.jsx'
 import { supabase } from '../lib/supabase.js'
 import { TABS, toCsv, when } from '../lib/adminTables.js'
 import { houses } from '../data/content.js'
+import { getRole } from '../lib/contentAdmin.js'
 
 const LIMIT = 500
 
@@ -25,9 +26,10 @@ export default function Admin() {
     async function check() {
       const { data: { session } } = await supabase.auth.getSession()
       if (!session) { navigate('/admin/login', { replace: true }); return }
-      const { data, error } = await supabase.rpc('moba_is_admin')
+      const { role } = await getRole()
       if (!live) return
-      if (error || !data) { await supabase.auth.signOut(); navigate('/admin/login', { replace: true }); return }
+      if (role === 'editor') { navigate('/admin/content', { replace: true }); return } // editors manage content only
+      if (role !== 'admin') { await supabase.auth.signOut(); navigate('/admin/login', { replace: true }); return }
       setUser(session.user)
     }
     check()
@@ -116,6 +118,7 @@ export default function Admin() {
             ))}
           </div>
           <div className="flex items-center gap-4 text-sm">
+            <Link to="/admin/content" className="text-brand underline">Website content</Link>
             <Link to="/" className="text-brand underline">View website</Link>
             <button onClick={signOut} className="rounded-md bg-brand px-4 py-2 font-semibold text-white">Sign out</button>
           </div>

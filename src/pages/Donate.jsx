@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
-import { site, projects } from '../data/content.js'
+import { useContent } from '../lib/siteContent.js'
 import { ugx } from '../lib/format.js'
 import { sendMessage } from '../lib/forms.js'
 
@@ -9,6 +9,7 @@ const field = 'w-full border border-ink/50 rounded-md px-3 py-2 focus:outline-no
 const ANYWHERE = 'Wherever it is needed most'
 
 export default function Donate() {
+  const { site, projects } = useContent()
   const causes = projects.filter(p => p.status === 'Ongoing')
   const [params] = useSearchParams()
   const asked = params.get('project')

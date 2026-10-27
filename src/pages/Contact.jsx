@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
-import { site } from '../data/content.js'
+import { useContent } from '../lib/siteContent.js'
 import { sendMessage } from '../lib/forms.js'
 
 const topics = ['General enquiry', 'Update my details', 'Memorabilia', 'Projects and donations', 'Events', 'Nominate a prominent Mwirian', 'Contribute to the archives']
 const field = 'w-full border border-ink/50 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand'
 
 export default function Contact() {
+  const { site } = useContent()
   // Links such as /contact?topic=Events open the form with that topic already chosen.
   const [params] = useSearchParams()
   const asked = params.get('topic')

@@ -1,12 +1,14 @@
 import { useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
-import { archives, archiveCategories } from '../data/content.js'
+import { archiveCategories } from '../data/content.js'
+import { useContent } from '../lib/siteContent.js'
 
 const chip =
   'rounded-full border px-4 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand '
 
 export default function Archives() {
+  const { archives } = useContent()
   const [params, setParams] = useSearchParams()
   const [query, setQuery] = useState('')
   const requested = params.get('category')

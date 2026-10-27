@@ -1,4 +1,4 @@
-import { site } from '../data/content.js'
+import { getSite } from './siteContent.js'
 import { dbEnabled, insertRow } from './db.js'
 
 // Same Web3Forms key as the store orders (VITE_WEB3FORMS_KEY in .env.local).
@@ -29,7 +29,7 @@ export async function sendMessage({ subject, name, email, message, topic, botche
   }
   if (!KEY) {
     const body = encodeURIComponent(`From: ${name} (${email})\n\n${message}`)
-    window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${body}`
+    window.location.href = `mailto:${getSite().email}?subject=${encodeURIComponent(subject)}&body=${body}`
     return { ok: true, fallback: true }
   }
   try {
@@ -57,7 +57,7 @@ export async function sendForm({ subject, fromName, fields, fallbackEmail, save 
   }
   if (!KEY) {
     const body = Object.entries(fields).map(([k, v]) => `${k}: ${v}`).join('\n')
-    window.location.href = `mailto:${fallbackEmail || site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    window.location.href = `mailto:${fallbackEmail || getSite().email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
     return { ok: true, fallback: true }
   }
   try {

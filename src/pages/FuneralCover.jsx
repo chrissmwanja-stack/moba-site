@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
-import { site, funeralCover as cover } from '../data/content.js'
+import { funeralCover as cover } from '../data/content.js'
+import { useContent } from '../lib/siteContent.js'
 import { sendForm } from '../lib/forms.js'
 import { orNull } from '../lib/db.js'
 import { ugx } from '../lib/format.js'
@@ -28,6 +29,7 @@ function Field({ label, hint, required, error, children }) {
 }
 
 export default function FuneralCover() {
+  const { site } = useContent()
   const [form, setForm] = useState({
     name: '', phone: '', email: '', cohort: '', kinName: '', kinPhone: '', consent: false,
   })

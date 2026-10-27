@@ -28,7 +28,9 @@ import MemberLogin from './pages/MemberLogin.jsx'
 import Member from './pages/Member.jsx'
 import MemberReset from './pages/MemberReset.jsx'
 import Admin from './pages/Admin.jsx'
-import { site, news } from './data/content.js'
+import AdminContent from './pages/AdminContent.jsx'
+import { site } from './data/content.js'
+import { useContent } from './lib/siteContent.js'
 import { newsSlug } from './lib/news.js'
 
 // One title and description per page, so browser tabs, shares and search results are specific.
@@ -59,7 +61,7 @@ const meta = {
 const defaultDescription = 'The home of the Mwiri Old Boys Association: our history, our projects and our community since 1911.'
 
 // Fixed pages use the table above; each news article uses its own title and excerpt.
-function metaFor(pathname) {
+function metaFor(pathname, news) {
   const path = pathname.replace(/\/$/, '') || '/'
   if (path.startsWith('/news/')) {
     const item = news.find(n => newsSlug(n) === path.slice('/news/'.length))
@@ -70,12 +72,13 @@ function metaFor(pathname) {
 
 function PageMeta() {
   const { pathname } = useLocation()
+  const { news } = useContent()
   useEffect(() => {
-    const m = metaFor(pathname)
+    const m = metaFor(pathname, news)
     document.title = !m ? `Page not found | ${site.name}` : pathname === '/' ? m.title : `${m.title} | ${site.name}`
     const desc = document.querySelector('meta[name="description"]')
     if (desc) desc.setAttribute('content', m?.description || defaultDescription)
-  }, [pathname])
+  }, [pathname, news])
   return null
 }
 
@@ -97,6 +100,7 @@ export default function App() {
         <Routes>
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/content" element={<AdminContent />} />
           <Route path="/member/login" element={<MemberLogin />} />
           <Route path="/member/reset" element={<MemberReset />} />
           <Route path="/member" element={<Member />} />

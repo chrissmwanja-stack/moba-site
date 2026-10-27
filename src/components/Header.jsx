@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import Logo from './Logo.jsx'
-import { site } from '../data/content.js'
+import { useContent } from '../lib/siteContent.js'
 
 const links = [
   { to: '/', label: 'Home' },
@@ -21,6 +21,7 @@ const loginBtn = 'rounded bg-gold px-3.5 py-2.5 sm:px-5 sm:py-3 text-sm font-sem
 // Two rows on desktop: brand + motto + Member Login, then the main navigation.
 // On smaller screens: brand + Member Login + a menu button.
 export default function Header() {
+  const { site } = useContent()
   const [open, setOpen] = useState(false)
 
   const desktopLink = ({ isActive }) =>
