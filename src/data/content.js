@@ -393,7 +393,7 @@ export const leaders = [
     ],
   },
   {
-    name: 'Collins Hinamundi', role: 'Vice President', cohort: '2004', cohortName: 'Blue Dollar', houses: ['Hannington'], photo: '/leaders/collins-hinamundi.webp',
+    name: 'Collins Hinamundi', role: 'Vice President', cohort: '2004', cohortName: 'Blue Dollar', houses: ['Hannington'], photo: '/leaders/collins-hinamundi.webp', focus: '50% 50%',
     bio: [
       'Collins Hinamundi is a seasoned Product Marketing professional with over 14 years of experience across telecommunications and media. He specialises in product strategy, market development and brand growth. He is passionate about sustainability, long-term value creation and building systems that deliver lasting impact beyond immediate gains.',
       'As Vice President of MOBA, Collins brings a strategic, forward-looking perspective focused on strengthening alumni engagement, mobilising collective resources and championing sustainable solutions that secure Mwiri’s future. He believes in building institutions that can thrive for generations through shared ownership, strategic investment and a strong sense of brotherhood.',
@@ -453,7 +453,7 @@ export const leaders = [
       'Joshua served as President of the MOBA Makerere Chapter and MOBA Special Envoy for Asia, Joshua chaired the 2024 MOBA Homecoming Organizing Committee, which attracted thousands of attendees. A former School Volleyball Captain and Entertainment Prefect, he has also coached Mwiri’s volleyball team and continues to champion alumni engagement, sports development and the Mwiri spirit. As Chief Whip, he is committed to strengthening campus mobilization and active participation in MOBA.',
     ],
   },
-  { name: 'Allan Senyonga', role: 'Executive Member', cohort: '1995', cohortName: 'Solida', houses: ['Wilson'], photo: '/leaders/allan-senyonga.webp',
+  { name: 'Allan Senyonga', role: 'Executive Member', cohort: '1995', cohortName: 'Solida', houses: ['Wilson'], photo: '/leaders/allan-senyonga.webp', focus: '50% 50%',
     bio: [
       'Allan is seasoned media and communications practitioner with a wealth of experience from around the East African region. He has been an active member on various MOBA platforms as a mobilizer and advisor on various aspects aimed at bringing old boys together and improving on their welfare and networking capacities.',
       'Through his passion for MOBA and Mwiri, Allan was one of the founder members of the Solida Investment Club and has remained a key mobiliser, administrator and treasurer at the cohort level for various projects and initiatives undertaken by his classmates. ',
