@@ -3,6 +3,7 @@ import { startCheckout, PAYMENT_API_URL } from '../lib/payments.js'
 import { sendForm } from '../lib/forms.js'
 import { orNull } from '../lib/db.js'
 import { ugx } from '../lib/format.js'
+import PaymentInstructions from './PaymentInstructions.jsx'
 
 const field = 'w-full border border-ink/50 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand'
 
@@ -98,18 +99,7 @@ export default function CheckoutForm({ kind, items, total, needsAddress = false,
         <input required type="email" placeholder="Email" autoComplete="email" className={field} value={form.email} onChange={set('email')} />
         <input required placeholder="Cohort (e.g. 2001)" className={field} value={form.cohort} onChange={set('cohort')} />
       </div>
-      {kind === 'subscription' && (
-        <div className="rounded-md border border-gold/70 bg-gold/10 p-4 text-sm text-ink">
-          <h4 className="font-semibold text-brand">Pay MOBA directly</h4>
-          <p className="mt-1">Pay the selected membership amount ({ugx(total)}) using one of these options, then enter the transaction reference below.</p>
-          <ul className="mt-3 space-y-2">
-            <li><strong>MTN MoMoPay:</strong> dial *165# · merchant code <strong>777888</strong></li>
-            <li><strong>Airtel Money:</strong> dial *185# · merchant code <strong>4365142</strong></li>
-            <li><strong>Bank transfer:</strong> Standard Chartered · account name <strong>Mwiri Old Boys Association</strong> · account number <strong>0102886324900</strong></li>
-          </ul>
-          <p className="mt-3 text-ink/70">MOBA will verify your payment before confirming membership. No online payment is processed on this site.</p>
-        </div>
-      )}
+      {kind === 'subscription' && <PaymentInstructions amount={total} />}
       {kind === 'subscription' && (
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="text-sm font-medium text-ink">How did you pay?

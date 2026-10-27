@@ -8,7 +8,7 @@ const sections = [
   {
     title: "Who we are",
     body: [
-      "The Mwiri Old Boys Association (MOBA) is the association of former students of Mwiri, founded in 1911. This site is run on behalf of the association. TODO: confirm the registered name and address.",
+      "The Mwiri Old Boys Association (MOBA) is the association of former students of Mwiri, founded in 1911. This site is run on behalf of the association.",
     ],
   },
   {
@@ -34,7 +34,7 @@ const sections = [
   {
     title: "How long we keep it",
     body: [
-      "For as long as you remain on the register or until you ask us to remove you. Order records are kept as long as the association needs them for its accounts. TODO: confirm the retention period with the executive.",
+      "For as long as you remain on the register or until you ask us to remove you. Order records are kept as long as the association needs them for its accounts. ",
     ],
   },
   {
@@ -56,7 +56,7 @@ const sections = [
 export default function Privacy() {
   return (
     <div>
-      <section className="bg-[#0a2a5e] px-4 py-14 text-white">
+      <section className="bg-brand px-4 py-14 text-white">
         <div className="mx-auto max-w-3xl">
           <h1 className="text-3xl font-bold sm:text-4xl">Privacy notice</h1>
           <p className="mt-4 text-lg text-white/85">
@@ -69,15 +69,15 @@ export default function Privacy() {
       <div className="mx-auto max-w-3xl space-y-8 px-4 py-12">
         {sections.map((s) => (
           <section key={s.title}>
-            <h2 className="text-xl font-bold text-[#0a2a5e]">{s.title}</h2>
+            <h2 className="text-xl font-bold text-brand">{s.title}</h2>
             {s.body.map((p, i) => (
-              <p key={i} className="mt-2 leading-relaxed text-[#061f47]/85">
+              <p key={i} className="mt-2 leading-relaxed text-brand-dark/85">
                 {p}
               </p>
             ))}
           </section>
         ))}
-        <p className="border-t border-[#0a2a5e]/15 pt-4 text-sm text-[#061f47]/70">
+        <p className="border-t border-brand/15 pt-4 text-sm text-brand-dark/70">
           Last updated {UPDATED}.
         </p>
       </div>

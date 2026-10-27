@@ -6,7 +6,6 @@ import MemberCard from '../components/MemberCard.jsx'
 import { benefits } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
 import { ugx } from '../lib/format.js'
-import { PAYMENT_API_URL } from '../lib/payments.js'
 
 export default function Membership() {
   const { tiers } = useContent()
@@ -14,15 +13,12 @@ export default function Membership() {
   const activeTier = tiers.find(t => t.id === selected) || tiers[0]
   const selectedId = activeTier?.id
   const tier = activeTier
-  const online = Boolean(PAYMENT_API_URL)
 
   return (
     <>
       <PageHeader
         title="Membership"
-        subtitle={online
-          ? 'Stay connected and support the association. Choose a plan and pay online.'
-          : 'Stay connected and support the association. Choose a plan and send your application; we will reply with payment instructions.'}
+        subtitle="Stay connected and support the association. Choose a plan, pay directly to MOBA, and submit your transaction reference for verification."
       />
 
       {/* Centred, equal-height cards; the column count follows the number of plans */}

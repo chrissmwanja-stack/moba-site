@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
+import PaymentInstructions from '../components/PaymentInstructions.jsx'
 import { funeralCover as cover } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
 import { sendForm } from '../lib/forms.js'
@@ -32,6 +33,7 @@ export default function FuneralCover() {
   const { site } = useContent()
   const [form, setForm] = useState({
     name: '', phone: '', email: '', cohort: '', kinName: '', kinPhone: '', consent: false,
+    paymentMethod: '', paymentReference: '', paymentPhone: '',
   })
   const [dependants, setDependants] = useState([])
   const [bot, setBot] = useState('')
@@ -84,6 +86,9 @@ export default function FuneralCover() {
           kin_phone: form.kinPhone.trim(),
           dependants: filled.map(d => ({ name: d.name.trim(), relationship: d.relationship.trim(), born: d.born.trim() })),
           consent: true,
+          payment_method: orNull(form.paymentMethod),
+          payment_reference: orNull(form.paymentReference),
+          payment_phone: orNull(form.paymentPhone),
         },
       },
       fields: {
@@ -97,6 +102,9 @@ export default function FuneralCover() {
         'Dependants to cover': filled.length
           ? filled.map((d, i) => `${i + 1}. ${d.name} - ${d.relationship}${d.born ? `, born ${d.born}` : ''}`).join(' | ')
           : 'None',
+        'Payment method': form.paymentMethod || 'Not paid yet / not provided',
+        'Payment reference / transaction ID': form.paymentReference || 'Not provided',
+        'Payer phone': form.paymentPhone || form.phone,
         'Agreed to privacy notice': 'Yes',
       },
     })
@@ -111,7 +119,9 @@ export default function FuneralCover() {
         <p className="mt-4 text-lg text-brand-dark/80">
           {fallback
             ? 'Your email app should have opened with your enrolment. Please press Send so we receive it. '
-            : 'The scheme secretary will confirm your details and send you payment instructions. '}
+            : form.paymentReference
+              ? 'We have your enrolment and payment reference. The scheme secretary will verify payment and confirm your cover. '
+              : 'We have your enrolment. The scheme secretary will confirm the applicable contribution and your cover details. '}
           Your cover is not active until your payment has been confirmed.
         </p>
         <Link to="/membership" className="mt-8 inline-block font-semibold text-gold-dark underline">
@@ -125,7 +135,7 @@ export default function FuneralCover() {
     <>
       <PageHeader
         title={cover.name}
-        subtitle="Enrol yourself and the family members you want covered. No payment is taken on this page: we will send you Mobile Money payment instructions."
+        subtitle="Enrol yourself and the family members you want covered. Pay directly using the MOBA payment details below; cover starts only after the scheme secretary verifies payment."
       />
 
       <section className="max-w-3xl mx-auto px-4 mt-10" aria-label="Scheme summary">
@@ -151,6 +161,10 @@ export default function FuneralCover() {
             </div>
           )}
         </dl>
+      </section>
+
+      <section className="max-w-3xl mx-auto px-4 mt-6" aria-label="Insurance payment details">
+        <PaymentInstructions amount={cover.premium} />
       </section>
 
       <form onSubmit={onSubmit} noValidate className="max-w-3xl mx-auto px-4 py-10 space-y-8">
@@ -210,6 +224,25 @@ export default function FuneralCover() {
               + Add a dependant
             </button>
           )}
+        </fieldset>
+
+        <fieldset className="space-y-4">
+          <legend className="text-lg font-semibold text-brand mb-2">Payment details (if already paid)</legend>
+          <p className="text-sm text-brand-dark/70">The contribution amount is currently confirmed on enrolment. Please verify the amount with the scheme secretary before paying. If you have paid, enter the transaction details so MOBA can check them.</p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Payment method">
+              <select className={field} value={form.paymentMethod} onChange={set('paymentMethod')}>
+                <option value="">Not paid yet / choose later</option>
+                <option>MTN MoMoPay</option><option>Airtel Money</option><option>Bank transfer</option>
+              </select>
+            </Field>
+            <Field label="Transaction reference / ID">
+              <input maxLength={100} className={field} value={form.paymentReference} onChange={set('paymentReference')} placeholder="From your payment confirmation" />
+            </Field>
+          </div>
+          <Field label="Payer phone" hint="If different from your contact number.">
+            <input type="tel" maxLength={30} className={field} value={form.paymentPhone} onChange={set('paymentPhone')} />
+          </Field>
         </fieldset>
 
         <div>

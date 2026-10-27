@@ -51,6 +51,8 @@ export const TABS = [
     summary: r => `${list(r.dependants).length} dependant${list(r.dependants).length === 1 ? '' : 's'}`,
     fields: [
       ['Phone', r => r.phone], ['Email', r => r.email], ['Cohort', r => r.cohort],
+      ['Payment method', r => r.payment_method], ['Payment reference / transaction ID', r => r.payment_reference],
+      ['Payer phone', r => r.payment_phone],
       ['Next of kin', r => `${r.kin_name} (${r.kin_phone})`],
       ['Dependants', r => list(r.dependants).map((d, i) => `${i + 1}. ${d.name}, ${d.relationship}${d.born ? `, born ${d.born}` : ''}`).join('\n')],
     ],
