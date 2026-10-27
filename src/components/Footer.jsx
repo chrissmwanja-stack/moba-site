@@ -34,6 +34,8 @@ export default function Footer() {
       </div>
       <p className="text-center text-xs py-4 border-t border-white/10">
         © {new Date().getFullYear()} {site.name}. All rights reserved.
+        <span aria-hidden="true"> · </span>
+        <Link to="/admin/login" className="hover:text-gold">Admin</Link>
       </p>
     </footer>
   )
