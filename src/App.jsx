@@ -1,5 +1,5 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
 import Home from './pages/Home.jsx'
@@ -23,12 +23,13 @@ import Donate from './pages/Donate.jsx'
 import Archives from './pages/Archives.jsx'
 import Mwirians from './pages/Mwirians.jsx'
 import NotFound from './pages/NotFound.jsx'
-import AdminLogin from './pages/AdminLogin.jsx'
 import MemberLogin from './pages/MemberLogin.jsx'
 import Member from './pages/Member.jsx'
 import MemberReset from './pages/MemberReset.jsx'
-import Admin from './pages/Admin.jsx'
-import AdminContent from './pages/AdminContent.jsx'
+// Admin screens are large and only staff use them, so they load on demand instead of with every visit.
+const AdminLogin = lazy(() => import('./pages/AdminLogin.jsx'))
+const Admin = lazy(() => import('./pages/Admin.jsx'))
+const AdminContent = lazy(() => import('./pages/AdminContent.jsx'))
 import { site } from './data/content.js'
 import { useContent } from './lib/siteContent.js'
 import { newsSlug } from './lib/news.js'
@@ -97,6 +98,7 @@ export default function App() {
       <PageMeta />
       <Header />
       <main className="flex-1">
+        <Suspense fallback={<div className="min-h-[50vh]" aria-busy="true" />}>
         <Routes>
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<Admin />} />
@@ -126,6 +128,7 @@ export default function App() {
           <Route path="/prominent-mwirians" element={<Mwirians />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </Suspense>
       </main>
       <Footer />
     </div>
