@@ -246,9 +246,9 @@ export const products = [
 // ---------- MEMBERSHIP ----------
 // PRICES ARE PLACEHOLDERS (UGX) until costs are confirmed.
 export const tiers = [
-  { id: 'annual', name: 'Annual Member', price: 50000,  period: 'year',     perks: ['Membership register listing', 'Event invitations', 'Digital membership card'] },
+  { id: 'annual', name: 'Annual Member', price: 50000,  period: 'year',     perks: ['Membership register listing', 'Event invitations', 'Digital membership card', 'Voting rights at MOBA general meetings'] },
   
-  { id: 'life',   name: 'Life Member',   price: 1010000, period: 'one-off',  perks: ['Lifetime membership', 'Name on the Life Members roll', 'MOBA tie and pin'] },
+  { id: 'life',   name: 'Life Member',   price: 1010000, period: 'one-off',  perks: ['Lifetime membership', 'Name on the Life Members roll', 'MOBA tie and pin', 'Voting rights at MOBA general meetings'] },
 ]
 
 // ---------- MEMBER BENEFITS ----------
