@@ -1,12 +1,17 @@
 import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import { site } from '../data/content.js'
 import { sendMessage } from '../lib/forms.js'
 
+const topics = ['General enquiry', 'Update my details', 'Memorabilia', 'Projects and donations', 'Events', 'Nominate a prominent Mwirian', 'Contribute to the archives']
 const field = 'w-full border border-ink/50 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand'
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', topic: 'General enquiry', message: '' })
+  // Links such as /contact?topic=Events open the form with that topic already chosen.
+  const [params] = useSearchParams()
+  const asked = params.get('topic')
+  const [form, setForm] = useState({ name: '', email: '', topic: topics.includes(asked) ? asked : 'General enquiry', message: '' })
   const [bot, setBot] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
@@ -64,11 +69,7 @@ export default function Contact() {
                 <input required type="email" placeholder="Your email" className={field} value={form.email} onChange={set('email')} />
               </div>
               <select className={field} value={form.topic} onChange={set('topic')}>
-                <option>General enquiry</option>
-                <option>Update my details</option>
-                <option>Memorabilia</option>
-                <option>Projects and donations</option>
-                <option>Events</option>
+                {topics.map(t => <option key={t}>{t}</option>)}
               </select>
               <textarea required rows={5} placeholder="Your message" className={field} value={form.message} onChange={set('message')} />
               <input type="text" tabIndex={-1} autoComplete="off" value={bot} onChange={e => setBot(e.target.value)} className="hidden" aria-hidden="true" />

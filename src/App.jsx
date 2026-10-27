@@ -18,6 +18,8 @@ import Leadership from './pages/Leadership.jsx'
 import UpdateDetails from './pages/UpdateDetails.jsx'
 import Privacy from './pages/Privacy.jsx'
 import Cohorts from './pages/Cohorts.jsx'
+import Archives from './pages/Archives.jsx'
+import Mwirians from './pages/Mwirians.jsx'
 import NotFound from './pages/NotFound.jsx'
 import AdminLogin from './pages/AdminLogin.jsx'
 import MemberLogin from './pages/MemberLogin.jsx'
@@ -42,6 +44,8 @@ const meta = {
   '/funeral-cover': { title: 'MOBA Funeral Insurance', description: 'Enrol for the MOBA Funeral Insurance scheme for yourself and your family.' },
   '/contact': { title: 'Contact Us', description: 'Write to the Mwiri Old Boys Association.' },
   '/cohorts': { title: 'Branches & Cohorts', description: 'Find your MOBA branch or your year group.' },
+  '/archives': { title: 'Archives', description: 'MOBA reports, minutes, newsletters and records from across the years.' },
+  '/prominent-mwirians': { title: 'Prominent Mwirians', description: 'Old Boys whose service and achievements have made Mwiri proud.' },
   '/update-details': { title: 'Update Your Details', description: 'Keep your contact details current on the MOBA register.' },
   '/privacy': { title: 'Privacy' },
   '/member': { title: 'Your Membership' },
@@ -108,6 +112,8 @@ export default function App() {
           <Route path="/update-details" element={<UpdateDetails />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/cohorts" element={<Cohorts />} />
+          <Route path="/archives" element={<Archives />} />
+          <Route path="/prominent-mwirians" element={<Mwirians />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

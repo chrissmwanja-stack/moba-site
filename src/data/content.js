@@ -294,6 +294,32 @@ export const news = [
   { date: '2026-08-10', category: 'News', title: 'MOBA launches its new website', place: '', excerpt: 'The association now has an online home for news, history and memorabilia.' },
 ]
 
+// ---------- ARCHIVES ----------
+// The association's records: reports, minutes, newsletters, the constitution and old programmes.
+// Put each file in /public/archives and point `file` at it (e.g. '/archives/agm-2019-minutes.pdf'),
+// or use a full https:// link if the file is hosted elsewhere.
+// Required: title, year, category (one of archiveCategories), file.
+// Optional: summary (one line), size (e.g. '1.2 MB'), source (who supplied it).
+// Only add records the executive is happy to make public. Members-only papers do not belong here.
+export const archiveCategories = ['Annual reports', 'Minutes', 'Newsletters', 'Constitution & policies', 'Programmes & magazines']
+export const archives = [
+  // { year: 2019, category: 'Minutes', title: 'Annual General Meeting minutes', summary: 'Minutes of the 2019 AGM.', file: '/archives/agm-2019-minutes.pdf', size: '1.2 MB' },
+]
+
+// ---------- PROMINENT MWIRIANS ----------
+// Old Boys whose work has made the school proud. Add only people (or families) who have agreed to be listed.
+// Required: name, field (one of mwirianFields), knownFor (one line shown on the card).
+// Optional: cohort (year the class started S1), cohortName, houses (array), photo ('/mwirians/name.webp'),
+//           bio (array of paragraphs), featured (true = listed first), deceased (true = shows "Late" before the name).
+// Put photos in /public/mwirians.
+export const mwirianFields = [
+  'Public service & politics', 'Law & justice', 'Business & industry', 'Medicine & science',
+  'Education & academia', 'Sports', 'Arts & media', 'Faith & community',
+]
+export const prominentMwirians = [
+  // { name: 'Full Name', field: 'Law & justice', knownFor: 'Former Justice of the Supreme Court', cohort: '1965', houses: ['Wilson'], photo: '/mwirians/full-name.webp', bio: ['Short paragraph.'], featured: true },
+]
+
 // ---------- BRANCHES & COHORTS ----------
 // Branches: local chapters. Cohorts: a cohort is a class (everyone who finished S6 together,
 // including those who joined later, e.g. in S5), named by the year the class started S1.
