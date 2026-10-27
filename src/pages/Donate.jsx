@@ -85,7 +85,7 @@ export default function Donate() {
             {site.donate?.length > 0 ? (
               <div className="mt-3 space-y-4">
                 {site.donate.map(m => (
-                  <div key={m.label} className="rounded-lg border border-brand/15 bg-white p-4">
+                  <div key={m.label} className="rounded-md border border-brand/10 bg-white p-4">
                     <p className="font-semibold text-brand">{m.label}</p>
                     <ul className="mt-1 space-y-0.5 text-sm text-ink/80">{m.lines.map(l => <li key={l}>{l}</li>)}</ul>
                   </div>
@@ -113,7 +113,7 @@ export default function Donate() {
               </p>
             </div>
           ) : (
-            <form onSubmit={submit} className="bg-white rounded-lg shadow p-6 space-y-4">
+            <form onSubmit={submit} className="bg-white rounded-md shadow-sm p-6 space-y-4">
               <h2 className="text-xl font-bold text-brand">Make a pledge</h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <input required aria-label="Your name" placeholder="Your name" className={field} value={form.name} onChange={set('name')} />

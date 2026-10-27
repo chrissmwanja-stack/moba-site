@@ -100,11 +100,11 @@ export default function Admin() {
 
   async function signOut() { await supabase.auth.signOut(); navigate('/admin/login', { replace: true }) }
 
-  if (!user) return <><PageHeader title="MOBA Administration" /><p className="max-w-4xl mx-auto px-4 py-12">Checking administrator access…</p></>
+  if (!user) return <><PageHeader variant="functional" title="MOBA Administration" /><p className="max-w-4xl mx-auto px-4 py-12">Checking administrator access…</p></>
 
   return (
     <>
-      <PageHeader title="MOBA Administration" subtitle={`Signed in as ${user.email}`} />
+      <PageHeader variant="functional" title="MOBA Administration" subtitle={`Signed in as ${user.email}`} />
       <section className="max-w-5xl mx-auto px-4 py-8">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div role="tablist" aria-label="Submissions" className="flex flex-wrap gap-2">

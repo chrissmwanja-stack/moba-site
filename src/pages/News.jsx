@@ -26,7 +26,7 @@ export default function News() {
   return (
     <>
       <PageHeader title="News & Events" subtitle="What is happening in the MOBA family." />
-      <section className="max-w-6xl mx-auto px-4 mt-10">
+      <section className="mx-auto mt-8 max-w-6xl px-4 md:mt-10">
         <div role="group" aria-label="Filter by category" className="flex flex-wrap gap-2">
           {['All', ...offered].map(c => {
             const active = c === category
@@ -50,13 +50,13 @@ export default function News() {
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 mt-8 space-y-12" aria-live="polite">
+      <section className="mx-auto mt-10 max-w-6xl space-y-14 px-4 md:mt-12" aria-live="polite">
         {shown.length === 0 && (
           <p className="text-ink/70">Nothing in this category yet. Check back soon.</p>
         )}
         {upcoming.length > 0 && (
           <div>
-            <h2 className="text-xl font-bold text-brand mb-4">Upcoming</h2>
+            <h2 className="mb-5 font-display text-3xl font-bold text-brand">Upcoming</h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {upcoming.map(n => <NewsCard key={n.title + n.date} item={n} />)}
             </div>
@@ -64,7 +64,7 @@ export default function News() {
         )}
         {past.length > 0 && (
           <div>
-            <h2 className="text-xl font-bold text-brand mb-4">Earlier</h2>
+            <h2 className="mb-5 font-display text-3xl font-bold text-brand">Earlier</h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {past.map(n => <NewsCard key={n.title + n.date} item={n} />)}
             </div>

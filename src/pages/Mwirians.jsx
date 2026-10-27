@@ -82,7 +82,7 @@ export default function Mwirians() {
 
       {prominentMwirians.length === 0 ? (
         <section className="max-w-3xl mx-auto px-4 mt-12">
-          <div className="rounded-lg border border-brand/15 bg-white p-8 text-center">
+          <div className="rounded-md border border-brand/10 bg-white p-8 text-center">
             <img src="/moba-shield.webp" alt="" className="mx-auto h-16 w-auto" />
             <h2 className="mt-4 text-xl font-bold text-brand">We are compiling this roll of honour</h2>
             <p className="mt-2 text-ink/75">

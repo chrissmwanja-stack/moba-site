@@ -129,7 +129,7 @@ export default function FuneralCover() {
       />
 
       <section className="max-w-3xl mx-auto px-4 mt-10" aria-label="Scheme summary">
-        <dl className="bg-white rounded-lg shadow p-6 grid gap-4 sm:grid-cols-2">
+        <dl className="bg-white rounded-md shadow-sm p-6 grid gap-4 sm:grid-cols-2">
           <div>
             <dt className="text-sm text-ink/70">Contribution</dt>
             <dd className="text-xl font-bold text-brand">{premiumText}</dd>

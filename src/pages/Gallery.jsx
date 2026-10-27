@@ -52,14 +52,14 @@ export default function Gallery() {
     <>
       <PageHeader title="Photo Gallery" subtitle="Moments from reunions, projects and events." />
 
-      <section className="max-w-6xl mx-auto px-4 mt-12 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3" aria-label="Photos">
+      <section className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-5 px-4 sm:grid-cols-2 md:mt-12 md:grid-cols-3" aria-label="Photos">
         {shown.map((p, i) => (
           <button
             key={p.id}
             type="button"
             onClick={e => { lastTile.current = e.currentTarget; setIndex(i) }}
             aria-label={`Open photo: ${p.caption}`}
-            className="group relative aspect-4/3 rounded-lg overflow-hidden bg-linear-to-br from-brand/25 to-gold/40 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+            className="group relative aspect-[4/3] overflow-hidden rounded-md bg-gradient-to-br from-brand/10 to-gold/25 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
           >
             {p.src ? (
               <img

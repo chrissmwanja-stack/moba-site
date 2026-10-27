@@ -8,20 +8,20 @@ export default function Projects() {
   return (
     <>
       <PageHeader title="Projects" subtitle="What we have built and supported over the years." />
-      <section className="max-w-6xl mx-auto px-4 mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <section className="mx-auto mt-10 grid max-w-6xl gap-5 px-4 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3">
         {projects.map(p => (
-          <article key={p.title} className="bg-white rounded-lg shadow overflow-hidden">
-            <div className="h-40 bg-linear-to-br from-brand/25 to-gold/40 flex items-center justify-center">
+          <article key={p.title} className="overflow-hidden rounded-md bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+            <div className="aspect-[2/1] overflow-hidden bg-gradient-to-br from-brand/10 to-gold/25 flex items-center justify-center">
               {p.image
                 ? <img src={p.image} alt={p.title} loading="lazy" className="h-full w-full object-cover" />
                 : <img src="/moba-shield.webp" alt="" className="h-20 w-auto opacity-80" />}
             </div>
-            <div className="p-5">
+            <div className="p-5 md:p-6">
               <div className="flex justify-between text-xs">
                 <span className="font-semibold text-gold-dark">{p.year}</span>
                 <span className="text-ink/70">{p.status}</span>
               </div>
-              <h3 className="font-semibold text-lg mt-1">{p.title}</h3>
+              <h3 className="mt-2 font-display text-2xl font-semibold leading-snug text-brand">{p.title}</h3>
               <p className="text-sm text-ink/70 mt-2">{p.summary}</p>
               {p.progress != null && (
                 <div className="mt-4">

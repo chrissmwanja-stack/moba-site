@@ -29,7 +29,7 @@ export default function AdminLogin() {
   }
 
   return <>
-    <PageHeader title="MOBA Admin" subtitle="Sign in with an administrator or editor account." />
+    <PageHeader variant="functional" title="MOBA Admin" subtitle="Sign in with an administrator or editor account." />
     <section className="max-w-md mx-auto px-4 py-12">
       <form onSubmit={submit} className="bg-white rounded-lg shadow p-6 space-y-4">
         {!isSupabaseConfigured && <p className="text-sm bg-gold/20 p-3 rounded">Supabase configuration is missing.</p>}

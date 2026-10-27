@@ -23,7 +23,7 @@ export default function Support() {
           <Link
             key={t.to}
             to={t.to}
-            className="group flex flex-col rounded-lg border-t-4 border-gold bg-white p-6 shadow transition hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+            className="group flex flex-col rounded-lg border-t border-brand/10 bg-white p-6 shadow transition hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
           >
             <h2 className="text-xl font-bold text-brand">{t.title}</h2>
             <p className="mt-2 flex-1 text-ink/80">{t.text}</p>

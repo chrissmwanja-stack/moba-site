@@ -43,7 +43,7 @@ export default function MemberReset() {
 
   return (
     <>
-      <PageHeader title="Choose a new password" />
+      <PageHeader variant="functional" title="Choose a new password" />
       <section className="max-w-md mx-auto px-4 py-12">
         {checked && !ready ? (
           <p className="bg-white rounded-lg shadow p-6">This reset link has expired or was already used. <Link to="/member/login" className="underline text-brand">Request a new one</Link>.</p>

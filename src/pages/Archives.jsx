@@ -41,7 +41,7 @@ export default function Archives() {
 
       {archives.length === 0 ? (
         <section className="max-w-3xl mx-auto px-4 mt-12">
-          <div className="rounded-lg border border-brand/15 bg-white p-8 text-center">
+          <div className="rounded-md border border-brand/10 bg-white p-8 text-center">
             <img src="/moba-shield.webp" alt="" className="mx-auto h-16 w-auto" />
             <h2 className="mt-4 text-xl font-bold text-brand">The archive is being assembled</h2>
             <p className="mt-2 text-ink/75">
@@ -95,7 +95,7 @@ export default function Archives() {
                 <h2 className="mb-4 border-b-2 border-gold pb-1 text-xl font-bold text-brand">{y}</h2>
                 <ul className="grid gap-4 md:grid-cols-2">
                   {shown.filter(a => a.year === y).map(a => (
-                    <li key={a.file + a.title} className="flex flex-col rounded-lg border border-brand/15 bg-white p-5">
+                    <li key={a.file + a.title} className="flex flex-col rounded-md border border-brand/10 bg-white p-5">
                       <p className="text-xs font-bold uppercase tracking-wider text-gold-dark">{a.category}</p>
                       <h3 className="mt-1 text-lg font-semibold text-brand">{a.title}</h3>
                       {a.summary && <p className="mt-1 text-sm text-ink/75">{a.summary}</p>}

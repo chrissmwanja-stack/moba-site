@@ -213,12 +213,12 @@ export default function AdminContent() {
 
   async function signOut() { await supabase.auth.signOut(); navigate('/admin/login', { replace: true }) }
 
-  if (!user) return <><PageHeader title="Website content" /><p className="max-w-4xl mx-auto px-4 py-12">Checking access…</p></>
+  if (!user) return <><PageHeader variant="functional" title="Website content" /><p className="max-w-4xl mx-auto px-4 py-12">Checking access…</p></>
   const canDelete = row => role === 'admin' || !row.live
 
   return (
     <>
-      <PageHeader title="Website content" subtitle={`Signed in as ${user.email} (${role})`} />
+      <PageHeader variant="functional" title="Website content" subtitle={`Signed in as ${user.email} (${role})`} />
       <section className="max-w-5xl mx-auto px-4 py-8">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div role="tablist" aria-label="Sections" className="flex flex-wrap gap-2">
@@ -305,7 +305,7 @@ export default function AdminContent() {
                 return (
                   <li key={row.id} className="flex flex-wrap items-center gap-4 rounded-lg border border-brand/15 bg-white p-4">
                     {section.preview && (preview
-                      ? <img src={preview} alt="" loading="lazy" className="h-16 w-16 shrink-0 rounded-md object-cover" />
+                      ? <img src={preview} alt="" loading="lazy" style={{ objectPosition: d.focus || '50% 50%' }} className="h-16 w-16 shrink-0 rounded-md object-cover" />
                       : <div aria-hidden="true" className="h-16 w-16 shrink-0 rounded-md bg-brand/10" />)}
                     <div className="min-w-0 flex-1">
                       <p className="truncate font-semibold text-brand">{section.title(d) || '(no title yet)'}</p>

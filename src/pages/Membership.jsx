@@ -38,12 +38,12 @@ export default function Membership() {
               type="button"
               aria-pressed={on}
               onClick={() => setSelected(t.id)}
-              className={`flex h-full flex-col text-left bg-white rounded-lg shadow p-6 border-2 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand ${
+              className={`flex h-full flex-col text-left bg-white rounded-md shadow-sm p-6 border border-brand/10 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand ${
                 on ? 'border-gold' : 'border-transparent hover:border-gold/50'
               }`}
             >
               <div className="flex items-start justify-between gap-3">
-                <h3 className="font-semibold text-lg text-brand">{t.name}</h3>
+                <h3 className="font-display text-2xl font-semibold text-brand">{t.name}</h3>
                 {on && <span className="shrink-0 rounded-full bg-gold/25 px-2 py-0.5 text-xs font-semibold text-brand-dark">Selected</span>}
               </div>
               <p className="mt-2 text-3xl font-bold">{ugx(t.price)}</p>
@@ -73,8 +73,8 @@ export default function Membership() {
           <h2 className="text-2xl font-bold text-brand">Member benefits</h2>
           <div className="mt-4 grid gap-6">
             {benefits.map(b => (
-              <div key={b.id} className="bg-white rounded-lg shadow p-6 border-l-4 border-gold">
-                <h3 className="font-semibold text-lg text-brand">{b.title}</h3>
+              <div key={b.id} className="bg-white rounded-md shadow-sm p-6 border-l-2 border-gold">
+                <h3 className="font-display text-2xl font-semibold text-brand">{b.title}</h3>
                 <p className="mt-2 text-ink/80">{b.text}</p>
                 <Link
                   to={b.to}

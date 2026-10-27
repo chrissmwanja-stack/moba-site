@@ -35,10 +35,10 @@ export default function Store() {
         </Link>
       )}
 
-      <section className="max-w-6xl mx-auto px-4 mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="mx-auto mt-8 grid max-w-6xl gap-5 px-4 sm:grid-cols-2 lg:grid-cols-3">
         {shown.map(p => (
-          <article key={p.id} className="bg-white rounded-lg shadow overflow-hidden flex flex-col">
-            <div className="h-56 bg-linear-to-br from-brand/25 to-gold/40 flex items-center justify-center relative">
+          <article key={p.id} className="flex flex-col overflow-hidden rounded-md bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+            <div className="aspect-square overflow-hidden bg-gradient-to-br from-brand/10 to-gold/25 flex items-center justify-center relative">
               {p.image ? <img src={p.image} alt={p.variant ? `${p.name}, ${p.variant}` : p.name} loading="lazy" className="h-full w-full object-contain bg-white" />
                        : <img src="/moba-shield.webp" alt="" className="h-24 opacity-80" />}
               {p.preview && (

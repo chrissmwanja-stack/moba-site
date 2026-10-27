@@ -36,7 +36,7 @@ export default function Contact() {
     <>
       <PageHeader title="Contact Us" subtitle="Questions, updates to your details, or ideas for the association? Write to us." />
       <section className="max-w-5xl mx-auto px-4 mt-12 grid gap-8 md:grid-cols-3">
-        <div className="space-y-4">
+        <div className="space-y-5 rounded-md bg-[#f4f5f7] p-6 md:p-7">
           <div>
             <p className="text-sm font-semibold text-gold-dark">Email</p>
             <p>{site.email}</p>
@@ -56,7 +56,7 @@ export default function Contact() {
 
         <div className="md:col-span-2">
           {done ? (
-            <div className="bg-white rounded-lg shadow p-8 text-center">
+            <div className="bg-white rounded-md shadow-sm p-8 text-center">
               <p className="text-xl font-semibold text-brand">Thank you!</p>
               <p className="mt-2 text-ink/70">
                 {done.fallback ? 'Your email app should have opened. Please press Send so we receive your message.'
@@ -64,7 +64,7 @@ export default function Contact() {
               </p>
             </div>
           ) : (
-            <form onSubmit={submit} className="bg-white rounded-lg shadow p-6 space-y-4">
+            <form onSubmit={submit} className="bg-white rounded-md border border-brand/10 p-6 space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
                 <input required placeholder="Your name" className={field} value={form.name} onChange={set('name')} />
                 <input required type="email" placeholder="Your email" className={field} value={form.email} onChange={set('email')} />

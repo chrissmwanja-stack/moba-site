@@ -86,7 +86,7 @@ export default function MemberLogin() {
 
   return (
     <>
-      <PageHeader
+      <PageHeader variant="functional"
         title={title}
         subtitle={mode === 'signup'
           ? 'Register once. After the secretary verifies your details you get your permanent MOBA number and digital card.'

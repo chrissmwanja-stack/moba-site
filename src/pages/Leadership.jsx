@@ -22,7 +22,7 @@ function houseText(l) {
 
 function Avatar({ l, size, decorative = false }) {
   return l.photo
-    ? <img src={l.photo} alt={decorative ? '' : l.name} className={`${size} rounded-full object-cover border-4 border-gold`} />
+    ? <img src={l.photo} alt={decorative ? '' : l.name} style={{ objectPosition: l.focus || '50% 50%' }} className={`${size} rounded-full object-cover border-4 border-gold`} />
     : <div aria-hidden="true" className={`${size} rounded-full bg-brand text-gold font-bold flex items-center justify-center border-4 border-gold`}>{initials(l.name)}</div>
 }
 
@@ -32,7 +32,7 @@ function LeaderCard({ l, active, onOpen }) {
   return (
     <article
       id={`card-${slugOf(l.name)}`}
-      className={`relative bg-white rounded-lg shadow p-6 text-center ${
+      className={`relative bg-white rounded-md shadow-sm p-6 text-center ${
         profile ? 'hover:shadow-md focus-within:ring-2 focus-within:ring-brand' : ''
       } ${active ? 'ring-2 ring-gold' : ''}`}
     >
@@ -60,7 +60,7 @@ function ProfilePanel({ l, onPrev, onNext, onClose, panelRef, headingRef }) {
   const house = houseText(l)
   return (
     <section ref={panelRef} aria-labelledby="profile-heading" className="max-w-6xl mx-auto px-4 mt-10 scroll-mt-24">
-      <div className="bg-white rounded-lg shadow border-t-4 border-gold p-6 md:p-8">
+      <div className="bg-white rounded-md shadow-sm border-t border-brand/10 p-6 md:p-8">
         <div className="flex flex-col md:flex-row gap-6 md:gap-8">
           <div className="shrink-0 mx-auto md:mx-0"><Avatar l={l} size="w-40 h-40 text-5xl" /></div>
           <div className="min-w-0">

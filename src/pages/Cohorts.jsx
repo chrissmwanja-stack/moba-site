@@ -8,7 +8,7 @@ const decadeOf = y => `${Math.floor(y / 10) * 10}s`
 
 function BranchCard({ b }) {
   return (
-    <article className="bg-white rounded-lg shadow p-5 border-t-4 border-gold flex flex-col">
+    <article className="bg-white rounded-md shadow-sm p-5 border-t border-brand/10 flex flex-col">
       <p className="text-xs font-semibold text-gold-dark uppercase tracking-wide">{b.region}</p>
       <h3 className="text-lg font-bold text-brand mt-1">{b.name}</h3>
       <p className="text-sm text-ink/70 mt-2">{b.meets}</p>
@@ -34,7 +34,7 @@ function ClassPanel({ year, group }) {
   const last = year + site.schoolYears - 1 // the class starts S1 in `year` and finishes S6 in `last`
   return (
     <div
-      className="bg-white rounded-lg shadow p-6 border-l-4 border-gold"
+      className="bg-white rounded-md shadow-sm p-6 border-l-2 border-gold"
       role="status"
       aria-live="polite"
     >
@@ -278,7 +278,7 @@ export default function Cohorts() {
       </section>
 
       <section className="max-w-6xl mx-auto px-4 mt-14">
-        <div className="bg-brand-dark text-white rounded-lg p-8 border-l-4 border-gold">
+        <div className="bg-brand-dark text-white rounded-lg p-8 border-l-2 border-gold">
           <h2 className="text-xl font-bold">Do not see your branch or cohort?</h2>
           <p className="mt-2 text-white/80 max-w-2xl">
             Tell us where you are and the year you joined, and we will connect you or help you start the group.

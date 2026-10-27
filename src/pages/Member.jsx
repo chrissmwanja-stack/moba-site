@@ -33,14 +33,14 @@ export default function Member() {
 
   async function signOut() { await supabase.auth.signOut(); navigate('/member/login', { replace: true }) }
 
-  if (state === 'loading') return <><PageHeader title="Your MOBA membership" /><p className="max-w-3xl mx-auto px-4 py-12">Loading…</p></>
+  if (state === 'loading') return <><PageHeader variant="functional" title="Your MOBA membership" /><p className="max-w-3xl mx-auto px-4 py-12">Loading…</p></>
 
   const active = member?.status === 'active'
   const mail = `mailto:${site.email}`
 
   return (
     <>
-      <PageHeader title="Your MOBA membership" subtitle={member ? `Welcome, ${member.name}.` : user?.email} />
+      <PageHeader variant="functional" title="Your MOBA membership" subtitle={member ? `Welcome, ${member.name}.` : user?.email} />
       <section className="max-w-3xl mx-auto px-4 py-10">
         {state === 'error' && <p role="alert" className="rounded-md bg-red-50 text-red-800 p-4">We could not load your membership. Please refresh, or <a className="underline" href={mail}>contact us</a>.</p>}
 
