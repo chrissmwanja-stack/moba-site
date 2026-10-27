@@ -36,7 +36,7 @@ export default function AdminLogin() {
         <label className="block text-sm font-medium">Password<input required type="password" autoComplete="current-password" className={`${field} mt-1`} value={password} onChange={e => setPassword(e.target.value)} /></label>
         {error && <p role="alert" className="text-sm text-red-700 bg-red-50 p-3 rounded">{error}</p>}
         <button disabled={busy || !isSupabaseConfigured} className="bg-brand text-white font-semibold px-6 py-3 rounded-md disabled:opacity-60">{busy ? 'Signing in…' : 'Sign in'}</button>
-        <p><Link className="text-brand underline" to="/">Return to MOBA site</Link></p>
+        <p className="space-x-4"><Link className="text-brand underline" to="/member/login">Member login</Link><Link className="text-brand underline" to="/">Return to MOBA site</Link></p>
       </form>
     </section>
   </>

@@ -8,6 +8,9 @@ export const site = {
   tagline: 'Once a Mwirian, always a Mwirian.', // TODO: confirm motto/tagline
   founded: 1911,
   schoolYears: 6,                  // classes from S1 to S6; join in S1 in 2001, finish S6 in 2006
+  website: 'www.mwirian.org',
+  // Social media pages shown in the footer. Fill in the links you have; icons with no link are hidden.
+  social: { linkedin: null, facebook: null, instagram: null, x: null }, // TODO
   email: 'info@mwirian.org',       // TODO
   address: 'P.O. Box 319, Jinja, Uganda',
   phone: null,                      // TODO: add the association phone number (hidden on the site while null)

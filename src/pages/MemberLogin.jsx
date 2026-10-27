@@ -141,6 +141,7 @@ export default function MemberLogin() {
             {mode !== 'signin' && <p><button type="button" onClick={() => switchTo('signin')} className="text-brand underline">Back to sign in</button></p>}
           </div>
         </form>
+        <p className="mt-4 text-center text-sm text-ink/70">Committee or staff? <Link to="/admin/login" className="text-brand underline">Admin sign-in</Link></p>
       </section>
     </>
   )
