@@ -10,8 +10,9 @@ const field = 'w-full border border-ink/50 rounded-md px-3 py-2 focus:outline-no
 // With a payment backend (VITE_PAYMENT_API_URL) this sends people to pay online.
 // Without one it sends the details to the association as an application instead of a dead-end error.
 export default function CheckoutForm({ kind, items, total, needsAddress = false, onSuccess }) {
-  const online = Boolean(PAYMENT_API_URL)
-  const [form, setForm] = useState({ name: '', phone: '', email: '', cohort: '', address: '' })
+  // Membership uses MOBA's published manual payment methods; checkout integrations remain for other purchases.
+  const online = kind !== 'subscription' && Boolean(PAYMENT_API_URL)
+  const [form, setForm] = useState({ name: '', phone: '', email: '', cohort: '', address: '', payment_method: '', payment_reference: '', payment_phone: '' })
   const [bot, setBot] = useState('')
   const [busy, setBusy] = useState(false)
   const [message, setMessage] = useState('')
@@ -47,6 +48,9 @@ export default function CheckoutForm({ kind, items, total, needsAddress = false,
           phone: form.phone.trim(),
           email: form.email.trim(),
           cohort: orNull(form.cohort),
+          payment_method: orNull(form.payment_method),
+          payment_reference: orNull(form.payment_reference),
+          payment_phone: orNull(form.payment_phone),
         },
       } : undefined,
       fields: {
@@ -57,6 +61,11 @@ export default function CheckoutForm({ kind, items, total, needsAddress = false,
         Phone: form.phone,
         Email: form.email,
         Cohort: form.cohort,
+        ...(kind === 'subscription' ? {
+          'Payment method': form.payment_method,
+          'Payment reference / transaction ID': form.payment_reference,
+          'Payer phone (if different)': form.payment_phone,
+        } : {}),
         ...(needsAddress ? { Address: form.address } : {}),
       },
     })
@@ -72,7 +81,9 @@ export default function CheckoutForm({ kind, items, total, needsAddress = false,
         <p className="mt-2 text-ink/70">
           {done.fallback
             ? 'Your email app should have opened with your application. Please press Send so we receive it.'
-            : 'We have received your application and will contact you with payment instructions.'}
+            : kind === 'subscription'
+              ? 'We have received your application and payment reference. MOBA will verify the payment and contact you to confirm your membership.'
+              : 'We have received your application and will contact you with payment instructions.'}
         </p>
       </div>
     )
@@ -87,6 +98,36 @@ export default function CheckoutForm({ kind, items, total, needsAddress = false,
         <input required type="email" placeholder="Email" autoComplete="email" className={field} value={form.email} onChange={set('email')} />
         <input required placeholder="Cohort (e.g. 2001)" className={field} value={form.cohort} onChange={set('cohort')} />
       </div>
+      {kind === 'subscription' && (
+        <div className="rounded-md border border-gold/70 bg-gold/10 p-4 text-sm text-ink">
+          <h4 className="font-semibold text-brand">Pay MOBA directly</h4>
+          <p className="mt-1">Pay the selected membership amount ({ugx(total)}) using one of these options, then enter the transaction reference below.</p>
+          <ul className="mt-3 space-y-2">
+            <li><strong>MTN MoMoPay:</strong> dial *165# · merchant code <strong>777888</strong></li>
+            <li><strong>Airtel Money:</strong> dial *185# · merchant code <strong>4365142</strong></li>
+            <li><strong>Bank transfer:</strong> Standard Chartered · account name <strong>Mwiri Old Boys Association</strong> · account number <strong>0102886324900</strong></li>
+          </ul>
+          <p className="mt-3 text-ink/70">MOBA will verify your payment before confirming membership. No online payment is processed on this site.</p>
+        </div>
+      )}
+      {kind === 'subscription' && (
+        <div className="grid gap-4 sm:grid-cols-2">
+          <label className="text-sm font-medium text-ink">How did you pay?
+            <select required className={field + ' mt-1 bg-white'} value={form.payment_method} onChange={set('payment_method')}>
+              <option value="">Choose payment method</option>
+              <option value="MTN MoMoPay">MTN MoMoPay</option>
+              <option value="Airtel Money">Airtel Money</option>
+              <option value="Bank transfer">Bank transfer</option>
+            </select>
+          </label>
+          <label className="text-sm font-medium text-ink">Transaction reference / ID
+            <input required maxLength={100} placeholder="From your payment confirmation" className={field + ' mt-1'} value={form.payment_reference} onChange={set('payment_reference')} />
+          </label>
+          <label className="text-sm font-medium text-ink sm:col-span-2">Payer phone number <span className="font-normal text-ink/60">(if different from your contact number)</span>
+            <input type="tel" maxLength={30} placeholder="Number used to make the payment" className={field + ' mt-1'} value={form.payment_phone} onChange={set('payment_phone')} />
+          </label>
+        </div>
+      )}
       {needsAddress && (
         <input required placeholder="Delivery address" className={field} value={form.address} onChange={set('address')} />
       )}
@@ -95,11 +136,13 @@ export default function CheckoutForm({ kind, items, total, needsAddress = false,
       <p className="text-sm text-ink/70">
         {online
           ? 'Pay with MTN MoMo, Airtel Money or card.'
-          : 'No payment is taken on this page. We will contact you with MTN MoMo / Airtel Money payment instructions.'}
+          : kind === 'subscription'
+            ? 'Submitting this form sends your membership application and payment reference to MOBA for manual verification.'
+            : 'No payment is taken on this page. We will contact you with payment instructions.'}
       </p>
       {message && <p className="text-sm bg-gold/20 border border-gold rounded-md p-3">{message}</p>}
       <button disabled={busy} className="w-full bg-brand text-white font-semibold py-3 rounded-md hover:bg-brand-dark disabled:opacity-60">
-        {busy ? 'Please wait…' : online ? `Pay ${ugx(total)}` : `Send application · ${ugx(total)}`}
+        {busy ? 'Please wait…' : online ? `Pay ${ugx(total)}` : kind === 'subscription' ? `Submit application & payment details · ${ugx(total)}` : `Send application · ${ugx(total)}`}
       </button>
     </form>
   )

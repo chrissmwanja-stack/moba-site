@@ -40,6 +40,8 @@ export const TABS = [
     fields: [
       ['Plan', r => r.plan_name], ['Amount', r => ugx(r.amount_ugx)],
       ['Phone', r => r.phone], ['Email', r => r.email], ['Cohort', r => r.cohort],
+      ['Payment method', r => r.payment_method], ['Payment reference / transaction ID', r => r.payment_reference],
+      ['Payer phone', r => r.payment_phone],
     ],
   },
   {
