@@ -29,6 +29,7 @@ export default function AdminContent() {
   const [busy, setBusy] = useState(false)
   const [edit, setEdit] = useState(null) // { row | null, form, problems: [] }
   const [bulk, setBulk] = useState(null) // { done, total, failed: [] }
+  const [uploadCategory, setUploadCategory] = useState('')
   const section = SECTIONS.find(s => s.kind === kind)
 
   // Sign-in check: a session AND a place on the admin or editor list.
@@ -190,6 +191,8 @@ export default function AdminContent() {
     const files = [...(e.target.files || [])]
     e.target.value = ''
     if (!files.length) return
+    const category = uploadCategory.trim()
+    if (!category) { setNotice('Enter a category before uploading these photos.'); return }
     setNotice(''); setOk('')
     const used = rows.map(r => r.position).filter(p => p != null)
     const start = (used.length ? Math.min(...used) : 10) - 10 * files.length
@@ -199,7 +202,7 @@ export default function AdminContent() {
       try {
         const src = await api.uploadImage(file, 'gallery', 1600)
         const thumb = await api.uploadImage(file, 'gallery', 640)
-        const { error } = await api.createRow('photo', { src, thumb, year: new Date().getFullYear() }, start + 10 * idx)
+        const { error } = await api.createRow('photo', { src, thumb, category, year: new Date().getFullYear() }, start + 10 * idx)
         if (error) throw error
       } catch (err) { failed.push(`${file.name}: ${err.message}`) }
       setBulk({ done: idx + 1, total: files.length, failed })
@@ -208,7 +211,7 @@ export default function AdminContent() {
     await load()
     const added = files.length - failed.length
     if (failed.length) setNotice(`Some pictures could not be added:\n${failed.join('\n')}`)
-    if (added) setOk(`${added} ${added === 1 ? 'photo' : 'photos'} added as drafts. Open each one to add a caption, then publish.`)
+    if (added) setOk(`${added} ${added === 1 ? 'photo' : 'photos'} added to “${category}” as drafts. Open each one to add a caption, then publish.`)
   }
 
   async function signOut() { await supabase.auth.signOut(); navigate('/admin/login', { replace: true }) }
@@ -269,10 +272,17 @@ export default function AdminContent() {
                 ? <button className={primary} disabled={busy || state !== 'ready'} onClick={() => startEdit(rows[0] || null)}>Edit {section.label.toLowerCase()}</button>
                 : <button className={primary} disabled={busy || state !== 'ready' || needsImport} onClick={() => startEdit(null)}>Add {section.noun}</button>}
               {section.bulk && (
-                <label className={`${outline} cursor-pointer focus-within:ring-2 focus-within:ring-brand ${busy || needsImport || state !== 'ready' || bulk ? 'pointer-events-none opacity-50' : ''}`}>
-                  Upload several photos
-                  <input type="file" accept="image/*" multiple onChange={addPhotos} className="sr-only" />
-                </label>
+                <>
+                  <label className="block min-w-[15rem] text-sm font-semibold text-brand">
+                    Category for new photos
+                    <input type="text" required maxLength={60} value={uploadCategory} onChange={e => setUploadCategory(e.target.value)}
+                      placeholder="e.g. Reunions, AGM & meetings" className="mt-1 w-full rounded-md border border-ink/30 bg-white px-3 py-2 font-normal focus:outline-none focus:ring-2 focus:ring-brand" />
+                  </label>
+                  <label className={`${outline} cursor-pointer focus-within:ring-2 focus-within:ring-brand ${busy || needsImport || state !== 'ready' || bulk || !uploadCategory.trim() ? 'pointer-events-none opacity-50' : ''}`}>
+                    Upload photos to this category
+                    <input type="file" accept="image/*" multiple onChange={addPhotos} disabled={busy || needsImport || state !== 'ready' || bulk || !uploadCategory.trim()} className="sr-only" />
+                  </label>
+                </>
               )}
               {pending.length > 0 && !section.single && (
                 <button className={outline} disabled={busy || !ready.length} onClick={publishAll}>

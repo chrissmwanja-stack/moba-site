@@ -7,18 +7,21 @@ const PAGE_STEP = 24
 
 export default function Gallery() {
   const { photos } = useContent()
-  const [index, setIndex] = useState(null) // index into `photos` of the open photo, or null
+  const [index, setIndex] = useState(null) // index into the filtered photos of the open photo
   const [visible, setVisible] = useState(FIRST_PAGE)
+  const [category, setCategory] = useState('All')
+  const categories = [...new Set(photos.map(p => p.category?.trim() || 'Uncategorised'))]
+  const filtered = category === 'All' ? photos : photos.filter(p => (p.category?.trim() || 'Uncategorised') === category)
   const closeRef = useRef(null)
   const lastTile = useRef(null)
   const open = index !== null
-  const active = open ? photos[index] : null
+  const active = open ? filtered[index] : null
 
   const close = useCallback(() => {
     setIndex(null)
     lastTile.current?.focus() // hand focus back to the tile that opened the lightbox
   }, [])
-  const step = useCallback(d => setIndex(i => (i + d + photos.length) % photos.length), [])
+  const step = useCallback(d => setIndex(i => filtered.length ? (i + d + filtered.length) % filtered.length : null), [filtered.length])
 
   useEffect(() => {
     if (!open) return
@@ -46,13 +49,25 @@ export default function Gallery() {
     if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1)
   }
 
-  const shown = photos.slice(0, visible)
+  const shown = filtered.slice(0, visible)
 
   return (
     <>
       <PageHeader title="Photo Gallery" subtitle="Moments from reunions, projects and events." />
 
-      <section className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-5 px-4 sm:grid-cols-2 md:mt-12 md:grid-cols-3" aria-label="Photos">
+      <section className="mx-auto mt-8 max-w-6xl px-4 md:mt-10" aria-label="Filter gallery by category">
+        <div className="flex flex-wrap gap-2">
+          {['All', ...categories].map(c => (
+            <button key={c} type="button" onClick={() => { setCategory(c); setVisible(FIRST_PAGE); setIndex(null) }} aria-pressed={category === c}
+              className={`rounded-sm border px-4 py-2 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand ${category === c ? 'border-brand bg-brand text-white' : 'border-brand/20 bg-white text-brand hover:border-brand'}`}>
+              {c}<span className="ml-2 opacity-70">{c === 'All' ? photos.length : photos.filter(p => (p.category?.trim() || 'Uncategorised') === c).length}</span>
+            </button>
+          ))}
+        </div>
+        <p className="mt-3 text-sm text-brand/60" aria-live="polite">Showing {shown.length} of {filtered.length} photos</p>
+      </section>
+
+      <section className="mx-auto mt-5 grid max-w-6xl grid-cols-1 gap-5 px-4 sm:grid-cols-2 md:mt-7 md:grid-cols-3" aria-label="Photos">
         {shown.map((p, i) => (
           <button
             key={p.id}
@@ -76,6 +91,7 @@ export default function Gallery() {
                 {p.caption}
               </span>
             )}
+            <span className="absolute left-3 top-3 rounded-sm bg-white/90 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-brand">{p.category || 'Uncategorised'}</span>
             <span className="absolute inset-x-0 bottom-0 bg-black/65 text-white text-xs p-3 text-left">
               <span className="block font-semibold">{p.caption}</span>
               <span className="block mt-1 opacity-90">{p.year}{p.source ? ` · ${p.source}` : ''}</span>
@@ -84,14 +100,14 @@ export default function Gallery() {
         ))}
       </section>
 
-      {visible < photos.length && (
+      {visible < filtered.length && (
         <section className="max-w-6xl mx-auto px-4 mt-10 text-center">
           <button
             type="button"
             onClick={() => setVisible(v => v + PAGE_STEP)}
             className="bg-gold text-brand-dark font-semibold px-8 py-3 rounded-md hover:brightness-110"
           >
-            Show more photos ({photos.length - visible} more)
+            Show more photos ({filtered.length - visible} more)
           </button>
         </section>
       )}
@@ -100,14 +116,14 @@ export default function Gallery() {
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={`${active.caption}, photo ${index + 1} of ${photos.length}`}
+          aria-label={`${active.caption}, photo ${index + 1} of ${filtered.length}`}
           className="fixed inset-0 z-50 flex flex-col bg-black/95"
           onClick={close}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
         >
           <div className="flex items-center justify-between px-4 py-3 text-white" onClick={e => e.stopPropagation()}>
-            <p className="text-sm text-white/70">{index + 1} / {photos.length}</p>
+            <p className="text-sm text-white/70">{index + 1} / {filtered.length}</p>
             <button ref={closeRef} type="button" onClick={close}
               className="rounded-md px-3 py-1.5 font-semibold text-gold hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
               Close ✕
@@ -136,7 +152,7 @@ export default function Gallery() {
           <div className="px-4 py-4 text-center text-white" onClick={e => e.stopPropagation()}>
             <p className="font-medium">{active.caption}</p>
             <p className="text-sm text-white/60">
-              {active.year}{active.source ? ` · Photo source: ${active.source}` : ''}
+              {active.category ? `${active.category} · ` : ''}{active.year}{active.source ? ` · Photo source: ${active.source}` : ''}
               {active.sourceUrl && (
                 <>
                   {' · '}

@@ -122,16 +122,16 @@ export const projects = [
 // Reunion album files live in /gallery/2026-reunion (full) and /gallery/2026-reunion/thumbs (grid).
 export const photos = [
   // AGM 2026 — photos supplied by the association (watermarked 'Mpala Clicks' where shown).
-  { id: 206, src: '/gallery/agm-2026-6.webp', thumb: '/gallery/agm-2026-6-640.webp', caption: 'AGM 2026 — smiles from the audience', alt: 'A smiling member with arms crossed enjoying the AGM', year: 2026, source: 'Mpala Clicks', focus: '50% 25%', featured: true },
-  { id: 201, src: '/gallery/agm-2026-1.webp', thumb: '/gallery/agm-2026-1-640.webp', caption: 'AGM 2026 — members gathered in the hall', alt: 'Old Boys in MOBA polo shirts seated in a hall during the AGM', year: 2026, source: 'Mpala Clicks', focus: '50% 40%', featured: true },
-  { id: 203, src: '/gallery/agm-2026-3.webp', thumb: '/gallery/agm-2026-3-640.webp', caption: 'AGM 2026 — following the proceedings', alt: 'A senior member in a blue Mwirian polo listening during the AGM', year: 2026, source: 'Mpala Clicks', focus: '50% 25%' },
-  { id: 204, src: '/gallery/agm-2026-4.webp', thumb: '/gallery/agm-2026-4-640.webp', caption: 'AGM 2026 — Old Boys and students together', alt: 'Old Boys sitting among students in the audience at the AGM', year: 2026, source: 'Mpala Clicks', focus: '50% 35%', featured: true },
-  { id: 205, src: '/gallery/agm-2026-5.webp', thumb: '/gallery/agm-2026-5-640.webp', caption: 'AGM 2026 — members in attendance', alt: 'A member in a Mwirian polo seated at a yellow table in the school hall', year: 2026, source: 'Mpala Clicks', focus: '50% 25%' },
-  { id: 202, src: '/gallery/agm-2026-2.webp', thumb: '/gallery/agm-2026-2-640.webp', caption: 'AGM 2026 — at the high table', alt: 'A member in a navy Mwirian polo seated at the high table with a microphone', year: 2026, source: 'MOBA', focus: '50% 30%' },
+  { id: 206, src: '/gallery/agm-2026-6.webp', thumb: '/gallery/agm-2026-6-640.webp', category: 'AGM & meetings', caption: 'AGM 2026 — smiles from the audience', alt: 'A smiling member with arms crossed enjoying the AGM', year: 2026, source: 'Mpala Clicks', focus: '50% 25%', featured: true },
+  { id: 201, src: '/gallery/agm-2026-1.webp', thumb: '/gallery/agm-2026-1-640.webp', category: 'AGM & meetings', caption: 'AGM 2026 — members gathered in the hall', alt: 'Old Boys in MOBA polo shirts seated in a hall during the AGM', year: 2026, source: 'Mpala Clicks', focus: '50% 40%', featured: true },
+  { id: 203, src: '/gallery/agm-2026-3.webp', thumb: '/gallery/agm-2026-3-640.webp', category: 'AGM & meetings', caption: 'AGM 2026 — following the proceedings', alt: 'A senior member in a blue Mwirian polo listening during the AGM', year: 2026, source: 'Mpala Clicks', focus: '50% 25%' },
+  { id: 204, src: '/gallery/agm-2026-4.webp', thumb: '/gallery/agm-2026-4-640.webp', category: 'AGM & meetings', caption: 'AGM 2026 — Old Boys and students together', alt: 'Old Boys sitting among students in the audience at the AGM', year: 2026, source: 'Mpala Clicks', focus: '50% 35%', featured: true },
+  { id: 205, src: '/gallery/agm-2026-5.webp', thumb: '/gallery/agm-2026-5-640.webp', category: 'AGM & meetings', caption: 'AGM 2026 — members in attendance', alt: 'A member in a Mwirian polo seated at a yellow table in the school hall', year: 2026, source: 'Mpala Clicks', focus: '50% 25%' },
+  { id: 202, src: '/gallery/agm-2026-2.webp', thumb: '/gallery/agm-2026-2-640.webp', category: 'AGM & meetings', caption: 'AGM 2026 — at the high table', alt: 'A member in a navy Mwirian polo seated at the high table with a microphone', year: 2026, source: 'MOBA', focus: '50% 30%' },
   {
     id: 1,
     src: '/gallery/gate-2025.webp',
-    caption: 'Busoga College Mwiri’s new main gate — Photo: Donald Kiirya / New Vision',
+    category: 'Projects & campus', caption: 'Busoga College Mwiri’s new main gate — Photo: Donald Kiirya / New Vision',
     year: 2025,
     source: 'New Vision',
     sourceUrl: 'https://www.newvision.co.ug/category/education/busoga-college-mwiri-celebrates-114-years-com-NV_221954_082026',
@@ -139,7 +139,7 @@ export const photos = [
   {
     id: 2,
     src: 'https://mwiri.sc.ug/wp-content/uploads/Sports-equipment-handover2-1.jpg',
-    caption: 'MOBA alumni sports equipment handover at Busoga College Mwiri',
+    category: 'Projects & campus', caption: 'MOBA alumni sports equipment handover at Busoga College Mwiri',
     year: 2025,
     source: 'Busoga College Mwiri',
     sourceUrl: 'https://mwiri.sc.ug/busoga-college-mwiri-leadership-from-alumni-to-future-leaders-inspiration/',
@@ -147,7 +147,7 @@ export const photos = [
   {
     id: 3,
     src: '/gallery/dedication-2025.webp',
-    caption: 'Old Boys and clergy at the dedication of the new gate — Photo: New Vision',
+    category: 'Projects & campus', caption: 'Old Boys and clergy at the dedication of the new gate — Photo: New Vision',
     year: 2025,
     source: 'New Vision',
     sourceUrl: 'https://www.newvision.co.ug/category/education/busoga-college-mwiri-celebrates-114-years-com-NV_221954_082026',
@@ -155,7 +155,7 @@ export const photos = [
   {
     id: 4,
     src: '/gallery/refurb-2024.webp',
-    caption: 'Staff and students during the refurbishment handover — Photo: Uganda Baati',
+    category: 'Projects & campus', caption: 'Staff and students during the refurbishment handover — Photo: Uganda Baati',
     year: 2024,
     source: 'Uganda Baati',
     sourceUrl: 'https://ugandabaati.com/uganda-baati-supports-busoga-college-mwiri-in-sight-to-refurbish-the-school/',
@@ -163,14 +163,14 @@ export const photos = [
   {
     id: 5,
     src: '/images/gallery/mwiri-library.jpg',
-    caption: 'Muljibhai Madhvani Library, Busoga College Mwiri',
+    category: 'Projects & campus', caption: 'Muljibhai Madhvani Library, Busoga College Mwiri',
     year: 2026,
     source: 'MOBA',
   },
   {
     id: 6,
     src: '/images/gallery/moba-alumni-gathering.jpg',
-    caption: 'MOBA members gathered at Busoga College Mwiri',
+    category: 'Projects & campus', caption: 'MOBA members gathered at Busoga College Mwiri',
     year: 2026,
     source: 'MOBA',
   },
@@ -181,7 +181,7 @@ export const photos = [
       id: 100 + i,
       src: `/gallery/2026-reunion/${n}.webp`,
       thumb: `/gallery/2026-reunion/thumbs/${n}.webp`,
-      caption: 'Reunion at Mwiri — 19 Sept 2026',
+      category: 'Reunions', caption: 'Reunion at Mwiri — 19 Sept 2026',
       year: 2026,
       source: 'MOBA',
     }
