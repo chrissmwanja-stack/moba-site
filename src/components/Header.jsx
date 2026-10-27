@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import Logo from './Logo.jsx'
 import { useContent } from '../lib/siteContent.js'
+import { supabase } from '../lib/supabase.js'
 
 const links = [
   { to: '/', label: 'Home' },
@@ -18,11 +19,27 @@ const links = [
 
 const loginBtn = 'rounded bg-gold px-3.5 py-2.5 sm:px-5 sm:py-3 text-sm font-semibold text-brand-dark hover:brightness-110 whitespace-nowrap'
 
-// Two rows on desktop: brand + motto + Member Login, then the main navigation.
-// On smaller screens: brand + Member Login + a menu button.
+// Two rows on desktop: brand + motto + account access, then the main navigation.
+// On smaller screens: brand + account access + a menu button.
 export default function Header() {
   const { site } = useContent()
   const [open, setOpen] = useState(false)
+  const [signedIn, setSignedIn] = useState(false)
+
+  useEffect(() => {
+    if (!supabase) return undefined
+    let mounted = true
+    supabase.auth.getSession().then(({ data }) => {
+      if (mounted) setSignedIn(Boolean(data.session))
+    })
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSignedIn(Boolean(session))
+    })
+    return () => {
+      mounted = false
+      subscription.unsubscribe()
+    }
+  }, [])
 
   const desktopLink = ({ isActive }) =>
     `whitespace-nowrap border-b-[3px] py-3 text-sm font-medium transition ${
@@ -39,7 +56,10 @@ export default function Header() {
         </Link>
         <div className="flex items-center gap-3 sm:gap-4">
           <p className="hidden border-l-[3px] border-gold pl-3 font-display text-[15px] italic text-[#f5e6c4] lg:block">{site.motto}</p>
-          <Link to="/member" className={loginBtn}><span className="sm:hidden">Login</span><span className="hidden sm:inline">Member Login</span></Link>
+          <Link to={signedIn ? '/member' : '/member/login'} className={loginBtn} aria-label={signedIn ? 'Return to My MOBA member dashboard' : 'Member login'}>
+            <span className="sm:hidden">{signedIn ? 'My MOBA' : 'Login'}</span>
+            <span className="hidden sm:inline">{signedIn ? 'My MOBA' : 'Member Login'}</span>
+          </Link>
           <button className="text-2xl xl:hidden" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Menu">
             {open ? '✕' : '☰'}
           </button>
@@ -53,6 +73,7 @@ export default function Header() {
       {open && (
         <nav aria-label="Main" className="flex flex-col px-4 pb-3 xl:hidden" onClick={() => setOpen(false)}>
           {links.map(l => <NavLink key={l.to} to={l.to} end={l.to === '/'} className={mobileLink}>{l.label}</NavLink>)}
+          {signedIn && <NavLink to="/member" className={mobileLink}>My MOBA dashboard</NavLink>}
           <p className="mt-3 border-l-[3px] border-gold pl-3 font-display text-[15px] italic text-[#f5e6c4]">{site.motto}</p>
         </nav>
       )}
