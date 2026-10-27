@@ -26,7 +26,7 @@ function EventCard({ item }) {
     <Link to={newsPath(item)} className="group block h-full rounded-md bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand">
       <article className="flex h-full min-h-48 gap-5 p-5 md:p-6">
         {date && (
-          <div className="flex h-[72px] w-[72px] shrink-0 flex-col items-center justify-center rounded-sm bg-brand text-white">
+          <div className="flex h-18 w-18 shrink-0 flex-col items-center justify-center rounded-sm bg-brand text-white">
             <span className="font-display text-2xl font-bold leading-none">{date.getDate()}</span>
             <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-gold">{date.toLocaleString('en-GB', { month: 'short' })}</span>
           </div>
@@ -53,17 +53,17 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative isolate flex min-h-[560px] items-center overflow-hidden bg-brand md:min-h-[600px]">
+      <section className="relative isolate flex min-h-140 items-center overflow-hidden bg-brand md:min-h-150">
         <img src="/mwiri-hero.webp" alt="Busoga College Mwiri main block under jacaranda trees" fetchPriority="high" decoding="async"
           className="absolute right-0 top-0 -z-20 h-full w-full object-cover md:w-[70%]" />
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-brand/85 md:hidden" />
         <div aria-hidden="true" className="absolute inset-0 -z-10 hidden md:block"
           style={{ backgroundImage: 'linear-gradient(90deg, #0a2a5e 0%, #0a2a5e 34%, rgba(10,42,94,0.82) 50%, rgba(10,42,94,0.15) 80%, rgba(10,42,94,0) 100%)' }} />
         <div className="mx-auto w-full max-w-6xl px-4 py-16 md:py-20">
-          <div className="flex max-w-[620px] flex-col gap-6 text-white">
+          <div className="flex max-w-155 flex-col gap-6 text-white">
             <p className="text-[13px] font-semibold uppercase tracking-[0.28em] text-gold">{site.fullName}</p>
             <h1 className="font-display text-[40px] font-bold leading-[1.08] md:text-6xl">One Heritage.<br />Many Generations.<br /><span className="text-gold">A Stronger Mwiri.</span></h1>
-            <div className="h-[3px] w-16 bg-gold" aria-hidden="true" />
+            <div className="h-0.75 w-16 bg-gold" aria-hidden="true" />
             <p className="text-lg leading-relaxed text-white/90">{about.promise}</p>
             <div className="mt-1 flex flex-wrap gap-3.5">
               <Link to="/membership" className="rounded-sm bg-gold px-7 py-4 text-[15px] font-semibold text-brand-dark hover:brightness-110">Join MOBA</Link>
@@ -132,10 +132,10 @@ export default function Home() {
             <SectionIntro eyebrow="In pictures" title="Life on the Hill" link="/gallery" linkText="Explore the gallery" />
             <div className="mt-8 grid grid-cols-2 gap-4 md:mt-10 md:grid-cols-3 md:gap-6">
               {strip.map((p, i) => (
-                <Link key={p.id} to="/gallery" className={`group relative aspect-[4/3] overflow-hidden rounded-md bg-brand/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand ${i === 2 ? 'hidden md:block' : ''}`}>
+                <Link key={p.id} to="/gallery" className={`group relative aspect-4/3 overflow-hidden rounded-md bg-brand/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand ${i === 2 ? 'hidden md:block' : ''}`}>
                   <img src={p.thumb || p.src} alt={p.alt || p.caption} loading="lazy" decoding="async" style={{ objectPosition: p.focus || '50% 40%' }}
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]" />
-                  <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent px-4 pb-4 pt-12 text-sm font-medium text-white">{p.caption} · {p.event || p.year}</span>
+                  <span className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/75 to-transparent px-4 pb-4 pt-12 text-sm font-medium text-white">{p.caption} · {p.event || p.year}</span>
                 </Link>
               ))}
             </div>
@@ -151,7 +151,7 @@ export default function Home() {
             <div className="mt-8 grid gap-5 md:mt-10 md:grid-cols-2 xl:grid-cols-3">
               {projects.slice(0, 3).map(p => (
                 <article key={p.title} className="overflow-hidden rounded-md bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-                  <div className="aspect-[2/1] overflow-hidden bg-gradient-to-br from-brand/10 to-gold/25">
+                  <div className="aspect-2/1 overflow-hidden bg-linear-to-br from-brand/10 to-gold/25">
                     {p.image ? <img src={p.image} alt="" loading="lazy" className="h-full w-full object-cover" /> : <div className="flex h-full items-center justify-center font-display text-lg italic text-brand/50">MOBA project</div>}
                   </div>
                   <div className="p-5 md:p-6">
