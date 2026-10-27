@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import { site, funeralCover as cover } from '../data/content.js'
 import { sendForm } from '../lib/forms.js'
+import { orNull } from '../lib/db.js'
 import { ugx } from '../lib/format.js'
 
 const field =
@@ -70,6 +71,19 @@ export default function FuneralCover() {
       subject: `${cover.name} enrolment: ${form.name}`,
       fromName: form.name,
       fallbackEmail: cover.contactEmail || site.email,
+      save: {
+        table: 'funeral_enrolments',
+        row: {
+          name: form.name.trim(),
+          phone: form.phone.trim(),
+          email: form.email.trim(),
+          cohort: orNull(form.cohort),
+          kin_name: form.kinName.trim(),
+          kin_phone: form.kinPhone.trim(),
+          dependants: filled.map(d => ({ name: d.name.trim(), relationship: d.relationship.trim(), born: d.born.trim() })),
+          consent: true,
+        },
+      },
       fields: {
         Type: `${cover.name} enrolment`,
         Contribution: premiumText,

@@ -19,7 +19,7 @@ export default function Contact() {
     setError('')
     const r = await sendMessage({
       subject: `MOBA website: ${form.topic}`,
-      name: form.name, email: form.email, message: form.message, botcheck: bot,
+      name: form.name, email: form.email, topic: form.topic, message: form.message, botcheck: bot,
     })
     setBusy(false)
     if (r.ok) setDone(r)

@@ -1,4 +1,6 @@
 import { site } from '../data/content.js'
+import { dbEnabled, insertRow, orNull } from './db.js'
+import { notifyAdmin } from './forms.js'
 
 // Orders are emailed to the admin through Web3Forms (no backend of our own).
 // Put the access key in a .env.local file:  VITE_WEB3FORMS_KEY=your-key
@@ -27,6 +29,26 @@ function buildMessage(o) {
 export async function submitOrder(order) {
   if (order.botcheck) return { ok: true } // honeypot filled: bot, pretend success
   const message = buildMessage(order)
+
+  if (dbEnabled) {
+    const c = order.customer
+    const saved = await insertRow('orders', {
+      ref: order.ref,
+      name: c.name,
+      phone: c.phone,
+      email: c.email,
+      cohort: orNull(c.cohort),
+      address: c.address,
+      notes: orNull(c.notes),
+      items: order.items.map(i => ({ id: i.id, name: i.name, price: i.price, qty: i.qty })),
+      total_ugx: order.total,
+    })
+    if (saved.ok) {
+      notifyAdmin({ subject: `New MOBA store order ${order.ref}`, from_name: c.name, name: c.name, email: c.email, message })
+      return { ok: true }
+    }
+    // Not saved: fall through to the email path so the order is not lost.
+  }
 
   if (!KEY) {
     const subject = encodeURIComponent(`New store order ${order.ref}`)

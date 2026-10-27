@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { site } from "../data/content";
 import { sendForm } from "../lib/forms";
+import { toYear, orNull } from "../lib/db";
 
 const HELP_OPTIONS = [
   "Mentoring current students",
@@ -57,6 +58,20 @@ export default function UpdateDetails() {
       subject: `MOBA member details: ${v.name}`,
       fromName: v.name,
       fallbackEmail: site?.email,
+      save: {
+        table: "member_updates",
+        row: {
+          name: v.name.trim(),
+          email: v.email.trim(),
+          phone: orNull(v.phone),
+          cohort: toYear(v.cohort),
+          year_left: toYear(v.left),
+          location: orNull(v.location),
+          profession: orNull(v.work),
+          help_with: help,
+          consent: true,
+        },
+      },
       fields: {
         "Full name": v.name,
         Email: v.email,

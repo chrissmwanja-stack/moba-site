@@ -1,11 +1,32 @@
 import { site } from '../data/content.js'
+import { dbEnabled, insertRow } from './db.js'
 
 // Same Web3Forms key as the store orders (VITE_WEB3FORMS_KEY in .env.local).
 // Without a key the site opens the visitor's email app instead.
 const KEY = import.meta.env.VITE_WEB3FORMS_KEY || ''
 
-export async function sendMessage({ subject, name, email, message, botcheck }) {
+// Tells the admin by email that something was saved. Best effort: the data is already in the database.
+function notifyAdmin(payload) {
+  if (!KEY) return
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ access_key: KEY, ...payload }),
+    keepalive: true,
+  }).catch(() => {})
+}
+export { notifyAdmin }
+
+export async function sendMessage({ subject, name, email, message, topic, botcheck }) {
   if (botcheck) return { ok: true } // honeypot filled: bot
+  if (dbEnabled) {
+    const saved = await insertRow('contact_messages', { name, email, topic: topic || 'General enquiry', message })
+    if (saved.ok) {
+      notifyAdmin({ subject, from_name: name, name, email, message })
+      return { ok: true }
+    }
+    // Not saved: fall through to email so the message is not lost.
+  }
   if (!KEY) {
     const body = encodeURIComponent(`From: ${name} (${email})\n\n${message}`)
     window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${body}`
@@ -25,7 +46,15 @@ export async function sendMessage({ subject, name, email, message, botcheck }) {
 }
 
 // Multi-field form sender (used by the Update your details page).
-export async function sendForm({ subject, fromName, fields, fallbackEmail }) {
+// save: { table, row } stores the submission in Supabase first; if that fails, email is the fallback.
+export async function sendForm({ subject, fromName, fields, fallbackEmail, save }) {
+  if (save && dbEnabled) {
+    const saved = await insertRow(save.table, save.row)
+    if (saved.ok) {
+      notifyAdmin({ subject, from_name: fromName, ...fields })
+      return { ok: true, fallback: false }
+    }
+  }
   if (!KEY) {
     const body = Object.entries(fields).map(([k, v]) => `${k}: ${v}`).join('\n')
     window.location.href = `mailto:${fallbackEmail || site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
