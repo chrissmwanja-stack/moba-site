@@ -8,10 +8,11 @@
   --color-ink: #1f2430;
   --color-paper: #faf8f4;
   --font-display: "Playfair Display", Georgia, serif;
+  --font-sans: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 body {
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: var(--font-sans);
   background: var(--color-paper);
   color: var(--color-ink);
 }

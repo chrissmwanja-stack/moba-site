@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import PhotoBand from '../components/PhotoBand.jsx'
 import NewsCard from '../components/NewsCard.jsx'
 import { site, stats, projects, news, photos, about } from '../data/content.js'
 import { formatDate } from '../lib/format.js'
@@ -15,22 +14,36 @@ export default function Home() {
   const strip = (featured.length >= 3 ? featured : photos).slice(0, 3)
   return (
     <>
-      <PhotoBand>
-        <div className="max-w-6xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
-          <div>
-            <p className="text-gold uppercase tracking-widest text-sm font-semibold">Est. {site.founded}</p>
-            <h1 className="text-4xl md:text-5xl font-bold mt-3 leading-tight">{site.fullName}</h1>
-            <p className="mt-4 text-xl text-white/80 max-w-xl">{site.tagline}</p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/history" className="bg-gold text-brand-dark font-semibold px-6 py-3 rounded-md hover:brightness-110">Our story</Link>
-              <Link to="/gallery" className="border border-white/40 px-6 py-3 rounded-md hover:bg-white/10">View gallery</Link>
+      <section className="relative isolate flex min-h-[560px] items-center overflow-hidden bg-brand md:min-h-[600px]">
+        <img
+          src="/mwiri-hero.webp"
+          alt="Busoga College Mwiri main block under jacaranda trees"
+          fetchpriority="high"
+          decoding="async"
+          className="absolute right-0 top-0 -z-20 h-full w-full object-cover md:w-[70%]"
+        />
+        {/* Navy wash: solid behind the text, fading to clear photo on the right (heavier on phones for legibility) */}
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-brand/85 md:hidden" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 hidden md:block"
+          style={{ backgroundImage: 'linear-gradient(90deg, #0a2a5e 0%, #0a2a5e 34%, rgba(10,42,94,0.82) 50%, rgba(10,42,94,0.15) 80%, rgba(10,42,94,0) 100%)' }}
+        />
+        <div className="mx-auto w-full max-w-6xl px-4 py-16 md:py-20">
+          <div className="flex max-w-[620px] flex-col gap-6 text-white">
+            <p className="text-[13px] font-semibold uppercase tracking-[0.28em] text-gold">{site.fullName}</p>
+            <h1 className="font-display text-[40px] font-bold leading-[1.08] md:text-6xl">
+              One Heritage.<br />Many Generations.<br /><span className="text-gold">A Stronger Mwiri.</span>
+            </h1>
+            <div className="h-[3px] w-16 bg-gold" aria-hidden="true" />
+            <p className="text-lg leading-relaxed text-white/90">{about.promise}</p>
+            <div className="mt-1 flex flex-wrap gap-3.5">
+              <Link to="/membership" className="rounded bg-gold px-7 py-4 text-[15px] font-semibold text-brand-dark hover:brightness-110">Join MOBA</Link>
+              <Link to="/history" className="rounded border-[1.5px] border-white px-7 py-4 text-[15px] font-semibold text-white hover:bg-white/10">Explore Our Mwiri</Link>
             </div>
           </div>
-          <div className="flex justify-center md:justify-end">
-            <img src="/moba-logo-light.webp" alt="MOBA — Mwiri Old Boys Association, 1911" className="h-72 md:h-96 w-auto" />
-          </div>
         </div>
-      </PhotoBand>
+      </section>
 
       <section className="max-w-6xl mx-auto px-4 -mt-8 relative">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

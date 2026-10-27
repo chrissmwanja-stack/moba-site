@@ -4,6 +4,7 @@ export const site = {
   name: 'MOBA',
   fullName: 'Mwiri Old Boys Association',
   school: 'Mwiri',                  // TODO: confirm official school name
+  motto: 'Kulwa Katonda N’Eggwanga Lyaffe.', // school motto, shown in the header
   tagline: 'Once a Mwirian, always a Mwirian.', // TODO: confirm motto/tagline
   founded: 1911,
   schoolYears: 6,                  // classes from S1 to S6; join in S1 in 2001, finish S6 in 2006
