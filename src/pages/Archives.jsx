@@ -26,7 +26,7 @@ export default function Archives() {
         .filter(a => category === 'All' || a.category === category)
         .filter(a => !q || `${a.title} ${a.summary || ''} ${a.year} ${a.category}`.toLowerCase().includes(q))
         .sort((a, b) => b.year - a.year || a.title.localeCompare(b.title)),
-    [category, q],
+    [archives, category, q],
   )
 
   // Group by year, newest first.

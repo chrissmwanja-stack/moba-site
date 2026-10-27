@@ -70,7 +70,7 @@ export default function Mwirians() {
         .filter(p => !q || `${p.name} ${p.field} ${p.knownFor} ${p.cohortName || ''} ${p.cohort || ''}`.toLowerCase().includes(q))
         // Featured first, then earliest cohort first, then by name.
         .sort((a, b) => Number(!!b.featured) - Number(!!a.featured) || Number(a.cohort || 9999) - Number(b.cohort || 9999) || a.name.localeCompare(b.name)),
-    [field, q],
+    [prominentMwirians, field, q],
   )
 
   return (
