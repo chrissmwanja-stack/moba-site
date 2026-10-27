@@ -6,6 +6,21 @@ const list = a => (Array.isArray(a) ? a : [])
 
 export const TABS = [
   {
+    id: 'register', table: 'members', label: 'Member register', empty: 'No member accounts yet.',
+    statuses: ['pending', 'active', 'suspended', 'rejected'], newStatus: 'pending',
+    // Changing status goes through moba_set_member_status(), which issues the MOBA number on approval.
+    statusRpc: true,
+    // Editable on the card. Check these before approving: the MOBA number is built from them and never changes.
+    edit: [['cohort', 'Cohort year', 'year'], ['house', 'House', 'house'], ['paid_until', 'Subscribed until', 'date']],
+    title: r => r.name,
+    summary: r => [r.moba_number, r.cohort && `Cohort ${r.cohort}`, r.house].filter(Boolean).join(', '),
+    fields: [
+      ['Email', r => r.email], ['Phone', r => r.phone], ['MOBA number', r => r.moba_number],
+      ['Cohort', r => r.cohort], ['House', r => r.house], ['Subscribed until', r => r.paid_until],
+      ['Approved', r => (r.approved_at ? when(r.approved_at) : '')],
+    ],
+  },
+  {
     id: 'orders', table: 'orders', label: 'Store orders', empty: 'No orders yet.',
     statuses: ['new', 'confirmed', 'delivered', 'cancelled'],
     title: r => `${r.ref}: ${r.name}`,

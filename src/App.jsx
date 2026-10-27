@@ -20,6 +20,9 @@ import Privacy from './pages/Privacy.jsx'
 import Cohorts from './pages/Cohorts.jsx'
 import NotFound from './pages/NotFound.jsx'
 import AdminLogin from './pages/AdminLogin.jsx'
+import MemberLogin from './pages/MemberLogin.jsx'
+import Member from './pages/Member.jsx'
+import MemberReset from './pages/MemberReset.jsx'
 import Admin from './pages/Admin.jsx'
 import { site, news } from './data/content.js'
 import { newsSlug } from './lib/news.js'
@@ -41,6 +44,9 @@ const meta = {
   '/cohorts': { title: 'Branches & Cohorts', description: 'Find your MOBA branch or your year group.' },
   '/update-details': { title: 'Update Your Details', description: 'Keep your contact details current on the MOBA register.' },
   '/privacy': { title: 'Privacy' },
+  '/member': { title: 'Your Membership' },
+  '/member/login': { title: 'Member Login', description: 'Sign in or create your MOBA member account.' },
+  '/member/reset': { title: 'Reset Password' },
 }
 const defaultDescription = 'The home of the Mwiri Old Boys Association: our history, our projects and our community since 1911.'
 
@@ -83,6 +89,9 @@ export default function App() {
         <Routes>
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/member/login" element={<MemberLogin />} />
+          <Route path="/member/reset" element={<MemberReset />} />
+          <Route path="/member" element={<Member />} />
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/history" element={<History />} />

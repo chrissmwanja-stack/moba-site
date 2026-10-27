@@ -2,6 +2,7 @@ import { useState } from 'react'
 import PageHeader from '../components/PageHeader.jsx'
 import CheckoutForm from '../components/CheckoutForm.jsx'
 import { Link } from 'react-router-dom'
+import MemberCard from '../components/MemberCard.jsx'
 import { tiers, benefits } from '../data/content.js'
 import { ugx } from '../lib/format.js'
 import { PAYMENT_API_URL } from '../lib/payments.js'
@@ -49,6 +50,18 @@ export default function Membership() {
             </button>
           )
         })}
+      </section>
+
+      <section aria-label="Your member card" className="max-w-3xl mx-auto px-4 mt-14 grid gap-8 md:grid-cols-2 items-center">
+        <div>
+          <h2 className="text-2xl font-bold text-brand">One identity. A lifelong connection.</h2>
+          <p className="mt-3 text-ink/80 leading-relaxed">Create a member account and, once the secretary has verified you, you get a permanent MOBA number built from your cohort year and first house. You belong to your class, whenever you joined Mwiri.</p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <Link to="/member/login" className="bg-gold text-brand-dark font-semibold px-5 py-2.5 rounded-md hover:brightness-110">Create your account</Link>
+            <Link to="/member/login" className="border border-brand/40 text-brand font-semibold px-5 py-2.5 rounded-md hover:bg-brand/5">Member login</Link>
+          </div>
+        </div>
+        <div className="flex justify-center"><MemberCard sample /></div>
       </section>
 
       {benefits.length > 0 && (

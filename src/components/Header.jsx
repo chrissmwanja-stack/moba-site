@@ -31,7 +31,8 @@ export default function Header() {
         </Link>
         <nav className="hidden lg:flex items-center gap-1">
           {links.map(l => <NavLink key={l.to} to={l.to} end={l.to === '/'} className={linkClass}>{l.label}</NavLink>)}
-          <Link to="/cart" className="ml-2 relative text-white px-3 py-2 rounded-md hover:bg-white/10" aria-label="Cart">
+          <Link to="/member" className="ml-2 rounded-md border border-gold/70 px-3 py-1.5 text-sm font-semibold text-gold hover:bg-gold hover:text-brand-dark">Login</Link>
+          <Link to="/cart" className="ml-1 relative text-white px-3 py-2 rounded-md hover:bg-white/10" aria-label="Cart">
             🛒{count > 0 && <span className="absolute -top-1 -right-1 bg-gold text-brand-dark text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">{count}</span>}
           </Link>
         </nav>
@@ -42,6 +43,7 @@ export default function Header() {
       {open && (
         <nav className="lg:hidden px-4 pb-3 flex flex-col" onClick={() => setOpen(false)}>
           {links.map(l => <NavLink key={l.to} to={l.to} end={l.to === '/'} className={linkClass}>{l.label}</NavLink>)}
+          <NavLink to="/member" className={linkClass}>Member login</NavLink>
           <NavLink to="/cart" className={linkClass}>Cart{count > 0 && ` (${count})`}</NavLink>
         </nav>
       )}

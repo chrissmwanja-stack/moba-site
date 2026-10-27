@@ -13,6 +13,11 @@ export const site = {
   orderEmail: 'orders@mwirian.org', // TODO: where store orders are sent (use a shared admin mailbox)
 }
 
+// School houses offered on the member sign-up form. Keep in step with public.moba_houses in Supabase,
+// which holds each house's 3-letter code for MOBA numbers (a house missing there blocks approval).
+// TODO: add the remaining houses (names and codes) once confirmed.
+export const houses = ['Hannington', 'Wilson', 'Wako', 'Nadiope', 'Presidents']
+
 export const stats = [
   { label: 'Years of brotherhood', value: new Date().getFullYear() - site.founded },
   { label: 'Projects delivered', value: 10 },        // TODO

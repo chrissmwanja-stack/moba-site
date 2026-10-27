@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import { supabase } from '../lib/supabase.js'
 import { TABS, toCsv, when } from '../lib/adminTables.js'
+import { houses } from '../data/content.js'
 
 const LIMIT = 500
 
@@ -37,7 +38,7 @@ export default function Admin() {
   const loadCounts = useCallback(async () => {
     const out = {}
     await Promise.all(TABS.map(async t => {
-      const { count } = await supabase.from(t.table).select('id', { count: 'exact', head: true }).eq('status', 'new')
+      const { count } = await supabase.from(t.table).select('id', { count: 'exact', head: true }).eq('status', t.newStatus || 'new')
       out[t.id] = count || 0
     }))
     setCounts(out)
@@ -62,6 +63,14 @@ export default function Admin() {
   }, [current, filter, query])
 
   async function patch(row, changes) {
+    if (tab.statusRpc && 'status' in changes) {
+      // Status changes on the register go through the database function (it issues the MOBA number).
+      const { data, error } = await supabase.rpc('moba_set_member_status', { p_member_id: row.id, p_status: changes.status })
+      if (error) { setNotice(`Could not change status: ${error.message}`); return false }
+      setRows(r => ({ ...r, [tabId]: r[tabId].map(x => (x.id === row.id ? { ...x, ...data } : x)) }))
+      setNotice(''); loadCounts()
+      return true
+    }
     const { error } = await supabase.from(tab.table).update(changes).eq('id', row.id)
     if (error) { setNotice(`Could not save: ${error.message}`); return false }
     setRows(r => ({ ...r, [tabId]: r[tabId].map(x => (x.id === row.id ? { ...x, ...changes } : x)) }))
@@ -141,7 +150,7 @@ function Card({ row, tab, onPatch, onDelete }) {
   const [open, setOpen] = useState(false)
   const [notes, setNotes] = useState(row.admin_notes || '')
   const [saving, setSaving] = useState(false)
-  const fresh = row.status === 'new'
+  const fresh = row.status === (tab.newStatus || 'new')
 
   async function saveNotes() {
     if (notes === (row.admin_notes || '')) return
@@ -185,6 +194,31 @@ function Card({ row, tab, onPatch, onDelete }) {
               )
             })}
           </dl>
+          {tab.edit && (
+            <div className="grid gap-3 sm:grid-cols-3">
+              {tab.edit.map(([key, label, kind]) => (
+                <label key={key} className="block text-sm font-medium">
+                  {label}
+                  {kind === 'house' ? (
+                    <select value={row[key] || ''} onChange={e => onPatch(row, { [key]: e.target.value || null })}
+                      className="mt-1 w-full rounded-md border border-ink/30 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand">
+                      <option value="">Not set</option>
+                      {houses.map(h => <option key={h}>{h}</option>)}
+                    </select>
+                  ) : (
+                    <input key={row[key] ?? ''} type={kind === 'date' ? 'date' : 'text'} inputMode={kind === 'year' ? 'numeric' : undefined}
+                      maxLength={kind === 'year' ? 4 : undefined} defaultValue={row[key] ?? ''}
+                      onBlur={e => {
+                        const v = e.target.value.trim()
+                        const next = kind === 'year' ? (/^\d{4}$/.test(v) ? Number(v) : null) : (v || null)
+                        if (next !== (row[key] ?? null)) onPatch(row, { [key]: next })
+                      }}
+                      className="mt-1 w-full rounded-md border border-ink/30 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand" />
+                  )}
+                </label>
+              ))}
+            </div>
+          )}
           <label className="block text-sm font-medium">
             Admin notes (only staff see these)
             <textarea rows={2} value={notes} onChange={e => setNotes(e.target.value)} onBlur={saveNotes} maxLength={2000}
