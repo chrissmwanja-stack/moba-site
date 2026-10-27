@@ -1,11 +1,12 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import { products } from '../data/content.js'
 import { useCart } from '../context/CartContext.jsx'
 import { ugx } from '../lib/format.js'
 
 export default function Store() {
-  const { add } = useCart()
+  const { add, count } = useCart()
   const [category, setCategory] = useState('All')
   const categories = ['All', ...new Set(products.map(p => p.category).filter(Boolean))]
   const shown = category === 'All' ? products : products.filter(p => p.category === category)
@@ -25,6 +26,12 @@ export default function Store() {
         </div>
         <p className="text-sm text-ink/70 mt-3" aria-live="polite">{shown.length} {shown.length === 1 ? 'item' : 'items'}</p>
       </div>
+
+      {count > 0 && (
+        <Link to="/cart" className="fixed bottom-4 right-4 z-30 rounded-full bg-gold px-5 py-3 font-semibold text-brand-dark shadow-lg hover:brightness-110">
+          View cart ({count}) →
+        </Link>
+      )}
 
       <section className="max-w-6xl mx-auto px-4 mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {shown.map(p => (

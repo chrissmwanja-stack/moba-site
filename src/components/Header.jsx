@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import Logo from './Logo.jsx'
-import { useCart } from '../context/CartContext.jsx'
 import { site } from '../data/content.js'
 
 const links = [
@@ -23,7 +22,6 @@ const loginBtn = 'rounded bg-gold px-3.5 py-2.5 sm:px-5 sm:py-3 text-sm font-sem
 // On smaller screens: brand + Member Login + a menu button.
 export default function Header() {
   const [open, setOpen] = useState(false)
-  const { count } = useCart()
 
   const desktopLink = ({ isActive }) =>
     `whitespace-nowrap border-b-[3px] py-3 text-sm font-medium transition ${
@@ -31,13 +29,6 @@ export default function Header() {
     }`
   const mobileLink = ({ isActive }) =>
     `rounded-md px-2.5 py-2.5 text-sm font-medium ${isActive ? 'bg-white/15 text-gold' : 'text-white/85 hover:bg-white/10 hover:text-white'}`
-
-  const cart = (
-    <span className="relative">
-      🛒
-      {count > 0 && <span className="absolute -top-2 -right-3 flex h-5 w-5 items-center justify-center rounded-full bg-gold text-xs font-bold text-brand-dark">{count}</span>}
-    </span>
-  )
 
   return (
     <header className="sticky top-0 z-40 border-b-[3px] border-gold bg-brand text-white shadow xl:static">
@@ -56,13 +47,11 @@ export default function Header() {
 
       <nav aria-label="Main" className="mx-auto hidden max-w-6xl items-center gap-6 px-4 pt-1 xl:flex">
         {links.map(l => <NavLink key={l.to} to={l.to} end={l.to === '/'} className={desktopLink}>{l.label}</NavLink>)}
-        <Link to="/cart" aria-label="Cart" className="ml-auto py-2 hover:opacity-80">{cart}</Link>
       </nav>
 
       {open && (
         <nav aria-label="Main" className="flex flex-col px-4 pb-3 xl:hidden" onClick={() => setOpen(false)}>
           {links.map(l => <NavLink key={l.to} to={l.to} end={l.to === '/'} className={mobileLink}>{l.label}</NavLink>)}
-          <NavLink to="/cart" className={mobileLink}>Cart{count > 0 && ` (${count})`}</NavLink>
           <p className="mt-3 border-l-[3px] border-gold pl-3 font-display text-[15px] italic text-[#f5e6c4]">{site.motto}</p>
         </nav>
       )}
