@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
+import OurMwiriNav from '../components/OurMwiriNav.jsx'
 import { site, mwirianFields } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
 
@@ -78,9 +79,11 @@ export default function Mwirians() {
   return (
     <>
       <PageHeader
+        eyebrow="Our Mwiri"
         title="Prominent Mwirians"
         subtitle="Old Boys whose service and achievements have made the hill proud."
       />
+      <OurMwiriNav />
 
       {prominentMwirians.length === 0 ? (
         <section className="max-w-3xl mx-auto px-4 mt-12">

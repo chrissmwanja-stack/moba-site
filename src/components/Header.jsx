@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 import Logo from './Logo.jsx'
 import { useContent } from '../lib/siteContent.js'
 import { supabase } from '../lib/supabase.js'
@@ -7,7 +7,7 @@ import { supabase } from '../lib/supabase.js'
 const links = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About MOBA' },
-  { to: '/history', label: 'Our Mwiri' },
+  { to: '/history', label: 'Our Mwiri', also: ['/prominent-mwirians', '/archives'] },
   { to: '/leadership', label: 'Leadership' },
   { to: '/projects', label: 'Projects & Impact' },
   { to: '/news', label: 'News & Events' },
@@ -25,6 +25,8 @@ export default function Header() {
   const { site } = useContent()
   const [open, setOpen] = useState(false)
   const [signedIn, setSignedIn] = useState(false)
+  const { pathname } = useLocation()
+  const within = l => (l.also || []).some(p => pathname === p || pathname.startsWith(p + '/'))
 
   useEffect(() => {
     if (!supabase) return undefined
@@ -41,12 +43,12 @@ export default function Header() {
     }
   }, [])
 
-  const desktopLink = ({ isActive }) =>
+  const desktopLink = l => ({ isActive }) =>
     `whitespace-nowrap border-b-[3px] py-3 text-sm font-medium transition ${
-      isActive ? 'border-gold text-gold' : 'border-transparent text-white hover:text-gold'
+      isActive || within(l) ? 'border-gold text-gold' : 'border-transparent text-white hover:text-gold'
     }`
-  const mobileLink = ({ isActive }) =>
-    `rounded-md px-2.5 py-2.5 text-sm font-medium ${isActive ? 'bg-white/15 text-gold' : 'text-white/85 hover:bg-white/10 hover:text-white'}`
+  const mobileLink = l => ({ isActive }) =>
+    `rounded-md px-2.5 py-2.5 text-sm font-medium ${isActive || within(l) ? 'bg-white/15 text-gold' : 'text-white/85 hover:bg-white/10 hover:text-white'}`
 
   return (
     <header className="sticky top-0 z-40 border-b-[3px] border-gold bg-brand text-white shadow xl:static">
@@ -67,13 +69,13 @@ export default function Header() {
       </div>
 
       <nav aria-label="Main" className="mx-auto hidden max-w-6xl items-center gap-6 px-4 pt-1 xl:flex">
-        {links.map(l => <NavLink key={l.to} to={l.to} end={l.to === '/'} className={desktopLink}>{l.label}</NavLink>)}
+        {links.map(l => <NavLink key={l.to} to={l.to} end={l.to === '/'} className={desktopLink(l)}>{l.label}</NavLink>)}
       </nav>
 
       {open && (
         <nav aria-label="Main" className="flex flex-col px-4 pb-3 xl:hidden" onClick={() => setOpen(false)}>
-          {links.map(l => <NavLink key={l.to} to={l.to} end={l.to === '/'} className={mobileLink}>{l.label}</NavLink>)}
-          {signedIn && <NavLink to="/member" className={mobileLink}>My MOBA dashboard</NavLink>}
+          {links.map(l => <NavLink key={l.to} to={l.to} end={l.to === '/'} className={mobileLink(l)}>{l.label}</NavLink>)}
+          {signedIn && <NavLink to="/member" className={mobileLink({})}>My MOBA dashboard</NavLink>}
           <p className="mt-3 border-l-[3px] border-gold pl-3 font-display text-[15px] italic text-[#f5e6c4]">{site.motto}</p>
         </nav>
       )}

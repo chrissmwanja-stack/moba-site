@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import PhotoBand from '../components/PhotoBand.jsx'
+import OurMwiriNav from '../components/OurMwiriNav.jsx'
 import { useContent } from '../lib/siteContent.js'
 
 function Figure({ img }) {
@@ -30,6 +31,7 @@ export default function History() {
           <p className="mt-2 text-white/80 max-w-2xl">{h.intro}</p>
         </div>
       </PhotoBand>
+      <OurMwiriNav />
 
       {h.chapters.map(c => (
         <section key={c.title} className="max-w-4xl mx-auto px-4 mt-12">

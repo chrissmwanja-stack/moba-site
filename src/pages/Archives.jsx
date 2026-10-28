@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
+import OurMwiriNav from '../components/OurMwiriNav.jsx'
 import ArchivePhotos from '../components/ArchivePhotos.jsx'
 import { archiveCategories } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
@@ -37,9 +38,11 @@ export default function Archives() {
   return (
     <>
       <PageHeader
+        eyebrow="Our Mwiri"
         title="Archives"
         subtitle="Reports, minutes, newsletters, photographs and records that tell the story of the association."
       />
+      <OurMwiriNav />
 
       {archives.length === 0 ? (
         <section className="max-w-3xl mx-auto px-4 mt-12">
