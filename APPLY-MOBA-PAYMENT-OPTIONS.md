@@ -13,6 +13,6 @@ This ZIP merges into the **root of your existing moba-site repository**. It has 
 1. Extract this ZIP directly into the existing `moba-site` project folder, allowing files to merge/replace at matching paths.
 2. You already confirmed migration `202610270006`'s constraint exists. Ensure it is recorded as applied (`supabase migration repair 202610270006 --status applied`) rather than rerunning its SQL.
 3. Apply the new funeral-cover columns with `supabase db push` from the project folder. The new migration is `202610270007_manual_funeral_cover_payments.sql`.
-4. Run `npm run build`, commit and push the changes, then let Vercel deploy.
+4. Run `npm run build`, commit and push the changes, then let Cloudflare deploy.
 
 These pages record transaction references; they do not upload receipt image files or automatically confirm/activate a payment. The annual insurance contribution is not specified in the current site data and is deliberately not guessed.

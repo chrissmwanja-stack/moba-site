@@ -4,6 +4,7 @@ import NewsCard, { readingMinutes } from '../components/NewsCard.jsx'
 import { useContent } from '../lib/siteContent.js'
 import { formatDate } from '../lib/format.js'
 import { newsSlug, bodyParagraphs } from '../lib/news.js'
+import { safeUrl } from '../lib/safeUrl.js'
 
 const button =
   'rounded-md border border-brand/30 px-4 py-2 font-medium text-brand hover:bg-gold/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand'
@@ -76,9 +77,9 @@ export default function NewsArticle() {
             {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
           </div>
         )}
-        {link && (
+        {link && safeUrl(link.to) && (
           <Link
-            to={link.to}
+            to={safeUrl(link.to)}
             className="inline-block mt-8 bg-gold text-brand-dark font-semibold px-6 py-3 rounded-md hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
           >
             {link.label}

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useContent } from '../lib/siteContent.js'
+import { safeUrl } from '../lib/safeUrl.js'
 
 // Footer columns. Every page on the site is reachable from here.
 const columns = [
@@ -36,7 +37,7 @@ const icons = {
 
 export default function Footer() {
   const { site } = useContent()
-  const socials = Object.entries(site.social || {}).filter(([, url]) => url)
+  const socials = Object.entries(site.social || {}).map(([key, url]) => [key, safeUrl(url)]).filter(([, url]) => url)
   const linkClass = 'text-white/85 hover:text-gold transition'
 
   return (

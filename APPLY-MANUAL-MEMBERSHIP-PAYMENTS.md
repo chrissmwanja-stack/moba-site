@@ -7,6 +7,6 @@ This archive is structured to merge into the **root of your existing moba-site r
    - `src/components/CheckoutForm.jsx`
    - `src/lib/adminTables.js`
 3. The database migration is `supabase/migrations/202610270006_manual_membership_payments.sql`. You already confirmed its constraint exists in Supabase; if you have marked migration 202610270006 as applied with `supabase migration repair`, do not re-run its SQL. Keep the migration file in the repo for history.
-4. From the repo folder, run `npm run build`, then commit and push the changed files. After Vercel deploys, choose a membership plan to view payment instructions above the details form.
+4. From the repo folder, run `npm run build`, then commit and push the changed files. After Cloudflare deploys, choose a membership plan to view payment instructions above the details form.
 
 The form collects payment method, transaction reference, and payer phone; it does not upload receipt files. Membership remains subject to manual payment verification.

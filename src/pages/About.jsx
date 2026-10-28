@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import PhotoBand from '../components/PhotoBand.jsx'
 import { site } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
+import { safeUrl } from '../lib/safeUrl.js'
 
 const initials = name => name.split(' ').map(w => w[0]).slice(0, 2).join('')
 
@@ -66,7 +67,7 @@ export default function About() {
               <p className="text-xs font-semibold text-gold-dark">{String(i + 1).padStart(2, '0')}</p>
               <h3 className="font-semibold text-lg mt-1">{p.title}</h3>
               <p className="text-sm text-ink/70 mt-2 flex-1">{p.text}</p>
-              {p.link && <Link to={p.link} className="text-brand font-medium text-sm mt-4 hover:underline">{p.linkLabel} →</Link>}
+              {safeUrl(p.link) && <Link to={safeUrl(p.link)} className="text-brand font-medium text-sm mt-4 hover:underline">{p.linkLabel} →</Link>}
             </article>
           ))}
         </div>
@@ -141,8 +142,8 @@ export default function About() {
         <article className="bg-white rounded-md shadow-sm p-6">
           <h3 className="font-semibold text-lg text-brand">How we are run</h3>
           <p className="text-sm text-ink/70 mt-2">{governance.text}</p>
-          {governance.constitutionUrl
-            ? <a href={governance.constitutionUrl} target="_blank" rel="noreferrer" className="text-brand font-medium text-sm mt-4 inline-block hover:underline">{governance.constitutionLabel} →</a>
+          {safeUrl(governance.constitutionUrl)
+            ? <a href={safeUrl(governance.constitutionUrl)} target="_blank" rel="noopener noreferrer" className="text-brand font-medium text-sm mt-4 inline-block hover:underline">{governance.constitutionLabel} →</a>
             : <p className="text-xs text-ink/60 mt-4">The constitution will be published here soon.</p>}
         </article>
       </section>

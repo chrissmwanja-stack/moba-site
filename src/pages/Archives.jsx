@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import { archiveCategories } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
+import { safeUrl } from '../lib/safeUrl.js'
 
 const chip =
   'rounded-full border px-4 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand '
@@ -101,7 +102,7 @@ export default function Archives() {
                       {a.summary && <p className="mt-1 text-sm text-ink/75">{a.summary}</p>}
                       <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
                         <a
-                          href={a.file}
+                          href={safeUrl(a.file) || '#'}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="font-semibold text-brand underline hover:text-brand-dark"

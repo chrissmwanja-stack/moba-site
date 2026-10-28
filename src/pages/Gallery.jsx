@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import PageHeader from '../components/PageHeader.jsx'
 import { useContent } from '../lib/siteContent.js'
+import { safeUrl } from '../lib/safeUrl.js'
 
 const FIRST_PAGE = 18 // keeps the initial load light
 const PAGE_STEP = 24
@@ -153,10 +154,10 @@ export default function Gallery() {
             <p className="font-medium">{active.caption}</p>
             <p className="text-sm text-white/60">
               {active.category ? `${active.category} · ` : ''}{active.year}{active.source ? ` · Photo source: ${active.source}` : ''}
-              {active.sourceUrl && (
+              {safeUrl(active.sourceUrl) && (
                 <>
                   {' · '}
-                  <a href={active.sourceUrl} target="_blank" rel="noreferrer" className="underline text-gold">
+                  <a href={safeUrl(active.sourceUrl)} target="_blank" rel="noopener noreferrer" className="underline text-gold">
                     View original source
                   </a>
                 </>
