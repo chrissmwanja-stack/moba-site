@@ -67,10 +67,15 @@ export default function Admin() {
 
   async function patch(row, changes) {
     if (tab.statusRpc && 'status' in changes) {
-      // Status changes on the register go through the database function (it issues the MOBA number).
-      const { data, error } = await supabase.rpc('moba_set_member_status', { p_member_id: row.id, p_status: changes.status })
+      let args
+      if (tab.statusRpc === true || tab.statusRpc === 'moba_set_member_status') args = { p_member_id: row.id, p_status: changes.status }
+      else if (tab.statusRpc === 'moba_set_member_update_status') args = { p_update_id: row.id, p_status: changes.status }
+      else args = { p_request_id: row.id, p_status: changes.status, p_admin_notes: row.admin_notes || null }
+      const rpc = tab.statusRpc === true ? 'moba_set_member_status' : tab.statusRpc
+      const { data, error } = await supabase.rpc(rpc, args)
       if (error) { setNotice(`Could not change status: ${error.message}`); return false }
-      setRows(r => ({ ...r, [tabId]: r[tabId].map(x => (x.id === row.id ? { ...x, ...data } : x)) }))
+      const updated = Array.isArray(data) ? data[0] : data
+      setRows(r => ({ ...r, [tabId]: r[tabId].map(x => (x.id === row.id ? { ...x, ...updated } : x)) }))
       setNotice(''); loadCounts()
       return true
     }
@@ -144,6 +149,7 @@ export default function Admin() {
           </div>
         </div>
 
+        {tab.note && <p className="mt-4 rounded-md bg-gold/15 p-3 text-sm text-ink/80">{tab.note}</p>}
         <div className="mt-6 flex flex-wrap items-center gap-3">
           <input type="search" aria-label="Search submissions" placeholder="Search by name, phone, email…" value={query} onChange={e => setQuery(e.target.value)}
             className="min-w-[14rem] flex-1 rounded-md border border-ink/30 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand" />

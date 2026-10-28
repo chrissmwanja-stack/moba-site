@@ -16,6 +16,7 @@ export default function Member() {
   const [state, setState] = useState('loading') // loading | ready | error
   const [user, setUser] = useState(null)
   const [member, setMember] = useState(null)
+  const [avatarUrl, setAvatarUrl] = useState('')
   const [adminRole, setAdminRole] = useState(null) // set when a staff account opens the member page
 
   useEffect(() => {
@@ -26,9 +27,17 @@ export default function Member() {
       if (!session) { navigate('/member/login', { replace: true }); return }
       const { member: row, error } = await fetchMyMember(session.user.id)
       let staff = null
+      let photo = ''
       if (!row && !error) staff = (await getRole()).role // admin and editor accounts are not necessarily members
+      if (row) {
+        const { data: profile } = await supabase.from('member_profiles').select('avatar_path').eq('user_id', session.user.id).maybeSingle()
+        if (profile?.avatar_path) {
+          const { data: signed } = await supabase.storage.from('member-avatars').createSignedUrl(profile.avatar_path, 3600)
+          photo = signed?.signedUrl || ''
+        }
+      }
       if (!live) return
-      setUser(session.user); setMember(row); setAdminRole(staff); setState(error ? 'error' : 'ready')
+      setUser(session.user); setMember(row); setAvatarUrl(photo); setAdminRole(staff); setState(error ? 'error' : 'ready')
     }
     load()
     const { data: listener } = supabase.auth.onAuthStateChange((_e, session) => { if (!session) navigate('/member/login', { replace: true }) })
@@ -59,13 +68,13 @@ export default function Member() {
         {state === 'ready' && member && (
           <section aria-label="Your member details" className="mb-8 rounded-lg border border-brand/10 bg-white p-6 shadow-sm">
             <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
-                <h2 className="text-xl font-semibold text-brand">My member profile</h2>
-                <p className="mt-1 text-sm text-ink/70">Your details on the MOBA member register.</p>
+              <div className="flex items-center gap-3">
+                {avatarUrl ? <img src={avatarUrl} alt={`${member.name}'s profile`} className="h-14 w-14 rounded-full object-cover" /> : <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand/10 text-xl font-bold text-brand">{member.name?.slice(0, 1)}</div>}
+                <div><h2 className="text-xl font-semibold text-brand">My member profile</h2><p className="mt-1 text-sm text-ink/70">Your details on the MOBA member register.</p></div>
               </div>
               <div className="flex flex-wrap items-center gap-3">
                 <span className={`rounded-full px-3 py-1 text-xs font-semibold ${member.status === 'active' ? 'bg-green-100 text-green-800' : member.status === 'pending' ? 'bg-gold/25 text-brand-dark' : 'bg-red-100 text-red-800'}`}>{member.status === 'pending' ? 'Awaiting verification' : member.status?.charAt(0).toUpperCase() + member.status?.slice(1)}</span>
-                <Link to="/update-details" className="rounded-md border border-brand/40 px-4 py-2 text-sm font-semibold text-brand hover:bg-brand/5">Request a correction</Link>
+                <Link to="/member/profile" className="rounded-md border border-brand/40 px-4 py-2 text-sm font-semibold text-brand hover:bg-brand/5">Edit my profile</Link>
               </div>
             </div>
             <dl className="mt-5 grid gap-x-6 gap-y-4 sm:grid-cols-2">

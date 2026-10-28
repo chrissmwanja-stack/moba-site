@@ -25,6 +25,7 @@ import Mwirians from './pages/Mwirians.jsx'
 import NotFound from './pages/NotFound.jsx'
 import MemberLogin from './pages/MemberLogin.jsx'
 import Member from './pages/Member.jsx'
+import MemberProfile from './pages/MemberProfile.jsx'
 import MemberReset from './pages/MemberReset.jsx'
 // Admin screens are large and only staff use them, so they load on demand instead of with every visit.
 const AdminLogin = lazy(() => import('./pages/AdminLogin.jsx'))
@@ -56,6 +57,7 @@ const meta = {
   '/update-details': { title: 'Update Your Details', description: 'Keep your contact details current on the MOBA register.' },
   '/privacy': { title: 'Privacy' },
   '/member': { title: 'Your Membership' },
+  '/member/profile': { title: 'My Member Profile' },
   '/member/login': { title: 'Member Login', description: 'Sign in or create your MOBA member account.' },
   '/member/reset': { title: 'Reset Password' },
 }
@@ -106,6 +108,7 @@ export default function App() {
           <Route path="/member/login" element={<MemberLogin />} />
           <Route path="/member/reset" element={<MemberReset />} />
           <Route path="/member" element={<Member />} />
+          <Route path="/member/profile" element={<MemberProfile />} />
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/history" element={<History />} />

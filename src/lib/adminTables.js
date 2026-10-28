@@ -62,10 +62,24 @@ export const TABS = [
     statuses: ['new', 'reviewed', 'added', 'rejected'],
     title: r => r.name,
     summary: r => [r.cohort && `Cohort ${r.cohort}`, r.location].filter(Boolean).join(', '),
+    statusRpc: 'moba_set_member_update_status',
+    note: 'Setting a verified submission to Added applies it to the member record matched by email. Submissions without exactly one matching member cannot be applied.',
     fields: [
       ['Email', r => r.email], ['Phone', r => r.phone], ['Cohort', r => r.cohort], ['Year left', r => r.year_left],
       ['Location', r => r.location], ['Profession', r => r.profession],
       ['Happy to help with', r => list(r.help_with).join(', ')],
+      ['Applied to member ID', r => r.applied_member_id], ['Applied at', r => r.applied_at && when(r.applied_at)],
+    ],
+  },
+  {
+    id: 'profile_requests', table: 'member_profile_change_requests', label: 'Profile requests', empty: 'No official profile changes are awaiting review.',
+    statuses: ['pending', 'approved', 'rejected'], newStatus: 'pending', statusRpc: 'moba_resolve_member_profile_change',
+    title: r => r.member_name,
+    summary: r => [r.member_email, r.requested_name && `Name: ${r.requested_name}`, r.requested_cohort && `Cohort ${r.requested_cohort}`, r.requested_house && `${r.requested_house} House`].filter(Boolean).join(' · '),
+    fields: [
+      ['Email', r => r.member_email], ['Current name', r => r.member_name], ['Current cohort', r => r.current_cohort], ['Current house', r => r.current_house],
+      ['Requested name', r => r.requested_name], ['Requested cohort', r => r.requested_cohort], ['Requested house', r => r.requested_house],
+      ['Reason', r => r.reason], ['Resolved at', r => r.resolved_at && when(r.resolved_at)],
     ],
   },
   {
