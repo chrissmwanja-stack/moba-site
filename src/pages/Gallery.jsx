@@ -1,13 +1,21 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react'
 import PageHeader from '../components/PageHeader.jsx'
 import { useContent } from '../lib/siteContent.js'
 import { safeUrl } from '../lib/safeUrl.js'
+import { campusGallery } from '../data/projectSpotlights.js'
 
 const FIRST_PAGE = 18 // keeps the initial load light
 const PAGE_STEP = 24
 
 export default function Gallery() {
-  const { photos } = useContent()
+  const { photos: contentPhotos } = useContent()
+  const photos = useMemo(() => {
+    const known = new Set(contentPhotos.map(p => p.src).filter(Boolean))
+    const newCampusPhotos = campusGallery
+      .filter(photo => !known.has(photo.src))
+      .map((photo, i) => ({ ...photo, id: `mwiri-today-${i}`, category: 'Mwiri today', source: 'MOBA' }))
+    return [...contentPhotos, ...newCampusPhotos]
+  }, [contentPhotos])
   const [index, setIndex] = useState(null) // index into the filtered photos of the open photo
   const [visible, setVisible] = useState(FIRST_PAGE)
   const [category, setCategory] = useState('All')
@@ -95,7 +103,7 @@ export default function Gallery() {
             <span className="absolute left-3 top-3 rounded-sm bg-white/90 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-brand">{p.category || 'Uncategorised'}</span>
             <span className="absolute inset-x-0 bottom-0 bg-black/65 text-white text-xs p-3 text-left">
               <span className="block font-semibold">{p.caption}</span>
-              <span className="block mt-1 opacity-90">{p.year}{p.source ? ` · ${p.source}` : ''}</span>
+              {(p.year || p.source) && <span className="block mt-1 opacity-90">{[p.year, p.source].filter(Boolean).join(' · ')}</span>}
             </span>
           </button>
         ))}
@@ -153,7 +161,7 @@ export default function Gallery() {
           <div className="px-4 py-4 text-center text-white" onClick={e => e.stopPropagation()}>
             <p className="font-medium">{active.caption}</p>
             <p className="text-sm text-white/60">
-              {active.category ? `${active.category} · ` : ''}{active.year}{active.source ? ` · Photo source: ${active.source}` : ''}
+              {[active.category, active.year, active.source && `Photo source: ${active.source}`].filter(Boolean).join(' · ')}
               {safeUrl(active.sourceUrl) && (
                 <>
                   {' · '}
