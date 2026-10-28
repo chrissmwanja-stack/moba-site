@@ -17,7 +17,7 @@ export const site = {
   // Ways to give, shown on the Donate page. Each: { label: 'Bank transfer', lines: ['Account name: ...', 'Account no: ...'] }.
   // Leave empty until the executive confirms the official accounts; the page then explains that we will send details after a pledge.
   donate: [], // TODO: add the association's bank and mobile money details
-  orderEmail: 'orders@mwirian.org', // TODO: where store orders are sent (use a shared admin mailbox)
+  orderEmail: 'info@mwirian.org', // where store orders are emailed (same inbox as general enquiries)
 }
 
 // The nine school houses offered on member sign-up and admin forms. Keep in step with public.moba_houses in Supabase.
