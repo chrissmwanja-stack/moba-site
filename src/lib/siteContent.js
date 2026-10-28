@@ -45,6 +45,7 @@ export function build(st) {
     prominentMwirians: list('mwirian', base.prominentMwirians),
     archives: list('archive', base.archives),
     timeline: list('timeline', base.timeline),
+    history: base.history,
     about,
     products: list('product', base.products),
     tiers: list('membership_plan', base.tiers),

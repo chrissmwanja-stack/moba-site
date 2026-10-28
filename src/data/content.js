@@ -30,14 +30,109 @@ export const stats = [
 ]
 
 export const timeline = [
-  { year: 1911, title: 'The beginning', text: 'The school was founded in January 1911 by Basoga princes who had studied at Kings College Budo, together with the Church Missionary Society, a group of Anglican missionaries.' },
-  { year: 1930, title: 'A milestone', text: 'Charles Girling led 400 men to clear Mwiri Hill. The school operated from King’s College Budo from 1930 to 1933 while the hill buildings went up.' },
+  { year: 1911, title: 'The beginning', text: 'The school was founded in January 1911 by Basoga princes who had studied at Kings College Budo, together with the Church Missionary Society, a group of Anglican missionaries. It first opened in Kamuli as Balangira High School, on land given by Prince Yosiya Nadiope.' },
+  { year: 1920, title: 'A permanent site', text: 'Rev. A. Harry Brewer becomes headmaster and campaigns for a permanent home away from the original, unsuitable site.' },
+  { year: 1930, title: 'Clearing the Hill', text: 'Charles Girling led 400 men to clear Mwiri Hill. The school operated from King’s College Budo from 1930 to 1933 while the hill buildings went up.' },
+  { year: 1933, title: 'Home on the Hill', text: 'The school moves permanently to Mwiri Hill.' },
   { year: 1939, title: 'A milestone', text: 'Ezekiel Tenywa Wako, the first Kyabazinga of a united Busoga, enthroned in 1939, helped the school get its current location.' },
-  { year: 1962, title: 'A milestone', text: 'Mwiri’s motto was adopted as Uganda’s national motto in 1962, when the country became independent.' },
+  { year: 1940, title: 'The Main Hall', text: 'The Main Hall opens.' },
+  { year: 1943, title: 'The Golden Age begins', text: 'Rev. H. G. “Jack” Coates begins 22 years as headmaster, remembered as Mwiri’s Golden Age.' },
+  { year: 1959, title: 'Hannington House', text: 'Hannington House is opened by Bishop Hannington’s daughter.' },
+  { year: 1962, title: 'A national motto', text: 'Mwiri’s motto was adopted as Uganda’s national motto in 1962, when the country became independent.' },
+  { year: 1964, title: 'A Level arrives', text: 'A Level education is introduced.' },
+  { year: 1965, title: 'First African headmaster', text: 'Dan N. Okungu becomes the first African headmaster.' },
+  { year: 1980, title: 'Coates House', text: 'Coates House is built.' },
   { year: 2011, title: 'A milestone', text: 'Centennial celebrations were held at the school in September.' },
   { year: 2018, title: 'A milestone', text: 'Mwiri won the Boys’ Schools’ Cricket week title for a record 17th time. This was also the 107th anniversary.' },
+  { year: 2025, title: 'A record 20th title', text: 'Mwiri win a record 20th Schools Cricket Week title, unbeaten.' },
+  { year: 2026, title: 'Representing Uganda', text: 'Mwiri represent Uganda at the FEASSA Games in Morogoro, Tanzania. The new MOBA Executive adopts “Reclaiming Our Greatness”.' },
   { year: 2026, title: 'Going digital', text: 'The association launches its online home.' },
 ]
+
+// ---------- HISTORY PAGE (/history) ----------
+// Narrative sections shown above the timeline. Photos reuse the "From the archive" gallery files.
+// Anything not yet confirmed (headmaster dates, the 1970s, enrolment figures) is deliberately left out.
+export const history = {
+  intro: 'From its beginnings as a school for the sons of Busoga chiefs to its place among Uganda’s distinguished institutions, Busoga College Mwiri has shaped generations of leaders, professionals and citizens.',
+  chapters: [
+    {
+      label: 'Chapter one · 1911 to 1930', title: 'The birth of a great institution',
+      paragraphs: [
+        'The story of Busoga College Mwiri begins in 1911. Founded through the efforts of Basoga princes and chiefs working with the Church Missionary Society, the school first opened in Kamuli as Balangira High School, primarily for the sons of Busoga chiefs. Prince Yosiya Nadiope provided the land.',
+        'The early school emphasised discipline and self-reliance, and pupils grew cotton, coffee and rubber to help support the school. In time, admission broadened beyond the families of chiefs.',
+        'Under the second headmaster, Reverend A. Harry Brewer (1920 to 1930), plans grew to leave the original, unsuitable site for a permanent home. His advocacy prepared the way for Mwiri Hill.',
+      ],
+      images: [
+        { src: '/gallery/archive-thatched-buildings-640.webp', alt: 'Pupils outside the early thatched school buildings', caption: 'Pupils outside the early thatched school buildings.' },
+        { src: '/gallery/archive-football-team-restored-640.webp', alt: 'The Busoga High School football team', caption: 'The Busoga High School football team, from the era when the school carried that name.' },
+      ],
+    },
+    {
+      label: 'Chapter two · 1930 to 1933', title: 'The move to Mwiri Hill',
+      paragraphs: [
+        'In 1930, Charles Girling supervised a workforce of some 400 men clearing the forested hill for the new campus. While the buildings went up, the school was housed at King’s College Budo.',
+        'In 1933 the school moved permanently to the Hill. The name comes from Muyili, or Muyiri, the local name for the hill. Today the site, in Jinja District near Kakira, covers around 300 acres overlooking the Busoga countryside. Balangira High School became Busoga High School, and then Busoga College Mwiri.',
+      ],
+    },
+    {
+      label: 'Chapter three · 1943 to 1965', title: 'The Golden Age',
+      paragraphs: [
+        'The years under Reverend H. G. “Jack” Coates, headmaster from 1943 to 1965, are remembered as Mwiri’s Golden Age. The school earned a reputation for academic excellence, discipline, sport and character, and Coates’s 22 years left an enduring legacy.',
+        'The Main Hall had opened in 1940, Hannington House opened in 1959 and A Level arrived in 1964. Apollo Milton Obote, a pupil from 1942 to 1948, went on to become Uganda’s first Prime Minister and President. In 1965 Dan N. Okungu became the first African headmaster, and Old Boys came to call Mwiri simply “The School”.',
+      ],
+      images: [
+        { src: '/gallery/archive-wako-1965-640.webp', alt: 'Wako House in 1965 with its trophies beneath the school motto', caption: 'Waako House, 1965, at the end of the Golden Age, with its haul of trophies beneath the school motto.' },
+        { src: '/gallery/archive-hannington-1981-640.webp', alt: 'Hannington House at the Main Hall in 1981', caption: 'Hannington House at the Main Hall, 1981.' },
+      ],
+    },
+  ],
+  // Only headmasters whose dates are confirmed. TODO: complete the list with the school archive.
+  headmastersTitle: 'Headmasters through the years',
+  headmasters: [
+    { name: 'Rev. W. B. Gill', note: 'First headmaster, to 1920' },
+    { name: 'Rev. A. Harry Brewer', note: '1920 to 1930' },
+    { name: 'Rev. H. G. “Jack” Coates', note: '1943 to 1965' },
+    { name: 'Dan N. Okungu', note: 'From 1965, first African headmaster' },
+  ],
+  headmastersNote: 'The full list of headmasters is being compiled with the school archive.',
+  housesIntro: 'Named for founders, traditional leaders, missionaries and educators, the houses keep alive the memory of the people who shaped the school. House life has built belonging, discipline, leadership and friendships that last a lifetime.',
+  // TODO: confirm each description with the school archive.
+  houses: [
+    { name: 'Brewer', text: 'For Rev. A. Harry Brewer, second headmaster (1920 to 1930), who championed the move from Kamuli to Mwiri Hill but died before it was completed.' },
+    { name: 'Coates', text: 'For Rev. H. G. “Jack” Coates, headmaster from 1943 to 1965, whose tenure is remembered as the Golden Age. Built in 1980.' },
+    { name: 'Hannington', text: 'For Bishop James Hannington, an early Anglican bishop killed in Busoga in 1885. Opened by his daughter in 1959.' },
+    { name: 'Nabikamba', text: 'For Nabikamba, one of the founding Busoga chiefs.' },
+    { name: 'Nadiope', text: 'For Prince Yosiya Nadiope, who gave the original land in Kamuli for Balangira High School in 1911.' },
+    { name: 'Presidents', text: 'In honour of the presidents of the Busoga Lukiiko, the council of chiefs, recognising traditional leadership’s part in building the school.' },
+    { name: 'Waako', text: 'For Ezekiel Tenywa Wako, the first Kyabazinga of a united Busoga, who helped the school secure its present site.' },
+    { name: 'Willis', text: 'For the Rt Rev. John Jamieson Willis, Bishop of Uganda from 1912 to 1934, who helped raise funds for the school.' },
+    { name: 'Wilson', text: 'For Rev. C. T. Wilson, one of the first Anglican missionaries to Uganda, who arrived in 1877.' },
+  ],
+  traditions: {
+    title: 'The spirit of Mwiri',
+    paragraphs: [
+      'Mwiri’s traditions include the distinctive all-white O Level uniform, the long-running Mpala Magazine, the school songs, prefectural leadership and the roll call known as “Wampa”. New Senior One boys were also paired with Senior Three boys for guidance and protection.',
+      'These shared experiences create an identity that lasts long after the final term. To be a Mwirian is to belong to a community shaped by service, loyalty and a common history.',
+    ],
+  },
+  sport: {
+    title: 'Sporting excellence',
+    stat: '20', statLabel: 'Schools Cricket Week titles, a record',
+    paragraphs: [
+      'Sport has long sat alongside learning at Mwiri, from cricket, football and rugby to basketball, athletics and volleyball. In 2025 Mwiri won a record twentieth Schools Cricket Week title without losing a match, with captain Gerald Olipa named leading batsman on 298 runs.',
+      'In 2026 the school represented Uganda at the FEASSA Games in Morogoro, Tanzania.',
+    ],
+    image: { src: '/gallery/archive-cricket-team-640.webp', alt: 'Mwiri cricketers in whites with their master', caption: 'Mwiri cricketers in whites with their master.' },
+  },
+  renewal: {
+    title: 'Old Boys and the work of renewal',
+    paragraphs: [
+      'Old Boys have helped sustain the school through fundraising, renovation, sport, mentorship and mobilising alumni at home and abroad, with involvement in school affairs recorded as far back as the late 1960s.',
+      'They have supported dormitory improvements, asbestos removal, sanitation works, painting, sports facilities and equipment. Friends of Mwiri UK have also given over many years, and the annual Homecoming keeps the generations connected.',
+    ],
+  },
+  sources: 'Busoga College Mwiri: History of the School; Mwiri National Contribution; Friends of Mwiri UK (mwiri.sc.ug). Daily Monitor and NBS Sport coverage of the school and its cricket; Uganda Cricket: FEASSA Games 2026.',
+}
 
 // ---------- ABOUT MOBA ----------
 // DRAFT: everything marked TODO is placeholder wording to be confirmed by the executive.
