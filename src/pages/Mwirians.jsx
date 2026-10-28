@@ -20,7 +20,7 @@ function cohortText(p) {
 function Avatar({ p }) {
   const cls = 'h-28 w-28 rounded-full border-4 border-gold'
   return p.photo
-    ? <img src={p.photo} alt="" loading="lazy" className={`${cls} object-cover`} />
+    ? <img src={p.photo} alt="" loading="lazy" className={`${cls} object-cover object-top`} />
     : <div aria-hidden="true" className={`${cls} flex items-center justify-center bg-brand text-3xl font-bold text-gold`}>{initials(p.name)}</div>
 }
 

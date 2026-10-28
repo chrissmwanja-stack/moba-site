@@ -184,6 +184,14 @@ export const photos = [
       source: 'MOBA',
     }
   }),
+  // From the archive. Old photographs; add the year, who is pictured and a photo credit as members identify them.
+  { id: 301, src: '/gallery/archive-team-1947.webp', thumb: '/gallery/archive-team-1947-640.webp', category: 'From the archive', caption: 'A Mwiri team with its trophy and masters, about 1947', alt: 'Boys in white seated and standing on the steps of a building with two masters, about 1947', year: 1947, focus: '50% 40%' },
+  { id: 302, src: '/gallery/archive-wako-1965.webp', thumb: '/gallery/archive-wako-1965-640.webp', category: 'From the archive', caption: 'Wako House with its trophies, 1965, at the end of the Golden Age', alt: 'Members and masters of Wako House posed on the steps with trophies and the school motto above the door', year: 1965, focus: '50% 40%' },
+  { id: 303, src: '/gallery/archive-hannington-1981.webp', thumb: '/gallery/archive-hannington-1981-640.webp', category: 'From the archive', caption: 'Hannington House at the Main Hall, 1981 — Headmaster Mr Pithy Ndiko is among those pictured', alt: 'A large group of Hannington House members on the steps of the Main Hall', year: 1981, focus: '50% 35%' },
+  { id: 304, src: '/gallery/archive-cricket-1990s.webp', thumb: '/gallery/archive-cricket-1990s-640.webp', category: 'From the archive', caption: 'A Mwiri cricket XI in the 1990s', alt: 'A Mwiri cricket team in whites, standing and kneeling on the field', focus: '50% 35%' }, // TODO: add year (date stamp on the photo looks like 96)
+  { id: 305, src: '/gallery/archive-cricket-team.webp', thumb: '/gallery/archive-cricket-team-640.webp', category: 'From the archive', caption: 'A Mwiri cricket team in whites with their master', alt: 'Cricketers in whites on the steps of a building beside their master, who holds a bat', focus: '50% 30%' }, // TODO: add year
+  { id: 306, src: '/gallery/archive-football-team-restored.webp', thumb: '/gallery/archive-football-team-restored-640.webp', category: 'From the archive', caption: 'The Busoga High School football team, from the era when the school carried that name', alt: 'A football team seated on wide steps holding a ball, with a caption reading Busoga High School Football Team', focus: '50% 40%' }, // TODO: add year
+  { id: 307, src: '/gallery/archive-thatched-buildings.webp', thumb: '/gallery/archive-thatched-buildings-640.webp', category: 'From the archive', caption: 'Pupils outside the early thatched school buildings', alt: 'Long thatched school buildings with pupils gathered in the distance under a large tree', focus: '50% 50%' }, // TODO: add year and location
 ]
 
 // ---------- STORE ----------
@@ -318,7 +326,19 @@ export const mwirianFields = [
   'Education & academia', 'Sports', 'Arts & media', 'Faith & community',
 ]
 export const prominentMwirians = [
-  // { name: 'Full Name', field: 'Law & justice', knownFor: 'Former Justice of the Supreme Court', cohort: '1965', houses: ['Wilson'], photo: '/mwirians/full-name.webp', bio: ['Short paragraph.'], featured: true },
+  // Portraits are publicly sourced. Please confirm reuse permission before launch.
+  // `cohort` is only set where the start year is known; add it (and cohortName / houses) as members confirm.
+  { name: 'Apollo Milton Obote', field: 'Public service & politics', knownFor: 'Uganda’s first Prime Minister and later President', cohort: '1942', photo: '/mwirians/obote.webp', deceased: true },
+  { name: 'Ruhakana Rugunda', field: 'Public service & politics', knownFor: 'Former Prime Minister of Uganda', photo: '/mwirians/rugunda.webp' },
+  { name: 'William Gabula Nadiope IV', field: 'Faith & community', knownFor: 'Kyabazinga of Busoga', photo: '/mwirians/nadiope.webp' }, // TODO: confirm field (cultural leadership)
+  { name: 'Samwiri Wako Wambuzi', field: 'Law & justice', knownFor: 'Three-time Chief Justice of Uganda', photo: '/mwirians/wambuzi.webp' },
+  { name: 'Fred Egonda-Ntende', field: 'Law & justice', knownFor: 'Chief Justice of Seychelles (2009–2014) and Justice of Uganda’s Court of Appeal', photo: '/mwirians/ntende.webp' },
+  { name: 'George Kanyeihamba', field: 'Law & justice', knownFor: 'Justice of the Supreme Court of Uganda and former Attorney General', photo: '/mwirians/kanyeihamba.webp', deceased: true },
+  { name: 'Francis Joash Ayume', field: 'Public service & politics', knownFor: 'Speaker of Uganda’s 6th Parliament (1998–2001) and Attorney General', photo: '/mwirians/ayume.webp', deceased: true },
+  { name: 'Dr. Yefusa Okullo Epak', field: 'Public service & politics', knownFor: 'Former Member of Parliament and Government Chief Planner', photo: '/mwirians/epak.webp' }, // TODO: confirm role and spelling of the surname
+  { name: 'Barnabas Nawangwe', field: 'Education & academia', knownFor: 'Professor and academic', photo: '/mwirians/nawangwe.webp' }, // TODO: confirm the role line
+  { name: 'Andrew Mwenda', field: 'Arts & media', knownFor: 'Journalist', photo: '/mwirians/mwenda.webp' },
+  { name: 'Daniel Kalinaki', field: 'Arts & media', knownFor: 'Journalist', photo: '/mwirians/kalinaki.webp' },
 ]
 
 // ---------- BRANCHES & COHORTS ----------
