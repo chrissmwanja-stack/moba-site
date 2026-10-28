@@ -17,11 +17,11 @@ function cohortText(p) {
   return `${p.cohortName} (${start}–${start + site.schoolYears - 1})`
 }
 
-function Avatar({ p }) {
-  const cls = 'h-28 w-28 rounded-full border-4 border-gold'
+function Portrait({ p }) {
+  const cls = 'aspect-[4/5] w-full border-b-4 border-gold'
   return p.photo
     ? <img src={p.photo} alt="" loading="lazy" className={`${cls} object-cover object-top`} />
-    : <div aria-hidden="true" className={`${cls} flex items-center justify-center bg-brand text-3xl font-bold text-gold`}>{initials(p.name)}</div>
+    : <div aria-hidden="true" className={`${cls} flex items-center justify-center bg-brand text-6xl font-bold text-gold`}>{initials(p.name)}</div>
 }
 
 function Card({ p }) {
@@ -29,24 +29,26 @@ function Card({ p }) {
   const houses = p.houses?.length ? `${p.houses.length > 1 ? 'Houses' : 'House'}: ${p.houses.join(' and ')}` : null
   const hasBio = Array.isArray(p.bio) && p.bio.length > 0
   return (
-    <article className="flex h-full flex-col rounded-lg bg-white p-6 text-center shadow">
-      <div className="mx-auto w-fit"><Avatar p={p} /></div>
-      <h3 className="mt-4 text-lg font-semibold">{p.deceased ? 'Late ' : ''}{p.name}</h3>
-      <p className="font-medium text-gold-dark">{p.field}</p>
-      <p className="mt-2 text-sm text-ink/80">{p.knownFor}</p>
-      {(cohort || houses) && (
-        <p className="mt-2 text-sm text-ink/70">{[cohort, houses].filter(Boolean).join(' · ')}</p>
-      )}
-      {hasBio && (
-        <details className="mt-4 text-left">
-          <summary className="cursor-pointer text-center text-sm font-medium text-brand hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-brand">
-            Read more<span className="sr-only"> about {p.name}</span>
-          </summary>
-          <div className="mt-3 space-y-3 text-sm leading-relaxed text-ink/80">
-            {p.bio.map((para, i) => <p key={i}>{para}</p>)}
-          </div>
-        </details>
-      )}
+    <article className="flex h-full flex-col overflow-hidden rounded-lg bg-white shadow">
+      <Portrait p={p} />
+      <div className="flex flex-1 flex-col p-5">
+        <h3 className="font-display text-xl font-bold text-brand">{p.deceased ? 'Late ' : ''}{p.name}</h3>
+        <p className="mt-1 text-sm font-semibold text-gold-dark">{p.field}</p>
+        <p className="mt-2 text-sm text-ink/80">{p.knownFor}</p>
+        {(cohort || houses) && (
+          <p className="mt-2 text-sm text-ink/70">{[cohort, houses].filter(Boolean).join(' · ')}</p>
+        )}
+        {hasBio && (
+          <details className="mt-4">
+            <summary className="cursor-pointer text-sm font-medium text-brand hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-brand">
+              Read more<span className="sr-only"> about {p.name}</span>
+            </summary>
+            <div className="mt-3 space-y-3 text-sm leading-relaxed text-ink/80">
+              {p.bio.map((para, i) => <p key={i}>{para}</p>)}
+            </div>
+          </details>
+        )}
+      </div>
     </article>
   )
 }
