@@ -4,6 +4,7 @@ import PageHeader from '../components/PageHeader.jsx'
 import PasswordInput from '../components/PasswordInput.jsx'
 import { supabase } from '../lib/supabase.js'
 import { friendlyAuthError } from '../lib/members.js'
+import { getRole } from '../lib/contentAdmin.js'
 
 const field = 'w-full border border-ink/30 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand'
 
@@ -39,7 +40,9 @@ export default function MemberReset() {
     const { error: err } = await supabase.auth.updateUser({ password })
     setBusy(false)
     if (err) return setError(friendlyAuthError(err))
-    navigate('/member', { replace: true })
+    // Staff who reset their password go back to the admin area; everyone else to their member page.
+    const { role } = await getRole()
+    navigate(role === 'editor' ? '/admin/content' : role === 'admin' ? '/admin' : '/member', { replace: true })
   }
 
   return (
