@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import PageHeader from '../components/PageHeader.jsx'
 import CheckoutForm from '../components/CheckoutForm.jsx'
 import { Link } from 'react-router-dom'
@@ -6,13 +6,28 @@ import MemberCard from '../components/MemberCard.jsx'
 import { benefits } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
 import { ugx } from '../lib/format.js'
+import { lifeMembers } from '../data/lifeMembers.js'
 
 export default function Membership() {
   const { tiers } = useContent()
   const [selected, setSelected] = useState('')
+  const checkoutRef = useRef(null)
   const activeTier = tiers.find(t => t.id === selected) || tiers[0]
   const selectedId = activeTier?.id
   const tier = activeTier
+  const lifeTier = tiers.find(t => t.id === 'life') || tiers.find(t => /life/i.test(t.name || ''))
+  const lifeMemberColumns = [
+    { start: 1, names: lifeMembers.slice(0, 16) },
+    { start: 17, names: lifeMembers.slice(16, 31) },
+    { start: 32, names: lifeMembers.slice(31, 47) },
+    { start: 48, names: lifeMembers.slice(47) },
+  ]
+
+  function chooseLifeMembership() {
+    if (!lifeTier) return
+    setSelected(lifeTier.id)
+    checkoutRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
   return (
     <>
@@ -52,6 +67,49 @@ export default function Membership() {
         })}
       </section>}
 
+      {lifeMembers.length > 0 && (
+        <section className="mx-auto mt-14 max-w-6xl px-4" aria-labelledby="life-members-heading">
+          <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-10">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-dark">Life membership</p>
+              <h2 id="life-members-heading" className="mt-2 max-w-3xl font-display text-3xl font-bold leading-tight text-brand sm:text-4xl">
+                Distinguished Lifetime Members Club
+              </h2>
+              <span className="mt-4 block h-1 w-14 bg-gold" aria-hidden="true" />
+              <p className="mt-4 max-w-3xl leading-7 text-ink/75">
+                These Mwirians have made a lifelong commitment to the brotherhood. Thank you for leading the way.
+              </p>
+            </div>
+            {lifeTier && (
+              <aside className="border-l-4 border-gold bg-gold/20 p-6">
+                <h3 className="font-display text-xl font-semibold text-brand">Add your name</h3>
+                <p className="mt-2 text-sm text-brand">Life membership: {ugx(lifeTier.price)}</p>
+                <button
+                  type="button"
+                  onClick={chooseLifeMembership}
+                  className="mt-4 rounded-md bg-brand px-5 py-3 text-sm font-semibold text-white hover:bg-brand-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+                >
+                  Become a life member
+                </button>
+              </aside>
+            )}
+          </div>
+
+          <div className="mt-8 grid grid-cols-1 gap-x-8 sm:grid-cols-2 xl:grid-cols-4">
+            {lifeMemberColumns.map(column => (
+              <ol key={column.start} className="list-none">
+                {column.names.map((name, index) => (
+                  <li key={`${column.start + index}-${name}`} className="flex min-h-10 items-center gap-4 border-b border-ink/10 py-2 text-sm font-medium text-brand">
+                    <span className="w-5 shrink-0 font-bold text-gold-dark" aria-hidden="true">{column.start + index}</span>
+                    <span>{name}</span>
+                  </li>
+                ))}
+              </ol>
+            ))}
+          </div>
+        </section>
+      )}
+
       <section aria-label="Your member card" className="max-w-3xl mx-auto px-4 mt-14 grid gap-8 md:grid-cols-2 items-center">
         <div>
           <h2 className="text-2xl font-bold text-brand">One identity. A lifelong connection.</h2>
@@ -84,7 +142,7 @@ export default function Membership() {
         </section>
       )}
 
-      {tier && <section className="max-w-3xl mx-auto px-4 mt-10 mb-4">
+      {tier && <section ref={checkoutRef} id="membership-checkout" className="max-w-3xl mx-auto px-4 mt-10 mb-4 scroll-mt-8">
         <p className="mb-3 font-medium">Joining as: <span className="text-brand">{tier.name}</span></p>
         <CheckoutForm
           key={tier.id}
