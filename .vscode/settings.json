@@ -3,6 +3,7 @@
         "Abaliwano",
         "Airtel",
         "Atletico",
+        "authorised",
         "Baati",
         "Basoga",
         "Bizimana",
@@ -16,6 +17,7 @@
         "colours",
         "Dependants",
         "enrolments",
+        "errcode",
         "FMCG",
         "gilet",
         "gilets",
@@ -62,6 +64,7 @@
         "organised",
         "Organising",
         "Pesa",
+        "plpgsql",
         "polos",
         "refurb",
         "Reroofing",
@@ -78,6 +81,7 @@
         "Waako",
         "Wako",
         "Wampa",
+        "webp",
         "Yosia"
     ]
 }

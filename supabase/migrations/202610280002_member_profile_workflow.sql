@@ -24,6 +24,8 @@ create table if not exists public.member_profiles (
 alter table public.member_profiles enable row level security;
 revoke all on public.member_profiles from anon, authenticated;
 grant select on public.member_profiles to authenticated;
+drop policy if exists "members read own profile" on public.member_profiles;
+drop policy if exists "admins read member profiles" on public.member_profiles;
 create policy "members read own profile" on public.member_profiles
   for select to authenticated using (user_id = (select auth.uid()));
 create policy "admins read member profiles" on public.member_profiles
@@ -51,6 +53,9 @@ alter table public.member_profile_change_requests enable row level security;
 revoke all on public.member_profile_change_requests from anon, authenticated;
 grant select on public.member_profile_change_requests to authenticated;
 grant update (admin_notes) on public.member_profile_change_requests to authenticated;
+drop policy if exists "members read own profile requests" on public.member_profile_change_requests;
+drop policy if exists "admins read profile requests" on public.member_profile_change_requests;
+drop policy if exists "admins note profile requests" on public.member_profile_change_requests;
 create policy "members read own profile requests" on public.member_profile_change_requests
   for select to authenticated using (user_id = (select auth.uid()));
 create policy "admins read profile requests" on public.member_profile_change_requests
