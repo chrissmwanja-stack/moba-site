@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
+import ArchivePhotos from '../components/ArchivePhotos.jsx'
 import { archiveCategories } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
 import { safeUrl } from '../lib/safeUrl.js'
@@ -37,7 +38,7 @@ export default function Archives() {
     <>
       <PageHeader
         title="Archives"
-        subtitle="Reports, minutes, newsletters and records that tell the story of the association."
+        subtitle="Reports, minutes, newsletters, photographs and records that tell the story of the association."
       />
 
       {archives.length === 0 ? (
@@ -126,6 +127,8 @@ export default function Archives() {
           </section>
         </>
       )}
+
+      <ArchivePhotos />
     </>
   )
 }
