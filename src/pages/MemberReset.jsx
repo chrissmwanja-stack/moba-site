@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
+import PasswordInput from '../components/PasswordInput.jsx'
 import { supabase } from '../lib/supabase.js'
 import { friendlyAuthError } from '../lib/members.js'
 
@@ -49,8 +50,8 @@ export default function MemberReset() {
           <p className="bg-white rounded-lg shadow p-6">This reset link has expired or was already used. <Link to="/member/login" className="underline text-brand">Request a new one</Link>.</p>
         ) : (
           <form onSubmit={submit} className="bg-white rounded-lg shadow p-6 space-y-4">
-            <label className="block text-sm font-medium">New password<input name="password" type="password" required minLength={8} autoComplete="new-password" className={`${field} mt-1`} /></label>
-            <label className="block text-sm font-medium">Confirm new password<input name="confirm" type="password" required autoComplete="new-password" className={`${field} mt-1`} /></label>
+            <label className="block text-sm font-medium">New password<PasswordInput name="password" required minLength={8} autoComplete="new-password" wrapperClassName="mt-1" className={field} /></label>
+            <label className="block text-sm font-medium">Confirm new password<PasswordInput name="confirm" required autoComplete="new-password" wrapperClassName="mt-1" className={field} /></label>
             {error && <p role="alert" className="text-sm text-red-700 bg-red-50 p-3 rounded">{error}</p>}
             <button disabled={busy || !ready} className="bg-brand text-white font-semibold px-6 py-3 rounded-md disabled:opacity-60">{busy ? 'Saving…' : 'Save password'}</button>
           </form>

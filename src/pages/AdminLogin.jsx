@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
+import PasswordInput from '../components/PasswordInput.jsx'
 import { isSupabaseConfigured, supabase } from '../lib/supabase.js'
 import { getRole } from '../lib/contentAdmin.js'
 
@@ -34,7 +35,7 @@ export default function AdminLogin() {
       <form onSubmit={submit} className="space-y-5 rounded-md border border-brand/10 bg-white p-6 shadow-sm md:p-8">
         {!isSupabaseConfigured && <p className="text-sm bg-gold/20 p-3 rounded">Supabase configuration is missing.</p>}
         <label className="block text-sm font-medium">Email<input required type="email" autoComplete="username" className={`${field} mt-1`} value={email} onChange={e => setEmail(e.target.value)} /></label>
-        <label className="block text-sm font-medium">Password<input required type="password" autoComplete="current-password" className={`${field} mt-1`} value={password} onChange={e => setPassword(e.target.value)} /></label>
+        <label className="block text-sm font-medium">Password<PasswordInput required autoComplete="current-password" wrapperClassName="mt-1" className={field} value={password} onChange={e => setPassword(e.target.value)} /></label>
         {error && <p role="alert" className="text-sm text-red-700 bg-red-50 p-3 rounded">{error}</p>}
         <button disabled={busy || !isSupabaseConfigured} className="rounded-sm bg-gold px-6 py-3 font-semibold text-brand-dark transition hover:brightness-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:opacity-60">{busy ? 'Signing in…' : 'Sign in'}</button>
         <p className="space-x-4"><Link className="text-brand underline" to="/member/login">Member login</Link><Link className="text-brand underline" to="/">Return to MOBA site</Link></p>

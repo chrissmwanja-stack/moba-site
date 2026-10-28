@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
+import PasswordInput from '../components/PasswordInput.jsx'
 import { houses } from '../data/content.js'
 import { isSupabaseConfigured, supabase } from '../lib/supabase.js'
 import { friendlyAuthError } from '../lib/members.js'
@@ -117,12 +118,12 @@ export default function MemberLogin() {
 
           {mode !== 'forgot' && (
             <Field label="Password" hint={mode === 'signup' ? `At least ${MIN_PASSWORD} characters.` : undefined}>
-              <input name="password" required type="password" minLength={mode === 'signup' ? MIN_PASSWORD : undefined}
+              <PasswordInput name="password" required minLength={mode === 'signup' ? MIN_PASSWORD : undefined}
                 autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} className={field} />
             </Field>
           )}
           {mode === 'signup' && (
-            <Field label="Confirm password"><input name="confirm" required type="password" autoComplete="new-password" className={field} /></Field>
+            <Field label="Confirm password"><PasswordInput name="confirm" required autoComplete="new-password" className={field} /></Field>
           )}
 
           {mode === 'signup' && (
