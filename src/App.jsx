@@ -6,6 +6,7 @@ import Home from './pages/Home.jsx'
 import About from './pages/About.jsx'
 import History from './pages/History.jsx'
 import Projects from './pages/Projects.jsx'
+import ProjectDetail from './pages/ProjectDetail.jsx'
 import Gallery from './pages/Gallery.jsx'
 import Store from './pages/Store.jsx'
 import Cart from './pages/Cart.jsx'
@@ -32,6 +33,7 @@ const AdminLogin = lazy(() => import('./pages/AdminLogin.jsx'))
 const Admin = lazy(() => import('./pages/Admin.jsx'))
 const AdminContent = lazy(() => import('./pages/AdminContent.jsx'))
 import { site } from './data/content.js'
+import { projectSpotlights } from './data/projectSpotlights.js'
 import { useContent } from './lib/siteContent.js'
 import { newsSlug } from './lib/news.js'
 
@@ -66,6 +68,10 @@ const defaultDescription = 'The home of the Mwiri Old Boys Association: our hist
 // Fixed pages use the table above; each news article uses its own title and excerpt.
 function metaFor(pathname, news) {
   const path = pathname.replace(/\/$/, '') || '/'
+  if (path.startsWith('/projects/')) {
+    const item = projectSpotlights.find(p => p.id === path.slice('/projects/'.length))
+    return item && { title: item.title, description: item.description?.slice(0, 160) }
+  }
   if (path.startsWith('/news/')) {
     const item = news.find(n => newsSlug(n) === path.slice('/news/'.length))
     return item && { title: item.title, description: item.excerpt?.slice(0, 160) }
@@ -113,6 +119,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/history" element={<History />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:slug" element={<ProjectDetail />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/store" element={<Store />} />
           <Route path="/cart" element={<Cart />} />

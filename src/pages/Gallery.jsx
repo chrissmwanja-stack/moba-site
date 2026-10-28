@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from 'react'
 import PageHeader from '../components/PageHeader.jsx'
 import { useContent } from '../lib/siteContent.js'
-import { safeUrl } from '../lib/safeUrl.js'
 import { campusGallery } from '../data/projectSpotlights.js'
+import { safeUrl } from '../lib/safeUrl.js'
 
 const FIRST_PAGE = 18 // keeps the initial load light
 const PAGE_STEP = 24
