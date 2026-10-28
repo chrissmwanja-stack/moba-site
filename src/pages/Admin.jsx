@@ -87,6 +87,18 @@ export default function Admin() {
       setNotice('')
       return true
     }
+    if (tab.id === 'register' && ('cohort' in changes || 'house' in changes)) {
+      const { data, error } = await supabase.rpc('moba_admin_update_member_identity', {
+        p_member_id: row.id,
+        p_cohort: 'cohort' in changes ? changes.cohort : row.cohort,
+        p_house: 'house' in changes ? changes.house : row.house,
+      })
+      if (error) { setNotice(`Could not update cohort/house: ${error.message}`); return false }
+      const updated = Array.isArray(data) ? data[0] : data
+      setRows(r => ({ ...r, [tabId]: r[tabId].map(x => (x.id === row.id ? { ...x, ...updated } : x)) }))
+      setNotice('')
+      return true
+    }
     if (tab.statusRpc && 'status' in changes) {
       let args
       if (tab.statusRpc === true || tab.statusRpc === 'moba_set_member_status') args = { p_member_id: row.id, p_status: changes.status }
@@ -245,9 +257,10 @@ function Card({ row, tab, onPatch, onDelete }) {
               )
             })}
           </dl>
+          {tab.id === 'register' && row.moba_number && <p className="rounded-md bg-gold/15 p-3 text-sm text-ink/80">Cohort and house are locked because this member has a permanent MOBA number. Use the secretary’s verified number-correction process if the register is wrong.</p>}
           {tab.edit && (
             <div className="grid gap-3 sm:grid-cols-3">
-              {tab.edit.map(([key, label, kind]) => (
+              {tab.edit.filter(([key]) => !(tab.id === 'register' && row.moba_number && ['cohort', 'house'].includes(key))).map(([key, label, kind]) => (
                 <label key={key} className="block text-sm font-medium">
                   {label}
                   {kind === 'house' ? (

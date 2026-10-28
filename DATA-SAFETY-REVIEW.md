@@ -27,7 +27,9 @@ The source migrations show strict intended policies, but the recent `db push` er
 
 ### P1 — Protect the MOBA number from admin-side cohort/house edits
 
-The member-request approval RPC refuses cohort/house changes that conflict with an already-issued MOBA number. However, the Admin register UI currently edits `cohort` and `house` directly through the admin-authorized table update path. That could leave a permanent number inconsistent with the official fields. Disable those edits after `moba_number` exists or route them through a guarded correction/renumbering procedure. Do not silently rewrite permanent numbers.
+The member-request approval RPC refuses cohort/house changes that conflict with an already-issued MOBA number. The Admin register previously edited those fields directly. The workspace now hides those controls for numbered members, uses an admin-only RPC for pre-number changes, and includes migration `202610280007_guard_issued_member_numbers.sql` to revoke direct column updates and enforce the guard in the database. Do not silently rewrite permanent numbers. This protection is live only after migration 007 is applied.
+
+The user-provided migrations `202610280005_security_hardening.sql` and `202610280006_fix_avatar_upload_policy.sql` add useful input limits and require a member row for avatar uploads. Migration 006 correctly avoids querying `storage.objects` directly from an RLS policy by moving the membership/count check to a security-definer function. Its five-object count is still a check-before-insert and can race under simultaneous uploads; if five is a strict invariant, implement atomic per-user quota accounting.
 
 ### P1 — Signed avatar URLs are bearer links
 
