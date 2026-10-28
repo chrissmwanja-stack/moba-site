@@ -4,6 +4,7 @@ import PageHeader from '../components/PageHeader.jsx'
 import MemberCard from '../components/MemberCard.jsx'
 import { supabase } from '../lib/supabase.js'
 import { fetchMyMember, isSubscribed, longDate } from '../lib/members.js'
+import { getRole } from '../lib/contentAdmin.js'
 import { useContent } from '../lib/siteContent.js'
 import { useCart } from '../context/CartContext.jsx'
 import { ugx } from '../lib/format.js'
@@ -15,6 +16,7 @@ export default function Member() {
   const [state, setState] = useState('loading') // loading | ready | error
   const [user, setUser] = useState(null)
   const [member, setMember] = useState(null)
+  const [adminRole, setAdminRole] = useState(null) // set when a staff account opens the member page
 
   useEffect(() => {
     if (!supabase) { navigate('/member/login', { replace: true }); return }
@@ -23,8 +25,10 @@ export default function Member() {
       const { data: { session } } = await supabase.auth.getSession()
       if (!session) { navigate('/member/login', { replace: true }); return }
       const { member: row, error } = await fetchMyMember(session.user.id)
+      let staff = null
+      if (!row && !error) staff = (await getRole()).role // admin and editor accounts are not necessarily members
       if (!live) return
-      setUser(session.user); setMember(row); setState(error ? 'error' : 'ready')
+      setUser(session.user); setMember(row); setAdminRole(staff); setState(error ? 'error' : 'ready')
     }
     load()
     const { data: listener } = supabase.auth.onAuthStateChange((_e, session) => { if (!session) navigate('/member/login', { replace: true }) })
@@ -44,7 +48,11 @@ export default function Member() {
       <section className="max-w-5xl mx-auto px-4 py-10">
         {state === 'error' && <p role="alert" className="rounded-md bg-red-50 text-red-800 p-4">We could not load your membership. Please refresh, or <a className="underline" href={mail}>contact us</a>.</p>}
 
-        {state === 'ready' && !member && (
+        {state === 'ready' && !member && adminRole && (
+          <p className="rounded-md bg-brand/5 border border-brand/20 p-4">You are signed in as a MOBA {adminRole}, and this account has no member record. <Link className="underline font-semibold" to={adminRole === 'editor' ? '/admin/content' : '/admin'}>Go to the admin area</Link>.</p>
+        )}
+
+        {state === 'ready' && !member && !adminRole && (
           <p className="rounded-md bg-gold/20 border border-gold p-4">We could not find a membership record for {user.email}. Please <a className="underline" href={mail}>contact the secretary</a> so we can fix this.</p>
         )}
 
