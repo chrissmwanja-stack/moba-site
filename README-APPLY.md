@@ -11,8 +11,8 @@ This patch implements the approved hybrid workflow:
 ## Apply
 
 1. Copy the included `src/` files into the matching paths in the latest MOBA site repository.
-2. Copy `supabase/migrations/202610280002_member_profile_workflow.sql` into that repository's migrations folder. Keep the existing earlier migrations, including the nine-house migration, in order.
-3. Apply migrations to the target Supabase project (normally `supabase db push` after checking the linked project and reviewing the SQL).
+2. Copy all included `202610280002`–`202610280004` migrations into that repository's migrations folder. Keep existing earlier migrations, including the nine-house migration, in order. The later two migrations move internal notes out of member-readable rows into admin-only tables.
+3. Check `supabase migration list` and reconcile any failed/partial remote application before pushing. Apply migrations to the intended project (normally `supabase db push` after reviewing the SQL).
 4. Deploy the frontend. The new member route is `/member/profile`; members reach it from their dashboard.
 5. In the Admin area, review **Profile requests** and approve/reject. For public update submissions, set **Member details → Added** only after verification.
 

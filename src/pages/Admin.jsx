@@ -50,7 +50,17 @@ export default function Admin() {
     setState('loading')
     const { data, error } = await supabase.from(t.table).select('*').order('created_at', { ascending: false }).limit(LIMIT)
     if (error) { setState('error'); setNotice(error.message); return }
-    setRows(r => ({ ...r, [t.id]: data }))
+    let rows = data || []
+    if ((t.id === 'profile_requests' || t.id === 'register') && rows.length) {
+      const profileRequests = t.id === 'profile_requests'
+      const noteTable = profileRequests ? 'member_profile_change_admin_notes' : 'member_admin_notes'
+      const key = profileRequests ? 'request_id' : 'member_id'
+      const { data: notes, error: notesError } = await supabase.from(noteTable).select(`${key},admin_notes`).in(key, rows.map(x => x.id))
+      if (notesError) { setState('error'); setNotice(`Could not load private admin notes: ${notesError.message}`); return }
+      const byRow = new Map((notes || []).map(n => [n[key], n.admin_notes]))
+      rows = rows.map(x => ({ ...x, admin_notes: byRow.get(x.id) || '' }))
+    }
+    setRows(r => ({ ...r, [t.id]: rows }))
     setState('ready'); setNotice('')
   }, [])
 
@@ -66,6 +76,17 @@ export default function Admin() {
   }, [current, filter, query])
 
   async function patch(row, changes) {
+    if ((tab.id === 'profile_requests' || tab.id === 'register') && 'admin_notes' in changes) {
+      const rpc = tab.id === 'profile_requests' ? 'moba_set_profile_request_admin_note' : 'moba_set_member_admin_note'
+      const args = tab.id === 'profile_requests'
+        ? { p_request_id: row.id, p_admin_notes: changes.admin_notes }
+        : { p_member_id: row.id, p_admin_notes: changes.admin_notes }
+      const { error } = await supabase.rpc(rpc, args)
+      if (error) { setNotice(`Could not save private note: ${error.message}`); return false }
+      setRows(r => ({ ...r, [tabId]: r[tabId].map(x => (x.id === row.id ? { ...x, ...changes } : x)) }))
+      setNotice('')
+      return true
+    }
     if (tab.statusRpc && 'status' in changes) {
       let args
       if (tab.statusRpc === true || tab.statusRpc === 'moba_set_member_status') args = { p_member_id: row.id, p_status: changes.status }

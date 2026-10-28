@@ -39,7 +39,7 @@ export default function MemberProfile() {
       const [{ member: row }, { data: p }, { data: q }] = await Promise.all([
         fetchMyMember(session.user.id),
         supabase.from('member_profiles').select('*').eq('user_id', session.user.id).maybeSingle(),
-        supabase.from('member_profile_change_requests').select('id,created_at,status,requested_name,requested_cohort,requested_house,reason,admin_notes').eq('user_id', session.user.id).order('created_at', { ascending: false }).limit(10),
+        supabase.from('member_profile_change_requests').select('id,created_at,status,requested_name,requested_cohort,requested_house,reason').eq('user_id', session.user.id).order('created_at', { ascending: false }).limit(10),
       ])
       if (!live) return
       if (!row) { navigate('/member', { replace: true }); return }
@@ -142,7 +142,7 @@ export default function MemberProfile() {
           <label className="block text-sm font-medium">Reason or supporting context<textarea maxLength={1000} rows={3} className="mt-1 w-full rounded border p-2" value={request.reason} onChange={e => setRequest({ ...request, reason: e.target.value })} /></label>
           <button disabled={saving} className="rounded-md border border-brand px-5 py-2 font-semibold text-brand disabled:opacity-50">{saving ? 'Sending…' : 'Submit for review'}</button>
         </form>
-        {requests.length > 0 && <div><h3 className="mb-2 font-semibold">Your recent requests</h3><ul className="space-y-2">{requests.map(r => <li key={r.id} className="rounded border p-3 text-sm"><div className="flex justify-between gap-2"><strong>{r.status[0].toUpperCase() + r.status.slice(1)}</strong><span>{new Date(r.created_at).toLocaleDateString()}</span></div><p>{[r.requested_name, r.requested_cohort && `Cohort ${r.requested_cohort}`, r.requested_house && `${r.requested_house} House`].filter(Boolean).join(' · ')}</p>{r.admin_notes && <p className="mt-1 text-ink/70">Admin note: {r.admin_notes}</p>}</li>)}</ul></div>}
+        {requests.length > 0 && <div><h3 className="mb-2 font-semibold">Your recent requests</h3><ul className="space-y-2">{requests.map(r => <li key={r.id} className="rounded border p-3 text-sm"><div className="flex justify-between gap-2"><strong>{r.status[0].toUpperCase() + r.status.slice(1)}</strong><span>{new Date(r.created_at).toLocaleDateString()}</span></div><p>{[r.requested_name, r.requested_cohort && `Cohort ${r.requested_cohort}`, r.requested_house && `${r.requested_house} House`].filter(Boolean).join(' · ')}</p></li>)}</ul></div>}
       </section>
     </main>
   </>
