@@ -94,7 +94,7 @@ export const history = {
     { name: 'Rev. H. G. “Jack” Coates', note: '1943 to 1965' },
     { name: 'Dan N. Okungu', note: 'From 1965, first African headmaster' },
   ],
-  headmastersNote: 'The full list of headmasters is being compiled with the school archive.',
+  //headmastersNote: 'The full list of headmasters is being compiled with the school archive.',
   housesIntro: 'Named for founders, traditional leaders, missionaries and educators, the houses keep alive the memory of the people who shaped the school. House life has built belonging, discipline, leadership and friendships that last a lifetime.',
   // TODO: confirm each description with the school archive.
   houses: [

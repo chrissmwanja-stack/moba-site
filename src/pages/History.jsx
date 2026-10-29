@@ -97,7 +97,7 @@ export default function History() {
         <div className="mt-4 grid items-start gap-6 md:grid-cols-[auto_1fr]">
           <div className="rounded-lg bg-brand-dark p-6 text-center text-white">
             <p className="font-display text-5xl font-bold text-gold">{h.sport.stat}</p>
-            <p className="mt-1 max-w-[11rem] text-sm text-white/80">{h.sport.statLabel}</p>
+            <p className="mt-1 max-w-44 text-sm text-white/80">{h.sport.statLabel}</p>
           </div>
           <div className="space-y-4 leading-relaxed text-ink/80">
             {h.sport.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
