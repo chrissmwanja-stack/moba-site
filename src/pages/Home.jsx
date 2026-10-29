@@ -3,6 +3,7 @@ import HomeNewsCard from '../components/HomeNewsCard.jsx'
 import { site } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
 import { newsPath } from '../lib/news.js'
+import { campusGallery } from '../data/projectSpotlights.js'
 
 function SectionIntro({ eyebrow, title, link, linkText = 'Explore more' }) {
   return (
@@ -124,6 +125,23 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Mwiri today: campus photos */}
+      {campusGallery.length > 0 && (
+        <section className="mt-16 py-6 md:mt-20">
+          <div className="mx-auto max-w-6xl px-4">
+            <SectionIntro eyebrow="The Hill today" title="Mwiri today" link="/gallery" linkText="Browse the photo gallery" />
+            <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:mt-10 lg:grid-cols-4 md:gap-5">
+              {campusGallery.slice(0, 8).map((photo, i) => (
+                <Link key={photo.src} to="/gallery" className={`group relative aspect-4/3 overflow-hidden rounded-md bg-brand/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand ${i >= 6 ? 'hidden lg:block' : ''}`}>
+                  <img src={photo.thumb} alt={photo.alt} loading="lazy" decoding="async" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]" />
+                  <span className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/75 to-transparent px-3 pb-3 pt-10 text-sm font-medium text-white">{photo.caption}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Gallery */}
       {strip.length > 0 && (

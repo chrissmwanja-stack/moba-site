@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import { useContent } from '../lib/siteContent.js'
 import { ugx } from '../lib/format.js'
-import { campusGallery, projectSpotlights } from '../data/projectSpotlights.js'
+import { projectSpotlights } from '../data/projectSpotlights.js'
 
 export default function Projects() {
   const { projects } = useContent()
@@ -27,7 +27,7 @@ export default function Projects() {
     <>
       <PageHeader title="Projects" subtitle="Explore MOBA projects and work. Open a spotlighted project to see its story and images." />
 
-      <section className="mx-auto mt-10 max-w-6xl px-4 lg:mt-12" aria-labelledby="projects-list-heading">
+      <section className="mx-auto mt-10 max-w-6xl px-4 pb-14 lg:mt-12" aria-labelledby="projects-list-heading">
         <div className="mb-5">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-dark">Projects &amp; work</p>
           <h2 id="projects-list-heading" className="mt-1 font-display text-3xl font-bold text-brand">Explore our projects</h2>
@@ -35,25 +35,6 @@ export default function Projects() {
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map(project => <ProjectCard key={project.title} project={project} />)}
-        </div>
-      </section>
-
-      <section className="mx-auto mt-14 max-w-6xl px-4 pb-14" aria-labelledby="mwiri-today-heading">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-dark">The Hill today</p>
-            <h2 id="mwiri-today-heading" className="mt-1 font-display text-3xl font-bold text-brand">Mwiri today</h2>
-            <p className="mt-2 text-ink/70">A few views of the campus, its buildings and grounds.</p>
-          </div>
-          <Link to="/gallery" className="font-semibold text-brand underline hover:text-brand-dark">Browse the photo gallery →</Link>
-        </div>
-        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {campusGallery.slice(0, 8).map(photo => (
-            <figure key={photo.src} className="overflow-hidden rounded-md bg-brand/5">
-              <img src={photo.thumb} alt={photo.alt} loading="lazy" decoding="async" className="aspect-4/3 w-full object-cover" />
-              <figcaption className="px-3 py-2 text-sm font-medium text-brand">{photo.caption}</figcaption>
-            </figure>
-          ))}
         </div>
       </section>
     </>
