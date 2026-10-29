@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import PageHeader from '../components/PageHeader.jsx'
+import PhotoHero from '../components/PhotoHero.jsx'
 import CheckoutForm from '../components/CheckoutForm.jsx'
 import { Link } from 'react-router-dom'
 import MemberCard from '../components/MemberCard.jsx'
@@ -31,9 +31,13 @@ export default function Membership() {
 
   return (
     <>
-      <PageHeader
+      <PhotoHero
+        crumb="Membership"
         title="Membership"
         subtitle="Stay connected and support the association. Choose a plan, pay directly to MOBA, and submit your transaction reference for verification."
+        image="/membership-hero.webp"
+        imageSmall="/membership-hero-640.webp"
+        position="50% 30%"
       />
 
       {/* Centred, equal-height cards; the column count follows the number of plans */}
