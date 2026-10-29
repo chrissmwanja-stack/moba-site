@@ -8,7 +8,6 @@ const links = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About MOBA' },
   { to: '/history', label: 'Our Mwiri', also: ['/prominent-mwirians', '/archives'] },
-  { to: '/leadership', label: 'Leadership' },
   { to: '/projects', label: 'Projects & Impact' },
   { to: '/news', label: 'News & Events' },
   { to: '/gallery', label: 'Gallery' },

@@ -6,7 +6,7 @@ import { safeUrl } from '../lib/safeUrl.js'
 const columns = [
   { title: 'MOBA', links: [
     { to: '/about', label: 'About MOBA' },
-    { to: '/leadership', label: 'Leadership & committees' },
+    { to: '/about#leadership', label: 'Leadership & committees' },
     { to: '/projects', label: 'Projects & Impact' },
     { to: '/contact', label: 'Contact' },
   ] },

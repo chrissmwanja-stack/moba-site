@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import PhotoHero from '../components/PhotoHero.jsx'
+import LeadershipDirectory from '../components/LeadershipDirectory.jsx'
 import { site } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
 import { safeUrl } from '../lib/safeUrl.js'
@@ -41,12 +42,6 @@ const PILLAR_ICONS = [
   <svg key="progress" {...iconProps} width="30" height="30"><path d="M4 20v-5" /><path d="M9 20v-8" /><path d="M14 20v-6" /><path d="M19 20V9" /><path d="M4 10l5-4 4 3 7-6" /><path d="M16 3h4v4" /></svg>,
 ]
 
-function cohortText(l) {
-  if (!l.cohortName) return l.cohort ? `Cohort: ${l.cohort}` : null
-  const start = Number(l.cohort)
-  return Number.isFinite(start) && start > 0 ? `${l.cohortName}, ${start} to ${start + site.schoolYears - 1}` : l.cohortName
-}
-
 function Eyebrow({ children, light = false }) {
   return <p className={`text-xs font-bold uppercase tracking-[0.28em] ${light ? 'text-gold' : 'text-brand/65'}`}>{children}</p>
 }
@@ -62,7 +57,7 @@ function SectionHeading({ id, eyebrow, children, light = false }) {
 }
 
 export default function About() {
-  const { leaders, about, stats, leadersTerm } = useContent()
+  const { about, stats } = useContent()
   const { motto, governance } = about
   const foundation = [
     ['purpose', 'Our purpose', about.purpose, 'bg-brand-dark text-white', 'text-gold', 'bg-gold', 'text-white'],
@@ -196,34 +191,8 @@ export default function About() {
         </div>
       </section>
 
-      {/* Leadership */}
-      <section aria-labelledby="leadership" className="mx-auto mt-16 max-w-6xl scroll-mt-20 px-4">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <SectionHeading id="leadership" eyebrow="Our leadership">Executive Committee {(leadersTerm || '2026–2028').replace('–', ' to ')}</SectionHeading>
-          <Link to="/leadership" className="font-medium text-brand hover:underline">Read the full profiles →</Link>
-        </div>
-        <ul className="mt-8 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
-          {leaders.map(l => (
-            <li key={l.name}>
-              <Link to="/leadership" className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-brand">
-                <div className="aspect-4/5 overflow-hidden border-b-4 border-gold bg-brand">
-                  {l.photo
-                    ? <img src={l.photo} alt="" loading="lazy" decoding="async" style={{ objectPosition: l.focus || '50% 20%' }} className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]" />
-                    : (
-                      <div className="flex h-full flex-col items-center justify-center gap-3 text-white">
-                        <img src="/moba-shield.webp" alt="" className="h-16 w-auto" />
-                        <span className="text-[0.65rem] font-semibold uppercase tracking-[0.2em]">Portrait to come</span>
-                      </div>
-                    )}
-                </div>
-                <h3 className="mt-3 font-semibold text-brand group-hover:underline">{l.name}</h3>
-                <p className="text-sm font-medium text-gold-dark">{l.role}</p>
-                {cohortText(l) && <p className="text-xs text-ink/65">{cohortText(l)}</p>}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
+      {/* Full executive committee and database-driven profiles */}
+      <LeadershipDirectory />
 
       {/* Committees */}
       <section aria-labelledby="committees" className="mt-16 scroll-mt-20 bg-[#f6f7f9] py-14">
