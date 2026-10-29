@@ -7,6 +7,7 @@ import { houses } from '../data/content.js'
 import { getRole } from '../lib/contentAdmin.js'
 
 const LIMIT = 500
+const EMPTY_ROWS = []
 
 export default function Admin() {
   const navigate = useNavigate()
@@ -66,7 +67,7 @@ export default function Admin() {
 
   useEffect(() => { if (user) { load(tab); loadCounts() } }, [user, tab, load, loadCounts])
 
-  const current = rows[tabId] || []
+  const current = rows[tabId] || EMPTY_ROWS
   const totalNew = Object.values(counts).reduce((sum, n) => sum + n, 0)
   const shown = useMemo(() => {
     const q = query.trim().toLowerCase()

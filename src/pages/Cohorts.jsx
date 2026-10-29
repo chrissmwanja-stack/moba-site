@@ -30,8 +30,8 @@ function BranchCard({ b }) {
   )
 }
 
-function ClassPanel({ year, group }) {
-  const last = year + site.schoolYears - 1 // the class starts S1 in `year` and finishes S6 in `last`
+function ClassPanel({ year, group, schoolYears }) {
+  const last = year + schoolYears - 1 // the class starts S1 in `year` and finishes S6 in `last`
   return (
     <div
       className="bg-white rounded-md shadow-sm p-6 border-l-2 border-gold"
@@ -275,7 +275,7 @@ export default function Cohorts() {
 
         {/* The result sits right under the year buttons, so it is always on screen after a tap */}
         <div ref={panelRef} className="mt-6 min-h-px scroll-mb-6">
-          {selected && <ClassPanel year={selected} group={byYear.get(selected)} />}
+          {selected && <ClassPanel year={selected} group={byYear.get(selected)} schoolYears={site.schoolYears} />}
         </div>
       </section>
 

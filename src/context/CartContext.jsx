@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase.js'
+import { addCartItem, cartCount, cartTotal } from '../lib/cart.js'
 
 const CartContext = createContext(null)
 const LEGACY_KEY = 'moba-cart'
@@ -65,13 +66,7 @@ export function CartProvider({ children }) {
   // email, the saved order and the admin orders table all show the size with no other changes.
   const add = (product, size) => setCart(current => {
     if (!ready || current.key !== owner.key) return current
-    const id = size ? `${product.id}:${size}` : product.id
-    const label = product.variant ? `${product.name} (${product.variant})` : product.name
-    const found = current.items.find(i => i.id === id)
-    const items = found
-      ? current.items.map(i => i.id === id ? { ...i, qty: i.qty + 1 } : i)
-      : [...current.items, { id, name: size ? `${label}, size ${size}` : label, price: product.price, delivery: product.delivery, qty: 1 }]
-    return { ...current, items }
+    return { ...current, items: addCartItem(current.items, product, size) }
   })
 
   const setQty = (id, qty) => setCart(current => {
@@ -87,8 +82,8 @@ export function CartProvider({ children }) {
     return { ...current, items: [] }
   })
 
-  const count = items.reduce((n, i) => n + i.qty, 0)
-  const total = items.reduce((n, i) => n + i.qty * i.price, 0)
+  const count = cartCount(items)
+  const total = cartTotal(items)
 
   return (
     <CartContext.Provider value={{ items, add, setQty, remove, clear, count, total }}>
