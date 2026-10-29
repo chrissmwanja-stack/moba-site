@@ -327,6 +327,7 @@ export const photos = [
 // image: put files in /public/store and use '/store/tie.webp'
 // category: the Store page builds its filter buttons from these. variant: colour/style, shown under the name.
 export const products = [
+  { id: 'book-lamp-on-a-hill', name: 'A Lamp on a Hill', variant: 'A centenary history of Busoga College Mwiri, 1911–2011, by Rev. Canon Dr. Tom Tuma', category: 'Books', price: 50000, delivery: 'physical', image: '/store/book-lamp-on-a-hill.webp' }, // TODO: confirm price
   { id: 'blazer-navy', name: 'MOBA Blazer', variant: 'Navy with gold buttons and crest pocket', category: 'Blazers', price: 50000, delivery: 'physical', image: '/store/blazer-navy.webp', preview: true }, // TODO: confirm price
   { id: 'tie-navy', name: 'MOBA Old Boys Tie', variant: 'Navy with gold stripes and leopard crests', category: 'Ties & pins', price: 50000, delivery: 'physical', image: '/store/tie-navy.webp', preview: true },
   { id: 'pin-shield', name: 'Lapel Pin', variant: 'Enamel leopard shield', category: 'Ties & pins', price: 10000, delivery: 'physical', image: '/store/pin-shield.webp', preview: true },
