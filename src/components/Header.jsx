@@ -18,11 +18,10 @@ const links = [
 
 const loginBtn = 'rounded bg-gold px-3.5 py-2.5 sm:px-5 sm:py-3 text-sm font-semibold text-brand-dark hover:brightness-110 whitespace-nowrap'
 
-// Two rows on desktop: brand + motto + account access, then the main navigation.
-// On smaller screens: brand + account access + a menu button.
+// Every main tab is always visible: a compact grid on narrow screens and one row from lg upwards.
+// The header is not sticky on phones, so the tab grid does not consume screen space after scrolling.
 export default function Header() {
   const { site } = useContent()
-  const [open, setOpen] = useState(false)
   const [signedIn, setSignedIn] = useState(false)
   const { pathname } = useLocation()
   const within = l => (l.also || []).some(p => pathname === p || pathname.startsWith(p + '/'))
@@ -42,15 +41,17 @@ export default function Header() {
     }
   }, [])
 
-  const desktopLink = l => ({ isActive }) =>
-    `whitespace-nowrap border-b-[3px] py-3 text-sm font-medium transition ${
-      isActive || within(l) ? 'border-gold text-gold' : 'border-transparent text-white hover:text-gold'
+  const mainLink = l => ({ isActive }) => {
+    const active = isActive || within(l)
+    return `flex min-h-10 items-center justify-center rounded px-1.5 py-1.5 text-center text-xs font-semibold leading-tight transition sm:px-2 sm:text-sm lg:min-h-0 lg:whitespace-nowrap lg:rounded-none lg:border-b-[3px] lg:px-0 lg:py-3 lg:font-medium ${
+      active
+        ? 'bg-white/15 text-gold lg:border-gold lg:bg-transparent'
+        : 'text-white/85 hover:bg-white/10 hover:text-gold lg:border-transparent lg:hover:bg-transparent'
     }`
-  const mobileLink = l => ({ isActive }) =>
-    `rounded-md px-2.5 py-2.5 text-sm font-medium ${isActive || within(l) ? 'bg-white/15 text-gold' : 'text-white/85 hover:bg-white/10 hover:text-white'}`
+  }
 
   return (
-    <header className="sticky top-0 z-40 border-b-[3px] border-gold bg-brand text-white shadow xl:static">
+    <header className="border-b-[3px] border-gold bg-brand text-white shadow lg:sticky lg:top-0 lg:z-40 xl:static">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link to="/" aria-label="MOBA, Mwiri Old Boys Association, 1911: home" className="shrink-0">
           <Logo />
@@ -61,23 +62,12 @@ export default function Header() {
             <span className="sm:hidden">{signedIn ? 'My MOBA' : 'Login'}</span>
             <span className="hidden sm:inline">{signedIn ? 'My MOBA' : 'Member Login'}</span>
           </Link>
-          <button className="text-2xl xl:hidden" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Menu">
-            {open ? '✕' : '☰'}
-          </button>
         </div>
       </div>
 
-      <nav aria-label="Main" className="mx-auto hidden max-w-6xl items-center gap-6 px-4 pt-1 xl:flex">
-        {links.map(l => <NavLink key={l.to} to={l.to} end={l.to === '/'} className={desktopLink(l)}>{l.label}</NavLink>)}
+      <nav aria-label="Main" className="mx-auto grid max-w-6xl grid-cols-3 gap-1 px-3 pb-2 pt-1 sm:grid-cols-5 lg:flex lg:items-center lg:gap-5 lg:px-4 lg:pb-0 xl:gap-6">
+        {links.map(l => <NavLink key={l.to} to={l.to} end={l.to === '/'} className={mainLink(l)}>{l.label}</NavLink>)}
       </nav>
-
-      {open && (
-        <nav aria-label="Main" className="flex flex-col px-4 pb-3 xl:hidden" onClick={() => setOpen(false)}>
-          {links.map(l => <NavLink key={l.to} to={l.to} end={l.to === '/'} className={mobileLink(l)}>{l.label}</NavLink>)}
-          {signedIn && <NavLink to="/member" className={mobileLink({})}>My MOBA dashboard</NavLink>}
-          <p className="mt-3 border-l-[3px] border-gold pl-3 font-display text-[15px] italic text-[#f5e6c4]">{site.motto}</p>
-        </nav>
-      )}
     </header>
   )
 }

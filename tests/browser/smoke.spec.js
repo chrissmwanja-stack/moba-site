@@ -82,13 +82,19 @@ test('leadership profiles and Gallery lightboxes close with Escape', async ({ pa
   await expect(page.getByRole('dialog')).toHaveCount(0)
 })
 
-test('mobile navigation opens, navigates and closes', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 })
-  await page.goto('/')
-  const menu = page.getByRole('button', { name: 'Menu', exact: true })
-  await menu.click()
-  await expect(menu).toHaveAttribute('aria-expanded', 'true')
+test('all main tabs remain visible at phone, tablet and laptop widths without a menu', async ({ page }) => {
+  for (const width of [390, 768, 1024]) {
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto('/')
+    const nav = page.getByRole('navigation', { name: 'Main', exact: true })
+    await expect(nav).toBeVisible()
+    const navLinks = nav.getByRole('link')
+    await expect(navLinks).toHaveCount(9)
+    for (let i = 0; i < 9; i += 1) await expect(navLinks.nth(i)).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Menu', exact: true })).toHaveCount(0)
+    const widths = await page.evaluate(() => ({ page: document.documentElement.scrollWidth, viewport: window.innerWidth }))
+    expect(widths.page).toBeLessThanOrEqual(widths.viewport + 1)
+  }
   await page.getByRole('navigation', { name: 'Main', exact: true }).getByRole('link', { name: 'News & Events', exact: true }).click()
   await expect(page).toHaveURL(/\/news$/)
-  await expect(page.getByRole('button', { name: 'Menu', exact: true })).toHaveAttribute('aria-expanded', 'false')
 })
