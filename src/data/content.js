@@ -296,12 +296,6 @@ export const photos = [
 // image: put files in /public/store and use '/store/tie.webp'
 // category: the Store page builds its filter buttons from these. variant: colour/style, shown under the name.
 export const products = [
-  { id: 'tie',    name: 'MOBA Old Boys Tie',     category: 'Ties & pins', price: 50000,  delivery: 'physical', image: null, blurb: 'Navy silk tie with the gold leopard crest.' },
-  { id: 'polo',   name: 'MOBA Polo Shirt',       category: 'T-shirts', price: 50000,  delivery: 'physical', image: null, blurb: 'Navy polo with embroidered shield.' },
-  { id: 'cap',    name: 'MOBA Cap',              category: 'Caps', price: 25000,  delivery: 'physical', image: null, blurb: 'Navy cap, gold crest.' },
-  { id: 'pin',    name: 'Lapel Pin',             category: 'Ties & pins', price: 10000,  delivery: 'physical', image: null, blurb: 'Enamel shield pin.' },
-  { id: 'mug',    name: 'Commemorative Mug',     category: 'Mugs & bottles', price: 15000,  delivery: 'physical', image: null, blurb: 'Est. 1911 commemorative mug.' },
-  { id: 'notebooks',    name: 'MOBA Notebooks',     category: 'Stationery', price: 15000,  delivery: 'physical', image: null, blurb: 'Est. 1911 commemorative mug.' }, // TODO: blurb is a copy of the mug text
   { id: 'tee-white', name: 'Heritage Tee', variant: 'White with navy and gold trim', category: 'T-shirts', price: 80000, delivery: 'physical', image: '/store/tee-white.webp', preview: true },
   { id: 'tee-navy', name: 'Heritage Tee', variant: 'Signature navy, tone-on-tone leopard', category: 'T-shirts', price: 50000, delivery: 'physical', image: '/store/tee-navy.webp', preview: true },
   { id: 'tee-sash', name: 'Stripe Tee', variant: 'White and navy with gold sash', category: 'T-shirts', price: 50000, delivery: 'physical', image: '/store/tee-sash.webp', preview: true },

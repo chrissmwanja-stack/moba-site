@@ -3,7 +3,7 @@ import PageHeader from '../components/PageHeader.jsx'
 
 const tiles = [
   { to: '/donate', title: 'Donate', text: 'Give to a MOBA project, or let the executive direct your gift to the greatest need.', cta: 'Make a pledge' },
-  { to: '/store', title: 'Shop memorabilia', text: 'Ties, polos, caps and more. Wear the crest and support the association.', cta: 'Visit the store' },
+  { to: '/store', title: 'Shop memorabilia', text: 'Caps, hoodies, mugs and more. Wear the crest and support the association.', cta: 'Visit the store' },
   { to: '/membership', title: 'Join MOBA', text: 'Become an annual or life member and stay connected to the brotherhood.', cta: 'See membership plans' },
 ]
 
