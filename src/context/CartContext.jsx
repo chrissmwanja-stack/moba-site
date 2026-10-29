@@ -61,12 +61,16 @@ export function CartProvider({ children }) {
     try { localStorage.setItem(owner.key, JSON.stringify(cart.items)) } catch { /* ignore */ }
   }, [ready, owner.key, cart])
 
-  const add = product => setCart(current => {
+  // size (optional) makes a separate cart line per size: the line id and name carry it, so the order
+  // email, the saved order and the admin orders table all show the size with no other changes.
+  const add = (product, size) => setCart(current => {
     if (!ready || current.key !== owner.key) return current
-    const found = current.items.find(i => i.id === product.id)
+    const id = size ? `${product.id}:${size}` : product.id
+    const label = product.variant ? `${product.name} (${product.variant})` : product.name
+    const found = current.items.find(i => i.id === id)
     const items = found
-      ? current.items.map(i => i.id === product.id ? { ...i, qty: i.qty + 1 } : i)
-      : [...current.items, { id: product.id, name: product.variant ? `${product.name} (${product.variant})` : product.name, price: product.price, delivery: product.delivery, qty: 1 }]
+      ? current.items.map(i => i.id === id ? { ...i, qty: i.qty + 1 } : i)
+      : [...current.items, { id, name: size ? `${label}, size ${size}` : label, price: product.price, delivery: product.delivery, qty: 1 }]
     return { ...current, items }
   })
 

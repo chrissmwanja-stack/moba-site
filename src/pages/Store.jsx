@@ -9,6 +9,7 @@ export default function Store() {
   const { add, count } = useCart()
   const { products } = useContent()
   const [category, setCategory] = useState('All')
+  const [picked, setPicked] = useState({}) // product id -> chosen size
   const categories = ['All', ...new Set(products.map(p => p.category).filter(Boolean))]
   const shown = category === 'All' ? products : products.filter(p => p.category === category)
 
@@ -36,7 +37,11 @@ export default function Store() {
       )}
 
       <section className="mx-auto mt-8 grid max-w-6xl gap-5 px-4 sm:grid-cols-2 lg:grid-cols-3">
-        {shown.map(p => (
+        {shown.map(p => {
+          const sizes = String(p.sizes || '').split(',').map(s => s.trim()).filter(Boolean)
+          const size = picked[p.id]
+          const needsSize = sizes.length > 0 && !size
+          return (
           <article key={p.id} className="flex flex-col overflow-hidden rounded-md bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
             <div className="aspect-square overflow-hidden bg-gradient-to-br from-brand/10 to-gold/25 flex items-center justify-center relative">
               {p.image ? <img src={p.image} alt={p.variant ? `${p.name}, ${p.variant}` : p.name} loading="lazy" className="h-full w-full object-contain bg-white" />
@@ -51,15 +56,27 @@ export default function Store() {
               )}
               <h3 className="font-semibold text-lg">{p.name}</h3>
               <p className="text-sm text-ink/70 mt-1 flex-1">{p.variant || p.blurb}</p>
+              {sizes.length > 0 && !p.soldOut && (
+                <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label={`Choose a size for ${p.name}`}>
+                  {sizes.map(s => (
+                    <button key={s} onClick={() => setPicked(cur => ({ ...cur, [p.id]: s }))} aria-pressed={size === s}
+                      className={`min-w-10 px-3 py-1 rounded border text-sm font-semibold ${size === s ? 'bg-brand text-white border-brand' : 'bg-white text-brand border-brand/30 hover:border-brand'}`}>
+                      {s}
+                    </button>
+                  ))}
+                </div>
+              )}
               <div className="flex items-center justify-between mt-4">
                 <span className="font-bold text-brand">{ugx(p.price)}</span>
-                <button onClick={() => add(p)} className="bg-gold text-brand-dark font-semibold px-4 py-2 rounded-md hover:brightness-110">
-                  Add to cart
+                <button onClick={() => add(p, size)} disabled={p.soldOut || needsSize}
+                  className="bg-gold text-brand-dark font-semibold px-4 py-2 rounded-md hover:brightness-110 disabled:opacity-50 disabled:hover:brightness-100 disabled:cursor-not-allowed">
+                  {p.soldOut ? 'Sold out' : needsSize ? 'Choose a size' : 'Add to cart'}
                 </button>
               </div>
             </div>
           </article>
-        ))}
+          )
+        })}
       </section>
     </>
   )

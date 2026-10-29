@@ -155,6 +155,8 @@ export const SECTIONS = [
       { key: 'delivery', label: 'Delivery type', type: 'select', options: [['physical', 'Physical'], ['digital', 'Digital']], required: true },
       { key: 'image', label: 'Product image', type: 'image', folder: 'store', maxSide: 1200 },
       { key: 'blurb', label: 'Short description', type: 'textarea', rows: 3 },
+      { key: 'sizes', label: 'Sizes (comma-separated)', type: 'text', help: 'e.g. S, M, L, XL, XXL. Leave empty for items with no size (caps, mugs, books).' },
+      { key: 'soldOut', label: 'Sold out', type: 'checkbox' },
       { key: 'preview', label: 'Mark image as a design preview', type: 'checkbox' },
     ],
     title: d => d.name, summary: d => [d.variant, d.category, d.price && `UGX ${Number(d.price).toLocaleString('en-UG')}`].filter(Boolean).join(' · '), preview: d => d.image,
