@@ -77,8 +77,47 @@ test('leadership profiles and Gallery lightboxes close with Escape', async ({ pa
   await expect(page.getByRole('dialog')).toHaveCount(0)
 })
 
-test('all main tabs remain visible at phone, tablet and laptop widths without a menu', async ({ page }) => {
-  for (const width of [390, 768, 1024]) {
+test('responsive navigation keeps priority tabs visible and More accessible', async ({ page }) => {
+  for (const width of [390, 768]) {
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto('/')
+    const nav = page.getByRole('navigation', { name: 'Main', exact: true })
+    await expect(nav).toBeVisible()
+    await expect(nav.getByRole('link')).toHaveCount(4)
+    for (const label of ['Home', 'Our Mwiri', 'News', 'Membership']) {
+      await expect(nav.getByRole('link', { name: label, exact: true })).toBeVisible()
+    }
+    await expect(nav.getByRole('button', { name: 'More', exact: true })).toHaveAttribute('aria-expanded', 'false')
+    await expect(page.getByRole('button', { name: 'Menu', exact: true })).toHaveCount(0)
+    const heights = await nav.locator('a, button').evaluateAll(elements => elements.map(el => el.getBoundingClientRect().height))
+    expect(Math.min(...heights)).toBeGreaterThanOrEqual(44)
+    const widths = await page.evaluate(() => ({ page: document.documentElement.scrollWidth, viewport: window.innerWidth }))
+    expect(widths.page).toBeLessThanOrEqual(widths.viewport + 1)
+  }
+
+  await page.setViewportSize({ width: 390, height: 900 })
+  await page.goto('/')
+  const more = page.getByRole('button', { name: 'More', exact: true })
+  const panel = page.getByRole('navigation', { name: 'More navigation', exact: true })
+  await more.click()
+  await expect(more).toHaveAttribute('aria-expanded', 'true')
+  await expect(panel).toBeVisible()
+  await expect(panel.getByRole('link')).toHaveCount(5)
+  for (const label of ['About MOBA', 'Projects & Impact', 'Gallery', 'Support MOBA', 'Contact']) {
+    await expect(panel.getByRole('link', { name: label, exact: true })).toBeVisible()
+  }
+  await page.keyboard.press('Escape')
+  await expect(more).toHaveAttribute('aria-expanded', 'false')
+  await expect(panel).toBeHidden()
+  await expect(more).toBeFocused()
+
+  await more.click()
+  await panel.getByRole('link', { name: 'Projects & Impact', exact: true }).click()
+  await expect(page).toHaveURL(/\/projects$/)
+  await expect(panel).toBeHidden()
+  await expect(more).toHaveClass(/text-gold/)
+
+  for (const width of [1024, 1440]) {
     await page.setViewportSize({ width, height: 900 })
     await page.goto('/')
     const nav = page.getByRole('navigation', { name: 'Main', exact: true })
@@ -86,10 +125,8 @@ test('all main tabs remain visible at phone, tablet and laptop widths without a 
     const navLinks = nav.getByRole('link')
     await expect(navLinks).toHaveCount(9)
     for (let i = 0; i < 9; i += 1) await expect(navLinks.nth(i)).toBeVisible()
-    await expect(page.getByRole('button', { name: 'Menu', exact: true })).toHaveCount(0)
+    await expect(page.getByRole('button', { name: 'More', exact: true })).toHaveCount(0)
     const widths = await page.evaluate(() => ({ page: document.documentElement.scrollWidth, viewport: window.innerWidth }))
     expect(widths.page).toBeLessThanOrEqual(widths.viewport + 1)
   }
-  await page.getByRole('navigation', { name: 'Main', exact: true }).getByRole('link', { name: 'News & Events', exact: true }).click()
-  await expect(page).toHaveURL(/\/news$/)
 })
