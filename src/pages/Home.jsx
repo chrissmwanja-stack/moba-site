@@ -6,15 +6,15 @@ import { newsPath } from '../lib/news.js'
 import { campusGallery } from '../data/projectSpotlights.js'
 import { useBackground } from '../lib/useBackground.js'
 
-function SectionIntro({ eyebrow, title, link, linkText = 'Explore more' }) {
+function SectionIntro({ eyebrow, title, link, linkText = 'Explore more', dark = false }) {
   return (
     <div className="flex flex-wrap items-end justify-between gap-5">
       <div>
-        <p className="text-xs font-bold uppercase tracking-[0.28em] text-brand/65">{eyebrow}</p>
-        <h2 className="mt-3 font-display text-4xl font-bold leading-tight text-brand md:text-5xl">{title}</h2>
+        <p className={`text-xs font-bold uppercase tracking-[0.28em] ${dark ? 'text-gold' : 'text-brand/65'}`}>{eyebrow}</p>
+        <h2 className={`mt-3 font-display text-4xl font-bold leading-tight md:text-5xl ${dark ? 'text-white' : 'text-brand'}`}>{title}</h2>
       </div>
       {link && (
-        <Link to={link} className="mb-1 font-semibold text-brand underline underline-offset-4 decoration-brand/40 hover:decoration-brand">
+        <Link to={link} className={`mb-1 font-semibold underline underline-offset-4 ${dark ? 'text-gold decoration-gold/50 hover:decoration-gold' : 'text-brand decoration-brand/40 hover:decoration-brand'}`}>
           {linkText} <span aria-hidden="true">→</span>
         </Link>
       )}
@@ -54,7 +54,7 @@ export default function Home() {
   const strip = (featured.length >= 3 ? featured : photos).slice(0, 3)
 
   return (
-    <>
+    <div className="bg-[#f7f4ec]">
       {/* Hero */}
       <section className="relative isolate flex min-h-140 items-center overflow-hidden bg-brand md:min-h-150">
         <img
@@ -100,7 +100,7 @@ export default function Home() {
 
       {/* Upcoming events */}
       {upcoming.length > 0 && (
-        <section className="mt-16 bg-[#f4f5f7] py-14 md:mt-20 md:py-20">
+        <section className="mt-16 bg-[#eef2f7] py-14 md:mt-20 md:py-20">
           <div className="mx-auto max-w-6xl px-4">
             <SectionIntro eyebrow="Save the date" title="Next on the calendar" link="/news" linkText="View all events" />
             <div className={`mt-8 grid items-stretch gap-5 md:mt-10 ${upcoming.length === 1 ? 'max-w-2xl' : 'md:grid-cols-2 xl:grid-cols-3'}`}>
@@ -112,7 +112,7 @@ export default function Home() {
 
       {/* Latest news */}
       {latest.length > 0 && (
-        <section className="mt-16 bg-[#f4f5f7] py-14 md:mt-20 md:py-20">
+        <section className={`${upcoming.length > 0 ? 'mt-0 border-t border-brand/10' : 'mt-16 md:mt-20'} bg-[#eef2f7] py-14 md:py-20`}>
           <div className="mx-auto max-w-6xl px-4">
             <SectionIntro eyebrow="Latest news" title="From the Hill and beyond" link="/news" linkText="View all news" />
             <div className="mt-8 grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-3 md:mt-10">
@@ -123,15 +123,16 @@ export default function Home() {
       )}
 
       {/* About MOBA */}
-      <section className="mt-16 py-6 md:mt-20">
+      <section className="mt-16 bg-brand-dark py-14 text-white md:mt-20 md:py-20">
         <div className="mx-auto grid max-w-6xl gap-8 px-4 md:grid-cols-[0.85fr_1.15fr] md:items-end md:gap-16">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.28em] text-brand/65">Who we are</p>
-            <h2 className="mt-3 font-display text-4xl font-bold leading-tight text-brand md:text-5xl">A brotherhood built to last.</h2>
+            <p className="text-xs font-bold uppercase tracking-[0.28em] text-gold">Who we are</p>
+            <h2 className="mt-3 font-display text-4xl font-bold leading-tight text-white md:text-5xl">A brotherhood built to last.</h2>
+            <div className="mt-5 h-0.75 w-16 bg-gold" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-lg leading-relaxed text-brand/75">{about.summary}</p>
-            <Link to="/about" className="mt-5 inline-flex items-center gap-2 font-semibold text-brand underline underline-offset-4 decoration-brand/40 hover:decoration-brand">Discover MOBA <span aria-hidden="true">→</span></Link>
+            <p className="text-lg leading-relaxed text-white/80">{about.summary}</p>
+            <Link to="/about" className="mt-5 inline-flex items-center gap-2 font-semibold text-gold underline underline-offset-4 decoration-gold/50 hover:decoration-gold">Discover MOBA <span aria-hidden="true">→</span></Link>
           </div>
         </div>
       </section>
@@ -140,14 +141,16 @@ export default function Home() {
       {campusGallery.length > 0 && (
         <section className="mt-16 py-6 md:mt-20">
           <div className="mx-auto max-w-6xl px-4">
-            <SectionIntro eyebrow="The Hill today" title="Mwiri today" link="/gallery" linkText="Browse the photo gallery" />
-            <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:mt-10 lg:grid-cols-4 md:gap-5">
-              {campusGallery.slice(0, 8).map((photo, i) => (
-                <Link key={photo.src} to="/gallery" className={`group relative aspect-4/3 overflow-hidden rounded-md bg-brand/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand ${i >= 6 ? 'hidden lg:block' : ''}`}>
-                  <img src={photo.thumb} alt={photo.alt} loading="lazy" decoding="async" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]" />
-                  <span className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/75 to-transparent px-3 pb-3 pt-10 text-sm font-medium text-white">{photo.caption}</span>
-                </Link>
-              ))}
+            <div className="rounded-md border-b-4 border-gold bg-brand-dark p-6 md:p-8">
+              <SectionIntro dark eyebrow="The Hill today" title="Mwiri today" link="/gallery" linkText="Browse the photo gallery" />
+              <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:mt-10 lg:grid-cols-4 md:gap-5">
+                {campusGallery.slice(0, 8).map((photo, i) => (
+                  <Link key={photo.src} to="/gallery" className={`group relative aspect-4/3 overflow-hidden rounded-md bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold ${i >= 6 ? 'hidden lg:block' : ''}`}>
+                    <img src={photo.thumb} alt={photo.alt} loading="lazy" decoding="async" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]" />
+                    <span className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/75 to-transparent px-3 pb-3 pt-10 text-sm font-medium text-white">{photo.caption}</span>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -155,7 +158,7 @@ export default function Home() {
 
       {/* Gallery */}
       {strip.length > 0 && (
-        <section className="mt-16 bg-[#f4f5f7] py-14 md:mt-20 md:py-20">
+        <section className="mt-16 bg-[#eef2f7] py-14 md:mt-20 md:py-20">
           <div className="mx-auto max-w-6xl px-4">
             <SectionIntro eyebrow="In pictures" title="Life on the Hill" link="/gallery" linkText="Explore the gallery" />
             <div className="mt-8 grid grid-cols-2 gap-4 md:mt-10 md:grid-cols-3 md:gap-6">
@@ -178,7 +181,7 @@ export default function Home() {
             <SectionIntro eyebrow="Building Mwiri together" title="Progress with purpose" link="/projects" linkText="View all projects" />
             <div className="mt-8 grid gap-5 md:mt-10 md:grid-cols-2 xl:grid-cols-3">
               {projects.slice(0, 3).map(p => (
-                <article key={p.title} className="overflow-hidden rounded-md bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                <article key={p.title} className="overflow-hidden rounded-md border border-brand/10 border-t-4 border-t-gold bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
                   <div className="aspect-2/1 overflow-hidden bg-linear-to-br from-brand/10 to-gold/25">
                     {p.image ? <img src={p.image} alt="" loading="lazy" className="h-full w-full object-cover" /> : <div className="flex h-full items-center justify-center font-display text-lg italic text-brand/50">MOBA project</div>}
                   </div>
@@ -196,17 +199,17 @@ export default function Home() {
 
       {/* Get involved */}
       <section className="mx-auto mt-16 max-w-6xl px-4 pb-16 md:mt-20 md:pb-20">
-        <div className="overflow-hidden rounded-md bg-brand-dark px-6 py-12 text-center text-white md:px-12 md:py-16">
-          <p className="text-xs font-bold uppercase tracking-[0.28em] text-gold">Your place is here</p>
+        <div className="overflow-hidden rounded-md border-b-4 border-brand-dark bg-gold px-6 py-12 text-center text-brand-dark md:px-12 md:py-16">
+          <p className="text-xs font-bold uppercase tracking-[0.28em] text-brand-dark/70">Your place is here</p>
           <h2 className="mx-auto mt-3 max-w-3xl font-display text-4xl font-bold leading-tight md:text-5xl">Keep the brotherhood moving forward.</h2>
-          <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-white/75">Join the association, enrol for funeral cover, support a project, or keep your details up to date.</p>
+          <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-brand-dark/75">Join the association, enrol for funeral cover, support a project, or keep your details up to date.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link to="/membership" className="rounded-sm bg-gold px-6 py-3 font-semibold text-brand-dark hover:brightness-110">Become a member</Link>
-            <Link to="/projects" className="rounded-sm border border-white/40 px-6 py-3 font-semibold text-white hover:bg-white/10">Support a project</Link>
-            <Link to="/update-details" className="rounded-sm border border-white/40 px-6 py-3 font-semibold text-white hover:bg-white/10">Update your details</Link>
+            <Link to="/membership" className="rounded-sm bg-brand-dark px-6 py-3 font-semibold text-white hover:bg-brand">Become a member</Link>
+            <Link to="/projects" className="rounded-sm border border-brand-dark/50 px-6 py-3 font-semibold text-brand-dark hover:bg-brand-dark/10">Support a project</Link>
+            <Link to="/update-details" className="rounded-sm border border-brand-dark/50 px-6 py-3 font-semibold text-brand-dark hover:bg-brand-dark/10">Update your details</Link>
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }
