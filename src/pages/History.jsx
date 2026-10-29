@@ -59,18 +59,18 @@ export default function History() {
         </ol>
       </section>
 
-      <section className="max-w-4xl mx-auto px-4 mt-6">
-        <h3 className="font-display text-xl font-bold text-brand">{h.headmastersTitle}</h3>
+      {h.headmasters.length > 0 && <section className="max-w-4xl mx-auto px-4 mt-6" aria-labelledby="headmasters-heading">
+        <h3 id="headmasters-heading" className="font-display text-xl font-bold text-brand">{h.headmastersTitle}</h3>
         <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-          {h.headmasters.map(m => (
-            <li key={m.name} className="rounded-lg bg-white p-4 shadow">
+          {h.headmasters.map((m, index) => (
+            <li key={m._id || `${m.name}-${index}`} className="rounded-lg bg-white p-4 shadow">
               <p className="font-semibold">{m.name}</p>
               <p className="text-sm text-ink/70">{m.note}</p>
             </li>
           ))}
         </ul>
         {h.headmastersNote && <p className="mt-3 text-sm text-ink/60">{h.headmastersNote}</p>}
-      </section>
+      </section>}
 
       <section className="max-w-6xl mx-auto px-4 mt-14">
         <Heading label="The nine houses" title="Where every Mwirian belongs" />

@@ -34,6 +34,9 @@ export default function AdminContent() {
   const [uploadCategory, setUploadCategory] = useState('')
   const [newCategoryMode, setNewCategoryMode] = useState(false)
   const section = SECTIONS.find(s => s.kind === kind)
+  const kindMigration = kind === 'life_member' || kind === 'headmaster'
+    ? '202610290001_editable_rosters.sql'
+    : '202610270004_editable_static_content.sql'
 
   // Sign-in check: a session AND a place on the admin or editor list.
   useEffect(() => {
@@ -81,7 +84,7 @@ export default function AdminContent() {
   const fail = error => {
     const message = error.message || String(error)
     setNotice(/site_content_kind_check/.test(message)
-      ? 'This content type is not enabled in Supabase yet. Apply supabase/migrations/202610270004_editable_static_content.sql, then try again.'
+      ? `This content type is not enabled in Supabase yet. Apply supabase/migrations/${kindMigration}, then try again.`
       : message)
     setBusy(false)
   }

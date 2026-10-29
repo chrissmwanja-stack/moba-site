@@ -145,3 +145,38 @@ test('responsive navigation keeps priority tabs visible and More accessible', as
     expect(widths.page).toBeLessThanOrEqual(widths.viewport + 1)
   }
 })
+
+test('managed life members and headmasters replace fallbacks with automatic numbering', async ({ page }) => {
+  const content = {
+    managed: ['life_member', 'headmaster'],
+    rows: [
+      ...['One', 'Two', 'Three', 'Four', 'Five'].map((name, index) => ({
+        id: `life-${index + 1}`, kind: 'life_member', key: null, data: { name: `Managed Member ${name}` },
+      })),
+      { id: 'head-1', kind: 'headmaster', key: null, data: { name: 'Managed Headmaster One', note: '2000 to 2001' } },
+      { id: 'head-2', kind: 'headmaster', key: null, data: { name: 'Managed Headmaster Two', note: '2001 to 2002, Acting' } },
+    ],
+  }
+    // Do not let a configured live Supabase project overwrite this test's managed-content fixture.
+  await page.route('**/rest/v1/rpc/site_content_public', route => route.abort())
+  await page.addInitScript(value => {
+    localStorage.setItem('moba-content-v1', JSON.stringify(value))
+  }, content)
+
+  await page.goto('/membership')
+  const lifeSection = page.locator('section[aria-labelledby="life-members-heading"]')
+  await expect(lifeSection.getByText('Managed Member One', { exact: true })).toBeVisible()
+  await expect(lifeSection.getByText('Boniface Egwoku', { exact: true })).toHaveCount(0)
+  await expect(lifeSection.locator('ol')).toHaveCount(4)
+  const lifeItems = lifeSection.locator('ol li')
+  await expect(lifeItems).toHaveCount(5)
+  await expect(lifeItems.nth(4)).toContainText('5')
+  await expect(lifeItems.nth(4)).toContainText('Managed Member Five')
+
+  await page.goto('/history')
+  const headmasterSection = page.locator('section[aria-labelledby="headmasters-heading"]')
+  await expect(headmasterSection.getByText('Managed Headmaster One', { exact: true })).toBeVisible()
+  await expect(headmasterSection.getByText('2001 to 2002, Acting', { exact: true })).toBeVisible()
+  await expect(headmasterSection.getByText('Rev. W. B. Gill', { exact: true })).toHaveCount(0)
+  await expect(headmasterSection.locator('ul li')).toHaveCount(2)
+})

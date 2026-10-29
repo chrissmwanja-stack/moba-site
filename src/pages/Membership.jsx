@@ -6,22 +6,17 @@ import MemberCard from '../components/MemberCard.jsx'
 import { benefits } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
 import { ugx } from '../lib/format.js'
-import { lifeMembers } from '../data/lifeMembers.js'
+import { balancedColumns } from '../lib/roster.js'
 
 export default function Membership() {
-  const { tiers } = useContent()
+  const { tiers, lifeMembers } = useContent()
   const [selected, setSelected] = useState('')
   const checkoutRef = useRef(null)
   const activeTier = tiers.find(t => t.id === selected) || tiers[0]
   const selectedId = activeTier?.id
   const tier = activeTier
   const lifeTier = tiers.find(t => t.id === 'life') || tiers.find(t => /life/i.test(t.name || ''))
-  const lifeMemberColumns = [
-    { start: 1, names: lifeMembers.slice(0, 16) },
-    { start: 17, names: lifeMembers.slice(16, 31) },
-    { start: 32, names: lifeMembers.slice(31, 47) },
-    { start: 48, names: lifeMembers.slice(47) },
-  ]
+  const lifeMemberColumns = balancedColumns(lifeMembers)
 
   function chooseLifeMembership() {
     if (!lifeTier) return
@@ -102,10 +97,10 @@ export default function Membership() {
           <div className="mt-8 grid grid-cols-1 gap-x-8 sm:grid-cols-2 xl:grid-cols-4">
             {lifeMemberColumns.map(column => (
               <ol key={column.start} className="list-none">
-                {column.names.map((name, index) => (
-                  <li key={`${column.start + index}-${name}`} className="flex min-h-10 items-center gap-4 border-b border-ink/10 py-2 text-sm font-medium text-brand">
-                    <span className="w-5 shrink-0 font-bold text-gold-dark" aria-hidden="true">{column.start + index}</span>
-                    <span>{name}</span>
+                {column.items.map((member, index) => (
+                  <li key={member._id || `${column.start + index}-${member.name}`} className="flex min-h-10 items-center gap-3 border-b border-ink/10 py-2 text-sm font-medium text-brand">
+                    <span className="w-8 shrink-0 text-right font-bold text-gold-dark" aria-hidden="true">{column.start + index}</span>
+                    <span>{member.name}</span>
                   </li>
                 ))}
               </ol>

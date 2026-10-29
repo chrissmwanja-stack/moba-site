@@ -2,6 +2,7 @@
 // (used for the one-time import) comes from. The admin form is generated from this file, so adding a
 // field here adds it to the form.
 import * as base from '../data/content.js'
+import { lifeMembers } from '../data/lifeMembers.js'
 import { projectSpotlightSlug } from '../data/projectSpotlights.js'
 import { BACKGROUNDS } from './backgrounds.js'
 
@@ -122,6 +123,15 @@ export const SECTIONS = [
     title: d => `${d.year || ''} — ${d.title || ''}`, summary: d => d.text, sample: () => base.timeline,
   },
   {
+    kind: 'headmaster', label: 'Headmasters', noun: 'headmaster', reorder: true,
+    fields: [
+      { key: 'name', label: 'Full name', type: 'text', required: true },
+      { key: 'note', label: 'Years / note', type: 'text', required: true, help: 'For example “Jan 1920 to Dec 1930”. You can also keep a short note such as “Acting” or “first African headmaster”.' },
+    ],
+    title: d => d.name, summary: d => d.note,
+    sample: () => base.history.headmasters,
+  },
+  {
     kind: 'about', label: 'About page', noun: 'About page', single: true, key: 'about',
     fields: [
       { key: 'summary', label: 'Home page summary', type: 'textarea', rows: 4, required: true },
@@ -174,6 +184,14 @@ export const SECTIONS = [
     ],
     title: d => d.name, summary: d => `UGX ${Number(d.price || 0).toLocaleString('en-UG')} · ${d.period || ''}`,
     sample: () => base.tiers,
+  },
+  {
+    kind: 'life_member', label: 'Life members', noun: 'life member', reorder: true,
+    fields: [
+      { key: 'name', label: 'Full name', type: 'text', required: true, help: 'Use the public display name, including any title.' },
+    ],
+    title: d => d.name, summary: () => 'Distinguished Lifetime Members Club',
+    sample: () => lifeMembers.map(name => ({ name })),
   },
   {
     kind: 'cohort', label: 'Cohorts', noun: 'cohort', reorder: false,

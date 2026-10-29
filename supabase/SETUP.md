@@ -49,3 +49,9 @@ Order changes in the lists (arrows) and gallery uploads that are already publish
 ## Editing remaining built-in content
 
 The admin content editor also supports the history timeline, About page copy, store products, membership plans and cohorts. Apply the follow-up migration `migrations/202610270004_editable_static_content.sql` after the site-content migration. For each section currently served from `src/data/content.js`, choose **Import current ...** once in `/admin/content`; the import is published without changing how the live page looks. About is a single editable record: open **About page** and save/publish the initial values.
+
+## Editing life members and headmasters
+
+Apply `migrations/202610290001_editable_rosters.sql` after the earlier content migrations. In `/admin/content`, open **Life members** and choose **Import current life members** once, then open **Headmasters** and choose **Import current headmasters** once. Each import preserves the current public list and makes every entry editable.
+
+Both sections support adding, editing, removing, reordering, drafts and publishing. Life members have a public display name; headmasters have a name and a **Years / note** field so details such as “Acting” are preserved. The Membership page automatically balances the life-member columns and numbering when the list changes. Until a section is imported, its public page continues to use the built-in fallback list.
