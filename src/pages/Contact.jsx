@@ -34,7 +34,7 @@ export default function Contact() {
 
   return (
     <>
-      <PageHeader title="Contact Us" subtitle="Questions, updates to your details, or ideas for the association? Write to us." />
+      <PageHeader title="Contact Us" subtitle="Questions, updates to your details, or ideas for the association? Write to us." image="/gallery/gate-2025.webp" position="50% 45%" />
       <section className="max-w-5xl mx-auto px-4 mt-12 grid gap-8 md:grid-cols-3">
         <div className="space-y-5 rounded-md bg-[#f4f5f7] p-6 md:p-7">
           <div>

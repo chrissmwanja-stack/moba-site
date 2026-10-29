@@ -38,7 +38,7 @@ export default function AdminLogin() {
   }
 
   return <>
-    <PageHeader eyebrow="Staff access" title="MOBA Admin" subtitle={forgot ? 'Enter your email and we will send you a link to choose a new password.' : 'Sign in with an administrator or editor account.'} />
+    <PageHeader eyebrow="Staff access" title="MOBA Admin" subtitle={forgot ? 'Enter your email and we will send you a link to choose a new password.' : 'Sign in with an administrator or editor account.'} image="/gallery/mwiri-today/campus-main-block-steps.webp" position="50% 55%" />
     <section className="mx-auto max-w-md px-4 py-14 md:py-16">
       <form onSubmit={submit} className="space-y-5 rounded-md border border-brand/10 bg-white p-6 shadow-sm md:p-8">
         {!isSupabaseConfigured && <p className="text-sm bg-gold/20 p-3 rounded">Supabase configuration is missing.</p>}

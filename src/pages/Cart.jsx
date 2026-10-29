@@ -29,7 +29,7 @@ export default function Cart() {
 
   return (
     <>
-      <PageHeader title="Your Cart" />
+      <PageHeader title="Your Cart" image="/gallery/mwiri-today/campus-campus-road.webp" position="50% 60%" />
       <section className="max-w-4xl mx-auto px-4 mt-10">
         {items.length === 0 ? (
           <div className="text-center py-16">

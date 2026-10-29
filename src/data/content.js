@@ -21,11 +21,11 @@ export const site = {
 }
 
 // The nine school houses offered on member sign-up and admin forms. Keep in step with public.moba_houses in Supabase.
-export const houses = ['Hannington', 'Nabikamba', 'Nadiope', 'Willis', 'Wilson', 'Waako', 'Presidents', 'Coates', 'Brewer']
+export const houses = ['Hannington', 'Nabikamba', 'Nadiope', 'Willis', 'Wilson', 'Wako', 'Presidents', 'Coates', 'Brewer']
 
 export const stats = [
   { label: 'Years of brotherhood', value: new Date().getFullYear() - site.founded },
-  { label: 'Projects delivered', value: 10 },        // TODO
+  { label: 'Projects delivered', value: '10+' },        // TODO
   { label: 'Members worldwide', value: '1,500+' },   // TODO
 ]
 
@@ -81,7 +81,7 @@ export const history = {
         'The Main Hall had opened in 1940, Hannington House opened in 1959 and A Level arrived in 1964. Apollo Milton Obote, a pupil from 1942 to 1948, went on to become Uganda’s first Prime Minister and President. In 1965 Dan N. Okungu became the first African headmaster, and Old Boys came to call Mwiri simply “The School”.',
       ],
       images: [
-        { src: '/gallery/archive-wako-1965-640.webp', alt: 'Wako House in 1965 with its trophies beneath the school motto', caption: 'Waako House, 1965, at the end of the Golden Age, with its haul of trophies beneath the school motto.' },
+        { src: '/gallery/archive-wako-1965-640.webp', alt: 'Wako House in 1965 with its trophies beneath the school motto', caption: 'Wako House, 1965, at the end of the Golden Age, with its haul of trophies beneath the school motto.' },
         { src: '/gallery/archive-hannington-1981-640.webp', alt: 'Hannington House at the Main Hall in 1981', caption: 'Hannington House at the Main Hall, 1981.' },
       ],
     },
@@ -104,7 +104,7 @@ export const history = {
     { name: 'Nabikamba', text: 'For Nabikamba, one of the founding Busoga chiefs.' },
     { name: 'Nadiope', text: 'For Prince Yosiya Nadiope, who gave the original land in Kamuli for Balangira High School in 1911.' },
     { name: 'Presidents', text: 'In honour of the presidents of the Busoga Lukiiko, the council of chiefs, recognising traditional leadership’s part in building the school.' },
-    { name: 'Waako', text: 'For Ezekiel Tenywa Wako, the first Kyabazinga of a united Busoga, who helped the school secure its present site.' },
+    { name: 'Wako', text: 'For Ezekiel Tenywa Wako, the first Kyabazinga of a united Busoga, who helped the school secure its present site.' },
     { name: 'Willis', text: 'For the Rt Rev. John Jamieson Willis, Bishop of Uganda from 1912 to 1934, who helped raise funds for the school.' },
     { name: 'Wilson', text: 'For Rev. C. T. Wilson, one of the first Anglican missionaries to Uganda, who arrived in 1877.' },
   ],

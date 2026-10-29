@@ -89,6 +89,8 @@ export default function MemberLogin() {
     <>
       <PageHeader eyebrow="Member portal"
         title={title}
+        image="/gallery/mwiri-today/campus-main-entrance.webp"
+        position="50% 55%"
         subtitle={mode === 'signup'
           ? 'Register once. After the secretary verifies your details you get your permanent MOBA number and digital card.'
           : 'Sign in to see your MOBA membership card.'}

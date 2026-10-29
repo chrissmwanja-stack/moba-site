@@ -25,7 +25,7 @@ export default function News() {
 
   return (
     <>
-      <PageHeader title="News & Events" subtitle="What is happening in the MOBA family." />
+      <PageHeader title="News & Events" subtitle="What is happening in the MOBA family." image="/gallery/agm-2026-1.webp" position="50% 35%" />
       <section className="mx-auto mt-8 max-w-6xl px-4 md:mt-10">
         <div role="group" aria-label="Filter by category" className="flex flex-wrap gap-2">
           {['All', ...offered].map(c => {

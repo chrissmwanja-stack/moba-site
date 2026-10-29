@@ -25,7 +25,7 @@ export default function Projects() {
 
   return (
     <>
-      <PageHeader title="Projects" subtitle="Explore MOBA projects and work. Open a spotlighted project to see its story and images." />
+      <PageHeader title="Projects" subtitle="Explore MOBA projects and work. Open a spotlighted project to see its story and images." image="/projects/court-aerial.webp" position="50% 50%" />
 
       <section className="mx-auto mt-10 max-w-6xl px-4 pb-14 lg:mt-12" aria-labelledby="projects-list-heading">
         <div className="mb-5">

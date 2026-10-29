@@ -145,6 +145,8 @@ export default function Cohorts() {
     <>
       <PageHeader
         title="Branches & Cohorts"
+        image="/gallery/archive-team-1947.webp"
+        position="50% 40%"
         subtitle="Find Old Boys near you, or from your year, and stay in touch."
       />
 

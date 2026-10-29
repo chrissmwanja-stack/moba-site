@@ -135,6 +135,8 @@ export default function FuneralCover() {
     <>
       <PageHeader
         title={cover.name}
+        image="/gallery/mwiri-today/campus-garden-path.webp"
+        position="50% 60%"
         subtitle="Enrol yourself and the family members you want covered. Pay directly using the MOBA payment details below; cover starts only after the scheme secretary verifies payment."
       />
 

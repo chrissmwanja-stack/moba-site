@@ -14,7 +14,7 @@ export default function Store() {
 
   return (
     <>
-      <PageHeader title="MOBA Store" subtitle="Wear the crest. Memorabilia from the Mwiri Old Boys Association. Order online, pay on delivery." />
+      <PageHeader title="MOBA Store" subtitle="Wear the crest. Memorabilia from the Mwiri Old Boys Association. Order online, pay on delivery." image="/gallery/mwiri-today/campus-crane-sculpture.webp" position="50% 40%" />
 
       <div className="max-w-6xl mx-auto px-4 mt-10">
         <p className="mb-6 text-sm text-ink/75">Prefer to give directly? <Link to="/donate" className="font-medium text-brand underline">Donate to a MOBA project</Link>.</p>

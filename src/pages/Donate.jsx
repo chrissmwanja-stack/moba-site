@@ -51,7 +51,7 @@ export default function Donate() {
 
   return (
     <>
-      <PageHeader title="Donate" subtitle="Give to the Mwiri we want. Every gift goes to projects that serve the school and the brotherhood." />
+      <PageHeader title="Donate" subtitle="Give to the Mwiri we want. Every gift goes to projects that serve the school and the brotherhood." image="/gallery/refurb-2024.webp" position="50% 60%" />
 
       <section className="max-w-6xl mx-auto px-4 mt-12">
         <h2 className="text-xl font-bold text-brand">Where your gift can go</h2>

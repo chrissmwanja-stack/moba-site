@@ -62,7 +62,7 @@ export default function Gallery() {
 
   return (
     <>
-      <PageHeader title="Photo Gallery" subtitle="Moments from reunions, projects and events." />
+      <PageHeader title="Photo Gallery" subtitle="Moments from reunions, projects and events." image="/gallery/agm-2026-4.webp" position="50% 40%" />
 
       <section className="mx-auto mt-8 max-w-6xl px-4 md:mt-10" aria-label="Filter gallery by category">
         <div className="flex flex-wrap gap-2">

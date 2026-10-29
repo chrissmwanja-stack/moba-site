@@ -41,6 +41,8 @@ export default function Archives() {
       <PageHeader
         eyebrow="Our Mwiri"
         title="Archives"
+        image="/gallery/archive-thatched-buildings.webp"
+        position="50% 55%"
         subtitle="Reports, minutes, newsletters, photographs and records that tell the story of the association."
       />
       <OurMwiriNav />

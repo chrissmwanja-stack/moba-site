@@ -154,7 +154,7 @@ export default function Leadership() {
 
   return (
     <>
-      <PageHeader title="Our Leadership" subtitle={`The executive committee serving MOBA ${leadersTerm}.`} />
+      <PageHeader title="Our Leadership" subtitle={`The executive committee serving MOBA ${leadersTerm}.`} image="/gallery/2026-reunion/02.webp" position="50% 35%" />
 
       {selected && (
         <ProfilePanel

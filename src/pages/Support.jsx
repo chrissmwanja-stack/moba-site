@@ -16,7 +16,7 @@ const steps = [
 export default function Support() {
   return (
     <>
-      <PageHeader title="Support MOBA" subtitle="Three ways to give back to the association and to Mwiri." />
+      <PageHeader title="Support MOBA" subtitle="Three ways to give back to the association and to Mwiri." image="/gallery/dedication-2025.webp" position="50% 30%" />
 
       <section className="max-w-6xl mx-auto px-4 mt-12 grid gap-6 md:grid-cols-3" aria-label="Ways to support MOBA">
         {tiles.map(t => (
