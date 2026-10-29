@@ -10,7 +10,7 @@ function SectionIntro({ eyebrow, title, link, linkText = 'Explore more', dark = 
   return (
     <div className="flex flex-wrap items-end justify-between gap-5">
       <div>
-        <p className={`text-xs font-bold uppercase tracking-[0.28em] ${dark ? 'text-gold' : 'text-brand/65'}`}>{eyebrow}</p>
+        <p className={`text-xs font-bold uppercase tracking-[0.28em] ${dark ? 'text-gold' : 'text-brand/70'}`}>{eyebrow}</p>
         <h2 className={`mt-3 font-display text-4xl font-bold leading-tight md:text-5xl ${dark ? 'text-white' : 'text-brand'}`}>{title}</h2>
       </div>
       {link && (
@@ -36,7 +36,7 @@ function EventCard({ item }) {
         <div className="flex min-w-0 flex-col">
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-gold-dark">{item.category || 'MOBA event'}</p>
           <h3 className="mt-2 font-display text-xl font-semibold leading-snug text-brand md:text-2xl">{item.title}</h3>
-          {item.place && <p className="mt-2 text-sm text-brand/65">{item.place}</p>}
+          {item.place && <p className="mt-2 text-sm text-brand/70">{item.place}</p>}
           <span className="mt-auto pt-4 text-sm font-semibold text-brand underline underline-offset-4 decoration-brand/40 group-hover:decoration-brand">Event details →</span>
         </div>
       </article>
@@ -91,7 +91,7 @@ export default function Home() {
             {stats.map((s, i) => (
               <div key={s.label} className={`px-5 py-6 text-center ${i ? 'border-t border-brand/10 sm:border-l sm:border-t-0' : ''}`}>
                 <p className="font-display text-3xl font-bold text-brand md:text-4xl">{s.value}</p>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-brand/60">{s.label}</p>
+                <p className="mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-brand/70">{s.label}</p>
               </div>
             ))}
           </div>
@@ -183,7 +183,7 @@ export default function Home() {
               {projects.slice(0, 3).map(p => (
                 <article key={p.title} className="overflow-hidden rounded-md border border-brand/10 border-t-4 border-t-gold bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
                   <div className="aspect-2/1 overflow-hidden bg-linear-to-br from-brand/10 to-gold/25">
-                    {p.image ? <img src={p.image} alt="" loading="lazy" className="h-full w-full object-cover" /> : <div className="flex h-full items-center justify-center font-display text-lg italic text-brand/50">MOBA project</div>}
+                    {p.image ? <img src={p.image} alt="" loading="lazy" className="h-full w-full object-cover" /> : <div className="flex h-full items-center justify-center font-display text-lg italic text-brand/70">MOBA project</div>}
                   </div>
                   <div className="p-5 md:p-6">
                     <p className="text-xs font-bold uppercase tracking-[0.16em] text-gold-dark">{p.year}{p.status && ` · ${p.status}`}</p>

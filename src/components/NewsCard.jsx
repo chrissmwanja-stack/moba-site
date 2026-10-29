@@ -17,14 +17,14 @@ export default function NewsCard({ item }) {
         <div className="aspect-[2/1] overflow-hidden bg-[#e7e9ed]">
           {image
             ? <img src={image} alt="" loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" />
-            : <div className="flex h-full items-center justify-center px-6 text-center"><span className="font-display text-lg italic text-brand/50">MOBA stories from the Hill</span></div>}
+            : <div className="flex h-full items-center justify-center px-6 text-center"><span className="font-display text-lg italic text-brand/70">MOBA stories from the Hill</span></div>}
         </div>
         <div className="flex flex-1 flex-col p-5 md:p-6">
-          {(category || series) && <p className="flex flex-wrap gap-x-2 text-sm font-semibold text-gold-dark">{category && <span>{category}</span>}{series && <span className="text-brand/55">{series}</span>}</p>}
+          {(category || series) && <p className="flex flex-wrap gap-x-2 text-sm font-semibold text-gold-dark">{category && <span>{category}</span>}{series && <span className="text-brand/70">{series}</span>}</p>}
           <h3 className="mt-3 font-display text-xl font-semibold leading-snug text-brand md:text-2xl">{title}</h3>
-          {place && <p className="mt-1 text-sm text-brand/60">{place}</p>}
+          {place && <p className="mt-1 text-sm text-brand/70">{place}</p>}
           {excerpt && <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-brand/70">{excerpt}</p>}
-          <div className="mt-auto flex items-end justify-between gap-3 pt-5 text-sm text-brand/55">
+          <div className="mt-auto flex items-end justify-between gap-3 pt-5 text-sm text-brand/70">
             <span>{date && <time dateTime={date}>{formatDate(date)}</time>}{date && mins ? ' · ' : ''}{mins ? `${mins} min read` : ''}</span>
             <span className="shrink-0 font-semibold text-brand underline underline-offset-4 decoration-brand/40 group-hover:decoration-brand">Read more →</span>
           </div>

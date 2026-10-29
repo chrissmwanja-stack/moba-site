@@ -43,7 +43,7 @@ const PILLAR_ICONS = [
 ]
 
 function Eyebrow({ children, light = false }) {
-  return <p className={`text-xs font-bold uppercase tracking-[0.28em] ${light ? 'text-gold' : 'text-brand/65'}`}>{children}</p>
+  return <p className={`text-xs font-bold uppercase tracking-[0.28em] ${light ? 'text-gold' : 'text-brand/70'}`}>{children}</p>
 }
 
 function SectionHeading({ id, eyebrow, children, light = false }) {
@@ -170,7 +170,7 @@ export default function About() {
 
       {/* Priorities */}
       <section aria-labelledby="priorities" className="relative isolate mt-16 scroll-mt-20 overflow-hidden bg-brand py-16 text-white">
-        <span aria-hidden="true" className="pointer-events-none absolute -top-6 right-0 -z-10 select-none font-display text-[9rem] font-bold leading-none text-white/6 md:text-[16rem]">{site.founded}</span>
+        <span id="about-founding-year-watermark" aria-hidden="true" className="pointer-events-none absolute -top-6 right-0 -z-10 select-none font-display text-[9rem] font-bold leading-none text-white/6 md:text-[16rem]">{site.founded}</span>
         <div className="mx-auto max-w-6xl px-4">
           <SectionHeading id="priorities" eyebrow="Our priorities for 2026 to 2028" light>Reclaiming Mwiri’s greatness</SectionHeading>
           <p className="mt-5 max-w-2xl text-white/85">
@@ -208,7 +208,7 @@ export default function About() {
                 <div>
                   <h3 className="font-semibold text-brand">{c.name}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-ink/70">{c.text}</p>
-                  {c.chair && <p className="mt-3 text-xs text-ink/60">Chair: {c.chair}</p>}
+                  {c.chair && <p className="mt-3 text-xs text-ink/65">Chair: {c.chair}</p>}
                 </div>
               </article>
             ))}
@@ -228,7 +228,7 @@ export default function About() {
           <p className="mt-2 text-sm text-ink/70">{governance.text}</p>
           {safeUrl(governance.constitutionUrl)
             ? <a href={safeUrl(governance.constitutionUrl)} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-medium text-brand hover:underline">{governance.constitutionLabel} →</a>
-            : <p className="mt-4 text-xs text-ink/60">The constitution will be published here soon.</p>}
+            : <p className="mt-4 text-xs text-ink/65">The constitution will be published here soon.</p>}
         </article>
       </section>
 

@@ -13,7 +13,7 @@ npx playwright install --with-deps chromium  # once per machine/runner
 npm run test:browser
 ```
 
-`npm run check` performs lint, unit tests, migration consistency and a production build. Local browser tests exercise the generated `dist/` build at desktop and mobile sizes. Do not merge with a failing check merely because the public site still renders.
+`npm run check` performs lint, unit tests, migration consistency and a production build. Local browser tests exercise the generated `dist/` build at desktop and mobile sizes and run automated WCAG A/AA checks on the public routes. Do not merge with a failing check merely because the public site still renders.
 
 For a change to Supabase policies, functions or grants, also run the read-only anonymous checks with the public environment values:
 

@@ -1,12 +1,7 @@
 import { test, expect } from '@playwright/test'
+import { publicRoutes } from './routes.js'
 
-const routes = [
-  '/', '/about', '/history', '/projects', '/gallery', '/store', '/cart', '/membership',
-  '/funeral-cover', '/contact', '/news', '/update-details', '/privacy', '/cohorts',
-  '/support', '/donate', '/archives', '/prominent-mwirians', '/member/login',
-]
-
-for (const route of routes) {
+for (const route of publicRoutes) {
   test(`${route} renders responsively without runtime errors`, async ({ page }) => {
     const errors = []
     page.on('pageerror', error => errors.push(error.message))
@@ -54,7 +49,7 @@ test('membership plan selection updates the manual-verification checkout', async
 
 test('Contact deep links preselect the requested topic', async ({ page }) => {
   await page.goto('/contact?topic=Events')
-  await expect(page.locator('select')).toHaveValue('Events')
+  await expect(page.getByLabel('Topic', { exact: true })).toHaveValue('Events')
 })
 
 test('cohort lookup calculates the S6 year without a runtime error', async ({ page }) => {

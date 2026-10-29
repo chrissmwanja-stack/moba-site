@@ -123,7 +123,7 @@ export default function Donate() {
                   <input required maxLength={100} placeholder="From your payment confirmation" className={`${field} mt-1`} value={form.paymentReference} onChange={set('paymentReference')} />
                 </label>
               </div>
-              <label className="block text-sm font-medium text-ink/80">Payer phone <span className="font-normal text-ink/60">(if different from your contact number)</span>
+              <label className="block text-sm font-medium text-ink/80">Payer phone <span className="font-normal text-ink/65">(if different from your contact number)</span>
                 <input type="tel" maxLength={30} placeholder="Number used to make the payment" className={`${field} mt-1`} value={form.paymentPhone} onChange={set('paymentPhone')} />
               </label>
               <label className="block text-sm font-medium text-ink/80">

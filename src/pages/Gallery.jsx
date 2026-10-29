@@ -73,7 +73,7 @@ export default function Gallery() {
             </button>
           ))}
         </div>
-        <p className="mt-3 text-sm text-brand/60" aria-live="polite">Showing {shown.length} of {filtered.length} photos</p>
+        <p className="mt-3 text-sm text-brand/70" aria-live="polite">Showing {shown.length} of {filtered.length} photos</p>
       </section>
 
       <section className="mx-auto mt-5 grid max-w-6xl grid-cols-1 gap-5 px-4 sm:grid-cols-2 md:mt-7 md:grid-cols-3" aria-label="Photos">

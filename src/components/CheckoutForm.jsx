@@ -113,7 +113,7 @@ export default function CheckoutForm({ kind, items, total, needsAddress = false,
           <label className="text-sm font-medium text-ink">Transaction reference / ID
             <input required maxLength={100} placeholder="From your payment confirmation" className={field + ' mt-1'} value={form.payment_reference} onChange={set('payment_reference')} />
           </label>
-          <label className="text-sm font-medium text-ink sm:col-span-2">Payer phone number <span className="font-normal text-ink/60">(if different from your contact number)</span>
+          <label className="text-sm font-medium text-ink sm:col-span-2">Payer phone number <span className="font-normal text-ink/65">(if different from your contact number)</span>
             <input type="tel" maxLength={30} placeholder="Number used to make the payment" className={field + ' mt-1'} value={form.payment_phone} onChange={set('payment_phone')} />
           </label>
         </div>

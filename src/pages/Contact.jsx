@@ -69,9 +69,12 @@ export default function Contact() {
                 <input required placeholder="Your name" className={field} value={form.name} onChange={set('name')} />
                 <input required type="email" placeholder="Your email" className={field} value={form.email} onChange={set('email')} />
               </div>
-              <select className={field} value={form.topic} onChange={set('topic')}>
-                {topics.map(t => <option key={t}>{t}</option>)}
-              </select>
+              <div>
+                <label htmlFor="contact-topic" className="mb-1 block text-sm font-semibold text-ink">Topic</label>
+                <select id="contact-topic" className={field} value={form.topic} onChange={set('topic')}>
+                  {topics.map(t => <option key={t}>{t}</option>)}
+                </select>
+              </div>
               <textarea required rows={5} placeholder="Your message" className={field} value={form.message} onChange={set('message')} />
               <input type="text" tabIndex={-1} autoComplete="off" value={bot} onChange={e => setBot(e.target.value)} className="hidden" aria-hidden="true" />
               {error && <p className="text-sm bg-gold/20 border border-gold rounded-md p-3">{error}</p>}

@@ -122,7 +122,7 @@ export default function History() {
             <Link to="/archives" className="rounded-md border border-brand/25 px-5 py-2.5 font-semibold text-brand hover:bg-gold/20">Archives</Link>
           </div>
         </div>
-        {h.sources && <p className="mt-6 pb-12 text-xs text-ink/50">Sources: {h.sources}</p>}
+        {h.sources && <p className="mt-6 pb-12 text-xs text-ink/65">Sources: {h.sources}</p>}
       </section>
     </>
   )

@@ -19,7 +19,7 @@ export default function HomeNewsCard({ item }) {
             />
           ) : (
             <div className="flex h-full items-center justify-center px-6 text-center">
-              <span className="font-display text-lg italic text-brand/55">MOBA stories from the Hill</span>
+              <span className="font-display text-lg italic text-brand/70">MOBA stories from the Hill</span>
             </div>
           )}
         </div>

@@ -34,7 +34,7 @@ npm run check                # All four commands above
 
 npx playwright install chromium            # Windows/macOS; first browser-test run
 # Linux CI/new Linux machine: npx playwright install --with-deps chromium
-npm run test:browser         # Desktop + mobile; starts a preview of the existing dist/
+npm run test:browser         # Desktop + mobile smoke and WCAG A/AA checks; previews existing dist/
 npm run test:browser:prod    # Same smoke suite against https://www.mwirian.org
 ```
 
@@ -76,7 +76,7 @@ public/                 Static assets, sitemap, host headers and SPA redirect ru
 supabase/migrations/    Ordered database schema and security migrations
 scripts/                Repository consistency checks
 tests/unit/             Node's built-in test runner; no browser required
-tests/browser/          Playwright desktop/mobile public smoke journeys
+tests/browser/          Playwright desktop/mobile public smoke and WCAG A/AA journeys
 tests/security/         Read-only anonymous Supabase boundary checks
 .github/workflows/      CI and post-deployment checks
 docs/OPERATIONS.md      Current deployment, publishing and recovery runbook
