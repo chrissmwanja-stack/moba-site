@@ -142,8 +142,8 @@ export const about = {
   summary: 'The Mwiri Old Boys Association (MOBA) brings together everyone who has passed through Busoga College Mwiri. We keep the brotherhood alive, support the school that shaped us, and look after one another across cohorts, branches and borders.', // TODO: confirm wording
   // Longer version, shown on the About page. One string per paragraph.
   story: [
-    'Busoga College Mwiri has been educating boys on its hill above Jinja since 1911. The Mwiri Old Boys Association is the home of everyone who has walked through its gates, from the earliest classes to the newest leavers.', // TODO: confirm wording
-    'We exist to keep that bond strong: to give Old Boys a place to reconnect, to give back to the school in practical ways, and to make sure the next generation of Mwirians inherits a school they can be proud of.', // TODO: confirm wording
+    'The Mwiri Old Boys Association (MOBA) brings together generations of Old Boys of Busoga College Mwiri. Our connection to Mwiri does not end when we leave the Hill. It continues through the relationships we build, the heritage we share and the responsibility we carry for one another and our school.',
+    'Across cohorts, professions and geographies, MOBA provides a platform to stay connected, share knowledge and opportunities, support fellow Mwirians and contribute to the continued development of Busoga College Mwiri.',
   ],
   purpose: 'To connect generations of Mwirian brothers and harness the strength of our collective community to advance Mwiri and one another.',
   vision: 'A strong and connected Mwirian community, united across generations and committed to the enduring success of Mwiri and each other.',
