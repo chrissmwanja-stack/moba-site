@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import { useContent } from '../lib/siteContent.js'
-import { projectSpotlights } from '../data/projectSpotlights.js'
+import { findProjectSpotlight } from '../data/projectSpotlights.js'
 import NotFound from './NotFound.jsx'
 
 export default function ProjectDetail() {
   const { slug } = useParams()
   const { projects } = useContent()
   const [selected, setSelected] = useState(0)
-  const spotlight = projectSpotlights.find(item => item.id === slug)
+  const spotlight = findProjectSpotlight(slug, projects)
 
   useEffect(() => setSelected(0), [slug])
 

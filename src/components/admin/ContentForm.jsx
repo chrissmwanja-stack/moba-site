@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { houses } from '../../data/content.js'
 import { uploadImage, uploadPdf } from '../../lib/contentAdmin.js'
+import SpotlightImagesField from './SpotlightImagesField.jsx'
 
 const input = 'w-full rounded-md border border-ink/40 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand'
 const smallBtn = 'rounded-md border-2 border-brand px-3 py-1.5 text-sm font-semibold text-brand hover:bg-brand hover:text-white disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand'
@@ -171,6 +172,7 @@ export default function ContentForm({ section, form, setForm }) {
             )
             break
           case 'image': control = <ImageField fd={fd} form={form} set={set} id={id} />; break
+          case 'spotlightImages': control = <SpotlightImagesField id={id} value={v || []} onChange={value => set({ [fd.key]: value })} />; break
           case 'file': control = <FileField fd={fd} form={form} set={set} id={id} />; break
           case 'methods': control = <Methods value={v} onChange={val => set({ [fd.key]: val })} />; break
           default:

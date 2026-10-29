@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import ContentForm from '../components/admin/ContentForm.jsx'
+import { projectSpotlights, projectClaimsSpotlight, projectForEditing } from '../data/projectSpotlights.js'
 import { supabase } from '../lib/supabase.js'
 import { SECTIONS, toForm, fromForm, problems } from '../lib/contentSchemas.js'
 import * as api from '../lib/contentAdmin.js'
@@ -65,6 +66,9 @@ export default function AdminContent() {
   useEffect(() => { if (user) { setEdit(null); setOk(''); load() } }, [user, kind, load])
 
   const view = r => r.draft || r.live || {}
+  const unattachedSpotlights = kind === 'project' && state === 'ready'
+    ? projectSpotlights.filter(spotlight => !rows.some(row => projectClaimsSpotlight(view(row), spotlight)))
+    : []
   const existingCategories = useMemo(() => [...new Set([
     ...rows.map(r => r.draft?.category || r.live?.category),
     ...(section.sample?.() || []).map(photo => photo.category),
@@ -85,10 +89,22 @@ export default function AdminContent() {
     await load(); setOk(message); setBusy(false)
   }
 
-  function startEdit(row, messages = []) {
-    const data = row ? view(row) : section.defaults?.() || {}
-    setEdit({ row, form: toForm(section, data), problems: messages }); setNotice(''); setOk('')
+  function startEdit(row, messages = [], initialData = null) {
+    const data = initialData || (row ? view(row) : section.defaults?.() || {})
+    const editableData = kind === 'project' ? projectForEditing(data) : data
+    setEdit({ row, form: toForm(section, editableData), problems: messages }); setNotice(''); setOk('')
     window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  function startSpotlightProject(spotlight) {
+    startEdit(null, [], {
+      title: spotlight.projectTitle,
+      year: '',
+      status: '',
+      summary: spotlight.description,
+      spotlightId: spotlight.id,
+      spotlightImages: spotlight.images,
+    })
   }
 
   function nextPosition() {
@@ -350,6 +366,21 @@ export default function AdminContent() {
             {state === 'loading' && <p className="mt-6 text-ink/70">Loading…</p>}
             {state === 'ready' && !needsImport && rows.length === 0 && !section.single && <p className="mt-6 text-ink/70">Nothing here yet. Add the first {section.noun}.</p>}
             {section.single && state === 'ready' && rows.length === 0 && <p className="mt-6 text-ink/70">The website is using the built-in details. Press “Edit site details” to change them.</p>}
+
+            {unattachedSpotlights.length > 0 && (
+              <div className="mt-6 rounded-lg border border-brand/20 bg-paper p-5">
+                <h2 className="text-lg font-bold text-brand">Existing spotlights not linked to a project</h2>
+                <p className="mt-1 text-sm text-ink/70">Create an editable project to manage these existing spotlight images. You will need to confirm its year and status before publishing.</p>
+                <ul className="mt-4 space-y-3">
+                  {unattachedSpotlights.map(spotlight => (
+                    <li key={spotlight.id} className="flex flex-wrap items-center justify-between gap-3 rounded-md bg-white p-3">
+                      <span className="font-medium text-brand">{spotlight.title}</span>
+                      <button type="button" className={small} disabled={busy} onClick={() => startSpotlightProject(spotlight)}>Create editable project</button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             <ul className="mt-6 space-y-3">
               {rows.map((row, idx) => {

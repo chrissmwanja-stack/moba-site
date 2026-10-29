@@ -33,7 +33,7 @@ const AdminLogin = lazy(() => import('./pages/AdminLogin.jsx'))
 const Admin = lazy(() => import('./pages/Admin.jsx'))
 const AdminContent = lazy(() => import('./pages/AdminContent.jsx'))
 import { site } from './data/content.js'
-import { projectSpotlights } from './data/projectSpotlights.js'
+import { findProjectSpotlight } from './data/projectSpotlights.js'
 import { useContent } from './lib/siteContent.js'
 import { newsSlug } from './lib/news.js'
 
@@ -66,10 +66,10 @@ const meta = {
 const defaultDescription = 'The home of the Mwiri Old Boys Association: our history, our projects and our community since 1911.'
 
 // Fixed pages use the table above; each news article uses its own title and excerpt.
-function metaFor(pathname, news) {
+function metaFor(pathname, news, projects) {
   const path = pathname.replace(/\/$/, '') || '/'
   if (path.startsWith('/projects/')) {
-    const item = projectSpotlights.find(p => p.id === path.slice('/projects/'.length))
+    const item = findProjectSpotlight(path.slice('/projects/'.length), projects)
     return item && { title: item.title, description: item.description?.slice(0, 160) }
   }
   if (path.startsWith('/news/')) {
@@ -81,13 +81,13 @@ function metaFor(pathname, news) {
 
 function PageMeta() {
   const { pathname } = useLocation()
-  const { news } = useContent()
+  const { news, projects } = useContent()
   useEffect(() => {
-    const m = metaFor(pathname, news)
+    const m = metaFor(pathname, news, projects)
     document.title = !m ? `Page not found | ${site.name}` : pathname === '/' ? m.title : `${m.title} | ${site.name}`
     const desc = document.querySelector('meta[name="description"]')
     if (desc) desc.setAttribute('content', m?.description || defaultDescription)
-  }, [pathname, news])
+  }, [pathname, news, projects])
   return null
 }
 

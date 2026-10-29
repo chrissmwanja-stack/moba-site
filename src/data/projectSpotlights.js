@@ -1,4 +1,4 @@
-// Project spotlight galleries, separate from the optional CMS-managed project-card list.
+// Built-in project spotlight galleries. CMS project records can replace these through spotlightImages.
 // Concept renders are explicitly labelled so they are not mistaken for completed work.
 export const projectSpotlights = [
   {
@@ -34,7 +34,7 @@ export const projectSpotlights = [
   },
   {
     id: 'clubhouse',
-    projectTitle: 'MOBA Clubhouse',
+    projectTitle: 'MOBA Clubhouse Redevelopment',
     title: 'The MOBA clubhouse and grounds',
     eyebrow: 'Project spotlight',
     tag: 'Site and building',
@@ -59,6 +59,62 @@ export const projectSpotlights = [
     ],
   },
 ]
+
+const normalize = value => String(value || '').trim().toLowerCase()
+
+export const projectSpotlightSlug = value => normalize(value).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+
+export function projectClaimsSpotlight(project, spotlight) {
+  return project.spotlightId === spotlight.id || normalize(project.title) === normalize(spotlight.projectTitle)
+}
+
+function builtInSpotlightForProject(project) {
+  return projectSpotlights.find(spotlight => projectClaimsSpotlight(project, spotlight))
+}
+
+// A CMS gallery replaces the built-in gallery when present. An explicit empty array disables the spotlight.
+export function spotlightForProject(project) {
+  const builtIn = builtInSpotlightForProject(project)
+  const hasCustomGallery = Array.isArray(project.spotlightImages)
+  if (hasCustomGallery && project.spotlightImages.length === 0) return null
+  if (!builtIn && !hasCustomGallery) return null
+
+  const images = hasCustomGallery ? project.spotlightImages : builtIn.images
+  const id = project.spotlightId || builtIn?.id || projectSpotlightSlug(project.title)
+  if (!id || !images.length) return null
+
+  return {
+    ...(builtIn || {}),
+    id,
+    projectTitle: project.title || builtIn?.projectTitle,
+    title: builtIn?.title || project.title,
+    eyebrow: builtIn?.eyebrow || 'Project spotlight',
+    tag: builtIn?.tag || project.status || '',
+    description: builtIn?.description || project.summary || '',
+    supportProject: builtIn?.supportProject || project.title,
+    images,
+  }
+}
+
+// Copy the effective built-in gallery into the form the first time an existing project is edited.
+export function projectForEditing(project) {
+  const builtIn = builtInSpotlightForProject(project)
+  if (!builtIn || Array.isArray(project.spotlightImages)) return project
+  return {
+    ...project,
+    spotlightId: builtIn.id,
+    spotlightImages: builtIn.images.map(image => ({ ...image })),
+  }
+}
+
+export function findProjectSpotlight(slug, projects = []) {
+  for (const project of projects) {
+    const builtIn = builtInSpotlightForProject(project)
+    const spotlight = spotlightForProject(project)
+    if (project.spotlightId === slug || builtIn?.id === slug || spotlight?.id === slug) return spotlight
+  }
+  return projectSpotlights.find(spotlight => spotlight.id === slug) || null
+}
 
 export const campusGallery = [
   { src: '/gallery/mwiri-today/campus-campus-road.webp', thumb: '/gallery/mwiri-today/thumbs/campus-campus-road.webp', caption: 'Campus road at Mwiri', alt: 'A road winding through the green campus at Mwiri' },

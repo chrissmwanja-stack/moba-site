@@ -2,6 +2,7 @@
 // (used for the one-time import) comes from. The admin form is generated from this file, so adding a
 // field here adds it to the form.
 import * as base from '../data/content.js'
+import { projectSpotlightSlug } from '../data/projectSpotlights.js'
 
 const FOCUS = [['50% 20%', 'Top'], ['50% 35%', 'Upper part'], ['50% 50%', 'Centre'], ['50% 70%', 'Lower part']]
 
@@ -78,6 +79,8 @@ export const SECTIONS = [
       { key: 'status', label: 'Status', type: 'select', options: ['Ongoing', 'Completed', 'Planned'], required: true, help: 'Only ongoing projects appear on the Donate page.' },
       { key: 'summary', label: 'Summary', type: 'textarea', rows: 3, required: true },
       { key: 'image', label: 'Picture', type: 'image', folder: 'projects', maxSide: 1200 },
+      { key: 'spotlightId', type: 'hidden' },
+      { key: 'spotlightImages', label: 'Spotlight images', type: 'spotlightImages', help: 'Add at least one image to create a project spotlight. Existing spotlight images appear here for editing. Remove all images to turn off the spotlight.' },
       { key: 'progress', label: 'Progress (0 to 100)', type: 'number', help: 'Shows a progress bar. Leave empty to hide it.' },
       { key: 'goal', label: 'Funding goal (UGX)', type: 'number' },
       { key: 'raised', label: 'Amount raised so far (UGX)', type: 'number' },
@@ -236,6 +239,10 @@ export function toForm(section, data = {}) {
     const v = get(data, fd.key)
     if (fd.type === 'paragraphs') f[fd.key] = Array.isArray(v) ? v.join('\n\n') : v || ''
     else if (fd.type === 'json') f[fd.key] = JSON.stringify(v ?? (fd.jsonType === 'array' ? [] : {}), null, 2)
+    else if (fd.type === 'spotlightImages') f[fd.key] = Array.isArray(v) ? v.map(image => ({
+      src: image.src || '', alt: image.alt || '', caption: image.caption || '', badge: image.badge || '',
+      concept: Boolean(image.concept), fit: image.fit === 'contain' ? 'contain' : 'cover',
+    })) : []
     else if (fd.type === 'repeat') f[fd.key] = Array.isArray(v) ? v.map(item => Object.fromEntries((fd.itemFields || []).map(x => [x.key, item?.[x.key] == null ? '' : String(item[x.key])]))) : []
     else if (fd.type === 'houses') f[fd.key] = Array.isArray(v) ? v : []
     else if (fd.type === 'methods') f[fd.key] = Array.isArray(v) ? v.map(m => ({ label: m.label || '', lines: (m.lines || []).join('\n') })) : []
@@ -259,6 +266,11 @@ export function fromForm(section, form, original = {}) {
     switch (fd.type) {
       case 'paragraphs': value = String(v || '').split(/\n{2,}/).map(p => p.trim()).filter(Boolean); break
       case 'json': { try { value = JSON.parse(String(v || '')) } catch { value = String(v || '') }; break }
+      case 'spotlightImages': value = (v || []).map(image => ({
+        src: String(image.src || '').trim(), alt: String(image.alt || '').trim(),
+        caption: String(image.caption || '').trim(), badge: String(image.badge || '').trim(),
+        concept: Boolean(image.concept), fit: image.fit === 'contain' ? 'contain' : '',
+      })); break
       case 'repeat': value = (v || []).map(item => Object.fromEntries((fd.itemFields || []).map(x => [x.key, item[x.key]?.trim() || undefined]))); break
       case 'houses': value = v; break
       case 'methods': value = (v || []).map(m => ({ label: m.label.trim(), lines: m.lines.split('\n').map(l => l.trim()).filter(Boolean) })).filter(m => m.label); break
@@ -268,7 +280,16 @@ export function fromForm(section, form, original = {}) {
     }
     out = put(out, fd.key, value)
   }
-  return clean(out) || {}
+  let result = clean(out) || {}
+  // Empty galleries are meaningful: they disable a built-in spotlight instead of falling back to it.
+  for (const fd of section.fields) {
+    if (fd.type === 'spotlightImages' && !Array.isArray(get(result, fd.key))) result = put(result, fd.key, [])
+  }
+  if (section.kind === 'project' && result.spotlightImages?.length && !result.spotlightId) {
+    const id = projectSpotlightSlug(result.title)
+    if (id) result.spotlightId = id
+  }
+  return result
 }
 
 // Returns a list of problems that stop an item being published (empty list = fine).
@@ -276,6 +297,13 @@ export function problems(section, data) {
   const list = []
   for (const fd of section.fields) {
     const v = get(data, fd.key)
+    if (fd.type === 'spotlightImages' && Array.isArray(v)) {
+      v.forEach((image, i) => {
+        if (!String(image?.src || '').trim()) list.push(`Spotlight images: image ${i + 1} needs a picture.`)
+        if (!String(image?.caption || '').trim()) list.push(`Spotlight images: image ${i + 1} needs a caption.`)
+        if (!String(image?.alt || '').trim()) list.push(`Spotlight images: image ${i + 1} needs alternative text.`)
+      })
+    }
     if (fd.type === 'repeat') {
       if (fd.required && (!Array.isArray(v) || !v.length)) list.push(`${fd.label} needs at least one item.`)
       if (Array.isArray(v)) v.forEach((item, i) => (fd.itemFields || []).filter(x => x.required).forEach(x => {

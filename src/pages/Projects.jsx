@@ -2,17 +2,15 @@ import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import { useContent } from '../lib/siteContent.js'
 import { ugx } from '../lib/format.js'
-import { projectSpotlights } from '../data/projectSpotlights.js'
+import { projectSpotlights, projectClaimsSpotlight, spotlightForProject } from '../data/projectSpotlights.js'
 
 export default function Projects() {
   const { projects } = useContent()
-  const spotlightByTitle = new Map(projectSpotlights.map(spotlight => [normalize(spotlight.projectTitle), spotlight]))
-  const listedTitles = new Set(projects.map(project => normalize(project.title)))
   const cards = [
-    ...projects.map(project => ({ ...project, spotlight: spotlightByTitle.get(normalize(project.title)) })),
+    ...projects.map(project => ({ ...project, spotlight: spotlightForProject(project) })),
     // Include image-led spotlights that do not yet have a project record, without inventing year or status.
     ...projectSpotlights
-      .filter(spotlight => !listedTitles.has(normalize(spotlight.projectTitle)))
+      .filter(spotlight => !projects.some(project => projectClaimsSpotlight(project, spotlight)))
       .map(spotlight => ({
         title: spotlight.projectTitle,
         summary: spotlight.description,
@@ -97,8 +95,4 @@ function ProjectCard({ project }) {
       )}
     </article>
   )
-}
-
-function normalize(value) {
-  return String(value || '').trim().toLocaleLowerCase()
 }
