@@ -1,11 +1,55 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import { useContent } from '../lib/siteContent.js'
 import { campusGallery } from '../data/projectSpotlights.js'
 import { safeUrl } from '../lib/safeUrl.js'
 
-const FIRST_PAGE = 18 // keeps the initial load light
+const FIRST_PAGE = 18 // photos shown when an album is opened
 const PAGE_STEP = 24
+const PREVIEW = 6 // photos shown per album on the overview
+
+// Albums appear in this order; any category added in the admin is listed after them.
+const ALBUM_ORDER = ['Reunions', 'AGM & meetings', 'Projects & campus', 'Mwiri today', 'From the archive']
+const ALBUM_INFO = {
+  'Reunions': 'The Reunion at Mwiri, 19 September 2026.',
+  'AGM & meetings': 'Annual general meetings and gatherings of members.',
+  'Projects & campus': 'MOBA projects and improvements at Busoga College Mwiri.',
+  'Mwiri today': 'The Hill as it looks today: buildings, gardens and grounds.',
+  'From the archive': 'Old photographs from the school’s history.',
+}
+const categoryOf = p => p.category?.trim() || 'Uncategorised'
+
+function Tile({ photo, eager, onOpen }) {
+  return (
+    <button
+      type="button"
+      onClick={e => onOpen(e.currentTarget)}
+      aria-label={`Open photo: ${photo.caption}`}
+      className="group relative aspect-4/3 overflow-hidden rounded-md bg-linear-to-br from-brand/10 to-gold/25 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+    >
+      {photo.src ? (
+        <img
+          src={photo.thumb || photo.src}
+          alt={photo.alt || photo.caption}
+          loading={eager ? 'eager' : 'lazy'}
+          decoding="async"
+          style={{ objectPosition: photo.focus || '50% 50%' }}
+          className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+          onError={e => { e.currentTarget.style.display = 'none' }}
+        />
+      ) : (
+        <span className="absolute inset-0 flex items-center justify-center p-6 text-center text-brand font-semibold">
+          {photo.caption}
+        </span>
+      )}
+      <span className="absolute inset-x-0 bottom-0 bg-black/65 text-white text-xs p-3 text-left">
+        <span className="block font-semibold">{photo.caption}</span>
+        {(photo.year || photo.source) && <span className="block mt-1 opacity-90">{[photo.year, photo.source].filter(Boolean).join(' · ')}</span>}
+      </span>
+    </button>
+  )
+}
 
 export default function Gallery() {
   const { photos: contentPhotos } = useContent()
@@ -16,21 +60,50 @@ export default function Gallery() {
       .map((photo, i) => ({ ...photo, id: `mwiri-today-${i}`, category: 'Mwiri today', source: 'MOBA' }))
     return [...contentPhotos, ...newCampusPhotos]
   }, [contentPhotos])
-  const [index, setIndex] = useState(null) // index into the filtered photos of the open photo
+  const [params, setParams] = useSearchParams()
+  const groups = useMemo(() => {
+    const map = new Map()
+    photos.forEach(p => {
+      const name = categoryOf(p)
+      if (!map.has(name)) map.set(name, [])
+      map.get(name).push(p)
+    })
+    const rank = name => { const i = ALBUM_ORDER.indexOf(name); return i === -1 ? ALBUM_ORDER.length : i }
+    return [...map.entries()]
+      .map(([name, items]) => ({ name, items }))
+      .sort((a, b) => rank(a.name) - rank(b.name)) // unknown albums keep their original order (stable sort)
+  }, [photos])
+  const albumParam = params.get('album')
+  const album = groups.find(g => g.name === albumParam) || null // null = overview of all albums
   const [visible, setVisible] = useState(FIRST_PAGE)
-  const [category, setCategory] = useState('All')
-  const categories = [...new Set(photos.map(p => p.category?.trim() || 'Uncategorised'))]
-  const filtered = category === 'All' ? photos : photos.filter(p => (p.category?.trim() || 'Uncategorised') === category)
+  const [lightbox, setLightbox] = useState(null) // { name, index } within that album
+  const list = lightbox ? groups.find(g => g.name === lightbox.name)?.items || [] : []
+  const index = lightbox ? lightbox.index : null
+  const filtered = list
+  const topRef = useRef(null)
+  const firstRender = useRef(true)
   const closeRef = useRef(null)
   const lastTile = useRef(null)
-  const open = index !== null
-  const active = open ? filtered[index] : null
+  const open = lightbox !== null && !!list[index]
+  const active = open ? list[index] : null
+
+  const chooseAlbum = name => {
+    setVisible(FIRST_PAGE)
+    setLightbox(null)
+    setParams(name ? { album: name } : {})
+  }
+  useEffect(() => {
+    if (firstRender.current) { firstRender.current = false; return }
+    topRef.current?.scrollIntoView({ block: 'start' }) // bring the chosen album into view
+  }, [albumParam])
+  const openPhoto = (name, i, el) => { lastTile.current = el; setLightbox({ name, index: i }) }
 
   const close = useCallback(() => {
-    setIndex(null)
+    setLightbox(null)
     lastTile.current?.focus() // hand focus back to the tile that opened the lightbox
   }, [])
-  const step = useCallback(d => setIndex(i => filtered.length ? (i + d + filtered.length) % filtered.length : null), [filtered.length])
+  const count = list.length
+  const step = useCallback(d => setLightbox(l => (l && count ? { ...l, index: (l.index + d + count) % count } : null)), [count])
 
   useEffect(() => {
     if (!open) return
@@ -58,68 +131,80 @@ export default function Gallery() {
     if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1)
   }
 
-  const shown = filtered.slice(0, visible)
+  const albumItems = album ? album.items : []
+  const shown = albumItems.slice(0, visible)
+  const chip = on => `rounded-sm border px-4 py-2 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand ${on ? 'border-brand bg-brand text-white' : 'border-brand/20 bg-white text-brand hover:border-brand'}`
+  const grid = 'grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3'
 
   return (
     <>
       <PageHeader title="Photo Gallery" subtitle="Moments from reunions, projects and events." image="/gallery/agm-2026-4.webp" position="50% 40%" />
 
-      <section className="mx-auto mt-8 max-w-6xl px-4 md:mt-10" aria-label="Filter gallery by category">
+      <section ref={topRef} className="mx-auto mt-8 max-w-6xl scroll-mt-4 px-4 md:mt-10" aria-label="Choose an album">
         <div className="flex flex-wrap gap-2">
-          {['All', ...categories].map(c => (
-            <button key={c} type="button" onClick={() => { setCategory(c); setVisible(FIRST_PAGE); setIndex(null) }} aria-pressed={category === c}
-              className={`rounded-sm border px-4 py-2 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand ${category === c ? 'border-brand bg-brand text-white' : 'border-brand/20 bg-white text-brand hover:border-brand'}`}>
-              {c}<span className="ml-2 opacity-70">{c === 'All' ? photos.length : photos.filter(p => (p.category?.trim() || 'Uncategorised') === c).length}</span>
+          <button type="button" onClick={() => chooseAlbum(null)} aria-pressed={!album} className={chip(!album)}>
+            All albums<span className="ml-2 opacity-70">{groups.length}</span>
+          </button>
+          {groups.map(g => (
+            <button key={g.name} type="button" onClick={() => chooseAlbum(g.name)} aria-pressed={album?.name === g.name} className={chip(album?.name === g.name)}>
+              {g.name}<span className="ml-2 opacity-70">{g.items.length}</span>
             </button>
           ))}
         </div>
-        <p className="mt-3 text-sm text-brand/70" aria-live="polite">Showing {shown.length} of {filtered.length} photos</p>
       </section>
 
-      <section className="mx-auto mt-5 grid max-w-6xl grid-cols-1 gap-5 px-4 sm:grid-cols-2 md:mt-7 md:grid-cols-3" aria-label="Photos">
-        {shown.map((p, i) => (
-          <button
-            key={p.id}
-            type="button"
-            onClick={e => { lastTile.current = e.currentTarget; setIndex(i) }}
-            aria-label={`Open photo: ${p.caption}`}
-            className="group relative aspect-4/3 overflow-hidden rounded-md bg-linear-to-br from-brand/10 to-gold/25 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
-          >
-            {p.src ? (
-              <img
-                src={p.thumb || p.src}
-                alt={p.alt || p.caption}
-                loading={i < 3 ? 'eager' : 'lazy'}
-                decoding="async"
-                style={{ objectPosition: p.focus || '50% 50%' }}
-                className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                onError={e => { e.currentTarget.style.display = 'none' }}
-              />
-            ) : (
-              <span className="absolute inset-0 flex items-center justify-center p-6 text-center text-brand font-semibold">
-                {p.caption}
-              </span>
-            )}
-            <span className="absolute left-3 top-3 rounded-sm bg-white/90 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-brand">{p.category || 'Uncategorised'}</span>
-            <span className="absolute inset-x-0 bottom-0 bg-black/65 text-white text-xs p-3 text-left">
-              <span className="block font-semibold">{p.caption}</span>
-              {(p.year || p.source) && <span className="block mt-1 opacity-90">{[p.year, p.source].filter(Boolean).join(' · ')}</span>}
-            </span>
-          </button>
-        ))}
-      </section>
+      {album ? (
+        <>
+          <section className="mx-auto mt-8 max-w-6xl px-4" aria-label={album.name}>
+            <button type="button" onClick={() => chooseAlbum(null)} className="text-sm font-semibold text-brand underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-brand">
+              ← All albums
+            </button>
+            <h2 className="mt-3 text-2xl font-bold text-brand">{album.name}</h2>
+            {ALBUM_INFO[album.name] && <p className="mt-1 text-brand/80">{ALBUM_INFO[album.name]}</p>}
+            <p className="mt-2 text-sm text-brand/70" aria-live="polite">Showing {shown.length} of {albumItems.length} photos</p>
+          </section>
 
-      {visible < filtered.length && (
-        <section className="max-w-6xl mx-auto px-4 mt-10 text-center">
-          <button
-            type="button"
-            onClick={() => setVisible(v => v + PAGE_STEP)}
-            className="bg-gold text-brand-dark font-semibold px-8 py-3 rounded-md hover:brightness-110"
-          >
-            Show more photos ({filtered.length - visible} more)
-          </button>
-        </section>
+          <section className={`mx-auto mt-5 max-w-6xl px-4 ${grid}`} aria-label={`${album.name} photos`}>
+            {shown.map((p, i) => <Tile key={p.id} photo={p} eager={i < 3} onOpen={el => openPhoto(album.name, i, el)} />)}
+          </section>
+
+          {visible < albumItems.length && (
+            <section className="max-w-6xl mx-auto px-4 mt-10 text-center">
+              <button type="button" onClick={() => setVisible(v => v + PAGE_STEP)}
+                className="bg-gold text-brand-dark font-semibold px-8 py-3 rounded-md hover:brightness-110">
+                Show more photos ({albumItems.length - visible} more)
+              </button>
+            </section>
+          )}
+        </>
+      ) : (
+        groups.map((g, gi) => {
+          const preview = g.items.slice(0, PREVIEW)
+          return (
+            <section key={g.name} className="mx-auto mt-10 max-w-6xl px-4" aria-labelledby={`album-${gi}`}>
+              <div className="flex flex-wrap items-end justify-between gap-3 border-b-2 border-gold/60 pb-2">
+                <div>
+                  <h2 id={`album-${gi}`} className="text-2xl font-bold text-brand">{g.name}</h2>
+                  {ALBUM_INFO[g.name] && <p className="mt-1 text-sm text-brand/80">{ALBUM_INFO[g.name]}</p>}
+                </div>
+                <p className="text-sm font-semibold text-brand/70">{g.items.length} {g.items.length === 1 ? 'photo' : 'photos'}</p>
+              </div>
+              <div className={`mt-5 ${grid}`}>
+                {preview.map((p, i) => <Tile key={p.id} photo={p} eager={gi === 0 && i < 3} onOpen={el => openPhoto(g.name, i, el)} />)}
+              </div>
+              {g.items.length > PREVIEW && (
+                <div className="mt-5 text-center">
+                  <button type="button" onClick={() => chooseAlbum(g.name)}
+                    className="rounded-md bg-gold px-8 py-3 font-semibold text-brand-dark hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand">
+                    View all {g.items.length} photos in {g.name}
+                  </button>
+                </div>
+              )}
+            </section>
+          )
+        })
       )}
+      <div className="h-12" />
 
       {active && (
         <div
