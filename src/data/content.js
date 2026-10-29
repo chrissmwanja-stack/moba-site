@@ -538,7 +538,7 @@ export const leaders = [
     ],
    },
   {
-    name: 'Henry Mugisha Rodney', role: 'Publicity Secretary', cohort: '1988', cohortName: 'Ruga Ruga', houses: ['Coates'], photo: null,
+    name: 'Henry Mugisha Rodney', role: 'Publicity Secretary', cohort: '1988', cohortName: 'Ruga Ruga', houses: ['Coates'], photo: '/leaders/rodney-mugisha.webp',
     bio: [
       'Henry Mugisha Rodney is a banker and insurer by profession, and a risk adviser, digital strategist and brand influencer. He has played an active role in the Mwiri community and MOBA for many years.',
       'In 2011, Rodney served as Chief Mobiliser for the Old Boys’ Mwiri 100 celebrations. He later chaired Mwiri Cricket Club during its time in the national league from 2011 to 2016. As team manager, he helped Busoga College Mwiri win ten National Cricket Week trophies. The Uganda Cricket Association named him Manager of the Year in 2014 and runner-up in 2015.',
