@@ -108,7 +108,7 @@ export default function About() {
           alt="Students in white and blue uniform standing under a large tree in front of a Busoga College Mwiri building"
           loading="lazy"
           decoding="async"
-          className="aspect-[4/3] w-full rounded-md border-b-4 border-gold object-cover shadow-md"
+          className="aspect-4/3 w-full rounded-md border-b-4 border-gold object-cover shadow-md"
         />
       </section>
 
@@ -175,7 +175,7 @@ export default function About() {
 
       {/* Priorities */}
       <section aria-labelledby="priorities" className="relative isolate mt-16 scroll-mt-20 overflow-hidden bg-brand py-16 text-white">
-        <span aria-hidden="true" className="pointer-events-none absolute -top-6 right-0 -z-10 select-none font-display text-[9rem] font-bold leading-none text-white/[0.06] md:text-[16rem]">{site.founded}</span>
+        <span aria-hidden="true" className="pointer-events-none absolute -top-6 right-0 -z-10 select-none font-display text-[9rem] font-bold leading-none text-white/6 md:text-[16rem]">{site.founded}</span>
         <div className="mx-auto max-w-6xl px-4">
           <SectionHeading id="priorities" eyebrow="Our priorities for 2026 to 2028" light>Reclaiming Mwiri’s greatness</SectionHeading>
           <p className="mt-5 max-w-2xl text-white/85">
@@ -206,7 +206,7 @@ export default function About() {
           {leaders.map(l => (
             <li key={l.name}>
               <Link to="/leadership" className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-brand">
-                <div className="aspect-[4/5] overflow-hidden border-b-4 border-gold bg-brand">
+                <div className="aspect-4/5 overflow-hidden border-b-4 border-gold bg-brand">
                   {l.photo
                     ? <img src={l.photo} alt="" loading="lazy" decoding="async" style={{ objectPosition: l.focus || '50% 20%' }} className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]" />
                     : (
