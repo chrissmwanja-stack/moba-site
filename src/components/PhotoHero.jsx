@@ -1,21 +1,28 @@
 import { Link } from 'react-router-dom'
+import { backgroundKeyForImage } from '../lib/backgrounds.js'
+import { useBackground } from '../lib/useBackground.js'
 
-// Page hero with a campus photo on the right that fades into navy behind the text.
-// <PhotoHero crumb="Membership" title="..." subtitle="..." image="/photo.webp" imageSmall="/photo-640.webp" />
+// Page hero with an editable campus photo on the right that fades into navy behind the text.
 export default function PhotoHero({
   title,
   subtitle,
   crumb,
   eyebrow = 'Mwiri Old Boys Association',
+  backgroundKey,
   image,
   imageSmall,
   position = '50% 50%',
 }) {
+  const key = backgroundKey || backgroundKeyForImage(image)
+  const background = useBackground(key)
+  const src = key ? background.image : image
+  const small = key ? background.imageSmall : imageSmall
+
   return (
     <section className="relative isolate overflow-hidden bg-brand text-white">
       <img
-        src={image}
-        srcSet={imageSmall ? `${imageSmall} 640w, ${image} 1400w` : undefined}
+        src={src}
+        srcSet={small ? `${small} 640w, ${src} 1400w` : undefined}
         sizes="(min-width: 768px) 62vw, 100vw"
         alt=""
         aria-hidden="true"

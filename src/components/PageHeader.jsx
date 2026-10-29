@@ -1,9 +1,8 @@
-// Page header with a photo behind it. Every page gets the campus photo by default;
-// pass `image` (and optionally `imageSmall` / `position`) to give a page its own.
-// <PageHeader title="..." subtitle="..." image="/gallery/gate-2025.webp" position="50% 40%" />
-const DEFAULT_IMAGE = '/moba-campus.webp'
-const DEFAULT_IMAGE_SMALL = '/moba-campus-640.webp'
+import { backgroundKeyForImage } from '../lib/backgrounds.js'
+import { useBackground } from '../lib/useBackground.js'
 
+// Page header with an editable photo behind it. Original image props still work and identify
+// the corresponding setting; pages without their own photo use the shared default background.
 function HeaderPhoto({ image, imageSmall, position, strong }) {
   return (
     <>
@@ -37,13 +36,15 @@ export default function PageHeader({
   subtitle,
   eyebrow = 'Mwiri Old Boys Association',
   variant = 'editorial',
+  backgroundKey,
   image,
   imageSmall,
   position = '50% 50%',
 }) {
-  // Pages that pick their own photo use it; the rest fall back to the campus photo.
-  const src = image || DEFAULT_IMAGE
-  const small = image ? imageSmall : DEFAULT_IMAGE_SMALL
+  const key = backgroundKey || backgroundKeyForImage(image)
+  const background = useBackground(key)
+  const src = key ? background.image : image
+  const small = key ? background.imageSmall : imageSmall
 
   if (variant === 'functional') {
     return (

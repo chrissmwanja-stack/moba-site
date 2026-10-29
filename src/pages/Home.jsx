@@ -4,6 +4,7 @@ import { site } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
 import { newsPath } from '../lib/news.js'
 import { campusGallery } from '../data/projectSpotlights.js'
+import { useBackground } from '../lib/useBackground.js'
 
 function SectionIntro({ eyebrow, title, link, linkText = 'Explore more' }) {
   return (
@@ -45,6 +46,7 @@ function EventCard({ item }) {
 
 export default function Home() {
   const { projects, news, photos, about, stats } = useContent()
+  const background = useBackground('home')
   const today = new Date().toISOString().slice(0, 10)
   const upcoming = news.filter(n => n.date >= today).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 3)
   const latest = news.filter(n => n.date < today).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3)
@@ -55,8 +57,16 @@ export default function Home() {
     <>
       {/* Hero */}
       <section className="relative isolate flex min-h-140 items-center overflow-hidden bg-brand md:min-h-150">
-        <img src="/mwiri-hero.webp" alt="Busoga College Mwiri main block under jacaranda trees" fetchPriority="high" decoding="async"
-          className="absolute right-0 top-0 -z-20 h-full w-full object-cover md:w-[70%]" />
+        <img
+          src={background.image}
+          srcSet={background.imageSmall ? `${background.imageSmall} 640w, ${background.image} 1400w` : undefined}
+          sizes="(min-width: 768px) 70vw, 100vw"
+          alt=""
+          aria-hidden="true"
+          fetchPriority="high"
+          decoding="async"
+          className="absolute right-0 top-0 -z-20 h-full w-full object-cover md:w-[70%]"
+        />
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-brand/85 md:hidden" />
         <div aria-hidden="true" className="absolute inset-0 -z-10 hidden md:block"
           style={{ backgroundImage: 'linear-gradient(90deg, #0a2a5e 0%, #0a2a5e 34%, rgba(10,42,94,0.82) 50%, rgba(10,42,94,0.15) 80%, rgba(10,42,94,0) 100%)' }} />

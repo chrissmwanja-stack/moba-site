@@ -1,11 +1,13 @@
-// A navy band with the campus photo behind it. Wrap any header or hero content in it.
-// <PhotoBand className="py-20"> ...your heading and text... </PhotoBand>
-export default function PhotoBand({ children, className = "", position = "50% 65%" }) {
+import { useBackground } from '../lib/useBackground.js'
+
+// A navy band with an editable campus photo behind it.
+export default function PhotoBand({ children, className = '', position = '50% 65%' }) {
+  const background = useBackground('history')
   return (
     <section className={`relative isolate overflow-hidden bg-brand-dark text-white ${className}`}>
       <img
-        src="/moba-campus.webp"
-        srcSet="/moba-campus-640.webp 640w, /moba-campus.webp 1080w"
+        src={background.image}
+        srcSet={background.imageSmall ? `${background.imageSmall} 640w, ${background.image} 1080w` : undefined}
         sizes="100vw"
         alt=""
         aria-hidden="true"
@@ -18,10 +20,10 @@ export default function PhotoBand({ children, className = "", position = "50% 65
         className="absolute inset-0 -z-10"
         style={{
           backgroundImage:
-            "linear-gradient(90deg, rgba(6,31,71,0.94) 0%, rgba(6,31,71,0.82) 45%, rgba(10,42,94,0.55) 100%)",
+            'linear-gradient(90deg, rgba(6,31,71,0.94) 0%, rgba(6,31,71,0.82) 45%, rgba(10,42,94,0.55) 100%)',
         }}
       />
       <div className="relative">{children}</div>
     </section>
-  );
+  )
 }

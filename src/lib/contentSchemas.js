@@ -3,8 +3,17 @@
 // field here adds it to the form.
 import * as base from '../data/content.js'
 import { projectSpotlightSlug } from '../data/projectSpotlights.js'
+import { BACKGROUNDS } from './backgrounds.js'
 
 const FOCUS = [['50% 20%', 'Top'], ['50% 35%', 'Upper part'], ['50% 50%', 'Centre'], ['50% 70%', 'Lower part']]
+const BACKGROUND_FIELDS = Object.entries(BACKGROUNDS).map(([key, background]) => ({
+  key: `backgrounds.${key}`,
+  label: `Background: ${background.label}`,
+  type: 'image',
+  folder: 'backgrounds',
+  maxSide: 2000,
+  help: 'Replace the current picture, or remove it to restore the original website image.',
+}))
 
 export const SECTIONS = [
   {
@@ -176,8 +185,9 @@ export const SECTIONS = [
     sample: () => base.cohorts,
   },
   {
-    kind: 'setting', label: 'Site details', noun: 'site details', single: true, key: 'site',
+    kind: 'setting', label: 'Site details & backgrounds', noun: 'site details', single: true, key: 'site',
     fields: [
+      ...BACKGROUND_FIELDS,
       { key: 'email', label: 'Association email', type: 'text' },
       { key: 'phone', label: 'Phone number', type: 'text', help: 'Leave empty to hide it on the site.' },
       { key: 'address', label: 'Postal address', type: 'text' },
@@ -192,7 +202,7 @@ export const SECTIONS = [
       { key: 'social.x', label: 'X link', type: 'text' },
       { key: 'donate', label: 'Ways to give', type: 'methods', help: 'Bank and mobile money details shown on the Donate page. Only add accounts the executive has confirmed.' },
     ],
-    title: () => 'Site details', summary: () => 'Contact details, social links and donation accounts',
+    title: () => 'Site details & backgrounds', summary: () => 'Website backgrounds, contact details, social links and donation accounts',
     defaults: () => ({
       email: base.site.email, phone: base.site.phone, address: base.site.address, website: base.site.website,
       orderEmail: base.site.orderEmail, motto: base.site.motto, tagline: base.site.tagline,

@@ -20,7 +20,7 @@ export default function ProjectDetail() {
 
   return (
     <>
-      <PageHeader title={spotlight.title} subtitle={spotlight.description} />
+      <PageHeader backgroundKey="projectSpotlight" title={spotlight.title} subtitle={spotlight.description} />
       <section className="mx-auto mt-8 max-w-6xl px-4 pb-14">
         <Link to="/projects" className="inline-flex rounded-sm font-semibold text-brand underline underline-offset-2 hover:text-brand-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-brand">
           ← All projects and work

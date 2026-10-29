@@ -6,6 +6,7 @@ import { projectSpotlights, projectClaimsSpotlight, projectForEditing } from '..
 import { supabase } from '../lib/supabase.js'
 import { SECTIONS, toForm, fromForm, problems } from '../lib/contentSchemas.js'
 import * as api from '../lib/contentAdmin.js'
+import { withEditableBackgrounds } from '../lib/backgrounds.js'
 
 const btn = 'rounded-md px-4 py-2 font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-brand disabled:opacity-50'
 const primary = `${btn} bg-brand text-white hover:bg-brand-dark`
@@ -91,7 +92,7 @@ export default function AdminContent() {
 
   function startEdit(row, messages = [], initialData = null) {
     const data = initialData || (row ? view(row) : section.defaults?.() || {})
-    const editableData = kind === 'project' ? projectForEditing(data) : data
+    const editableData = kind === 'project' ? projectForEditing(data) : section.key === 'site' ? withEditableBackgrounds(data) : data
     setEdit({ row, form: toForm(section, editableData), problems: messages }); setNotice(''); setOk('')
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
