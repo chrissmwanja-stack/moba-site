@@ -46,7 +46,7 @@ const meta = {
   '/projects': { title: 'Projects', description: 'What the Mwiri Old Boys Association has built and supported over the years.' },
   '/news': { title: 'News & Events', description: 'Reunions, meetings and news from the MOBA family.' },
   '/gallery': { title: 'Photo Gallery', description: 'Moments from MOBA reunions, projects and events.' },
-  '/store': { title: 'Store', description: 'MOBA memorabilia: caps, hoodies, mugs and more. Order online, pay on delivery.' },
+  '/store': { title: 'Store', description: 'MOBA memorabilia: ties, blazers, caps and more. Order online, pay on delivery.' },
   '/cart': { title: 'Your Cart' },
   '/membership': { title: 'Membership', description: 'Join the Mwiri Old Boys Association as an annual or life member.' },
   '/funeral-cover': { title: 'MOBA Funeral Insurance', description: 'Enrol for the MOBA Funeral Insurance scheme for yourself and your family.' },

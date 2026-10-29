@@ -296,6 +296,9 @@ export const photos = [
 // image: put files in /public/store and use '/store/tie.webp'
 // category: the Store page builds its filter buttons from these. variant: colour/style, shown under the name.
 export const products = [
+  { id: 'blazer-navy', name: 'MOBA Blazer', variant: 'Navy with gold buttons and crest pocket', category: 'Blazers', price: 50000, delivery: 'physical', image: '/store/blazer-navy.webp', preview: true }, // TODO: confirm price
+  { id: 'tie-navy', name: 'MOBA Old Boys Tie', variant: 'Navy with gold stripes and leopard crests', category: 'Ties & pins', price: 50000, delivery: 'physical', image: '/store/tie-navy.webp', preview: true },
+  { id: 'pin-shield', name: 'Lapel Pin', variant: 'Enamel leopard shield', category: 'Ties & pins', price: 10000, delivery: 'physical', image: '/store/pin-shield.webp', preview: true },
   { id: 'tee-white', name: 'Heritage Tee', variant: 'White with navy and gold trim', category: 'T-shirts', price: 80000, delivery: 'physical', image: '/store/tee-white.webp', preview: true },
   { id: 'tee-navy', name: 'Heritage Tee', variant: 'Signature navy, tone-on-tone leopard', category: 'T-shirts', price: 50000, delivery: 'physical', image: '/store/tee-navy.webp', preview: true },
   { id: 'tee-sash', name: 'Stripe Tee', variant: 'White and navy with gold sash', category: 'T-shirts', price: 50000, delivery: 'physical', image: '/store/tee-sash.webp', preview: true },
