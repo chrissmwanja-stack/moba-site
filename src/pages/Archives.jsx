@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import OurMwiriNav from '../components/OurMwiriNav.jsx'
 import ArchivePhotos from '../components/ArchivePhotos.jsx'
+import ArchiveAppeal from '../components/ArchiveAppeal.jsx'
 import { archiveCategories } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
 import { safeUrl } from '../lib/safeUrl.js'
@@ -132,6 +133,7 @@ export default function Archives() {
       )}
 
       <ArchivePhotos />
+      <ArchiveAppeal />
     </>
   )
 }

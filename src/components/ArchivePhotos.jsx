@@ -5,11 +5,13 @@ import { useContent } from '../lib/siteContent.js'
 // They are the gallery photos whose category is "From the archive", so they stay in one place and can still be
 // edited from the admin photo list. Dated photos come first, oldest to newest.
 const CATEGORY = 'from the archive'
+// Shown in the "Help us preserve Mwiri's story" block instead (ArchiveAppeal), so it is not repeated here.
+const SHOWN_ELSEWHERE = 'archive-hannington-1981'
 
 export default function ArchivePhotos() {
   const { photos } = useContent()
   const list = photos
-    .filter(p => p.src && (p.category || '').trim().toLowerCase() === CATEGORY)
+    .filter(p => p.src && !p.src.includes(SHOWN_ELSEWHERE) && (p.category || '').trim().toLowerCase() === CATEGORY)
     .sort((a, b) => (a.year ?? 9999) - (b.year ?? 9999))
 
   const [index, setIndex] = useState(null)
