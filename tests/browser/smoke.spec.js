@@ -47,6 +47,21 @@ test('membership plan selection updates the manual-verification checkout', async
   await expect(page.locator('#membership-checkout')).toContainText('manual verification', { ignoreCase: true })
 })
 
+test('Group Last Expense Insurance shows the approved benefits and payment details', async ({ page }) => {
+  await page.goto('/funeral-cover')
+  const main = page.locator('main')
+  await expect(page).toHaveTitle(/MOBA Group Last Expense Insurance/)
+  await expect(main).toContainText('UGX 120,000 per year')
+  await expect(page.getByRole('heading', { name: 'Benefits and coverage', exact: true })).toBeVisible()
+  for (const text of ['UGX 10,000,000', 'UGX 5,000,000', 'UGX 1,500,000', 'UGX 1,000,000']) {
+    await expect(main).toContainText(text)
+  }
+  await expect(main).toContainText('the principal member’s two parents and the spouse’s two parents')
+  await expect(main).toContainText('777888')
+  await expect(main).toContainText('4365142')
+  await expect(main).toContainText('0102886324900')
+})
+
 test('Contact deep links preselect the requested topic', async ({ page }) => {
   await page.goto('/contact?topic=Events')
   await expect(page.getByLabel('Topic', { exact: true })).toHaveValue('Events')

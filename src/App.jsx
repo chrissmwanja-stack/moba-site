@@ -49,7 +49,7 @@ const meta = {
   '/store': { title: 'Store', description: 'MOBA memorabilia: ties, blazers, caps and more. Order online, pay on delivery.' },
   '/cart': { title: 'Your Cart' },
   '/membership': { title: 'Membership', description: 'Join the Mwiri Old Boys Association as an annual or life member.' },
-  '/funeral-cover': { title: 'MOBA Funeral Insurance', description: 'Enrol for the MOBA Funeral Insurance scheme for yourself and your family.' },
+  '/funeral-cover': { title: 'MOBA Group Last Expense Insurance', description: 'Group Last Expense Insurance for MOBA members and eligible family members, in partnership with Kenbright and Prudential.' },
   '/contact': { title: 'Contact Us', description: 'Write to the Mwiri Old Boys Association.' },
   '/cohorts': { title: 'Branches & Cohorts', description: 'Find your MOBA branch or your year group.' },
   '/support': { title: 'Support MOBA', description: 'Donate, shop for memorabilia or join the association.' },

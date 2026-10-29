@@ -121,7 +121,7 @@ export default function FuneralCover() {
             ? 'Your email app should have opened with your enrolment. Please press Send so we receive it. '
             : form.paymentReference
               ? 'We have your enrolment and payment reference. The scheme secretary will verify payment and confirm your cover. '
-              : 'We have your enrolment. The scheme secretary will confirm the applicable contribution and your cover details. '}
+              : 'We have your enrolment. The scheme secretary will review your details and advise you on confirming your cover. '}
           Your cover is not active until your payment has been confirmed.
         </p>
         <Link to="/membership" className="mt-8 inline-block font-semibold text-gold-dark underline">
@@ -165,8 +165,57 @@ export default function FuneralCover() {
         </dl>
       </section>
 
-      <section className="max-w-3xl mx-auto px-4 mt-6" aria-label="Insurance payment details">
+      <section className="max-w-3xl mx-auto px-4 mt-10 space-y-8" aria-label="About Group Last Expense Insurance">
+        <div>
+          <h2 className="text-2xl font-bold text-brand">About the scheme</h2>
+          <div className="mt-3 space-y-4 leading-relaxed text-ink/80">
+            <p>
+              The Mwiri Old Boys Association (MOBA), in partnership with Kenbright and Prudential, offers
+              Group Last Expense Insurance to help ease the financial burden on members and their families
+              following a covered death arising from natural or accidental causes.
+            </p>
+            <p>
+              The annual family premium is <strong className="text-brand">{ugx(cover.premium)}</strong>.
+              Subject to the applicable policy terms and conditions, cover includes the principal member,
+              one spouse, up to four children, and up to four parents and parents-in-law: the principal
+              member’s two parents and the spouse’s two parents.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <h2 className="text-2xl font-bold text-brand">Benefits and coverage</h2>
+          <dl className="mt-4 divide-y divide-brand/10 rounded-md bg-white p-6 shadow-sm">
+            {cover.benefits.map(benefit => (
+              <div key={benefit.label} className="grid gap-1 py-3 first:pt-0 last:pb-0 sm:grid-cols-[1fr_auto] sm:gap-4">
+                <dt className="font-medium text-ink">
+                  {benefit.label}
+                  {benefit.note && <span className="mt-1 block text-sm font-normal text-ink/70">{benefit.note}</span>}
+                </dt>
+                <dd className="font-bold text-brand sm:text-right">{ugx(benefit.amount)}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="mt-4 leading-relaxed text-ink/80">
+            The scheme is designed to provide timely financial support to bereaved families during difficult
+            moments. All benefits and cover are subject to the applicable policy terms, conditions and exclusions.
+          </p>
+        </div>
+      </section>
+
+      <section className="max-w-3xl mx-auto px-4 mt-8" aria-label="Insurance payment details">
         <PaymentInstructions amount={cover.premium} />
+      </section>
+
+      <section className="max-w-3xl mx-auto px-4 mt-8" aria-label="How to join the scheme">
+        <h2 className="text-2xl font-bold text-brand">How to join</h2>
+        <p className="mt-3 leading-relaxed text-ink/80">
+          Complete the enrolment form below with your details and the dependants you want covered. Pay the
+          annual family premium using one of the options above, then submit your transaction reference with
+          your enrolment if you have already paid. MOBA will review your details and confirm your cover after
+          verifying payment. For further information and guidance, visit our{' '}
+          <Link to="/contact" className="font-semibold text-gold-dark underline">Contact page</Link>.
+        </p>
       </section>
 
       <form onSubmit={onSubmit} noValidate className="max-w-3xl mx-auto px-4 py-10 space-y-8">
@@ -206,7 +255,8 @@ export default function FuneralCover() {
         <fieldset className="space-y-4">
           <legend className="text-lg font-semibold text-brand mb-2">Dependants to cover (optional)</legend>
           <p className="text-sm text-brand-dark/70">
-            You can add up to {cover.maxDependants}, for example a spouse, children or parents.
+            You can add one spouse, up to four children and up to four parents and parents-in-law
+            ({cover.maxDependants} dependants in total).
           </p>
           {dependants.map((d, i) => (
             <div key={i} className="rounded-md border border-brand/20 bg-white p-4 space-y-3">
@@ -230,7 +280,7 @@ export default function FuneralCover() {
 
         <fieldset className="space-y-4">
           <legend className="text-lg font-semibold text-brand mb-2">Payment details (if already paid)</legend>
-          <p className="text-sm text-brand-dark/70">The contribution amount is currently confirmed on enrolment. Please verify the amount with the scheme secretary before paying. If you have paid, enter the transaction details so MOBA can check them.</p>
+          <p className="text-sm text-brand-dark/70">The family contribution is {premiumText}. If you have already paid, enter the transaction details so MOBA can verify them. Cover starts only after payment is confirmed.</p>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Payment method">
               <select className={field} value={form.paymentMethod} onChange={set('paymentMethod')}>

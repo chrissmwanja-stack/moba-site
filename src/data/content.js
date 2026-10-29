@@ -390,24 +390,29 @@ export const tiers = [
 export const benefits = [
   {
     id: 'funeral',
-    title: 'MOBA Funeral Insurance',
-    text: 'Support for the family when a member or a covered dependant passes away. Enrol online and we will send you payment instructions.',
+    title: 'MOBA Group Last Expense Insurance',
+    text: 'Annual family cover for you and eligible dependants, in partnership with Kenbright and Prudential. View the benefits and enrol online.',
     to: '/funeral-cover',
-    cta: 'Enrol for funeral cover',
+    cta: 'View cover and enrol',
   },
 ]
 
-// Funeral Insurance scheme settings. TODO: confirm every value with the scheme committee.
-// premium / period: leave premium as null until it is confirmed; the page then says the
-// amount will be given on enrolment instead of showing a made-up figure.
+// Group Last Expense Insurance settings supplied by the association.
+// waitingPeriod stays hidden until the scheme committee confirms it.
 export const funeralCover = {
-  name: 'MOBA Funeral Insurance',
-  premium: null,          // TODO: contribution in UGX, e.g. 60000
-  period: 'year',         // TODO: 'year' or 'month'
-  maxDependants: 6,       // TODO: how many dependants one member may cover
-  waitingPeriod: null,    // TODO: e.g. '3 months', or leave null to hide it
-  payout: null,           // TODO: e.g. 'UGX 5,000,000', or leave null to hide it
-  paymentNote: 'MTN MoMo or Airtel Money. Details are sent to you after you enrol.', // TODO: confirm
+  name: 'MOBA Group Last Expense Insurance',
+  premium: 120000,
+  period: 'year',
+  maxDependants: 9,       // one spouse + four children + two parents + two parents-in-law
+  waitingPeriod: null,    // TODO: confirm with the scheme committee, or leave null to hide it
+  payout: null,           // individual benefits are listed in the benefits array below
+  benefits: [
+    { label: 'Principal member', amount: 10000000 },
+    { label: 'Spouse', amount: 5000000 },
+    { label: 'Children', amount: 1500000, note: 'per child, up to four children' },
+    { label: 'Parents and parents-in-law', amount: 1000000, note: 'per person, up to four people in total—the principal member’s two parents and the spouse’s two parents' },
+  ],
+  paymentNote: 'MTN MoMoPay, Airtel Pay or Standard Chartered bank transfer. Details are below.',
   contactEmail: null,     // TODO: scheme secretary email; falls back to the association email
 }
 

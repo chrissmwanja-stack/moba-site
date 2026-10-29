@@ -12,8 +12,8 @@ export default function PaymentInstructions({ amount, amountPrompt = 'The scheme
       )}
       <ul className="mt-3 space-y-2">
         <li><strong>MTN MoMoPay:</strong> dial *165# · merchant code <strong>777888</strong></li>
-        <li><strong>Airtel Money:</strong> dial *185# · merchant code <strong>4365142</strong></li>
-        <li><strong>Bank transfer:</strong> Standard Chartered · account name <strong>Mwiri Old Boys Association</strong> · account number <strong>0102886324900</strong></li>
+        <li><strong>Airtel Pay:</strong> dial *185# · merchant code <strong>4365142</strong></li>
+        <li><strong>Bank transfer:</strong> Standard Chartered Bank · account name <strong>Mwiri Old Boys Association</strong> · account number <strong>0102886324900</strong></li>
       </ul>
       <p className="mt-3 text-ink/70">Payments are verified manually by MOBA. Submitting your details does not automatically confirm a membership, donation, or insurance cover.</p>
     </section>
