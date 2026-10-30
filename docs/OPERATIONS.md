@@ -88,6 +88,12 @@ Use the admin content workflow to correct and republish the item, or take it off
 
 Public pages can fall back to bundled content, but login, managed updates and database submissions are degraded. Check Supabase status and environment configuration. Do not disable RLS or broaden anonymous grants as an outage workaround.
 
+### Supabase project paused (free tier)
+
+Free-tier projects pause after about 7 days without activity. The **Supabase keep-alive** GitHub workflow (`.github/workflows/supabase-keepalive.yml`) prevents this by making one anonymous, read-only call to `site_content_public` every day at 04:23 UTC. It reuses the `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` Actions secrets and writes nothing. Run it by hand from **GitHub → Actions → Supabase keep-alive → Run workflow**, or locally with `npm run keepalive` (with both variables set).
+
+If a run fails, GitHub emails the repository owner. If the project was paused, open the Supabase dashboard, click **Restore project**, wait until it is healthy, then re-run the workflow. GitHub also disables scheduled workflows in a repository with no activity for 60 days: if the repo goes quiet that long, re-enable the workflow under the Actions tab. Moving to a paid Supabase plan removes the need for this workflow.
+
 ### Submission or notification failure
 
 Check the browser/network error, Supabase table/policy health and optional Web3Forms configuration. Email notification is best-effort and is not a substitute for checking the admin queues. Preserve any user-provided reference and avoid duplicate submissions.
@@ -101,7 +107,7 @@ A public anon/publishable key is expected in the browser. A service-role/secret 
 - Use Supabase's backup facilities for the database and maintain an independent recovery plan for critical storage media.
 - Periodically export/retain a recoverable copy of critical submissions, member records, orders and published content according to the association's data-governance policy.
 - Test restoration on a separate project; a backup that has never been restored is not a verified recovery plan.
-- Review admin/editor membership, pending operational queues, anonymous security checks, dependencies and production smoke results regularly.
+- Review admin/editor membership, pending operational queues, anonymous security checks, dependencies, production smoke results and the Supabase keep-alive runs regularly.
 
 ## 7. Test-data policy
 

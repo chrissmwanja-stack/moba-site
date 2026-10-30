@@ -16,6 +16,7 @@
     "test:browser": "playwright test",
     "test:browser:prod": "playwright test --config=playwright.production.config.js",
     "test:security": "node --test tests/security/anonymous-supabase.test.mjs",
+    "keepalive": "node scripts/supabase-keepalive.mjs",
     "check:migrations": "node scripts/check-migrations.mjs",
     "check": "npm run lint && npm run test:unit && npm run check:migrations && npm run build"
   },

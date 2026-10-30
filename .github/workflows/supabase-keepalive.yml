@@ -1,0 +1,32 @@
+name: Supabase keep-alive
+
+# Supabase free-tier projects pause after about 7 days without activity. This pings the database
+# once a day (well inside that window, with room for a skipped or delayed scheduled run).
+# It reuses the same public Actions secrets as the Quality workflow; no new secret is needed.
+
+on:
+  schedule:
+    - cron: '23 4 * * *' # 04:23 UTC daily (07:23 in Kampala); off the top of the hour to avoid GitHub's busy slot
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: supabase-keepalive
+  cancel-in-progress: false
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+      VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Ping Supabase
+        run: npm run keepalive
