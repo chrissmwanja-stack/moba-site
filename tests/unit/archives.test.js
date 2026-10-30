@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { archiveWhen, archiveYear, archiveYears, isPhotoOnly, sortArchives, archiveSearchText, yearHeading } from '../../src/lib/archives.js'
+import { archiveStory, archiveWhen, archiveYear, archiveYears, isPhotoOnly, sortArchives, archiveSearchText, yearHeading } from '../../src/lib/archives.js'
 import { SECTIONS, fromForm, problems, toForm } from '../../src/lib/contentSchemas.js'
 import { archiveCategories } from '../../src/data/content.js'
 import { MAX_PDF_MB } from '../../src/lib/uploadLimits.js'
@@ -65,4 +65,19 @@ test('a record with neither a document nor a picture cannot be published', () =>
   const empty = fromForm(section, { title: 'Nothing attached', year: '1950', category: 'Other', file: '', cover: '' })
   assert.deepEqual(problems(section, empty), ['Add a document (PDF) or a picture.'])
   assert.deepEqual(problems(section, fromForm(section, { title: 'Minutes', category: 'Minutes', file: 'https://example.org/m.pdf' })), [])
+})
+
+test('a record can carry a written story, which is searchable and optional', () => {
+  assert.equal(section.fields.find(f => f.key === 'story').type, 'paragraphs')
+  assert.equal(section.fields.find(f => f.key === 'story').required, undefined)
+  const form = { title: 'Prefects Council', year: '1947', category: 'Photographs', cover: 'https://example.org/p.webp', file: '', story: 'First paragraph.\n\nSecond paragraph about Mr Kasule.' }
+  const data = fromForm(section, form)
+  assert.deepEqual(data.story, ['First paragraph.', 'Second paragraph about Mr Kasule.'])
+  assert.deepEqual(problems(section, data), [])
+  assert.equal(toForm(section, data).story, 'First paragraph.\n\nSecond paragraph about Mr Kasule.')
+  assert.deepEqual(archiveStory(data), data.story)
+  assert.deepEqual(archiveStory({ story: 'One.\n\nTwo.' }), ['One.', 'Two.'])
+  assert.deepEqual(archiveStory({}), [])
+  assert.match(archiveSearchText(data), /kasule/)
+  assert.equal(fromForm(section, { ...form, story: '' }).story, undefined)
 })

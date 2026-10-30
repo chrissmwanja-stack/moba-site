@@ -439,7 +439,7 @@ export const news = [
 // or use a full https:// link if the file is hosted elsewhere.
 // Required: title, category (one of archiveCategories), and either file or cover (a record can be just a photograph).
 // Optional: year (leave out if unknown: the record is listed as Undated), period (shown on the card, e.g. '1988/89'
-// or '1950s'), summary (one line), size (e.g. '1.2 MB'), cover (a photograph, or a picture of the front page; coverThumb is its small copy), source (who supplied it).
+// or '1950s'), summary (one line), story (a longer write-up, a list of paragraphs), size (e.g. '1.2 MB'), cover (a photograph, or a picture of the front page; coverThumb is its small copy), source (who supplied it).
 // Only add records the executive is happy to make public. Members-only papers do not belong here.
 export const archiveCategories = ['Annual reports', 'Minutes', 'Newsletters', 'Constitution & policies', 'Mpala Magazine', 'Programmes & magazines', 'Photographs', 'Registers & rolls', 'House records', 'Other']
 export const archives = [

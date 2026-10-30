@@ -76,6 +76,7 @@ export const SECTIONS = [
       { key: 'period', label: 'Period shown on the card', type: 'text', placeholder: '1988/89', help: 'Optional. Use it when the year alone is not accurate, for example 1988/89 or the 1950s.' },
       { key: 'category', label: 'Category', type: 'select', options: base.archiveCategories, required: true },
       { key: 'summary', label: 'One-line summary', type: 'text' },
+      { key: 'story', label: 'Story or background', type: 'paragraphs', rows: 8, help: 'Optional, and it can be added later. Who is pictured, where and when it was taken, who supplied it, or the history of the document. Leave a blank line between paragraphs. Visitors see it under “Read the story”.' },
       { key: 'cover', label: 'Picture', type: 'image', folder: 'archives', maxSide: 1600, thumbKey: 'coverThumb', thumbSide: 640, help: 'For a photograph, this is the record itself: add the picture and a summary, and no document is needed. For a document, it is an optional photo of the front page shown on the card.' },
       { key: 'coverThumb', type: 'hidden' },
       { key: 'file', label: 'Document', type: 'file', folder: 'archives', sizeKey: 'size', help: `A PDF (up to ${MAX_PDF_MB} MB) or a link to a file hosted elsewhere. Leave empty for a photograph-only record.` },

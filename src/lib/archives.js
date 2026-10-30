@@ -19,8 +19,14 @@ export function sortArchives(list) {
   })
 }
 
+// The story as a list of paragraphs (stored as a list, but a plain string is tolerated).
+export const archiveStory = a => {
+  const raw = Array.isArray(a?.story) ? a.story : typeof a?.story === 'string' ? a.story.split(/\n{2,}/) : []
+  return raw.map(p => String(p).trim()).filter(Boolean)
+}
+
 export const archiveSearchText = a =>
-  [a.title, a.summary, a.period, a.year, a.category].filter(Boolean).join(' ').toLowerCase()
+  [a.title, a.summary, ...archiveStory(a), a.period, a.year, a.category].filter(Boolean).join(' ').toLowerCase()
 
 // Distinct years in the order they first appear (null stands for "Undated").
 export const archiveYears = list => [...new Set(list.map(archiveYear))]

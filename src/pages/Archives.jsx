@@ -7,7 +7,7 @@ import ArchiveAppeal from '../components/ArchiveAppeal.jsx'
 import { archiveCategories } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
 import { safeUrl } from '../lib/safeUrl.js'
-import { archiveSearchText, archiveWhen, archiveYear, archiveYears, isPhotoOnly, sortArchives, yearHeading } from '../lib/archives.js'
+import { archiveSearchText, archiveStory, archiveWhen, archiveYear, archiveYears, isPhotoOnly, sortArchives, yearHeading } from '../lib/archives.js'
 
 const chip =
   'rounded-full border px-4 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand '
@@ -83,7 +83,7 @@ export default function Archives() {
                 type="search"
                 value={query}
                 onChange={e => setQuery(e.target.value)}
-                placeholder="Search by title or year"
+                placeholder="Search by title, year or story"
                 className="w-full max-w-md rounded-md border border-ink/50 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand"
               />
             </div>
@@ -119,6 +119,16 @@ export default function Archives() {
                         <p className="text-xs font-bold uppercase tracking-wider text-gold-dark">{a.category}{a.period ? ` · ${a.period}` : ''}</p>
                         <h3 className="mt-1 text-lg font-semibold text-brand">{a.title}</h3>
                         {a.summary && <p className="mt-1 text-sm text-ink/75">{a.summary}</p>}
+                        {archiveStory(a).length > 0 && (
+                          <details className="mt-3 text-sm">
+                            <summary className="cursor-pointer font-semibold text-brand underline focus:outline-none focus-visible:ring-2 focus-visible:ring-brand">
+                              Read the story<span className="sr-only"> of {a.title}</span>
+                            </summary>
+                            <div className="mt-2 space-y-2 leading-relaxed text-ink/80">
+                              {archiveStory(a).map((paragraph, i) => <p key={i}>{paragraph}</p>)}
+                            </div>
+                          </details>
+                        )}
                         <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
                           <a
                             href={safeUrl(isPhotoOnly(a) ? a.cover : a.file) || '#'}
