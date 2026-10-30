@@ -7,6 +7,7 @@ import ArchiveAppeal from '../components/ArchiveAppeal.jsx'
 import { archiveCategories } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
 import { safeUrl } from '../lib/safeUrl.js'
+import { archiveSearchText, archiveWhen, archiveYear, archiveYears, sortArchives, yearHeading } from '../lib/archives.js'
 
 const chip =
   'rounded-full border px-4 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand '
@@ -26,15 +27,16 @@ export default function Archives() {
   const q = query.trim().toLowerCase()
   const shown = useMemo(
     () =>
-      archives
-        .filter(a => category === 'All' || a.category === category)
-        .filter(a => !q || `${a.title} ${a.summary || ''} ${a.year} ${a.category}`.toLowerCase().includes(q))
-        .sort((a, b) => b.year - a.year || a.title.localeCompare(b.title)),
+      sortArchives(
+        archives
+          .filter(a => category === 'All' || a.category === category)
+          .filter(a => !q || archiveSearchText(a).includes(q)),
+      ),
     [archives, category, q],
   )
 
-  // Group by year, newest first.
-  const years = [...new Set(shown.map(a => a.year))]
+  // Group by year, newest first, with undated records last.
+  const years = archiveYears(shown)
 
   return (
     <>
@@ -90,12 +92,22 @@ export default function Archives() {
           <section className="max-w-6xl mx-auto px-4 mt-8 space-y-10" aria-live="polite">
             {shown.length === 0 && <p className="text-ink/70">Nothing matches your search. Try a different word or category.</p>}
             {years.map(y => (
-              <div key={y}>
-                <h2 className="mb-4 border-b-2 border-gold pb-1 text-xl font-bold text-brand">{y}</h2>
+              <div key={y ?? 'undated'}>
+                <h2 className="mb-4 border-b-2 border-gold pb-1 text-xl font-bold text-brand">{yearHeading(y)}</h2>
                 <ul className="grid gap-4 md:grid-cols-2">
-                  {shown.filter(a => a.year === y).map(a => (
-                    <li key={a.file + a.title} className="flex flex-col rounded-md border border-brand/10 bg-white p-5">
-                      <p className="text-xs font-bold uppercase tracking-wider text-gold-dark">{a.category}</p>
+                  {shown.filter(a => archiveYear(a) === y).map(a => (
+                    <li key={a.file + a.title} className="flex gap-4 rounded-md border border-brand/10 bg-white p-5">
+                      {safeUrl(a.cover) && (
+                        <img
+                          src={safeUrl(a.cover)}
+                          alt=""
+                          loading="lazy"
+                          decoding="async"
+                          className="h-28 w-20 shrink-0 rounded border border-brand/10 object-cover"
+                        />
+                      )}
+                      <div className="flex min-w-0 flex-1 flex-col">
+                      <p className="text-xs font-bold uppercase tracking-wider text-gold-dark">{a.category}{a.period ? ` · ${a.period}` : ''}</p>
                       <h3 className="mt-1 text-lg font-semibold text-brand">{a.title}</h3>
                       {a.summary && <p className="mt-1 text-sm text-ink/75">{a.summary}</p>}
                       <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
@@ -105,10 +117,11 @@ export default function Archives() {
                           rel="noopener noreferrer"
                           className="font-semibold text-brand underline hover:text-brand-dark"
                         >
-                          Open<span className="sr-only"> {a.title} ({a.year})</span>
+                          Open<span className="sr-only"> {a.title} ({archiveWhen(a)})</span>
                         </a>
                         {a.size && <span className="text-ink/70">{a.size}</span>}
                         {a.source && <span className="text-ink/70">Supplied by {a.source}</span>}
+                      </div>
                       </div>
                     </li>
                   ))}

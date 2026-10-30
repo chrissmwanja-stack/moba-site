@@ -438,9 +438,10 @@ export const news = [
 // Put each file in /public/archives and point `file` at it (e.g. '/archives/agm-2019-minutes.pdf'),
 // or use a full https:// link if the file is hosted elsewhere.
 // Required: title, year, category (one of archiveCategories), file.
-// Optional: summary (one line), size (e.g. '1.2 MB'), source (who supplied it).
+// Optional: year (leave out if unknown: the record is listed as Undated), period (shown on the card, e.g. '1988/89'
+// or '1950s'), summary (one line), size (e.g. '1.2 MB'), cover (a picture of the front page), source (who supplied it).
 // Only add records the executive is happy to make public. Members-only papers do not belong here.
-export const archiveCategories = ['Annual reports', 'Minutes', 'Newsletters', 'Constitution & policies', 'Programmes & magazines']
+export const archiveCategories = ['Annual reports', 'Minutes', 'Newsletters', 'Constitution & policies', 'Mpala Magazine', 'Programmes & magazines', 'Photographs', 'Registers & rolls', 'House records', 'Other']
 export const archives = [
   // { year: 2019, category: 'Minutes', title: 'Annual General Meeting minutes', summary: 'Minutes of the 2019 AGM.', file: '/archives/agm-2019-minutes.pdf', size: '1.2 MB' },
 ]

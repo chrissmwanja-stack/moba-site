@@ -2,6 +2,7 @@
 // session; the database decides what they are allowed to do (see 202610270003_site_content.sql).
 import { supabase } from './supabase.js'
 import { loadContent } from './siteContent.js'
+import { MAX_PDF_MB } from './uploadLimits.js'
 
 export const BUCKET = 'site-media'
 
@@ -70,7 +71,7 @@ export async function uploadImage(file, folder, maxSide = 1600) {
 
 export async function uploadPdf(file, folder) {
   if (file.type !== 'application/pdf') throw new Error('Please choose a PDF file.')
-  if (file.size > 10 * 1024 * 1024) throw new Error('That PDF is larger than 10 MB. Please compress it and try again.')
+  if (file.size > MAX_PDF_MB * 1024 * 1024) throw new Error(`That PDF is larger than ${MAX_PDF_MB} MB. Please compress it and try again.`)
   const url = await put(`${folder}/${stamp()}-${slug(file.name)}.pdf`, file, 'application/pdf')
   const mb = file.size / (1024 * 1024)
   return { url, size: mb >= 1 ? `${mb.toFixed(1)} MB` : `${Math.max(1, Math.round(file.size / 1024))} KB` }

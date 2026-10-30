@@ -5,6 +5,7 @@ import * as base from '../data/content.js'
 import { lifeMembers } from '../data/lifeMembers.js'
 import { projectSpotlightSlug } from '../data/projectSpotlights.js'
 import { BACKGROUNDS } from './backgrounds.js'
+import { MAX_PDF_MB } from './uploadLimits.js'
 
 const FOCUS = [['50% 20%', 'Top'], ['50% 35%', 'Upper part'], ['50% 50%', 'Centre'], ['50% 70%', 'Lower part']]
 const BACKGROUND_FIELDS = Object.entries(BACKGROUNDS).map(([key, background]) => ({
@@ -71,14 +72,16 @@ export const SECTIONS = [
     kind: 'archive', label: 'Archives', noun: 'record', reorder: false,
     fields: [
       { key: 'title', label: 'Title', type: 'text', required: true },
-      { key: 'year', label: 'Year', type: 'number', required: true },
+      { key: 'year', label: 'Year', type: 'number', placeholder: '1988', help: 'Used for ordering and grouping. For something that spans years, give the first year. Leave empty if the date is not known: it is listed under “Undated”.' },
+      { key: 'period', label: 'Period shown on the card', type: 'text', placeholder: '1988/89', help: 'Optional. Use it when the year alone is not accurate, for example 1988/89 or the 1950s.' },
       { key: 'category', label: 'Category', type: 'select', options: base.archiveCategories, required: true },
       { key: 'summary', label: 'One-line summary', type: 'text' },
-      { key: 'file', label: 'Document', type: 'file', folder: 'archives', required: true, sizeKey: 'size', help: 'Upload a PDF (up to 10 MB) or paste a link to a file hosted elsewhere.' },
+      { key: 'cover', label: 'Cover picture', type: 'image', folder: 'archives', maxSide: 600, help: 'Optional. A photo of the front page, shown on the card.' },
+      { key: 'file', label: 'Document', type: 'file', folder: 'archives', required: true, sizeKey: 'size', help: `Upload a PDF (up to ${MAX_PDF_MB} MB) or paste a link to a file hosted elsewhere.` },
       { key: 'size', label: 'File size shown to visitors', type: 'text', placeholder: '1.2 MB', help: 'Filled in automatically when you upload.' },
       { key: 'source', label: 'Supplied by', type: 'text' },
     ],
-    title: d => d.title, summary: d => [d.year, d.category].filter(Boolean).join(' · '),
+    title: d => d.title, summary: d => [d.period || d.year || 'Undated', d.category].filter(Boolean).join(' · '),
     sample: () => base.archives,
   },
   {
