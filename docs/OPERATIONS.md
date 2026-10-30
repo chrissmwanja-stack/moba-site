@@ -54,6 +54,10 @@ A production smoke failure is a release signal: inspect the Playwright artifact,
 
 Managed sections use published Supabase rows instead of their bundled arrays. If a code edit to `src/data/content.js` does not appear, check whether that content kind is already managed before adding duplicate records. Archives and Prominent Mwirians can legitimately be empty until records are published.
 
+### Archive PDFs from scans
+
+Old scans have no text layer, so nobody can search inside them. Before uploading a scanned PDF to Admin > Archives, run `scripts/ocr-pdfs.ps1` on it (setup steps are at the top of the script). It writes a searchable copy to a `searchable` folder and leaves the original untouched. Upload that copy. Keep each file under 25 MB (`MAX_PDF_MB`); if a result is larger, split the original into two PDFs and upload them as separate records. Only publish material the executive is happy to make public.
+
 Admin/editor role setup and feature-specific notes are in `supabase/SETUP.md`. Keep membership payments and orders under manual staff verification until server-side repricing/validation is implemented and approved.
 
 ## 4. Database migrations
