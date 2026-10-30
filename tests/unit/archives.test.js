@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { archiveStory, archiveWhen, archiveYear, archiveYears, isPhotoOnly, sortArchives, archiveSearchText, yearHeading } from '../../src/lib/archives.js'
+import { archivePath, archiveStory, archiveWhen, findArchive, withSlugs, archiveYear, archiveYears, isPhotoOnly, sortArchives, archiveSearchText, yearHeading } from '../../src/lib/archives.js'
 import { SECTIONS, fromForm, problems, toForm } from '../../src/lib/contentSchemas.js'
 import { archiveCategories } from '../../src/data/content.js'
 import { MAX_PDF_MB } from '../../src/lib/uploadLimits.js'
@@ -80,4 +80,29 @@ test('a record can carry a written story, which is searchable and optional', () 
   assert.deepEqual(archiveStory({}), [])
   assert.match(archiveSearchText(data), /kasule/)
   assert.equal(fromForm(section, { ...form, story: '' }).story, undefined)
+})
+
+test('records with a story get stable, unique page addresses', () => {
+  const list = [
+    { title: 'Prefects Council', year: 1947 },
+    { title: 'Mpala Magazine', year: 1988, period: '1988/89' },
+    { title: 'Undated photo' },
+  ]
+  const slugged = withSlugs(list)
+  assert.deepEqual(slugged.map(a => a.slug), ['prefects-council-1947', 'mpala-magazine-1988', 'undated-photo'])
+  assert.equal(archivePath(slugged[0]), '/archives/prefects-council-1947')
+  assert.equal(findArchive(list, 'mpala-magazine-1988').title, 'Mpala Magazine')
+  assert.equal(findArchive(list, 'nope'), null)
+})
+
+test('records that would share an address are told apart', () => {
+  const twins = withSlugs([
+    { title: 'Minutes', year: 1990, _id: 'aaaaaa11-0000' },
+    { title: 'Minutes', year: 1990, _id: 'bbbbbb22-0000' },
+  ])
+  assert.notEqual(twins[0].slug, twins[1].slug)
+  assert.match(twins[0].slug, /^minutes-1990-aaaaaa/)
+  const noIds = withSlugs([{ title: 'Minutes', year: 1990 }, { title: 'Minutes', year: 1990 }])
+  assert.deepEqual(noIds.map(a => a.slug), ['minutes-1990-1', 'minutes-1990-2'])
+  assert.equal(withSlugs([{ title: '???' }])[0].slug, 'record')
 })

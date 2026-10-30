@@ -22,6 +22,7 @@ import Cohorts from './pages/Cohorts.jsx'
 import Support from './pages/Support.jsx'
 import Donate from './pages/Donate.jsx'
 import Archives from './pages/Archives.jsx'
+import ArchiveRecord from './pages/ArchiveRecord.jsx'
 import Mwirians from './pages/Mwirians.jsx'
 import NotFound from './pages/NotFound.jsx'
 import MemberLogin from './pages/MemberLogin.jsx'
@@ -36,6 +37,7 @@ import { site } from './data/content.js'
 import { findProjectSpotlight } from './data/projectSpotlights.js'
 import { useContent } from './lib/siteContent.js'
 import { newsSlug } from './lib/news.js'
+import { archiveStory, findArchive } from './lib/archives.js'
 
 // One title and description per page, so browser tabs, shares and search results are specific.
 const meta = {
@@ -66,7 +68,7 @@ const meta = {
 const defaultDescription = 'The home of the Mwiri Old Boys Association: our history, our projects and our community since 1911.'
 
 // Fixed pages use the table above; each news article uses its own title and excerpt.
-function metaFor(pathname, news, projects) {
+function metaFor(pathname, news, projects, archives) {
   const path = pathname.replace(/\/$/, '') || '/'
   if (path.startsWith('/projects/')) {
     const item = findProjectSpotlight(path.slice('/projects/'.length), projects)
@@ -76,18 +78,22 @@ function metaFor(pathname, news, projects) {
     const item = news.find(n => newsSlug(n) === path.slice('/news/'.length))
     return item && { title: item.title, description: item.excerpt?.slice(0, 160) }
   }
+  if (path.startsWith('/archives/')) {
+    const item = findArchive(archives, path.slice('/archives/'.length))
+    return item && { title: item.title, description: (item.summary || archiveStory(item)[0] || '').slice(0, 160) }
+  }
   return meta[path]
 }
 
 function PageMeta() {
   const { pathname } = useLocation()
-  const { news, projects } = useContent()
+  const { news, projects, archives } = useContent()
   useEffect(() => {
-    const m = metaFor(pathname, news, projects)
+    const m = metaFor(pathname, news, projects, archives)
     document.title = !m ? `Page not found | ${site.name}` : pathname === '/' ? m.title : `${m.title} | ${site.name}`
     const desc = document.querySelector('meta[name="description"]')
     if (desc) desc.setAttribute('content', m?.description || defaultDescription)
-  }, [pathname, news, projects])
+  }, [pathname, news, projects, archives])
   return null
 }
 
@@ -135,6 +141,7 @@ export default function App() {
           <Route path="/support" element={<Support />} />
           <Route path="/donate" element={<Donate />} />
           <Route path="/archives" element={<Archives />} />
+          <Route path="/archives/:slug" element={<ArchiveRecord />} />
           <Route path="/prominent-mwirians" element={<Mwirians />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

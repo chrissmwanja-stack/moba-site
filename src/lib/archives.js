@@ -38,3 +38,28 @@ export const archiveWhen = a => a.period || (archiveYear(a) ?? 'Undated')
 
 // A record is either a document (has a file) or a photograph-only record (picture, no file).
 export const isPhotoOnly = a => !String(a?.file || '').trim() && Boolean(String(a?.cover || '').trim())
+
+// ---------- pages for records with a story ----------
+const slugText = s => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+
+// Web address of a record's own page: its title plus its year. Records that would share an address
+// get a short suffix (from the stored id when there is one) so every page stays reachable.
+export function withSlugs(list) {
+  const base = list.map(a => {
+    const year = archiveYear(a)
+    return slugText(`${a.title || ''} ${year ?? ''}`) || 'record'
+  })
+  const seen = {}
+  base.forEach(b => { seen[b] = (seen[b] || 0) + 1 })
+  const used = {}
+  return list.map((a, i) => {
+    const b = base[i]
+    if (seen[b] === 1) return { ...a, slug: b }
+    used[b] = (used[b] || 0) + 1
+    const suffix = a._id ? String(a._id).replace(/[^a-z0-9]/gi, '').slice(0, 6).toLowerCase() : String(used[b])
+    return { ...a, slug: `${b}-${suffix || used[b]}` }
+  })
+}
+
+export const archivePath = a => `/archives/${a.slug}`
+export const findArchive = (list, slug) => withSlugs(list).find(a => a.slug === slug) || null

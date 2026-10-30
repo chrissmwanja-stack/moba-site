@@ -7,13 +7,14 @@ import ArchiveAppeal from '../components/ArchiveAppeal.jsx'
 import { archiveCategories } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
 import { safeUrl } from '../lib/safeUrl.js'
-import { archiveSearchText, archiveStory, archiveWhen, archiveYear, archiveYears, isPhotoOnly, sortArchives, yearHeading } from '../lib/archives.js'
+import { archivePath, archiveSearchText, archiveStory, archiveWhen, archiveYear, archiveYears, isPhotoOnly, sortArchives, withSlugs, yearHeading } from '../lib/archives.js'
 
 const chip =
   'rounded-full border px-4 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand '
 
 export default function Archives() {
-  const { archives } = useContent()
+  const { archives: stored } = useContent()
+  const archives = useMemo(() => withSlugs(stored), [stored])
   const [params, setParams] = useSearchParams()
   const [query, setQuery] = useState('')
   const requested = params.get('category')
@@ -120,14 +121,11 @@ export default function Archives() {
                         <h3 className="mt-1 text-lg font-semibold text-brand">{a.title}</h3>
                         {a.summary && <p className="mt-1 text-sm text-ink/75">{a.summary}</p>}
                         {archiveStory(a).length > 0 && (
-                          <details className="mt-3 text-sm">
-                            <summary className="cursor-pointer font-semibold text-brand underline focus:outline-none focus-visible:ring-2 focus-visible:ring-brand">
+                          <p className="mt-3 text-sm">
+                            <Link to={archivePath(a)} className="font-semibold text-brand underline hover:text-brand-dark">
                               Read the story<span className="sr-only"> of {a.title}</span>
-                            </summary>
-                            <div className="mt-2 space-y-2 leading-relaxed text-ink/80">
-                              {archiveStory(a).map((paragraph, i) => <p key={i}>{paragraph}</p>)}
-                            </div>
-                          </details>
+                            </Link>
+                          </p>
                         )}
                         <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
                           <a

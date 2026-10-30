@@ -22,9 +22,12 @@ function readCache() {
 
 let state = readCache() // { managed: ['news', ...], rows: [{ id, kind, key, data }] } or null
 let snapshot = null
+// True once we know what to show: a saved copy exists, Supabase is not configured, or the first fetch has finished.
+// Detail pages use it to tell "still loading" apart from "does not exist".
+let settled = Boolean(state) || !URL || !KEY
 const listeners = new Set()
 
-export const getContent = () => (snapshot ||= build(state))
+export const getContent = () => (snapshot ||= { ...build(state), settled })
 export const getSite = () => getContent().site
 const subscribe = fn => { listeners.add(fn); return () => listeners.delete(fn) }
 
@@ -46,5 +49,11 @@ export async function loadContent() {
     snapshot = null
     try { localStorage.setItem(CACHE, JSON.stringify(data)) } catch { /* storage full or blocked */ }
     listeners.forEach(fn => fn())
-  } catch { /* offline: keep what we have */ }
+  } catch { /* offline: keep what we have */ } finally {
+    if (!settled) {
+      settled = true
+      snapshot = null
+      listeners.forEach(fn => fn())
+    }
+  }
 }
