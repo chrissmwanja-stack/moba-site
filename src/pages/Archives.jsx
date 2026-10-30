@@ -119,6 +119,7 @@ export default function Archives() {
                       <div className={`flex min-w-0 flex-1 flex-col ${isPhotoOnly(a) ? 'p-5' : ''}`}>
                         <p className="text-xs font-bold uppercase tracking-wider text-gold-dark">{a.category}{a.period ? ` · ${a.period}` : ''}</p>
                         <h3 className="mt-1 text-lg font-semibold text-brand">{a.title}</h3>
+                        {a.author && <p className="mt-0.5 text-sm font-medium text-ink/80">By {a.author}</p>}
                         {a.summary && <p className="mt-1 text-sm text-ink/75">{a.summary}</p>}
                         {archiveStory(a).length > 0 && (
                           <p className="mt-3 text-sm">
@@ -128,14 +129,16 @@ export default function Archives() {
                           </p>
                         )}
                         <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-                          <a
-                            href={safeUrl(isPhotoOnly(a) ? a.cover : a.file) || '#'}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="font-semibold text-brand underline hover:text-brand-dark"
-                          >
-                            {isPhotoOnly(a) ? 'View full photo' : 'Open'}<span className="sr-only"> {a.title} ({archiveWhen(a)})</span>
-                          </a>
+                          {(isPhotoOnly(a) ? safeUrl(a.cover) : safeUrl(a.file)) && (
+                            <a
+                              href={isPhotoOnly(a) ? safeUrl(a.cover) : safeUrl(a.file)}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="font-semibold text-brand underline hover:text-brand-dark"
+                            >
+                              {isPhotoOnly(a) ? 'View full photo' : 'Open'}<span className="sr-only"> {a.title} ({archiveWhen(a)})</span>
+                            </a>
+                          )}
                           {!isPhotoOnly(a) && a.size && <span className="text-ink/70">{a.size}</span>}
                           {a.source && <span className="text-ink/70">Supplied by {a.source}</span>}
                         </div>

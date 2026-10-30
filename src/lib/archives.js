@@ -26,7 +26,7 @@ export const archiveStory = a => {
 }
 
 export const archiveSearchText = a =>
-  [a.title, a.summary, ...archiveStory(a), a.period, a.year, a.category].filter(Boolean).join(' ').toLowerCase()
+  [a.title, a.author, a.summary, ...archiveStory(a), a.period, a.year, a.category].filter(Boolean).join(' ').toLowerCase()
 
 // Distinct years in the order they first appear (null stands for "Undated").
 export const archiveYears = list => [...new Set(list.map(archiveYear))]

@@ -55,6 +55,7 @@ export default function ArchiveRecord() {
             {record.category} · {archiveWhen(record)}
           </p>
           <h1 className="mt-2 text-3xl md:text-4xl font-bold leading-tight">{record.title}</h1>
+          {record.author && <p className="mt-3 text-lg text-white/90">By {record.author}</p>}
           {record.source && <p className="mt-3 text-white/80">Supplied by {record.source}</p>}
         </div>
       </section>

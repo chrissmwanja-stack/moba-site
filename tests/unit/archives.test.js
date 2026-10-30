@@ -41,7 +41,7 @@ test('the archive form allows undated records, a period and a cover picture', ()
 })
 
 test('archive categories include the new record types and keep the old ones', () => {
-  for (const c of ['Mpala Magazine', 'Photographs', 'Registers & rolls', 'House records', 'Other', 'Minutes', 'Programmes & magazines']) {
+  for (const c of ['Articles & stories', 'Mpala Magazine', 'Photographs', 'Registers & rolls', 'House records', 'Other', 'Minutes', 'Programmes & magazines']) {
     assert.ok(archiveCategories.includes(c), c)
   }
 })
@@ -63,7 +63,7 @@ test('a photograph-only record needs a picture but no document', () => {
 
 test('a record with neither a document nor a picture cannot be published', () => {
   const empty = fromForm(section, { title: 'Nothing attached', year: '1950', category: 'Other', file: '', cover: '' })
-  assert.deepEqual(problems(section, empty), ['Add a document (PDF) or a picture.'])
+  assert.deepEqual(problems(section, empty), ['Add a document (PDF), a picture or a written story.'])
   assert.deepEqual(problems(section, fromForm(section, { title: 'Minutes', category: 'Minutes', file: 'https://example.org/m.pdf' })), [])
 })
 
@@ -105,4 +105,16 @@ test('records that would share an address are told apart', () => {
   const noIds = withSlugs([{ title: 'Minutes', year: 1990 }, { title: 'Minutes', year: 1990 }])
   assert.deepEqual(noIds.map(a => a.slug), ['minutes-1990-1', 'minutes-1990-2'])
   assert.equal(withSlugs([{ title: '???' }])[0].slug, 'record')
+})
+
+test('an article record can name its author, and the author is searchable', () => {
+  const field = section.fields.find(f => f.key === 'author')
+  assert.equal(field.type, 'text')
+  assert.equal(field.required, undefined)
+  const data = fromForm(section, { title: 'Life on the Hill', year: '2008', category: 'Articles & stories', author: '  A. Writer  ', story: 'The text of the article.', file: '', cover: '' })
+  assert.equal(data.author, 'A. Writer')
+  assert.deepEqual(problems(section, data), []) // an article can be just typed text
+  assert.match(archiveSearchText(data), /writer/)
+  const withPicture = fromForm(section, { title: 'Life on the Hill', category: 'Articles & stories', author: 'A. Writer', cover: 'https://example.org/c.webp' })
+  assert.deepEqual(problems(section, withPicture), [])
 })
