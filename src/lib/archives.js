@@ -29,3 +29,6 @@ export const yearHeading = y => (y === null ? 'Undated' : String(y))
 
 // What visitors see as the date of a record: the period if given, else the year, else "Undated".
 export const archiveWhen = a => a.period || (archiveYear(a) ?? 'Undated')
+
+// A record is either a document (has a file) or a photograph-only record (picture, no file).
+export const isPhotoOnly = a => !String(a?.file || '').trim() && Boolean(String(a?.cover || '').trim())

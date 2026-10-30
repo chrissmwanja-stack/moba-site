@@ -7,7 +7,7 @@ import ArchiveAppeal from '../components/ArchiveAppeal.jsx'
 import { archiveCategories } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
 import { safeUrl } from '../lib/safeUrl.js'
-import { archiveSearchText, archiveWhen, archiveYear, archiveYears, sortArchives, yearHeading } from '../lib/archives.js'
+import { archiveSearchText, archiveWhen, archiveYear, archiveYears, isPhotoOnly, sortArchives, yearHeading } from '../lib/archives.js'
 
 const chip =
   'rounded-full border px-4 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand '
@@ -96,32 +96,41 @@ export default function Archives() {
                 <h2 className="mb-4 border-b-2 border-gold pb-1 text-xl font-bold text-brand">{yearHeading(y)}</h2>
                 <ul className="grid gap-4 md:grid-cols-2">
                   {shown.filter(a => archiveYear(a) === y).map(a => (
-                    <li key={a.file + a.title} className="flex gap-4 rounded-md border border-brand/10 bg-white p-5">
-                      {safeUrl(a.cover) && (
+                    <li key={(a._id || a.file || a.cover) + a.title} className={`rounded-md border border-brand/10 bg-white ${isPhotoOnly(a) ? 'flex flex-col overflow-hidden' : 'flex gap-4 p-5'}`}>
+                      {isPhotoOnly(a) && safeUrl(a.coverThumb || a.cover) && (
                         <img
-                          src={safeUrl(a.cover)}
+                          src={safeUrl(a.coverThumb || a.cover)}
+                          alt={a.title}
+                          loading="lazy"
+                          decoding="async"
+                          className="h-56 w-full border-b border-brand/10 object-cover"
+                        />
+                      )}
+                      {!isPhotoOnly(a) && safeUrl(a.coverThumb || a.cover) && (
+                        <img
+                          src={safeUrl(a.coverThumb || a.cover)}
                           alt=""
                           loading="lazy"
                           decoding="async"
                           className="h-28 w-20 shrink-0 rounded border border-brand/10 object-cover"
                         />
                       )}
-                      <div className="flex min-w-0 flex-1 flex-col">
-                      <p className="text-xs font-bold uppercase tracking-wider text-gold-dark">{a.category}{a.period ? ` · ${a.period}` : ''}</p>
-                      <h3 className="mt-1 text-lg font-semibold text-brand">{a.title}</h3>
-                      {a.summary && <p className="mt-1 text-sm text-ink/75">{a.summary}</p>}
-                      <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-                        <a
-                          href={safeUrl(a.file) || '#'}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="font-semibold text-brand underline hover:text-brand-dark"
-                        >
-                          Open<span className="sr-only"> {a.title} ({archiveWhen(a)})</span>
-                        </a>
-                        {a.size && <span className="text-ink/70">{a.size}</span>}
-                        {a.source && <span className="text-ink/70">Supplied by {a.source}</span>}
-                      </div>
+                      <div className={`flex min-w-0 flex-1 flex-col ${isPhotoOnly(a) ? 'p-5' : ''}`}>
+                        <p className="text-xs font-bold uppercase tracking-wider text-gold-dark">{a.category}{a.period ? ` · ${a.period}` : ''}</p>
+                        <h3 className="mt-1 text-lg font-semibold text-brand">{a.title}</h3>
+                        {a.summary && <p className="mt-1 text-sm text-ink/75">{a.summary}</p>}
+                        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+                          <a
+                            href={safeUrl(isPhotoOnly(a) ? a.cover : a.file) || '#'}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-semibold text-brand underline hover:text-brand-dark"
+                          >
+                            {isPhotoOnly(a) ? 'View full photo' : 'Open'}<span className="sr-only"> {a.title} ({archiveWhen(a)})</span>
+                          </a>
+                          {!isPhotoOnly(a) && a.size && <span className="text-ink/70">{a.size}</span>}
+                          {a.source && <span className="text-ink/70">Supplied by {a.source}</span>}
+                        </div>
                       </div>
                     </li>
                   ))}

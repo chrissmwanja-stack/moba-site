@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { archiveWhen, archiveYear, archiveYears, sortArchives, archiveSearchText, yearHeading } from '../../src/lib/archives.js'
+import { archiveWhen, archiveYear, archiveYears, isPhotoOnly, sortArchives, archiveSearchText, yearHeading } from '../../src/lib/archives.js'
 import { SECTIONS, fromForm, problems, toForm } from '../../src/lib/contentSchemas.js'
 import { archiveCategories } from '../../src/data/content.js'
 import { MAX_PDF_MB } from '../../src/lib/uploadLimits.js'
@@ -49,4 +49,20 @@ test('archive categories include the new record types and keep the old ones', ()
 test('the PDF limit in code matches the storage bucket limit set by the latest migration', () => {
   const sql = readFileSync(new URL('../../supabase/migrations/202610300001_archive_pdf_limit.sql', import.meta.url), 'utf8')
   assert.match(sql, new RegExp(`file_size_limit = ${MAX_PDF_MB * 1024 * 1024}\\b`))
+})
+
+test('a photograph-only record needs a picture but no document', () => {
+  const photo = fromForm(section, { title: 'Prefects Council', year: '1947', category: 'Photographs', summary: 'The prefects council of 1947', cover: 'https://example.org/p.webp', coverThumb: 'https://example.org/p-640.webp', file: '', period: '', size: '', source: 'MOBA PR' })
+  assert.equal(photo.file, undefined)
+  assert.equal(photo.coverThumb, 'https://example.org/p-640.webp')
+  assert.deepEqual(problems(section, photo), [])
+  assert.equal(isPhotoOnly(photo), true)
+  assert.equal(isPhotoOnly({ file: '/a.pdf', cover: '/c.webp' }), false)
+  assert.equal(isPhotoOnly({ file: '/a.pdf' }), false)
+})
+
+test('a record with neither a document nor a picture cannot be published', () => {
+  const empty = fromForm(section, { title: 'Nothing attached', year: '1950', category: 'Other', file: '', cover: '' })
+  assert.deepEqual(problems(section, empty), ['Add a document (PDF) or a picture.'])
+  assert.deepEqual(problems(section, fromForm(section, { title: 'Minutes', category: 'Minutes', file: 'https://example.org/m.pdf' })), [])
 })
