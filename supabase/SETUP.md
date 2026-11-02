@@ -77,4 +77,3 @@ Day to day
 - Anyone can change their own PIN from the bar at the top (the current PIN is needed). An administrator can reset someone's PIN on the **Editors** tab; the reset is logged under the name of the person who did it. At least one editor must stay active.
 - The log cannot be edited or deleted from the website or the API. Only administrators can read it.
 - Honest limit: this attributes changes to whoever knew the PIN. If two people share a PIN, the log cannot tell them apart, and anyone who can open the Supabase dashboard can still change data directly (those changes are logged as "Database (direct)", but a person with dashboard access could also alter the log).
-
