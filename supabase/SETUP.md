@@ -62,8 +62,9 @@ Several people use the one admin login, so Supabase alone cannot say who made a 
 
 1. Run `migrations/202610310001_editor_audit_trail.sql` in the SQL Editor (after the earlier ones). It is safe to run twice. Deploy the matching website code first or at the same time; the site keeps working in either order.
 2. Then run `migrations/202610310002_revoke_anon_editor_functions.sql`, which closes the editor functions to anonymous visitors (also safe to run twice).
-3. Open `/admin`. The first administrator to arrive sees **Set up the activity log**: enter your name and choose a PIN (6 to 12 digits). Then open **Activity log** (top bar), go to the **Editors** tab and add the other people, each with their own PIN.
-4. From then on, nothing can be saved on the admin pages until someone has chosen a name. Until the first editor exists, changes are still logged, as "Nobody chosen yet".
+3. Then run `migrations/202610310003_revoke_anon_role_check_functions.sql`, which does the same for the admin and editor role checks and the publish and import functions.
+4. Open `/admin`. The first administrator to arrive sees **Set up the activity log**: enter your name and choose a PIN (6 to 12 digits). Then open **Activity log** (top bar), go to the **Editors** tab and add the other people, each with their own PIN.
+5. From then on, nothing can be saved on the admin pages until someone has chosen a name. Until the first editor exists, changes are still logged, as "Nobody chosen yet".
 
 What is recorded
 - Website content (news, photos, archives, leadership and so on): who, when, and the before and after text. **Restore as draft** on an entry brings an earlier version back; nothing goes live until it is published.
