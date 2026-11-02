@@ -5,6 +5,8 @@ import { supabase } from '../lib/supabase.js'
 import { TABS, toCsv, when } from '../lib/adminTables.js'
 import { houses } from '../data/content.js'
 import { getRole } from '../lib/contentAdmin.js'
+import EditorGate from '../components/admin/EditorGate.jsx'
+import { stopEditing } from '../lib/editors.js'
 
 const LIMIT = 500
 const EMPTY_ROWS = []
@@ -138,12 +140,12 @@ export default function Admin() {
     URL.revokeObjectURL(a.href)
   }
 
-  async function signOut() { await supabase.auth.signOut(); navigate('/admin/login', { replace: true }) }
+  async function signOut() { await stopEditing(); await supabase.auth.signOut(); navigate('/admin/login', { replace: true }) }
 
   if (!user) return <><PageHeader variant="functional" title="MOBA Administration" /><p className="max-w-4xl mx-auto px-4 py-12">Checking administrator access…</p></>
 
   return (
-    <>
+    <EditorGate role="admin">
       <PageHeader variant="functional" title="MOBA Administration" subtitle={`Signed in as ${user.email}`} />
       <section className="max-w-6xl mx-auto px-4 py-8 md:py-10">
         <div className="mb-6 grid gap-4 sm:grid-cols-3">
@@ -206,7 +208,7 @@ export default function Admin() {
           {shown.map(r => <Card key={r.id} row={r} tab={tab} onPatch={patch} onDelete={remove} />)}
         </ul>
       </section>
-    </>
+    </EditorGate>
   )
 }
 

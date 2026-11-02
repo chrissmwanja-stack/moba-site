@@ -55,3 +55,26 @@ The admin content editor also supports the history timeline, About page copy, st
 Apply `migrations/202610290001_editable_rosters.sql` after the earlier content migrations. In `/admin/content`, open **Life members** and choose **Import current life members** once, then open **Headmasters** and choose **Import current headmasters** once. Each import preserves the current public list and makes every entry editable.
 
 Both sections support adding, editing, removing, reordering, drafts and publishing. Life members have a public display name; headmasters have a name and a **Years / note** field so details such as “Acting” are preserved. The Membership page automatically balances the life-member columns and numbering when the list changes. Until a section is imported, its public page continues to use the built-in fallback list.
+
+## Activity log for a shared admin login (who changed what)
+
+Several people use the one admin login, so Supabase alone cannot say who made a change. After signing in, each person picks their name and enters a personal PIN (**Who is editing?**). The database ties that choice to that browser sign-in and writes every change to `moba_audit_log` with the person's name.
+
+1. Run `migrations/202610310001_editor_audit_trail.sql` in the SQL Editor (after the earlier ones). It is safe to run twice. Deploy the matching website code first or at the same time; the site keeps working in either order.
+2. Open `/admin`. The first administrator to arrive sees **Set up the activity log**: enter your name and choose a PIN (6 to 12 digits). Then open **Activity log** (top bar), go to the **Editors** tab and add the other people, each with their own PIN.
+3. From then on, nothing can be saved on the admin pages until someone has chosen a name. Until the first editor exists, changes are still logged, as "Nobody chosen yet".
+
+What is recorded
+- Website content (news, photos, archives, leadership and so on): who, when, and the before and after text. **Restore as draft** on an entry brings an earlier version back; nothing goes live until it is published.
+- Member register, store orders, membership applications, funeral cover, member details, profile requests and private notes: who changed which record, its new status, and the names of the fields that changed. The personal details themselves are not copied into the log.
+- Sign-ins to editing, wrong PINs, PIN changes and resets, and editors added or disabled.
+- Changes made directly in the Supabase dashboard or SQL editor appear as "Database (direct)".
+- Not recorded: file uploads in Storage (the file's address is saved in the content item, which is recorded), and members or visitors changing their own details.
+
+Day to day
+- A person's choice ends after 30 quiet minutes in the browser, after 8 hours at the latest, or when they sign out or press **Not you? Switch**. Two people can be signed in with the shared login at the same time; each browser has its own choice.
+- Five wrong PINs for one name lock that name for 15 minutes.
+- Anyone can change their own PIN from the bar at the top (the current PIN is needed). An administrator can reset someone's PIN on the **Editors** tab; the reset is logged under the name of the person who did it. At least one editor must stay active.
+- The log cannot be edited or deleted from the website or the API. Only administrators can read it.
+- Honest limit: this attributes changes to whoever knew the PIN. If two people share a PIN, the log cannot tell them apart, and anyone who can open the Supabase dashboard can still change data directly (those changes are logged as "Database (direct)", but a person with dashboard access could also alter the log).
+

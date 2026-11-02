@@ -33,6 +33,7 @@ import MemberReset from './pages/MemberReset.jsx'
 const AdminLogin = lazy(() => import('./pages/AdminLogin.jsx'))
 const Admin = lazy(() => import('./pages/Admin.jsx'))
 const AdminContent = lazy(() => import('./pages/AdminContent.jsx'))
+const AdminActivity = lazy(() => import('./pages/AdminActivity.jsx'))
 import { site } from './data/content.js'
 import { findProjectSpotlight } from './data/projectSpotlights.js'
 import { useContent } from './lib/siteContent.js'
@@ -117,6 +118,7 @@ export default function App() {
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/content" element={<AdminContent />} />
+          <Route path="/admin/activity" element={<AdminActivity />} />
           <Route path="/member/login" element={<MemberLogin />} />
           <Route path="/member/reset" element={<MemberReset />} />
           <Route path="/member" element={<Member />} />

@@ -7,6 +7,8 @@ import { supabase } from '../lib/supabase.js'
 import { SECTIONS, toForm, fromForm, problems } from '../lib/contentSchemas.js'
 import * as api from '../lib/contentAdmin.js'
 import { withEditableBackgrounds } from '../lib/backgrounds.js'
+import EditorGate from '../components/admin/EditorGate.jsx'
+import { stopEditing } from '../lib/editors.js'
 
 const btn = 'rounded-md px-4 py-2 font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-brand disabled:opacity-50'
 const primary = `${btn} bg-brand text-white hover:bg-brand-dark`
@@ -242,13 +244,13 @@ export default function AdminContent() {
     }
   }
 
-  async function signOut() { await supabase.auth.signOut(); navigate('/admin/login', { replace: true }) }
+  async function signOut() { await stopEditing(); await supabase.auth.signOut(); navigate('/admin/login', { replace: true }) }
 
   if (!user) return <><PageHeader variant="functional" title="Website content" /><p className="max-w-4xl mx-auto px-4 py-12">Checking access…</p></>
   const canDelete = row => role === 'admin' || !row.live
 
   return (
-    <>
+    <EditorGate role={role}>
       <PageHeader variant="functional" title="Website content" subtitle={`Signed in as ${user.email} (${role})`} />
       <section className="max-w-6xl mx-auto px-4 py-8 md:py-10">
         <div className="rounded-xl border border-brand/10 bg-white p-4 shadow-sm">
@@ -421,6 +423,6 @@ export default function AdminContent() {
           </>
         )}
       </section>
-    </>
+    </EditorGate>
   )
 }
