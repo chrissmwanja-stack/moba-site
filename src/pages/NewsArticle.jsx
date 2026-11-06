@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import NewsCard, { readingMinutes } from '../components/NewsCard.jsx'
 import { useContent } from '../lib/siteContent.js'
 import { formatDate } from '../lib/format.js'
-import { newsSlug, bodyParagraphs } from '../lib/news.js'
+import { newsSlug, bodyParagraphs, newsAndEvents } from '../lib/news.js'
 import { safeUrl } from '../lib/safeUrl.js'
 
 const button =
@@ -31,7 +31,8 @@ export default function NewsArticle() {
   const paragraphs = bodyParagraphs(item.body)
   const mins = minutes ?? (paragraphs.length ? readingMinutes(paragraphs.join(' ')) : null)
   const upcoming = date >= new Date().toISOString().slice(0, 10)
-  const more = news.filter(n => n !== item).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3)
+  const more = newsAndEvents(news).filter(n => n !== item).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3)
+  const file = safeUrl(item.file)
 
   const url = typeof window === 'undefined' ? '' : window.location.href
   const whatsapp = `https://wa.me/?text=${encodeURIComponent(`${title} ${url}`)}`
@@ -75,6 +76,16 @@ export default function NewsArticle() {
         {paragraphs.length > 0 && (
           <div className="mt-6 space-y-5 text-lg leading-relaxed text-ink/80 max-w-prose">
             {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+          </div>
+        )}
+        {file && (
+          <div className="mt-8 rounded-md border border-brand/10 bg-white p-5">
+            <p className="text-xs font-bold uppercase tracking-wider text-gold-dark">Newsletter PDF</p>
+            <div className="mt-3 flex flex-wrap gap-3">
+              <a href={file} target="_blank" rel="noopener noreferrer" className={button}>Read PDF</a>
+              <a href={file} download target="_blank" rel="noopener noreferrer" className={button}>Download</a>
+            </div>
+            {item.size && <p className="mt-3 text-sm text-ink/70">{item.size}</p>}
           </div>
         )}
         {link && safeUrl(link.to) && (

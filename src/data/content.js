@@ -420,9 +420,11 @@ export const funeralCover = {
 // date: YYYY-MM-DD. category must be one of newsCategories below (the News page filter uses them).
 // Optional: series ('Throwback', 'Cohort spotlight'), image ('/news/name.webp'), place,
 // body (an array of paragraphs for the full article), link ({ label, to } button under the article).
+// A Newsletter item also needs file (a PDF) and can have size (for example '1.2 MB'). Current
+// newsletters appear in their own News & Events section; historical copies belong in Archives.
 // Every item opens at /news/<date>-<title>; set slug: 'my-link' to choose the address yourself.
-// Items dated today or later show as Upcoming. All entries are placeholders.
-export const newsCategories = ['Reunion', 'Meeting', 'Cohort', 'Project', 'News']
+// News and events dated today or later show as Upcoming. All entries are placeholders.
+export const newsCategories = ['Reunion', 'Meeting', 'Cohort', 'Project', 'News', 'Newsletter']
 export const news = [
   { date: '2026-12-05', category: 'Meeting', title: 'Annual General Meeting', place: 'Venue TBC', excerpt: 'Replace with details of the meeting.' },
   { date: '2026-11-14', category: 'Reunion', title: 'Old Boys Reunion', place: 'Venue TBC', excerpt: 'Replace with details of the reunion.' },

@@ -7,6 +7,10 @@ export const slugify = s =>
 export const newsSlug = n => n.slug || `${n.date}-${slugify(n.title)}`
 export const newsPath = n => `/news/${newsSlug(n)}`
 
+// Current newsletters are published with news, not taken from the historical archives.
+export const isNewsletter = item => item?.category === 'Newsletter'
+export const newsAndEvents = list => list.filter(item => !isNewsletter(item))
+
 // `body` can be an array of paragraphs, or one string with blank lines between paragraphs.
 export const bodyParagraphs = body =>
   Array.isArray(body) ? body : body ? String(body).split(/\n{2,}/).map(p => p.trim()).filter(Boolean) : []

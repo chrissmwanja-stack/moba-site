@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import HomeNewsCard from '../components/HomeNewsCard.jsx'
 import { site } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
-import { newsPath } from '../lib/news.js'
+import { newsAndEvents, newsPath } from '../lib/news.js'
 import { campusGallery } from '../data/projectSpotlights.js'
 import { useBackground } from '../lib/useBackground.js'
 
@@ -48,8 +48,9 @@ export default function Home() {
   const { projects, news, photos, about, stats } = useContent()
   const background = useBackground('home')
   const today = new Date().toISOString().slice(0, 10)
-  const upcoming = news.filter(n => n.date >= today).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 3)
-  const latest = news.filter(n => n.date < today).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3)
+  const articles = newsAndEvents(news)
+  const upcoming = articles.filter(n => n.date >= today).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 3)
+  const latest = articles.filter(n => n.date < today).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3)
   const featured = photos.filter(p => p.featured)
   const strip = (featured.length >= 3 ? featured : photos).slice(0, 3)
 

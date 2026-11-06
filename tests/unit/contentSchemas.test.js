@@ -7,6 +7,7 @@ import { SECTIONS, fromForm, problems } from '../../src/lib/contentSchemas.js'
 
 const lifeSection = SECTIONS.find(section => section.kind === 'life_member')
 const headmasterSection = SECTIONS.find(section => section.kind === 'headmaster')
+const newsSection = SECTIONS.find(section => section.kind === 'news')
 
 test('life member and headmaster admin sections import every built-in entry in order', () => {
   assert.equal(lifeSection.reorder, true)
@@ -20,6 +21,13 @@ test('roster forms trim names and require public display details before publishi
   assert.deepEqual(fromForm(headmasterSection, { name: '  A Headmaster  ', note: '  2000 to 2001  ' }), { name: 'A Headmaster', note: '2000 to 2001' })
   assert.deepEqual(problems(lifeSection, {}), ['Full name is required.'])
   assert.deepEqual(problems(headmasterSection, { name: 'A Headmaster' }), ['Years / note is required.'])
+})
+
+test('current newsletter items require a PDF and use the News & events editor', () => {
+  const item = { title: 'November newsletter', date: '2026-11-06', category: 'Newsletter', excerpt: 'The latest MOBA updates.' }
+  assert.ok(base.newsCategories.includes('Newsletter'))
+  assert.ok(problems(newsSection, item).includes('Add the newsletter PDF.'))
+  assert.deepEqual(problems(newsSection, { ...item, file: '/newsletters/november.pdf' }), [])
 })
 
 test('the roster migration enables both new content kinds', () => {

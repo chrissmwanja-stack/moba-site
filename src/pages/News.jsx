@@ -1,27 +1,31 @@
 import { useSearchParams } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import NewsCard from '../components/NewsCard.jsx'
+import NewsletterList from '../components/NewsletterList.jsx'
 import { newsCategories } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
+import { newsAndEvents } from '../lib/news.js'
 
 const chip =
   'rounded-full border px-4 py-1.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand '
 
 export default function News() {
   const { news } = useContent()
+  const articles = newsAndEvents(news)
+  const filterCategories = newsCategories.filter(c => c !== 'Newsletter')
   const [params, setParams] = useSearchParams()
   const requested = params.get('category')
-  const category = newsCategories.includes(requested) ? requested : 'All'
+  const category = filterCategories.includes(requested) ? requested : 'All'
 
   const choose = c => (c === 'All' ? setParams({}) : setParams({ category: c }))
 
   const today = new Date().toISOString().slice(0, 10)
-  const shown = category === 'All' ? news : news.filter(n => n.category === category)
+  const shown = category === 'All' ? articles : articles.filter(n => n.category === category)
   const upcoming = shown.filter(n => n.date >= today).sort((a, b) => a.date.localeCompare(b.date))
   const past = shown.filter(n => n.date < today).sort((a, b) => b.date.localeCompare(a.date))
-  const countOf = c => (c === 'All' ? news.length : news.filter(n => n.category === c).length)
+  const countOf = c => (c === 'All' ? articles.length : articles.filter(n => n.category === c).length)
   // Only offer categories that have at least one item, so visitors never land on an empty list.
-  const offered = newsCategories.filter(c => countOf(c) > 0)
+  const offered = filterCategories.filter(c => countOf(c) > 0)
 
   return (
     <>
@@ -71,6 +75,8 @@ export default function News() {
           </div>
         )}
       </section>
+
+      <NewsletterList items={news} />
     </>
   )
 }

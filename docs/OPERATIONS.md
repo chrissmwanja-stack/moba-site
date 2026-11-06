@@ -54,9 +54,18 @@ A production smoke failure is a release signal: inspect the Playwright artifact,
 
 Managed sections use published Supabase rows instead of their bundled arrays. If a code edit to `src/data/content.js` does not appear, check whether that content kind is already managed before adding duplicate records. Archives and Prominent Mwirians can legitimately be empty until records are published.
 
+### Publishing a current newsletter PDF
+
+1. Sign in and open **Admin → Content → News & events**.
+2. Add an item with the **Newsletter** category, title, publication date and short summary.
+3. Upload the PDF in **Newsletter PDF**, or paste an HTTPS link to a PDF hosted elsewhere. An optional front-page picture can be added as **Picture**.
+4. Save the draft and publish it. The PDF then appears in **News & Events → Current newsletters**, where visitors can read or download it.
+
+Newsletters do not appear in the upcoming events or earlier news lists. Edit the existing item to replace a PDF or correct its details; do not create a duplicate. When a newsletter becomes historical, add its PDF as an **Archives** record with the **Newsletters** category and remove it from current News & events content. Current and archived newsletters are managed separately.
+
 ### Archive PDFs from scans
 
-Old scans have no text layer, so nobody can search inside them. Before uploading a scanned PDF to Admin > Archives, run `scripts/ocr-pdfs.ps1` on it (setup steps are at the top of the script). It writes a searchable copy to a `searchable` folder and leaves the original untouched. Upload that copy. Keep each file under 25 MB (`MAX_PDF_MB`); if a result is larger, split the original into two PDFs and upload them as separate records. Only publish material the executive is happy to make public.
+Old scans have no text layer, so nobody can search inside them. Before uploading a scanned PDF to **Admin → Archives**, run `scripts/ocr-pdfs.ps1` on it (setup steps are at the top of the script). It writes a searchable copy to a `searchable` folder and leaves the original untouched. Upload that copy. Keep each file under 25 MB (`MAX_PDF_MB`); if a result is larger, split the original into two PDFs and upload them as separate records. Only publish material the executive is happy to make public.
 
 Admin/editor role setup and feature-specific notes are in `supabase/SETUP.md`. Keep membership payments and orders under manual staff verification until server-side repricing/validation is implemented and approved.
 

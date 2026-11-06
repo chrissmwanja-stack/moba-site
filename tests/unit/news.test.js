@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { bodyParagraphs, newsPath, newsSlug, slugify } from '../../src/lib/news.js'
+import { bodyParagraphs, isNewsletter, newsAndEvents, newsPath, newsSlug, slugify } from '../../src/lib/news.js'
 import { formatDate, ugx } from '../../src/lib/format.js'
 
 test('news slugs are stable, readable and prefixed with the event date by default', () => {
@@ -20,6 +20,14 @@ test('article bodies accept arrays or blank-line-separated text', () => {
     'First paragraph.', 'Second paragraph.', 'Third.',
   ])
   assert.deepEqual(bodyParagraphs(null), [])
+})
+
+test('current newsletters stay separate from news and event articles', () => {
+  const event = { category: 'Meeting', title: 'AGM' }
+  const newsletter = { category: 'Newsletter', title: 'November newsletter', file: '/newsletters/november.pdf' }
+  assert.equal(isNewsletter(newsletter), true)
+  assert.equal(isNewsletter(event), false)
+  assert.deepEqual(newsAndEvents([event, newsletter]), [event])
 })
 
 test('calendar dates are formatted in UTC and currency uses the site convention', () => {
