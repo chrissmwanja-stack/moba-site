@@ -58,26 +58,31 @@ function ImageField({ fd, form, set, id }) {
 
 function FileField({ fd, form, set, id }) {
   const [busy, setBusy] = useState(false)
+  const [status, setStatus] = useState('')
+  const [notice, setNotice] = useState('')
   const [error, setError] = useState('')
   async function pick(e) {
     const file = e.target.files?.[0]
     e.target.value = ''
     if (!file) return
-    setBusy(true); setError('')
+    setBusy(true); setError(''); setNotice('')
     try {
-      const { url, size } = await uploadPdf(file, fd.folder)
+      const { url, size, compressed } = await uploadPdf(file, fd.folder, setStatus)
       set({ [fd.key]: url, ...(fd.sizeKey ? { [fd.sizeKey]: size } : {}) })
+      if (compressed) setNotice('Compressed and uploaded. Open the PDF and check every page; browser compression removes selectable text and links.')
     } catch (err) { setError(err.message) }
-    setBusy(false)
+    setBusy(false); setStatus('')
   }
   return (
     <div className="space-y-2">
       <label className={`${smallBtn} inline-block cursor-pointer focus-within:ring-2 focus-within:ring-brand`}>
-        {busy ? 'Uploading…' : 'Upload a PDF'}
+        {busy ? 'Processing PDF…' : 'Upload a PDF'}
         <input type="file" accept="application/pdf" onChange={pick} disabled={busy} className="sr-only" />
       </label>
       <input id={id} className={input} placeholder="…or paste a link to the document" value={form[fd.key]} onChange={e => set({ [fd.key]: e.target.value })} />
+      {busy && <p role="status" className="text-sm text-ink/75">{status || 'Preparing PDF…'}</p>}
       {form[fd.key] && <p className="text-sm"><a href={form[fd.key]} target="_blank" rel="noopener noreferrer" className="text-brand underline">Open current file</a></p>}
+      {notice && <p role="status" className="text-sm text-ink/75">{notice}</p>}
       {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
     </div>
   )

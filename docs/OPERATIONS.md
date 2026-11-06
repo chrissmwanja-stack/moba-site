@@ -63,6 +63,10 @@ Managed sections use published Supabase rows instead of their bundled arrays. If
 
 Newsletters do not appear in the upcoming events or earlier news lists. Edit the existing item to replace a PDF or correct its details; do not create a duplicate. When a newsletter becomes historical, add its PDF as an **Archives** record with the **Newsletters** category and remove it from current News & events content. Current and archived newsletters are managed separately.
 
+### Oversized PDFs in the editor
+
+The editor automatically compresses PDFs over 25 MB in the browser before uploading them. Keep the tab open while it processes each page. Compression rebuilds pages as optimized images, so **selectable text, links, form fields and digital signatures are removed**. Open the uploaded PDF and check every page before publishing. If it is still too large, split it into smaller PDFs. Small PDFs are uploaded unchanged. For archival documents that must retain searchable text, compress or OCR them locally before uploading instead of relying on browser compression.
+
 ### Archive PDFs from scans
 
 Old scans have no text layer, so nobody can search inside them. Before uploading a scanned PDF to **Admin → Archives**, run `scripts/ocr-pdfs.ps1` on it (setup steps are at the top of the script). It writes a searchable copy to a `searchable` folder and leaves the original untouched. Upload that copy. Keep each file under 25 MB (`MAX_PDF_MB`); if a result is larger, split the original into two PDFs and upload them as separate records. Only publish material the executive is happy to make public.
