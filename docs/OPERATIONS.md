@@ -105,7 +105,7 @@ Public pages can fall back to bundled content, but login, managed updates and da
 
 Free-tier projects pause after about 7 days without activity. The **Supabase keep-alive** GitHub workflow (`.github/workflows/supabase-keepalive.yml`) prevents this by making one anonymous, read-only call to `site_content_public` every day at 04:23 UTC. It reuses the `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` Actions secrets and writes nothing. Run it by hand from **GitHub → Actions → Supabase keep-alive → Run workflow**, or locally with `npm run keepalive` (with both variables set).
 
-If a run fails, GitHub emails the repository owner. If the project was paused, open the Supabase dashboard, click **Restore project**, wait until it is healthy, then re-run the workflow. GitHub also disables scheduled workflows in a repository with no activity for 60 days: if the repo goes quiet that long, re-enable the workflow under the Actions tab. Moving to a paid Supabase plan removes the need for this workflow.
+If a run fails, GitHub emails the repository owner. If the project was paused, open the Supabase dashboard, click **Restore project**, wait until it is healthy, then re-run the workflow. GitHub also disables scheduled workflows in a repository with no activity for 60 days. The workflow's last step re-enables itself on every run, which resets that timer, so a quiet repo does not stop the ping. If a run ever shows as skipped for a long stretch, check the Actions tab and re-enable it by hand. A free project that stays paused for more than 90 days can no longer be restored from the dashboard (only its backup can be downloaded), so act on a failed run promptly. Moving to a paid Supabase plan removes the need for this workflow.
 
 ### Submission or notification failure
 

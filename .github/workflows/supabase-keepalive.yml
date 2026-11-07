@@ -3,6 +3,10 @@ name: Supabase keep-alive
 # Supabase free-tier projects pause after about 7 days without activity. This pings the database
 # once a day (well inside that window, with room for a skipped or delayed scheduled run).
 # It reuses the same public Actions secrets as the Quality workflow; no new secret is needed.
+#
+# GitHub also switches off scheduled workflows after 60 days with no repository activity, which
+# would silently stop this ping. The last step re-enables this workflow on every run, which resets
+# that 60-day timer, so the schedule keeps itself alive even if nobody touches the repo.
 
 on:
   schedule:
@@ -11,6 +15,7 @@ on:
 
 permissions:
   contents: read
+  actions: write # only used by the "Keep this schedule enabled" step
 
 concurrency:
   group: supabase-keepalive
@@ -30,3 +35,9 @@ jobs:
           node-version-file: .nvmrc
       - name: Ping Supabase
         run: npm run keepalive
+      - name: Keep this schedule enabled
+        if: always()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/supabase-keepalive.yml/enable"
