@@ -627,3 +627,22 @@ export const leaders = [
     ],
   },
 ]
+// ---------- PAST LEADERSHIP ----------
+// Those who have led MOBA before the current executive, shown under the executive on the About page.
+// group: one of pastLeaderGroups. role: shown under the name. period: shown as written ("1930 to 1950", "Until April 2018").
+// Leave period out, or write "Term to be confirmed", where the dates are not known yet. house is the school house.
+// Put photos in /public/leaders and set photo: '/leaders/name.webp'. The list is shown in the order given (oldest first).
+export const pastLeaderGroups = ['Presidents', 'Patrons', 'Chapters']
+export const pastLeaders = [
+  { group: 'Presidents', name: 'Rev. Canon John Maynard Mwavu Waibale', role: 'President', period: '1930 to 1950', note: 'The first black Archdeacon of Busoga. MOBA’s longest-serving leader.', photo: '/leaders/rev-waibale.webp' },
+  { group: 'Presidents', name: 'Edward Gibson Nangono', role: 'President', period: 'Term to be confirmed', photo: '/leaders/edward-gibson-nangono.webp' },
+  { group: 'Presidents', name: 'Robert Kisubi', role: 'President', period: 'Term to be confirmed', note: 'Later Chairman of the Board of Governors.', photo: '/leaders/robert-kisubi.webp' },
+  { group: 'Presidents', name: 'Tony Otoa', role: 'President', period: 'Until April 2018', photo: '/leaders/tony-otoa.webp' },
+  { group: 'Presidents', name: 'Dr Patrick Ibembe', role: 'President', period: 'From April 2018', house: 'Brewer', note: '“A school is as great as its alumni.”', photo: '/leaders/patrick-ibembe.webp' },
+  { group: 'Presidents', name: 'Dr Daniel R. Ruhweza', role: 'President', period: 'Until April 2024', photo: '/leaders/daniel-ruhweza.webp' },
+  { group: 'Presidents', name: 'Dan Mushabe', role: 'President', period: 'April 2024 to September 2026', note: 'Elected at the April 2024 AGM. Led the Iconic Gate project.', photo: '/leaders/dan-mushabe.webp' },
+  { group: 'Patrons', name: 'Dr Apollo Milton Obote', role: 'Patron', house: 'Willis', photo: '/mwirians/obote.webp' },
+  { group: 'Patrons', name: 'Rt Hon Dr Ruhakana Rugunda', role: 'Patron', house: 'Brewer', photo: '/mwirians/rugunda.webp' },
+  { group: 'Chapters', name: 'David Martyn Kirunda', role: 'MOBA UK, first President', house: 'Brewer', photo: '/leaders/david-martyn-kirunda.webp' },
+  { group: 'Chapters', name: 'Joshua Bizimungu', role: 'MOBA Makerere chapter', period: '2019', house: 'Willis', photo: '/leaders/joshua-bizimungu.webp' },
+]

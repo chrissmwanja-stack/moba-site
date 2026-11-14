@@ -11,6 +11,13 @@ import { stopEditing } from '../lib/editors.js'
 const LIMIT = 500
 const EMPTY_ROWS = []
 
+// Staff-only notes live in their own tables so the member who owns a row can never read them.
+const NOTE_SOURCES = {
+  register: { table: 'member_admin_notes', key: 'member_id', rpc: 'moba_set_member_admin_note', arg: 'p_member_id' },
+  profile_requests: { table: 'member_profile_change_admin_notes', key: 'request_id', rpc: 'moba_set_profile_request_admin_note', arg: 'p_request_id' },
+  contributions: { table: 'member_contribution_admin_notes', key: 'contribution_id', rpc: 'moba_set_contribution_admin_note', arg: 'p_contribution_id' },
+}
+
 export default function Admin() {
   const navigate = useNavigate()
   const [user, setUser] = useState(null) // null while checking
@@ -54,10 +61,9 @@ export default function Admin() {
     const { data, error } = await supabase.from(t.table).select('*').order('created_at', { ascending: false }).limit(LIMIT)
     if (error) { setState('error'); setNotice(error.message); return }
     let rows = data || []
-    if ((t.id === 'profile_requests' || t.id === 'register') && rows.length) {
-      const profileRequests = t.id === 'profile_requests'
-      const noteTable = profileRequests ? 'member_profile_change_admin_notes' : 'member_admin_notes'
-      const key = profileRequests ? 'request_id' : 'member_id'
+    const noteSource = NOTE_SOURCES[t.id]
+    if (noteSource && rows.length) {
+      const { table: noteTable, key } = noteSource
       const { data: notes, error: notesError } = await supabase.from(noteTable).select(`${key},admin_notes`).in(key, rows.map(x => x.id))
       if (notesError) { setState('error'); setNotice(`Could not load private admin notes: ${notesError.message}`); return }
       const byRow = new Map((notes || []).map(n => [n[key], n.admin_notes]))
@@ -79,12 +85,9 @@ export default function Admin() {
   }, [current, filter, query])
 
   async function patch(row, changes) {
-    if ((tab.id === 'profile_requests' || tab.id === 'register') && 'admin_notes' in changes) {
-      const rpc = tab.id === 'profile_requests' ? 'moba_set_profile_request_admin_note' : 'moba_set_member_admin_note'
-      const args = tab.id === 'profile_requests'
-        ? { p_request_id: row.id, p_admin_notes: changes.admin_notes }
-        : { p_member_id: row.id, p_admin_notes: changes.admin_notes }
-      const { error } = await supabase.rpc(rpc, args)
+    if (NOTE_SOURCES[tab.id] && 'admin_notes' in changes) {
+      const { rpc, arg } = NOTE_SOURCES[tab.id]
+      const { error } = await supabase.rpc(rpc, { [arg]: row.id, p_admin_notes: changes.admin_notes })
       if (error) { setNotice(`Could not save private note: ${error.message}`); return false }
       setRows(r => ({ ...r, [tabId]: r[tabId].map(x => (x.id === row.id ? { ...x, ...changes } : x)) }))
       setNotice('')

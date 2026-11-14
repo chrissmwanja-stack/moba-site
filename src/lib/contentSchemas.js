@@ -124,6 +124,20 @@ export const SECTIONS = [
     sample: () => base.leaders,
   },
   {
+    kind: 'past_leader', label: 'Past leadership', noun: 'past leader', reorder: true,
+    fields: [
+      { key: 'name', label: 'Full name', type: 'text', required: true, help: 'Use the public display name, including any title.' },
+      { key: 'group', label: 'Group', type: 'select', options: base.pastLeaderGroups, required: true },
+      { key: 'role', label: 'Role', type: 'text', required: true, placeholder: 'President', help: 'For example President, Patron, or MOBA UK, first President.' },
+      { key: 'period', label: 'Period', type: 'text', placeholder: '1930 to 1950', help: 'Shown as written, for example “Until April 2018”. Leave empty if it is not known.' },
+      { key: 'house', label: 'House', type: 'text', placeholder: 'Brewer' },
+      { key: 'note', label: 'Short note', type: 'textarea', rows: 3, help: 'Optional. One or two lines shown under the name.' },
+      { key: 'photo', label: 'Photo', type: 'image', folder: 'leaders', maxSide: 800 },
+    ],
+    title: d => d.name, summary: d => [d.group, d.period].filter(Boolean).join(' · '), preview: d => d.photo,
+    sample: () => base.pastLeaders,
+  },
+  {
     kind: 'timeline', label: 'History timeline', noun: 'milestone', reorder: true,
     fields: [
       { key: 'year', label: 'Year', type: 'number', required: true },

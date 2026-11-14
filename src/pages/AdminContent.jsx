@@ -36,9 +36,11 @@ export default function AdminContent() {
   const [uploadCategory, setUploadCategory] = useState('')
   const [newCategoryMode, setNewCategoryMode] = useState(false)
   const section = SECTIONS.find(s => s.kind === kind)
-  const kindMigration = kind === 'life_member' || kind === 'headmaster'
-    ? '202610290001_editable_rosters.sql'
-    : '202610270004_editable_static_content.sql'
+  const kindMigration = kind === 'past_leader'
+    ? '202611140003_past_leadership_kind.sql'
+    : kind === 'life_member' || kind === 'headmaster'
+      ? '202610290001_editable_rosters.sql'
+      : '202610270004_editable_static_content.sql'
 
   // Sign-in check: a session AND a place on the admin or editor list.
   useEffect(() => {

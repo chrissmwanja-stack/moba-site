@@ -24,6 +24,7 @@ export function build(st) {
     photos: managed('photo') ? items(st, 'photo').map(p => ({ ...p, id: p._id })) : base.photos,
     projects: list('project', base.projects),
     leaders: list('leader', base.leaders),
+    pastLeaders: list('past_leader', base.pastLeaders),
     prominentMwirians: list('mwirian', base.prominentMwirians),
     archives: list('archive', base.archives),
     timeline: list('timeline', base.timeline),

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import PhotoHero from '../components/PhotoHero.jsx'
 import LeadershipDirectory from '../components/LeadershipDirectory.jsx'
+import PastLeadership from '../components/PastLeadership.jsx'
 import { site } from '../data/content.js'
 import { useContent } from '../lib/siteContent.js'
 import { safeUrl } from '../lib/safeUrl.js'
@@ -15,6 +16,7 @@ const SECTION_LINKS = [
   ['pillars', 'Our pillars'],
   ['priorities', 'Priorities 2026 to 2028'],
   ['leadership', 'Leadership'],
+  ['past-leadership', 'Past leadership'],
   ['committees', 'Committees'],
 ]
 
@@ -193,6 +195,9 @@ export default function About() {
 
       {/* Full executive committee and database-driven profiles */}
       <LeadershipDirectory />
+
+      {/* Presidents, patrons and chapter leaders from earlier years */}
+      <PastLeadership />
 
       {/* Committees */}
       <section aria-labelledby="committees" className="mt-16 scroll-mt-20 bg-[#f6f7f9] py-14">

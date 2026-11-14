@@ -78,3 +78,9 @@ test('managed empty rosters stay empty instead of restoring built-in entries', (
   assert.deepEqual(result.lifeMembers, [])
   assert.deepEqual(result.history.headmasters, [])
 })
+
+test('past leaders use the built-in list until the database takes over the section', () => {
+  assert.deepEqual(build({ managed: [], rows: [] }).pastLeaders, base.pastLeaders)
+  const managed = build({ managed: ['past_leader'], rows: [{ id: 'p1', kind: 'past_leader', key: null, data: { name: 'Managed Leader', group: 'Presidents', role: 'President' } }] })
+  assert.deepEqual(managed.pastLeaders.map(l => l.name), ['Managed Leader'])
+})

@@ -36,3 +36,14 @@ test('the roster migration enables both new content kinds', () => {
   assert.match(sql, /'headmaster'/)
   assert.match(sql, /drop constraint if exists site_content_kind_check/)
 })
+
+test('past leadership is editable, imports the built-in list in order and has a migration', () => {
+  const section = SECTIONS.find(item => item.kind === 'past_leader')
+  assert.equal(section.reorder, true)
+  assert.deepEqual(section.sample(), base.pastLeaders)
+  assert.ok(base.pastLeaders.every(l => base.pastLeaderGroups.includes(l.group) && l.name && l.role))
+  assert.deepEqual(problems(section, { name: 'A Leader', group: 'Presidents' }), ['Role is required.'])
+  const sql = readFileSync(new URL('../../supabase/migrations/202611140003_past_leadership_kind.sql', import.meta.url), 'utf8')
+  assert.match(sql, /'past_leader'/)
+  assert.match(sql, /'life_member', 'headmaster'/)
+})
