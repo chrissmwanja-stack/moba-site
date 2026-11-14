@@ -5,6 +5,15 @@ import { useContent } from '../lib/siteContent.js'
 import { useCart } from '../context/CartContext.jsx'
 import { ugx } from '../lib/format.js'
 
+// Small bookmark icon used on Pre-order items.
+function BookIcon({ className = 'h-4 w-4' }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="5" width="18" height="16" rx="2" /><path d="M16 3v4M8 3v4M3 11h18" />
+    </svg>
+  )
+}
+
 export default function Store() {
   const { add, count } = useCart()
   const { products } = useContent()
@@ -40,6 +49,9 @@ export default function Store() {
         {shown.map(p => {
           const sizes = String(p.sizes || '').split(',').map(s => s.trim()).filter(Boolean)
           const size = picked[p.id]
+          const comingSoon = p.availability === 'coming-soon'
+          const preorder = p.availability === 'preorder'
+          const unavailable = p.soldOut || comingSoon
           const needsSize = sizes.length > 0 && !size
           return (
           <article key={p.id} className="flex flex-col overflow-hidden rounded-md bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
@@ -49,6 +61,14 @@ export default function Store() {
               {p.preview && (
                 <span className="absolute top-2 left-2 text-xs bg-brand-dark/80 text-white font-semibold px-2 py-1 rounded">Preview design</span>
               )}
+              {comingSoon && (
+                <span className="absolute top-2 right-2 text-xs bg-brand-dark text-white font-semibold px-2 py-1 rounded">Coming soon</span>
+              )}
+              {preorder && (
+                <span className="absolute top-2 right-2 inline-flex items-center gap-1 text-xs bg-gold text-brand-dark font-semibold px-2 py-1 rounded">
+                  <BookIcon /> Pre-order
+                </span>
+              )}
             </div>
             <div className="p-5 flex flex-col flex-1">
               {p.delivery === 'digital' && (
@@ -56,7 +76,12 @@ export default function Store() {
               )}
               <h3 className="font-semibold text-lg">{p.name}</h3>
               <p className="text-sm text-ink/70 mt-1 flex-1">{p.variant || p.blurb}</p>
-              {sizes.length > 0 && !p.soldOut && (
+              {(comingSoon || preorder) && (
+                <p className="mt-2 text-sm font-medium text-brand">
+                  {p.expected || (comingSoon ? 'Coming soon' : 'Pre-order now. Pay on delivery when it arrives.')}
+                </p>
+              )}
+              {sizes.length > 0 && !unavailable && (
                 <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label={`Choose a size for ${p.name}`}>
                   {sizes.map(s => (
                     <button key={s} onClick={() => setPicked(cur => ({ ...cur, [p.id]: s }))} aria-pressed={size === s}
@@ -67,10 +92,11 @@ export default function Store() {
                 </div>
               )}
               <div className="flex items-center justify-between mt-4">
-                <span className="font-bold text-brand">{ugx(p.price)}</span>
-                <button onClick={() => add(p, size)} disabled={p.soldOut || needsSize}
-                  className="bg-gold text-brand-dark font-semibold px-4 py-2 rounded-md hover:brightness-110 disabled:opacity-50 disabled:hover:brightness-100 disabled:cursor-not-allowed">
-                  {p.soldOut ? 'Sold out' : needsSize ? 'Choose a size' : 'Add to cart'}
+                <span className="font-bold text-brand">{comingSoon && !(p.price > 0) ? 'Price to be announced' : ugx(p.price)}</span>
+                <button onClick={() => add(p, size)} disabled={unavailable || needsSize}
+                  className="inline-flex items-center gap-2 bg-gold text-brand-dark font-semibold px-4 py-2 rounded-md hover:brightness-110 disabled:opacity-50 disabled:hover:brightness-100 disabled:cursor-not-allowed">
+                  {preorder && !unavailable && !needsSize && <BookIcon />}
+                  {p.soldOut ? 'Sold out' : comingSoon ? 'Coming soon' : needsSize ? 'Choose a size' : preorder ? 'Pre-order' : 'Add to cart'}
                 </button>
               </div>
             </div>

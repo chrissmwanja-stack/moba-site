@@ -4,6 +4,7 @@ import PageHeader from '../components/PageHeader.jsx'
 import OrderForm from '../components/OrderForm.jsx'
 import { useCart } from '../context/CartContext.jsx'
 import { ugx } from '../lib/format.js'
+import { hasPreorder } from '../lib/cart.js'
 
 export default function Cart() {
   const { items, setQty, remove, total, clear } = useCart()
@@ -19,7 +20,9 @@ export default function Cart() {
           <p className="mt-4 text-ink/70">
             {placed.fallback
               ? 'Your email app should have opened with the order. Please press Send so we receive it.'
-              : 'We have received your order and will call you to confirm delivery. You pay on delivery.'}
+              : placed.preorder
+                ? 'We have received your order. It includes pre-order items, so we will call you with the delivery date once they arrive. You pay on delivery.'
+                : 'We have received your order and will call you to confirm delivery. You pay on delivery.'}
           </p>
           <Link to="/store" className="inline-block mt-6 bg-gold text-brand-dark font-semibold px-6 py-3 rounded-md">Back to the store</Link>
         </section>
@@ -43,6 +46,7 @@ export default function Cart() {
                 <li key={i.id} className="p-4 flex items-center justify-between gap-4">
                   <div>
                     <p className="font-medium">{i.name}</p>
+                    {i.preorder && <p className="text-xs font-semibold text-brand">Pre-order: delivered when it arrives</p>}
                     <p className="text-sm text-ink/70">{ugx(i.price)}</p>
                   </div>
                   <div className="flex items-center gap-3">
@@ -57,7 +61,12 @@ export default function Cart() {
                 <span>Total (pay on delivery)</span><span className="text-brand">{ugx(total)}</span>
               </li>
             </ul>
-            <OrderForm items={items} total={total} onSuccess={r => { setPlaced(r); clear() }} />
+            {hasPreorder(items) && (
+              <p className="rounded-md bg-gold/20 p-4 text-sm text-ink">
+                Your cart has pre-order items. We will call you with a delivery date once they arrive, and you pay on delivery, as for every MOBA store order.
+              </p>
+            )}
+            <OrderForm items={items} total={total} onSuccess={r => { setPlaced({ ...r, preorder: hasPreorder(items) }); clear() }} />
           </div>
         )}
       </section>

@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { addCartItem, cartCount, cartTotal } from '../../src/lib/cart.js'
+import { addCartItem, cartCount, cartTotal, hasPreorder } from '../../src/lib/cart.js'
 
 const product = { id: 'tie', name: 'MOBA Tie', variant: 'Navy', price: 50000, delivery: 'physical' }
 
@@ -47,4 +47,21 @@ test('sizes create separate lines while the same size increments quantity', () =
   assert.equal(items[1].name, 'MOBA Blazer (Navy), size XL')
   assert.equal(cartCount(items), 3)
   assert.equal(cartTotal(items), 150000)
+})
+
+test('a coming-soon product cannot be added to the cart', () => {
+  const items = addCartItem([], { ...product, availability: 'coming-soon' })
+  assert.deepEqual(items, [])
+})
+
+test('a pre-order product is its own labelled line and keeps its size', () => {
+  let items = addCartItem([], product)
+  items = addCartItem(items, { ...product, availability: 'preorder' }, 'L')
+  assert.equal(items.length, 2)
+  assert.equal(items[1].id, 'tie:L:preorder')
+  assert.equal(items[1].name, 'Pre-order: MOBA Tie (Navy), size L')
+  assert.equal(items[1].preorder, true)
+  assert.equal(items[0].preorder, undefined, 'the in-stock line is unchanged')
+  assert.equal(hasPreorder(items), true)
+  assert.equal(hasPreorder(items.slice(0, 1)), false)
 })

@@ -16,6 +16,7 @@ function buildMessage(o) {
     '',
     ...lines,
     `Total: UGX ${o.total.toLocaleString('en-UG')} (PAY ON DELIVERY)`,
+    ...(o.items.some(i => i.preorder) ? ['Contains PRE-ORDER items: confirm the delivery date with the customer.'] : []),
     '',
     `Name: ${o.customer.name}`,
     `Phone: ${o.customer.phone}`,
