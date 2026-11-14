@@ -117,7 +117,7 @@ export default function History() {
         <div className="rounded-lg bg-white p-6 text-center shadow">
           <h3 className="font-display text-xl font-bold text-brand">Explore more of Mwiri</h3>
           <div className="mt-4 flex flex-wrap justify-center gap-3">
-            <Link to="/prominent-mwirians" className="rounded-md bg-gold px-5 py-2.5 font-semibold text-brand-dark hover:brightness-110">Prominent Mwirians</Link>
+            <Link to="/prominent-mwirians" className="rounded-md bg-gold px-5 py-2.5 font-semibold text-brand-dark hover:brightness-110">Meet your fellow Mwirians</Link>
             <Link to="/gallery" className="rounded-md border border-brand/25 px-5 py-2.5 font-semibold text-brand hover:bg-gold/20">Photo gallery</Link>
             <Link to="/archives" className="rounded-md border border-brand/25 px-5 py-2.5 font-semibold text-brand hover:bg-gold/20">Archives</Link>
           </div>

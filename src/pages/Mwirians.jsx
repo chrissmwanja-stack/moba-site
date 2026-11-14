@@ -80,7 +80,7 @@ export default function Mwirians() {
     <>
       <PageHeader
         eyebrow="Our Mwiri"
-        title="Prominent Mwirians"
+        title="Meet your fellow Mwirians"
         image="/gallery/mwiri-today/campus-hannington-house.webp"
         position="50% 50%"
         subtitle="Old Boys whose service and achievements have made the hill proud."

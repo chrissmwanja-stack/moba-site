@@ -12,7 +12,7 @@ const columns = [
   ] },
   { title: 'Our Mwiri', links: [
     { to: '/history', label: 'Our History' },
-    { to: '/prominent-mwirians', label: 'Prominent Mwirians' },
+    { to: '/prominent-mwirians', label: 'Meet your fellow Mwirians' },
     { to: '/archives', label: 'Archives' },
     { to: '/gallery', label: 'Photo Gallery' },
     { to: '/news', label: 'News & Events' },

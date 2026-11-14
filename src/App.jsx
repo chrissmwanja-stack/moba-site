@@ -58,7 +58,7 @@ const meta = {
   '/support': { title: 'Support MOBA', description: 'Donate, shop for memorabilia or join the association.' },
   '/donate': { title: 'Donate', description: 'Give to MOBA projects and help build the Mwiri we want.' },
   '/archives': { title: 'Archives', description: 'MOBA reports, minutes, newsletters and records from across the years.' },
-  '/prominent-mwirians': { title: 'Prominent Mwirians', description: 'Old Boys whose service and achievements have made Mwiri proud.' },
+  '/prominent-mwirians': { title: 'Meet your fellow Mwirians', description: 'Old Boys whose service and achievements have made Mwiri proud.' },
   '/update-details': { title: 'Update Your Details', description: 'Keep your contact details current on the MOBA register.' },
   '/privacy': { title: 'Privacy' },
   '/member': { title: 'Your Membership' },

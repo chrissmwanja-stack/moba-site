@@ -55,7 +55,7 @@ export const SECTIONS = [
     sample: () => base.photos.map(({ id, ...p }) => p),
   },
   {
-    kind: 'mwirian', label: 'Prominent Mwirians', noun: 'profile', reorder: false,
+    kind: 'mwirian', label: 'Meet your fellow Mwirians', noun: 'profile', reorder: false,
     fields: [
       { key: 'name', label: 'Full name', type: 'text', required: true },
       { key: 'field', label: 'Field', type: 'select', options: base.mwirianFields, required: true },

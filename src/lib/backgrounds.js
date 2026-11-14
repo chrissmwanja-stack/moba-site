@@ -16,7 +16,7 @@ export const BACKGROUNDS = {
   contact: { label: 'Contact banner', image: '/gallery/gate-2025.webp' },
   archives: { label: 'Archives banner', image: '/gallery/archive-thatched-buildings.webp' },
   cohorts: { label: 'Branches & Cohorts banner', image: '/gallery/archive-team-1947.webp' },
-  mwirians: { label: 'Prominent Mwirians banner', image: '/gallery/mwiri-today/campus-hannington-house.webp' },
+  mwirians: { label: 'Meet your fellow Mwirians banner', image: '/gallery/mwiri-today/campus-hannington-house.webp' },
   funeralCover: { label: 'Funeral Cover banner', image: '/gallery/mwiri-today/campus-garden-path.webp' },
   cart: { label: 'Cart banner', image: '/gallery/mwiri-today/campus-campus-road.webp' },
   memberLogin: { label: 'Member login banner', image: '/gallery/mwiri-today/campus-main-entrance.webp' },

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 // Sub-navigation shared by the pages that sit under "Our Mwiri".
 const items = [
   { to: '/history', label: 'Our History' },
-  { to: '/prominent-mwirians', label: 'Prominent Mwirians' },
+  { to: '/prominent-mwirians', label: 'Meet your fellow Mwirians' },
   { to: '/archives', label: 'Archives' },
 ]
 
