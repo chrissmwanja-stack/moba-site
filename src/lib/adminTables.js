@@ -89,6 +89,14 @@ export const TABS = [
     summary: r => r.topic,
     fields: [['Email', r => r.email], ['Topic', r => r.topic], ['Message', r => r.message]],
   },
+  {
+    // Files are in the private member-contributions bucket; the card shows an Open button for each one.
+    id: 'contributions', table: 'member_contributions', label: 'Contributions', empty: 'No member contributions yet.',
+    statuses: ['new', 'reviewing', 'published', 'declined'], files: true,
+    title: r => r.title,
+    summary: r => `${r.name}${list(r.files).length ? `, ${list(r.files).length} file${list(r.files).length === 1 ? '' : 's'}` : ''}`,
+    fields: [['Email', r => r.email], ['MOBA number', r => r.moba_number], ['Message', r => r.message]],
+  },
 ]
 
 export const when = iso =>

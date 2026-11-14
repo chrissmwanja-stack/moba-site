@@ -124,7 +124,10 @@ export default function Admin() {
   }
 
   async function remove(row) {
-    if (!window.confirm(`Delete "${tab.title(row)}" permanently? This cannot be undone.`)) return
+    if (!window.confirm(`Delete "${tab.title(row)}" permanently${tab.files ? ', including its files' : ''}? This cannot be undone.`)) return
+    if (tab.files && Array.isArray(row.files) && row.files.length) {
+      await supabase.storage.from('member-contributions').remove(row.files.map(f => f.path))
+    }
     const { error } = await supabase.from(tab.table).delete().eq('id', row.id)
     if (error) { setNotice(`Could not delete: ${error.message}`); return }
     setRows(r => ({ ...r, [tabId]: r[tabId].filter(x => x.id !== row.id) }))
@@ -212,6 +215,35 @@ export default function Admin() {
   )
 }
 
+// Files a member sent are private: each Open button asks for a short-lived link first.
+function FileLinks({ files }) {
+  const [problem, setProblem] = useState('')
+  async function open(file) {
+    setProblem('')
+    const win = window.open('', '_blank') // opened now so the browser does not block it
+    if (win) win.opener = null
+    const { data, error } = await supabase.storage.from('member-contributions').createSignedUrl(file.path, 300)
+    if (error || !data?.signedUrl) { if (win) win.close(); setProblem('Could not open that file. It may have been removed.'); return }
+    if (win) win.location.href = data.signedUrl
+    else window.location.href = data.signedUrl
+  }
+  const size = n => (n >= 1048576 ? `${(n / 1048576).toFixed(1)} MB` : `${Math.max(1, Math.round(n / 1024))} KB`)
+  return (
+    <div>
+      <p className="text-xs font-semibold uppercase tracking-wide text-ink/60">Files</p>
+      <ul className="mt-1 space-y-1">
+        {(Array.isArray(files) ? files : []).map(f => (
+          <li key={f.path} className="flex items-center justify-between gap-3 rounded-md bg-brand/5 px-3 py-2 text-sm">
+            <span className="min-w-0 truncate">{f.name} <span className="text-ink/60">({size(f.size || 0)})</span></span>
+            <button onClick={() => open(f)} className="shrink-0 font-semibold text-brand underline">Open</button>
+          </li>
+        ))}
+      </ul>
+      {problem && <p className="mt-1 text-sm text-red-700">{problem}</p>}
+    </div>
+  )
+}
+
 function Card({ row, tab, onPatch, onDelete }) {
   const [open, setOpen] = useState(false)
   const [notes, setNotes] = useState(row.admin_notes || '')
@@ -260,6 +292,7 @@ function Card({ row, tab, onPatch, onDelete }) {
               )
             })}
           </dl>
+          {tab.files && <FileLinks files={row.files} />}
           {tab.id === 'register' && row.moba_number && <p className="rounded-md bg-gold/15 p-3 text-sm text-ink/80">Cohort and house are locked because this member has a permanent MOBA number. Use the secretary’s verified number-correction process if the register is wrong.</p>}
           {tab.edit && (
             <div className="grid gap-3 sm:grid-cols-3">

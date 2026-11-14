@@ -40,7 +40,7 @@ test('public content RPC returns only the public row shape', async () => {
 })
 
 test('anonymous users cannot read private submission, member or editable-content tables', async () => {
-  for (const table of ['orders', 'contact_messages', 'membership_applications', 'funeral_enrolments', 'members', 'member_profiles', 'site_content']) {
+  for (const table of ['orders', 'contact_messages', 'membership_applications', 'funeral_enrolments', 'members', 'member_profiles', 'member_contributions', 'site_content']) {
     const result = await request(`/${table}?select=*&limit=1`)
     assertDeniedOrEmpty(result, table)
   }
